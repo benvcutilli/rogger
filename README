@@ -5,3 +5,5 @@ using the [#] notation to index each source found on this page):
 [2] http://www.w3schools.com/colors/colors_picker.asp for picking colors
 [3] Google Fonts, from which you will find various fonts that were used throughout
     this site, loaded from the server fonts.googleapis.com
+[4] Padding seems to add width to at least divs, so the solution to this problem
+    was found here: http://stackoverflow.com/a/23692739/4722104

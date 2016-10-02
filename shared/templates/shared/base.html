@@ -13,33 +13,50 @@
       }
       #inheritorContent {
         padding:70px 20px 20px 20px;
-        height:2000px;
+        /*height:2000px;*/
       }
       #navigationBar {
-        background-color: #f4f4ea; /* used hex color picker, citation [2] in top-level repository README */
-        height:40px;
+        background-color: #fafaf6; /* used hex color picker, citation [2] in top-level repository README */
+        height:50px; /* citation [4] */
         position:fixed;
-        top:0;
-        left:0;
+        top:0px;
+        left:0px;
         width:100%;
         border-bottom: 1px solid #eaeae2; /* used hex colorpicker, citation [2] in top-level repository README */
-        padding:0px 10px 10px 15px;
       }
       #homepageButton {
         font-family:'Pinyon Script', serif;
         font-size:30px;
-        padding-bottom:0px;
         text-decoration: none;
-        color:#110055;
+        color:#668;
         font-weight:bold;
       }
       #homepageButtonWrapper {
-        padding-top:3px;
+        margin:3px 10px 5px 15px; /* citation [4] */
+        display:inline-block;
+      }
+      #navigationBarButtonWrapper {
+        float:right;
+        display:inline;
+        padding:10px; /* citation [4] */
+      }
+      .navigationBarButton {
+        padding:5px 10px 5px 10px;
+      }
+      .navigationBarButtonLinks {
+        font-size:20px;
+        text-decoration:none;
+        color:#668;
       }
     </style>
     <div id="navigationBar">
       <div id="homepageButtonWrapper">
         <a href="{% url 'homepage' %}" id="homepageButton">rogger</a>
+      </div>
+      <div id="navigationBarButtonWrapper">
+        <div class="navigationBarButton">
+          <a class="navigationBarButtonLinks" href="{% url 'about' %}">I</a>
+        </div>
       </div>
     </div>
     <div id="inheritorContent">
