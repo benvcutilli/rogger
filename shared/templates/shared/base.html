@@ -2,6 +2,8 @@
   <head>
     <!-- FROM Google Fonts (citation [3])-->
     <link href="https://fonts.googleapis.com/css?family=Pinyon+Script" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Katibeh" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Quattrocento" rel="stylesheet">
     <!-- END CITATION -->
   </head>
   <body>
@@ -29,7 +31,6 @@
         font-size:30px;
         text-decoration: none;
         color:#668;
-        font-weight:bold;
       }
       #homepageButtonWrapper {
         margin:3px 10px 5px 15px; /* citation [4] */
@@ -42,11 +43,13 @@
       }
       .navigationBarButton {
         padding:5px 10px 5px 10px;
+        display:inline-block;
       }
       .navigationBarButtonLinks {
-        font-size:20px;
+        font-size:25px;
         text-decoration:none;
         color:#668;
+        font-family:'Katibeh', serif;
       }
     </style>
     <div id="navigationBar">
@@ -54,8 +57,19 @@
         <a href="{% url 'homepage' %}" id="homepageButton">rogger</a>
       </div>
       <div id="navigationBarButtonWrapper">
+        {% if user.is_authenticated %}
         <div class="navigationBarButton">
-          <a class="navigationBarButtonLinks" href="{% url 'about' %}">I</a>
+          <a class="navigationBarButtonLinks" href="{% url 'about' %}">w</a>
+        </div>
+        <div class="navigationBarButton">
+          <a class="navigationBarButtonLinks" href="{% url 'about' %}">s</a>
+        </div>
+        <div class="navigationBarButton">
+          <a class="navigationBarButtonLinks" href="{% url 'about' %}">x</a>
+        </div>
+        {% endif %}
+        <div class="navigationBarButton">
+          <a class="navigationBarButtonLinks" href="{% url 'about' %}">i</a>
         </div>
       </div>
     </div>
