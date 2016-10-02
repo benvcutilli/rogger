@@ -1,0 +1,7 @@
+Resources used to make this project (citations can be found in the code base as well,
+using the [#] notation to index each source found on this page):
+
+[1] http://stackoverflow.com/questions/4571686/django-include-template-from-another-app
+[2] http://www.w3schools.com/colors/colors_picker.asp for picking colors
+[3] Google Fonts, from which you will find various fonts that were used throughout
+    this site, loaded from the server fonts.googleapis.com

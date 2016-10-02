@@ -1,0 +1,6 @@
+This app contains things that are shared across all apps.
+
+Making an app (this app, "shared") that contains all the things to be shared accross apps is an
+idea taken from:
+
+http://stackoverflow.com/questions/4571686/django-include-template-from-another-app

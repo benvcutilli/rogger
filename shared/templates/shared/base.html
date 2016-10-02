@@ -1,0 +1,50 @@
+<html>
+  <head>
+    <!-- FROM Google Fonts (citation [3])-->
+    <link href="https://fonts.googleapis.com/css?family=Pinyon+Script" rel="stylesheet">
+    <!-- END CITATION -->
+  </head>
+  <body>
+    <style>
+      body {
+        background-color: #fdfdf8; /* HTML color picker used (citation [2] in top-level repository README) */
+        padding:0px;
+        margin:0px;
+      }
+      #inheritorContent {
+        padding:70px 20px 20px 20px;
+        height:2000px;
+      }
+      #navigationBar {
+        background-color: #f4f4ea; /* used hex color picker, citation [2] in top-level repository README */
+        height:40px;
+        position:fixed;
+        top:0;
+        left:0;
+        width:100%;
+        border-bottom: 1px solid #eaeae2; /* used hex colorpicker, citation [2] in top-level repository README */
+        padding:0px 10px 10px 15px;
+      }
+      #homepageButton {
+        font-family:'Pinyon Script', serif;
+        font-size:30px;
+        padding-bottom:0px;
+        text-decoration: none;
+        color:#110055;
+        font-weight:bold;
+      }
+      #homepageButtonWrapper {
+        padding-top:3px;
+      }
+    </style>
+    <div id="navigationBar">
+      <div id="homepageButtonWrapper">
+        <a href="{% url 'homepage' %}" id="homepageButton">rogger</a>
+      </div>
+    </div>
+    <div id="inheritorContent">
+    {% block inheritor %}
+    {% endblock %}
+    </div>
+  </body>
+</html>
