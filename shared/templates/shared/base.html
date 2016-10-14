@@ -1,6 +1,7 @@
 <html>
   <head>
     <!-- FROM Google Fonts (citation [3])-->
+    <link href="https://fonts.googleapis.com/css?family=Sacramento" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Pinyon+Script" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Katibeh" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Quattrocento" rel="stylesheet">
@@ -8,38 +9,45 @@
   </head>
   <body>
     <style>
+      /* asterisk selector from citation [6] */
+      * {
+        font-family:"Quattrocento", serif;
+        color:#778;
+      }
       body {
-        background-color: #fdfdf8; /* HTML color picker used (citation [2] in top-level repository README) */
+        background-color: #fdfdfd; /* HTML color picker used (citation [2] in top-level repository README) */
         padding:0px;
         margin:0px;
+        font-family: 'Quattrocento', serif;
       }
       #inheritorContent {
-        padding:70px 20px 20px 20px;
-        /*height:2000px;*/
+
       }
       #navigationBar {
-        background-color: #fafaf6; /* used hex color picker, citation [2] in top-level repository README */
+        background-color: rgba(251, 251, 246, 0.5);/*#fafaf6;*/ /* used hex color picker, citation [2] in top-level repository README */
         height:50px; /* citation [4] */
         position:fixed;
         top:0px;
         left:0px;
         width:100%;
-        border-bottom: 1px solid #eaeae2; /* used hex colorpicker, citation [2] in top-level repository README */
+        border-bottom: 1px solid rgba(237, 237, 229, 0.5);/*#eaeae2;*/ /* used hex colorpicker, citation [2] in top-level repository README */
+        z-index:10;
       }
       #homepageButton {
-        font-family:'Pinyon Script', serif;
-        font-size:30px;
+        font-family:'Sacramento', serif;
+        font-size:25px;
         text-decoration: none;
-        color:#668;
+        font-weight:bold;
+        color:#778;
       }
       #homepageButtonWrapper {
-        margin:3px 10px 5px 15px; /* citation [4] */
+        margin:6px 10px 5px 25px; /* citation [4] */
         display:inline-block;
       }
       #navigationBarButtonWrapper {
         float:right;
         display:inline;
-        padding:10px; /* citation [4] */
+        padding:10px 30px 10px 10px; /* citation [4] */
       }
       .navigationBarButton {
         padding:5px 10px 5px 10px;
@@ -48,28 +56,29 @@
       .navigationBarButtonLinks {
         font-size:25px;
         text-decoration:none;
-        color:#668;
+        color:#778;
         font-family:'Katibeh', serif;
       }
     </style>
     <div id="navigationBar">
       <div id="homepageButtonWrapper">
-        <a href="{% url 'homepage' %}" id="homepageButton">rogger</a>
+        <a href="{% url 'homepage' %}" id="homepageButton">Rogger</a>
       </div>
+      <!-- NAV BAR USAGE INSPIRED BY THE COMMON USAGE OF IT AROUND THE WEB -->
       <div id="navigationBarButtonWrapper">
-        {% if user.is_authenticated %}
+        {% if not user.is_authenticated %}
         <div class="navigationBarButton">
-          <a class="navigationBarButtonLinks" href="{% url 'about' %}">w</a>
+          <a class="navigationBarButtonLinks" href="{% url 'about' %}">{{ newLog }}</a>
         </div>
         <div class="navigationBarButton">
-          <a class="navigationBarButtonLinks" href="{% url 'about' %}">s</a>
+          <a class="navigationBarButtonLinks" href="{% url 'about' %}"> {{ settings }}</a>
         </div>
         <div class="navigationBarButton">
-          <a class="navigationBarButtonLinks" href="{% url 'about' %}">x</a>
+          <a class="navigationBarButtonLinks" href="{% url 'about' %}">{{ logout }}</a>
         </div>
         {% endif %}
         <div class="navigationBarButton">
-          <a class="navigationBarButtonLinks" href="{% url 'about' %}">i</a>
+          <a class="navigationBarButtonLinks" href="{% url 'about' %}">{{ about }}</a>
         </div>
       </div>
     </div>

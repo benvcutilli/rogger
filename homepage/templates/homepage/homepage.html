@@ -1,5 +1,381 @@
 {% extends "shared/base.html" %}
 
 {% block inheritor %}
-WELCOME TO ROGGER
+<style>
+  #sidebar {
+    display:inline-block;
+    width:20%;
+    height:100%;
+    background-color:#778;
+    position:fixed;
+    left:0px;
+    top:0px;
+    padding:50px 0px 0px 0px;
+    color: #fdfdfd; /* HTML color picker used (citation [2] in top-level repository README) */
+    /* citation [7] */
+    overflow:hidden;
+    /* end citation */
+  }
+  /* citation [7] */
+  #followingContainer {
+    width:100%;
+    margin-right:-50px;
+    padding-right:50px;
+    max-height:100%;
+    overflow-y:scroll;
+    overflow-x:hidden;
+
+  }
+  /* end citation */
+  #following {
+    width:100%;
+    height:10000px;
+    margin:0px;
+  }
+  #following > * {
+    color: #fdfdfd; /* HTML color picker used (citation [2] in top-level repository README) */
+  }
+  #feedViewport {
+    display:inline-block;
+    width:80%;
+    height:100%;
+    float:right;
+    margin:0px;
+    /* citation [7] */
+    overflow:hidden;
+    /* end citation */
+  }
+  #feedContainer {
+    width:100%;
+    /* citation [7] */
+    overflow-y:scroll;
+    overflow-x:hidden;
+    margin-right:-50px;
+    padding-right:50px;
+    height:100%;
+    /* end citation */
+  }
+  #feed {
+    width:100%;
+    margin-top:60px;
+    margin-left:10px;
+  }
+  #updatesTitle {
+    text-align:center;
+    color:#778;
+  }
+  #followingTitle {
+    text-align:center;
+  }
+  #noPostsAlert {
+    text-align:center;
+  }
+  #encouragement {
+    text-align:center;
+  }
+  #updatesDiv {
+    width:75%;
+    /* citation [5] */
+    margin:auto;
+    /* end citation */
+  }
+  .update {
+    width:100%;
+    border:1px solid #778;
+    background-color:#778;
+    margin:20px 0px 20px 0px;
+  }
+  .update > * {
+    color: #fdfdfd; /* HTML color picker used (citation [2] in top-level repository README) */
+  }
+  .updateHeader, .updateFooter {
+    background-color:#667;
+
+  }
+  .updateHeader > * {
+    color: #fdfdfd; /* HTML color picker used (citation [2] in top-level repository README) */
+    margin:10px;
+  }
+  .updatedTag {
+    background-color:#f22;
+    color: #fdfdfd; /* HTML color picker used (citation [2] in top-level repository README) */
+    padding:3px;
+    display:inline-block;
+    margin-right:10px;
+    font-size:11px;
+  }
+  .updateFooter {
+    padding:0px;
+  }
+  .userPicture {
+    width:40px;
+    height:40px;
+    border-radius:0px;
+    background-color: #000;
+    display:inline-block;
+    margin-bottom:-5px;
+  }
+  .usernameOuter {
+    display:inline-block;
+    margin-left:10px;
+    height:35px;
+  }
+  .usernameInner {
+    height:100%;
+    /* citation [10] (continues on to the usernameCell class CSS definition, see citation end tag) */
+    display:table;
+  }
+  .usernameCell {
+    display:table-cell;
+    vertical-align: middle;
+    /* end citation */
+    color: #fdfdfd; /* HTML color picker used (citation [2] in top-level repository README) */
+
+  }
+  .updateHeaderComponent {
+    display:inline-block;
+    color: #fdfdfd; /* HTML color picker used (citation [2] in top-level repository README) */
+    margin-right:10px;
+  }
+  .usernameDiv {
+    height:100%;
+    top:0;
+    font-size:20px;
+  }
+  .workoutTitle {
+    font-size:20px;
+    display:inline-block;
+  }
+  .workoutStats {
+    display:inline-block;
+    float:right;
+  }
+  .workoutSummary {
+    margin:20px;
+  }
+</style>
+<div id="sidebar">
+  <div id="followingContainer">
+    <div id="following">
+      <h3 id="followingTitle">
+        {{ followingTitle }}
+      </h3>
+    </div>
+  </div>
+</div>
+<div id="feedViewport">
+  <div id="feedContainer">
+    <div id="feed">
+      <h1 id="updatesTitle">
+        {{ updatesTitle }}
+      </h1>
+      <div id="updatesDiv">
+        <div class="update">
+          <div class="updateHeader">
+            <div class="workoutTitle">
+              Title
+            </div>
+            <div class="workoutStats">
+              <!-- citation [8] -->
+              date • distance • type • shoe
+              <!-- end citation -->
+            </div>
+            <!-- <div class="userPicture updateHeaderComponent">
+            </div>
+            <div class="usernameDiv updateHeaderComponent">
+              Username
+            </div> -->
+          </div>
+          <div class="workoutSummary">
+            <!-- citation [9] -->
+            Far out in the uncharted backwaters of the unfashionable end of the Western Spiral arm of the Galaxy lies a small unregarded yellow sun.
+            <br><br>
+            Orbiting this at a distance of roughly ninety-eight million miles is an utterly insignificant little blue-green planet whose ape-descended life forms are so amazingly primitive that they still think digital watches are a pretty great idea.
+            <br><br>
+            - The Hitchhiker's Guide to the Galaxy
+            <!-- end citation -->
+          </div>
+          <div class="updateFooter">
+            <div class="userPicture">
+            </div>
+            <div class="usernameOuter">
+              <!-- citation [10] -->
+              <div class="usernameInner">
+                <div class="usernameCell">
+                  username
+                </div>
+              </div>
+              <!-- end citation -->
+            </div>
+          </div>
+        </div>
+        <div class="update">
+          <div class="updateHeader">
+            <div class="workoutTitle">
+              Title
+            </div>
+            <div class="workoutStats">
+              <div class="updatedTag">
+                updated
+              </div>
+              <!-- citation [8] -->
+              date • distance • type • shoe
+              <!-- end citation -->
+            </div>
+            <!-- <div class="userPicture updateHeaderComponent">
+            </div>
+            <div class="usernameDiv updateHeaderComponent">
+              Username
+            </div> -->
+          </div>
+          <div class="workoutSummary">
+            <!-- citation [9] -->
+            Far out in the uncharted backwaters of the unfashionable end of the Western Spiral arm of the Galaxy lies a small unregarded yellow sun.
+            <br><br>
+            Orbiting this at a distance of roughly ninety-eight million miles is an utterly insignificant little blue-green planet whose ape-descended life forms are so amazingly primitive that they still think digital watches are a pretty great idea.
+            <br><br>
+            - The Hitchhiker's Guide to the Galaxy
+            <!-- end citation -->
+          </div>
+          <div class="updateFooter">
+            <div class="userPicture">
+            </div>
+            <div class="usernameOuter">
+              <!-- citation [10] -->
+              <div class="usernameInner">
+                <div class="usernameCell">
+                  username
+                </div>
+              </div>
+              <!-- end citation -->
+            </div>
+          </div>
+        </div>
+        <div class="update">
+          <div class="updateHeader">
+            <div class="workoutTitle">
+              Title
+            </div>
+            <div class="workoutStats">
+              <!-- citation [8] -->
+              date • distance • type • shoe
+              <!-- end citation -->
+            </div>
+            <!-- <div class="userPicture updateHeaderComponent">
+            </div>
+            <div class="usernameDiv updateHeaderComponent">
+              Username
+            </div> -->
+          </div>
+          <div class="workoutSummary">
+            <!-- citation [9] -->
+            Far out in the uncharted backwaters of the unfashionable end of the Western Spiral arm of the Galaxy lies a small unregarded yellow sun.
+            <br><br>
+            Orbiting this at a distance of roughly ninety-eight million miles is an utterly insignificant little blue-green planet whose ape-descended life forms are so amazingly primitive that they still think digital watches are a pretty great idea.
+            <br><br>
+            - The Hitchhiker's Guide to the Galaxy
+            <!-- end citation -->
+          </div>
+          <div class="updateFooter">
+            <div class="userPicture">
+            </div>
+            <div class="usernameOuter">
+              <!-- citation [10] -->
+              <div class="usernameInner">
+                <div class="usernameCell">
+                  username
+                </div>
+              </div>
+              <!-- end citation -->
+            </div>
+          </div>
+        </div>
+        <div class="update">
+          <div class="updateHeader">
+            <div class="workoutTitle">
+              Title
+            </div>
+            <div class="workoutStats">
+              <!-- citation [8] -->
+              date • distance • type • shoe
+              <!-- end citation -->
+            </div>
+            <!-- <div class="userPicture updateHeaderComponent">
+            </div>
+            <div class="usernameDiv updateHeaderComponent">
+              Username
+            </div> -->
+          </div>
+          <div class="workoutSummary">
+            <!-- citation [9] -->
+            Far out in the uncharted backwaters of the unfashionable end of the Western Spiral arm of the Galaxy lies a small unregarded yellow sun.
+            <br><br>
+            Orbiting this at a distance of roughly ninety-eight million miles is an utterly insignificant little blue-green planet whose ape-descended life forms are so amazingly primitive that they still think digital watches are a pretty great idea.
+            <br><br>
+            - The Hitchhiker's Guide to the Galaxy
+            <!-- end citation -->
+          </div>
+          <div class="updateFooter">
+            <div class="userPicture">
+            </div>
+            <div class="usernameOuter">
+              <!-- citation [10] -->
+              <div class="usernameInner">
+                <div class="usernameCell">
+                  username
+                </div>
+              </div>
+              <!-- end citation -->
+            </div>
+          </div>
+        </div>
+        <div class="update">
+          <div class="updateHeader">
+            <div class="workoutTitle">
+              Title
+            </div>
+            <div class="workoutStats">
+              <!-- citation [8] -->
+              date • distance • type • shoe
+              <!-- end citation -->
+            </div>
+            <!-- <div class="userPicture updateHeaderComponent">
+            </div>
+            <div class="usernameDiv updateHeaderComponent">
+              Username
+            </div> -->
+          </div>
+          <div class="workoutSummary">
+            <!-- citation [9] -->
+            Far out in the uncharted backwaters of the unfashionable end of the Western Spiral arm of the Galaxy lies a small unregarded yellow sun.
+            <br><br>
+            Orbiting this at a distance of roughly ninety-eight million miles is an utterly insignificant little blue-green planet whose ape-descended life forms are so amazingly primitive that they still think digital watches are a pretty great idea.
+            <br><br>
+            - The Hitchhiker's Guide to the Galaxy
+            <!-- end citation -->
+          </div>
+          <div class="updateFooter">
+            <div class="userPicture">
+            </div>
+            <div class="usernameOuter">
+              <!-- citation [10] -->
+              <div class="usernameInner">
+                <div class="usernameCell">
+                  username
+                </div>
+              </div>
+              <!-- end citation -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <h3 id="noPostsAlert">
+        {{ noPosts }}
+      </h3>
+      <h4 id="encouragement">
+        {{ encouragement }}
+      </h4>
+    </div>
+  </div>
+</div>
 {% endblock %}

@@ -1,11 +1,76 @@
 {% extends "shared/base.html" %}
 {% block inheritor %}
 <style>
+  h1 {
+    color:#778;
+  }
   #content {
     text-align:center;
   }
+  #loginForm {
+    /* citation [5] */
+    width:270px;
+    margin:auto;
+    /* end citation */
+  }
+  #loginForm > .loginTextBox {
+    display:block;
+    height:30px;
+    width:250px;
+    background-color:rgba(0, 0, 0, 0);
+    border:none;
+    font-size:20px;
+    border-bottom: 2px solid #eaeae2; /* used hex colorpicker, citation [2] in top-level repository README */
+    margin:10px;
+    padding:20px;
+    outline:none;
+    color:#778;
+  }
+  .customButton {
+    width:250px;
+    background-color:#778;
+    padding:20px;
+    border:none;
+    font-size:20px;
+    color: #fdfdf8; /* HTML color picker used (citation [2] in top-level repository README) */
+    outline:none;
+  }
+  .separator {
+    height:20px;
+  }
+  .altButton {
+    font-size:16px;
+  }
+  #forgotButton {
+    border-top:1px solid #556;
+  }
+  #inheritorContent {
+    margin:70px 10px 10px 10px;
+  }
 </style>
 <div id="content">
-This is the log in page.
+  <h1>
+    {{ loginLocal }}
+  </h1>
+  <form id="loginForm" action="{% url 'loginView' %}" method="post">
+    <input class="loginTextBox" placeholder="{{ usernameLocal }}"\>
+    <input class="loginTextBox" type="password" placeholder="{{ passwordLocal }}"\>
+    {% csrf_token %}
+    <div class="separator">
+    </div>
+    <input class="customButton" type="submit" value="{{ logInButtonLocal }}"\>
+    <div class="separator">
+    </div>
+    <a href="">
+      <button class="customButton altButton" type="button">
+        {{ newUserLocal }}
+      </button>
+    </a>
+    <a href="">
+      <button id="forgotButton" class="customButton altButton" type="button">
+        {{ forgotPasswordLocal }}
+      </button>
+    </a>
+  </form>
 </div>
 {% endblock %}

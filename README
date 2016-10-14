@@ -1,9 +1,30 @@
 Resources used to make this project (citations can be found in the code base as well,
 using the [#] notation to index each source found on this page):
 
-[1] http://stackoverflow.com/questions/4571686/django-include-template-from-another-app
-[2] http://www.w3schools.com/colors/colors_picker.asp for picking colors
-[3] Google Fonts, from which you will find various fonts that were used throughout
-    this site, loaded from the server fonts.googleapis.com
-[4] Padding seems to add width to at least divs, so the solution to this problem
-    was found here: http://stackoverflow.com/a/23692739/4722104
+[1]   http://stackoverflow.com/questions/4571686/django-include-template-from-another-app
+[2]   http://www.w3schools.com/colors/colors_picker.asp for picking colors
+[3]   Google Fonts, from which you will find various fonts that were used throughout
+      this site, loaded from the server fonts.googleapis.com
+[4]   Padding seems to add width to at least divs, so the solution to this problem
+      was found here: http://stackoverflow.com/a/23692739/4722104
+[5]   For centering; this technique seems like common practice, and source is unknown
+[6]   http://stackoverflow.com/a/3942399/4722104 for setting CSS to all elements of
+      page
+[7]   How to hide scroll bars: http://stackoverflow.com/a/23771140/4722104
+[8]   Bullet points as information separators idea taken from Google Play Music
+      (where they are used to separate album stats like time)
+[9]   <br>s used in this div for line breaks is an idea from http://stackoverflow.com/q/12694110/4722104
+[10]  Used the table display trick from here for vertical alignment of text:
+      https://css-tricks.com/vertically-center-multi-lined-text/
+
+This site is built on the Django web development framework.
+
+ACKNOWLEDGEMENTS:
+The design of this site is inspired by all my experience using the web. The
+navigation bar at the top, the search bar, the Material-design(by Google)-inspired
+layout and encapsulation of objects, the reverse-chronological feeds, etc. are not
+my own creation; in fact, you will find very few things that *are* my complete
+original ideas when it comes to design and aesthetics.
+
+Also, a ton of this site is based on experience with merv.standford.edu, which
+is a running log site whose users' exported data I support for importing.
