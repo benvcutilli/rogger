@@ -81,7 +81,6 @@
   }
   .update {
     width:100%;
-    border:1px solid #778;
     background-color:#778;
     margin:20px 0px 20px 0px;
   }
@@ -113,19 +112,20 @@
     border-radius:0px;
     background-color: #000;
     display:inline-block;
-    margin-bottom:-5px;
+    margin-bottom:-4px;
   }
-  .usernameOuter {
+  .usernameOuter, .followedUserUsernameOuter {
     display:inline-block;
     margin-left:10px;
-    height:35px;
+    margin-bottom:-4px;
+    height:40px;
   }
-  .usernameInner {
+  .usernameInner, .followedUserUsernameInner {
     height:100%;
     /* citation [10] (continues on to the usernameCell class CSS definition, see citation end tag) */
     display:table;
   }
-  .usernameCell {
+  .usernameCell, .followedUserUsernameCell {
     display:table-cell;
     vertical-align: middle;
     /* end citation */
@@ -153,6 +153,20 @@
   .workoutSummary {
     margin:20px;
   }
+  .followedUser {
+    margin:10px;
+  }
+  .followedUser > div {
+    display:inline-block;
+    color: #fdfdfd; /* HTML color picker used (citation [2] in top-level repository README) */
+  }
+  .followedUserPicture {
+    width:40px;
+    height:40px;
+    border-radius:0px;
+    background-color: #000;
+    margin-bottom:-4px;
+  }
 </style>
 <div id="sidebar">
   <div id="followingContainer">
@@ -160,6 +174,73 @@
       <h3 id="followingTitle">
         {{ followingTitle }}
       </h3>
+      <div>
+        <div class="followedUser">
+          <div class="followedUserPicture">
+          </div>
+          <div class="followedUserUsernameOuter">
+            <!-- citation [10] -->
+            <div class="followedUserUsernameInner">
+              <div class="followedUserUsernameCell">
+                username
+              </div>
+            </div>
+            <!-- end citation -->
+          </div>
+        </div>
+        <div class="followedUser">
+          <div class="followedUserPicture">
+          </div>
+          <div class="followedUserUsernameOuter">
+            <!-- citation [10] -->
+            <div class="followedUserUsernameInner">
+              <div class="followedUserUsernameCell">
+                username
+              </div>
+            </div>
+            <!-- end citation -->
+          </div>
+        </div>
+        <div class="followedUser">
+          <div class="followedUserPicture">
+          </div>
+          <div class="followedUserUsernameOuter">
+            <!-- citation [10] -->
+            <div class="followedUserUsernameInner">
+              <div class="followedUserUsernameCell">
+                username
+              </div>
+            </div>
+            <!-- end citation -->
+          </div>
+        </div>
+        <div class="followedUser">
+          <div class="followedUserPicture">
+          </div>
+          <div class="followedUserUsernameOuter">
+            <!-- citation [10] -->
+            <div class="followedUserUsernameInner">
+              <div class="followedUserUsernameCell">
+                username
+              </div>
+            </div>
+            <!-- end citation -->
+          </div>
+        </div>
+        <div class="followedUser">
+          <div class="followedUserPicture">
+          </div>
+          <div class="followedUserUsernameOuter">
+            <!-- citation [10] -->
+            <div class="followedUserUsernameInner">
+              <div class="followedUserUsernameCell">
+                username
+              </div>
+            </div>
+            <!-- end citation -->
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -216,7 +297,7 @@
             </div>
             <div class="workoutStats">
               <div class="updatedTag">
-                updated
+                {{ updatedTag }}
               </div>
               <!-- citation [8] -->
               date • distance • type • shoe

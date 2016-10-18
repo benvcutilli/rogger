@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from shared.languageLocalization import baseLocalization
 
-debugLocale = 'english'
+debugLocale = 'french'
 godMode = True
 
 ######### LOGIN LOCALIZATION ##########
@@ -39,7 +39,8 @@ homepageEnglishDict = {
     'updatesTitle'  :   'Updates',
     'followingTitle':   'Following',
     'noPosts'       :   'No posts :(',
-    'encouragement' :   ' Follow some people!'
+    'encouragement' :   'Follow some people!',
+    'updatedTag'    :   'updated'
 }
 homepageEnglishDict.update(baseLocalization['english'])
 
@@ -47,7 +48,8 @@ homepageFrenchDict = {
     'updatesTitle'  :   'Actualités',
     'followingTitle':   'Abonnements',
     'noPosts'       :   'Il n\'y a pas des actualités :(',
-    'encouragement' :   'Abonnez-vous à des autres personnes!'
+    'encouragement' :   'Abonnez-vous à des autres personnes!',
+    'updatedTag'    :   'mis à jour'
 }
 homepageFrenchDict.update(baseLocalization['french'])
 
