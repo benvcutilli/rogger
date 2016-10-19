@@ -16,6 +16,10 @@ using the [#] notation to index each source found on this page):
 [9]   <br>s used in this div for line breaks is an idea from http://stackoverflow.com/q/12694110/4722104
 [10]  Used the table display trick from here for vertical alignment of text:
       https://css-tricks.com/vertically-center-multi-lined-text/
+[11]  Profile picture overlapping banner in the center of the banner idea from some unknown
+      source
+[12]  Whitespace can cause gaps between divs. Reduced font size to 0px to solve this problem.
+      Source is unknown.
 
 This site is built on the Django web development framework.
 
