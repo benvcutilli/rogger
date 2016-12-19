@@ -7,6 +7,7 @@
     padding-top:50px;
     width:100%;
     height:100%;
+    background-color: #fcfcf8; /* used hex color picker, citation [2] in top-level repository README */
   }
   #banner {
     width:100%;
@@ -28,7 +29,8 @@
   #calendar {
     width:100%;
     height:80%;
-    background-color:#00f;
+    background-color: #778;
+    color:#334;
     margin-top:0px;
     /* citation [12] */
     font-size:0px;
@@ -37,10 +39,14 @@
   #calendarControls {
     width:100%;
     height:7%;
-    background-color:#0f0;
+    background-color: #667;
+    color:#334;
   }
   #calendarControlsTable {
     height:100%;
+  }
+  #calendarControlsTable > tr > td {
+
   }
   #dates {
     height:93%;
@@ -66,19 +72,27 @@
     appearance: none;
     /* end citation */
     margin-left:20px;
+    color:#223;
   }
   .calendarControl > button {
     border-radius:0px;
     border:0px solid black;
     background-color: rgba(0,0,0,0.0);
     margin-left:20px;
+    color:#223;
   }
   .weekContainer {
     height:20%;
     width:100%;
   }
   .monthContainer {
-    margin-top:30px;
+    margin-top:50px;
+  }
+  .monthName {
+    font-size:20px;
+    text-align: center;
+    margin-bottom:30px;
+    color:#334;
   }
   .leftAlign > div {
     float:left;
@@ -87,10 +101,14 @@
     float:right;
   }
   .weekStats {
+    box-sizing: border-box;
+    padding:10px;
     display:inline-block;
     width:12.5%;
     height:100%;
     font-size:12px;
+    background-color: #223;
+    float:left;
   }
   .dateShiftContainer {
     width:87.5%;
@@ -101,8 +119,11 @@
     width:14.28%;
     height:100%;
     display:inline-block;
-    background-color:#fff;
+    background-color:#aab;
     font-size:12px;
+    box-sizing:border-box;
+    padding:10px;
+
   }
   .dateShiftContainer > .spacer {
     width:2%;
@@ -150,33 +171,8 @@
     </div>
     <div id="dates">
       <div class="monthContainer">
-        <div class="weekContainer">
-          <div class="weekStats">
-            stats
-          </div>
-          <div class="dateShiftContainer leftAlign">
-            <div class="date">
-              date
-            </div>
-            <div class="date">
-              date
-            </div>
-            <div class="date">
-              date
-            </div>
-            <div class="date">
-              date
-            </div>
-            <div class="date">
-              date
-            </div>
-            <div class="date">
-              date
-            </div>
-            <div class="date">
-              date
-            </div>
-          </div>
+        <div class="monthName">
+          December
         </div>
         <div class="weekContainer">
           <div class="weekStats">
@@ -267,6 +263,43 @@
             stats
           </div>
           <div class="dateShiftContainer leftAlign">
+            <div class="date">
+              date
+            </div>
+            <div class="date">
+              date
+            </div>
+            <div class="date">
+              date
+            </div>
+            <div class="date">
+              date
+            </div>
+            <div class="date">
+              date
+            </div>
+            <div class="date">
+              date
+            </div>
+            <div class="date">
+              date
+            </div>
+          </div>
+        </div>
+        <div class="weekContainer">
+          <div class="weekStats">
+            stats
+          </div>
+          <div class="dateShiftContainer leftAlign">
+            <div class="date">
+              date
+            </div>
+            <div class="date">
+              date
+            </div>
+            <div class="date">
+              date
+            </div>
             <div class="date">
               date
             </div>
@@ -283,21 +316,8 @@
         </div>
       </div>
       <div class="monthContainer">
-        <div class="weekContainer">
-          <div class="weekStats">
-            stats
-          </div>
-          <div class="dateShiftContainer rightAlign">
-            <div class="date">
-              date
-            </div>
-            <div class="date">
-              date
-            </div>
-            <div class="date">
-              date
-            </div>
-          </div>
+        <div class="monthName">
+          January
         </div>
         <div class="weekContainer">
           <div class="weekStats">
@@ -388,6 +408,43 @@
             stats
           </div>
           <div class="dateShiftContainer rightAlign">
+            <div class="date">
+              date
+            </div>
+            <div class="date">
+              date
+            </div>
+            <div class="date">
+              date
+            </div>
+            <div class="date">
+              date
+            </div>
+            <div class="date">
+              date
+            </div>
+            <div class="date">
+              date
+            </div>
+            <div class="date">
+              date
+            </div>
+          </div>
+        </div>
+        <div class="weekContainer">
+          <div class="weekStats">
+            stats
+          </div>
+          <div class="dateShiftContainer rightAlign">
+            <div class="date">
+              date
+            </div>
+            <div class="date">
+              date
+            </div>
+            <div class="date">
+              date
+            </div>
             <div class="date">
               date
             </div>
