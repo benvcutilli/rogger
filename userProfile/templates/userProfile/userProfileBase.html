@@ -18,12 +18,13 @@
   /* citation [11] */
   #profilePicture {
     box-sizing:border-box;
-    height:20%;
+    height:100%;
     padding:1%;
   }
   /* end citation [11] */
   #profilePictureDiv {
     width:100%;
+    height:20%;
     text-align:center;
   }
   #calendar {
@@ -45,9 +46,22 @@
   #calendarControlsTable {
     height:100%;
   }
-  #calendarControlsTable > tr > td {
-
+  .tableInlineDiv {
+    height:100%;
+    display:inline-block;
   }
+  #calendarControlsTable > tbody {
+    box-sizing: border-box;
+    height:100%;
+  }
+  #userInformationTable {
+    height:100%;
+    float:right;
+  }
+  #userInformationTableWrapper {
+    float:right;
+  }
+
   #dates {
     height:93%;
     overflow-x:hidden;
@@ -61,29 +75,70 @@
   .calendarControl {
     margin:20px;
   }
-  .calendarControl > select {
-    border:0px solid black;
-    border-radius:0px;
-    padding:0px;
-    background-color: rgba(0,0,0,0.0);
-    /* citation [13] */
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    appearance: none;
-    /* end citation */
-    margin-left:20px;
-    color:#223;
+  @media screen and (min-width:600px) {
+    .calendarControl > select {
+      border:0px solid black;
+      border-radius:0px;
+      padding:0px;
+      background-color: rgba(0,0,0,0.0);
+      /* citation [13] */
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      appearance: none;
+      /* end citation */
+      margin-left:0px;
+      color:#223;
+      font-size:16px;
+    }
+    .calendarControl > button {
+      border-radius:0px;
+      border:0px solid black;
+      background-color: rgba(0,0,0,0.0);
+      margin-left:0px;
+      color:#223;
+      font-size:16px;
+    }
+    #userInformationTable > tbody > tr > td {
+      color:#fff;
+      font-size:16px;
+    }
   }
-  .calendarControl > button {
-    border-radius:0px;
-    border:0px solid black;
-    background-color: rgba(0,0,0,0.0);
-    margin-left:20px;
-    color:#223;
+  @media screen and (max-width:600px) {
+    .calendarControl > select {
+      border:0px solid black;
+      border-radius:0px;
+      padding:0px;
+      background-color: rgba(0,0,0,0.0);
+      /* citation [13] */
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      appearance: none;
+      /* end citation */
+      margin-left:0px;
+      color:#223;
+      font-size:12px;
+    }
+    .calendarControl > button {
+      border-radius:0px;
+      border:0px solid black;
+      background-color: rgba(0,0,0,0.0);
+      margin-left:0px;
+      color:#223;
+      font-size:12px;
+    }
+    #userInformationTable > tbody > tr > td {
+      color:#fff;
+      font-size:12px;
+    }
   }
   .weekContainer {
-    height:20%;
     width:100%;
+  }
+  .weekContainer > .weekStats, .weekContainer > .dateShiftContainer > .date {
+    box-sizing:border-box;
+    min-height:150px;
+    margin-top:1px;
+    border-right:1px solid #778;
   }
   .monthContainer {
     margin-top:50px;
@@ -100,30 +155,63 @@
   .rightAlign > div {
     float:right;
   }
-  .weekStats {
-    box-sizing: border-box;
-    padding:10px;
-    display:inline-block;
-    width:12.5%;
-    height:100%;
-    font-size:12px;
-    background-color: #223;
-    float:left;
-  }
-  .dateShiftContainer {
-    width:87.5%;
-    display:inline-block;
-    height:100%;
-  }
-  .dateShiftContainer > .date {
-    width:14.28%;
-    height:100%;
-    display:inline-block;
-    background-color:#aab;
-    font-size:12px;
-    box-sizing:border-box;
-    padding:10px;
 
+  @media screen and (min-width:600px) {
+    .date {
+      width:14.28%;
+      height:100%;
+      display:inline-block;
+      background-color:#aab;
+      font-size:12px;
+      box-sizing:border-box;
+      padding:10px;
+
+    }
+    .weekStats {
+      box-sizing: border-box;
+      padding:10px;
+      display:inline-block;
+      width:12.5%;
+      height:100%;
+      font-size:12px;
+      background-color: #223;
+      float:left;
+    }
+    .dateShiftContainer {
+      width:87.5%;
+      display:inline-block;
+      height:100%;
+    }
+  }
+  @media screen and (max-width:600px) {
+    .date {
+      width:100%;
+      height:100px;
+      display:block;
+      background-color:#aab;
+      font-size:12px;
+      box-sizing:border-box;
+      padding:10px;
+
+    }
+    .weekStats {
+      box-sizing: border-box;
+      padding:10px;
+      display:block;
+      width:100%;
+      height:100px;
+      font-size:12px;
+      background-color: #223;
+      float:left;
+    }
+    .dateShiftContainer {
+      width:100%;
+      display:inline-block;
+      height:100%;
+    }
+  }
+  .currentDate {
+    background-color:#0ff;
   }
   .dateShiftContainer > .spacer {
     width:2%;
@@ -140,39 +228,57 @@
 
   <div id="calendar">
     <div id="calendarControls">
-      <table id="calendarControlsTable">
-        <tr>
-          <td class="calendarControl">
-            <button>
-                up
-            </button>
-          </td>
-          <td class="calendarControl">
-            <button>
-                down
-            </button>
-          </td>
-          <td class="calendarControl">
-            <select>
-              <option>
-                month
-              </option>
-            </select>
-          </td>
-          <td class="calendarControl">
-            <select>
-              <option>
-                year
-              </option>
-            </select>
-          </td>
-        </tr>
-      </table>
+      <div class="tableInlineDiv">
+        <table id="calendarControlsTable">
+          <tbody>
+            <tr>
+              <td class="calendarControl">
+                <button>
+                    up
+                </button>
+              </td>
+              <td class="calendarControl">
+                <button>
+                    down
+                </button>
+              </td>
+              <td class="calendarControl">
+                <select>
+                  <option>
+                    month
+                  </option>
+                </select>
+              </td>
+              <td class="calendarControl">
+                <select>
+                  <option>
+                    year
+                  </option>
+                </select>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="tableInlineDiv" id="userInformationTableWrapper">
+        <table id="userInformationTable">
+          <tbody>
+            <tr>
+              <td>
+                username
+              </td>
+              <td>
+                mileage
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
     <div id="dates">
       <div class="monthContainer">
         <div class="monthName">
-          December
+          December 2016
         </div>
         <div class="weekContainer">
           <div class="weekStats">
@@ -180,7 +286,7 @@
           </div>
           <div class="dateShiftContainer leftAlign">
             <div class="date">
-              date
+              Mon 1
             </div>
             <div class="date">
               date
@@ -191,8 +297,8 @@
             <div class="date">
               date
             </div>
-            <div class="date">
-              date
+            <div class="date currentDate">
+              Thurs 5
             </div>
             <div class="date">
               date
@@ -317,7 +423,7 @@
       </div>
       <div class="monthContainer">
         <div class="monthName">
-          January
+          January 2016
         </div>
         <div class="weekContainer">
           <div class="weekStats">
