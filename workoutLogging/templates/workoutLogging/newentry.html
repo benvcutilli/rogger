@@ -1,0 +1,127 @@
+{% extends 'shared/base.html'%}
+{% load staticfiles %}
+{% block inheritor %}
+<script src="{% static 'shared/codemirror-5.22.0/lib/codemirror.js' %}"></script>
+<link rel="stylesheet" href="{% static 'shared/codemirror-5.22.0/lib/codemirror.css' %}">
+<script src="{% static 'shared/codemirror-5.22.0/addon/mode/simple.js' %}"></script>
+<style>
+  #pageContainer {
+    box-sizing:border-box;
+    padding-top:50px;
+    height:100%;
+  }
+  #entryPropertiesDiv {
+    background-color:#fff;
+  }
+  #titleText, #durationText, #distanceText, #shoeSelect, #typeSelect, #subtypeSelect, #dateText {
+    box-sizing: border-box;
+    height:50px;
+    font-size:20px;
+    padding:15px;
+    outline:none;
+    border:none;
+    text-align:center;
+    background-color:#fff;
+  }
+  #titleText {
+    width:50%;
+  }
+  #dateText {
+    width:50%;
+  }
+  #durationText, #distanceText {
+    width:50%;
+    display:inline-block;
+  }
+  #shoeSelect, #typeSelect, #subtypeSelect {
+    width:33.33%;
+    /* citation [13] */
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    /* end citation */
+    height:60px;
+  }
+  @media screen and (max-width:600px) {
+    #durationText, #distanceText, #titleText, #dateText {
+      width:100%;
+      display:inline-block;
+    }
+    #shoeSelect, #typeSelect, #subtypeSelect {
+      width:100%;
+      /* citation [13] */
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      appearance: none;
+      /* end citation */
+      height:60px;
+    }
+  }
+  #entryText {
+    box-sizing: border-box;
+    width:100%;
+
+    background-color:#fff;
+    padding:15px;
+    font-size:16px;
+  }
+  #saveEntryButton {
+    outline:none;
+    border:none;
+    height:50px;
+    width:50%;
+    text-align:center;
+    font-size:16px;
+    background-color:#778;
+    color:#fff;
+    margin-left:25%;
+    margin-right:25%;
+  }
+</style>
+<div id="pageContainer">
+  <div id="entryPropertiesDiv">
+    <input type="text" id="titleText" placeholder="title of workout"/><input type="text" id="dateText" placeholder="yyyy.mm.dd"/>
+    <input type="text" id="durationText" placeholder="time duration"/><div id="distanceText">0 miles @ XX:XX pace</div>
+    <select id="shoeSelect" selected="shoe">
+      <option>shoe</option>
+      <option>shoe 1</option>
+      <option>shoe2</option>
+    </select><select id="typeSelect">
+      <option>type</option>
+      <option>type 1</option>
+      <option>type 2</option>
+    </select><select id="subtypeSelect">
+      <option>subtype</option>
+      <option>subtype 1</option>
+      <option>subtype 2</option>
+    </select>
+  </div>
+  <textarea id="entryText">
+    This is my log entry.
+  </textarea>
+  <button id="saveEntryButton">
+    Save
+  </button>
+</div>
+
+
+
+<script>
+  var units = new RegExp("\\+(?:\\d+(?:\\.\\d+)?x)*\\d+(?:\\.\\d+)?(?:miles|mile|mi|meters|meter|m|kilometers|kilometer|km|k|xcalibur)");
+  CodeMirror.defineSimpleMode("logEntryHighlighting", {
+    start: [
+      {
+        regex:/@[a-zA-Z_]+/,
+        token:"username"
+      },
+      {
+        regex:units,
+        token:"distance"
+      }
+    ]
+  });
+  CodeMirror.fromTextArea(document.getElementById("entryText"), {
+    mode:"logEntryHighlighting"
+  });
+</script>
+{% endblock %}

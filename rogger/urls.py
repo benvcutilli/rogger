@@ -21,4 +21,5 @@ urlpatterns = [
     url(r'^', include('homepage.urls')),
     url(r'^about', include('about.urls')),
     url(r'^user', include('userProfile.urls')),
+    url(r'^workouts/', include('workoutLogging.urls')),
 ]
