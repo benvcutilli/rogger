@@ -258,7 +258,25 @@
 
 
 <script>
-  var units = new RegExp("\\+(?:\\d+(?:\\.\\d+)?x)*\\d+(?:\\.\\d+)?(?:miles|mile|mi|meters|meter|m|kilometers|kilometer|km|k|xcalibur)");
+  var number = "\\d+(?:\\.\\d+)?"
+  var numberRegex = new RegExp(number, "g");
+
+  var units = "(?:miles|mile|mi|meters|meter|m|kilometers|kilometer|km|k)"
+  var unitsRegex = new RegExp(units, "g");
+  var distanceRegex = new RegExp("\\+(?:" + number + "x)*" + number + units, "g");
+  var distanceDict = {
+    miles:      1.0,
+    mile:       1.0,
+    mi:         1.0,
+    meters:     1.0/1609.0,
+    meter:      1.0/1609.0,
+    m:          1.0/1609.0,
+    kilometers: 1.0/1.609,
+    kilometer:  1.0/1.609,
+    km:         1.0/1.609,
+    k:          1.0/1.609,
+
+  }
   CodeMirror.defineSimpleMode("logEntryHighlighting", {
     start: [
       {
@@ -266,13 +284,36 @@
         token:"username"
       },
       {
-        regex:units,
+        regex:distanceRegex,
         token:"distance"
       }
     ]
   });
-  CodeMirror.fromTextArea(document.getElementById("entryText"), {
+  var logEditorCodeMirrorInstance = CodeMirror.fromTextArea(document.getElementById("entryText"), {
     mode:"logEntryHighlighting"
-  });
+  })
+  logEditorCodeMirrorInstance.on("change", processLogDistance);
+
+  function processLogDistance() {
+    var logText = logEditorCodeMirrorInstance.getValue();
+    var globalParse = logText.match(distanceRegex);
+    console.log(globalParse);
+    if (globalParse != null) {
+      var total = 0.0;
+      for (match of globalParse) {
+        var subTotal = 1.0
+        var quantities = match.match(numberRegex);
+        var unit = match.match(unitsRegex);
+        for (quantity of quantities) {
+          subTotal *= Number(quantity);
+        }
+        subTotal *= distanceDict[unit];
+        total += subTotal;
+      }
+      console.log(total);
+    }
+
+  }
+
 </script>
 {% endblock %}
