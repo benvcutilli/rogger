@@ -143,7 +143,7 @@
 <div id="pageContainer">
   <div id="entryPropertiesDiv">
     <input type="text" id="titleText" placeholder="title of workout"/><input type="text" id="dateText" placeholder="yyyy.mm.dd"/>
-    <input type="text" id="durationText" placeholder="time duration"/><div id="distanceText">0 miles @ XX:XX pace</div>
+    <input type="text" id="durationText" placeholder="time duration"/><div id="distanceText">0</div>
     <select id="shoeSelect" selected="shoe">
       <option>shoe</option>
       <option>shoe 1</option>
@@ -313,6 +313,7 @@
         total += subTotal;
       }
       console.log(total);
+      document.getElementById("distanceText").innerHTML = total + " miles";
     }
 
   }
