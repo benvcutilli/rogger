@@ -164,7 +164,7 @@
 <div id="pageContainer">
   <div id="entryPropertiesDiv">
     <input type="text" id="titleText" placeholder="title of workout"/><input type="text" id="dateText" placeholder="yyyy.mm.dd"/>
-    <div id="durationText"><input type="text" id="durationHours" placeholder="hh"/><input type="text" id="durationMinutes" placeholder="mm"/><input type="text" id="durationSeconds" placeholder="ss.ss"/></div><div id="distanceText">0</div>
+    <div id="durationText"><input type="text" id="durationHours" placeholder="hh" oninput="processLogDistance();"/><input type="text" id="durationMinutes" placeholder="mm" oninput="processLogDistance();"/><input type="text" id="durationSeconds" placeholder="ss.ss" oninput="processLogDistance();"/></div><div id="distanceText">0</div>
     <select id="shoeSelect" selected="shoe">
       <option>shoe</option>
       <option>shoe 1</option>
@@ -311,7 +311,8 @@
     ]
   });
   var logEditorCodeMirrorInstance = CodeMirror.fromTextArea(document.getElementById("entryText"), {
-    mode:"logEntryHighlighting"
+    mode:"logEntryHighlighting",
+    lineWrapping: true,
   })
   logEditorCodeMirrorInstance.on("change", processLogDistance);
 
