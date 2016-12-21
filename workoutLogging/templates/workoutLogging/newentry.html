@@ -31,6 +31,27 @@
   #dateText {
     width:50%;
   }
+  #durationText > input {
+    width:20%;
+    height:100%;
+    color:inherit;
+    font-size:inherit;
+    background-color:inherit;
+    box-sizing:inherit;
+    outline:inherit;
+    border:inherit;
+  }
+  #durationHours {
+    text-align:right;
+    margin-left:20%;
+  }
+  #durationMinutes {
+    text-align:center;
+  }
+  #durationSeconds {
+    text-align:left;
+    margin-right:20%;
+  }
   #durationText, #distanceText {
     width:50%;
     display:inline-block;
@@ -143,7 +164,7 @@
 <div id="pageContainer">
   <div id="entryPropertiesDiv">
     <input type="text" id="titleText" placeholder="title of workout"/><input type="text" id="dateText" placeholder="yyyy.mm.dd"/>
-    <input type="text" id="durationText" placeholder="time duration"/><div id="distanceText">0</div>
+    <div id="durationText"><input type="text" id="durationHours" placeholder="hh"/><input type="text" id="durationMinutes" placeholder="mm"/><input type="text" id="durationSeconds" placeholder="ss.ss"/></div><div id="distanceText">0</div>
     <select id="shoeSelect" selected="shoe">
       <option>shoe</option>
       <option>shoe 1</option>
@@ -314,6 +335,35 @@
       }
       console.log(total);
       document.getElementById("distanceText").innerHTML = total + " miles";
+      var hours = document.getElementById("durationHours").value;
+      var minutes = document.getElementById("durationMinutes").value;
+      var seconds = document.getElementById("durationSeconds").value;
+      if (!(hours == "" && minutes == "" && seconds == "")) {
+        hours = Number(hours) * 60.0 * 60.0;
+        minutes = Number(minutes) * 60.0;
+        seconds = Number(seconds);
+        var perMile = (hours+minutes+seconds)/total;
+        var hoursPerMile = Math.floor(perMile/(3600));
+        var minutesPerMile = Math.floor((perMile - (hoursPerMile*3600))/60);
+        var secondsPerMile = (perMile - hoursPerMile*3600 - minutesPerMile*60);
+        document.getElementById("distanceText").innerHTML += " @ ";
+        if (hoursPerMile != 0) {
+          document.getElementById("distanceText").innerHTML += (hoursPerMile < 10 == 1 ? "0" + hoursPerMile : hoursPerMile) + ":";
+        }
+        var secondsPerMileInteger = secondsPerMile.toString().split('.')[0];
+        var secondsPerMileDecimal = secondsPerMile.toString().split('.')[1];
+        if (secondsPerMileInteger.length < 2) {
+          secondsPerMileInteger = "0" + secondsPerMileInteger;
+        }
+        if (secondsPerMileDecimal != null && secondsPerMileDecimal.length > 2) {
+          secondsPerMileDecimal = secondsPerMileDecimal.slice(0,2);
+        } else if (secondsPerMileDecimal == null) {
+          secondsPerMileDecimal = "0"
+        }
+        document.getElementById("distanceText").innerHTML += (minutesPerMile < 10 == 1 ? "0" + minutesPerMile : minutesPerMile) + ":" + secondsPerMileInteger + (secondsPerMileDecimal.length != 0 ? "." : "") + secondsPerMileDecimal + "/mile";
+      }
+    } else {
+      document.getElementById("distanceText").innerHTML = "0 miles";
     }
 
   }
