@@ -3,4 +3,5 @@ from workoutLogging import views
 urlpatterns = [
     url(r'new$', views.newEntry),
     url(r'\d+$', views.editEntry),
+    url(r'view$', views.viewEntry),
 ]
