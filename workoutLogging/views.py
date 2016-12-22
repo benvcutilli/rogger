@@ -4,3 +4,6 @@ from django.shortcuts import render
 
 def newEntry(request):
     return render(request, "workoutLogging/newentry.html", {})
+
+def editEntry(request):
+    return render(request, "workoutLogging/editEntry.html", {})
