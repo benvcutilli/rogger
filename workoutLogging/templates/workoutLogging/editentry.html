@@ -1,5 +1,32 @@
 {% extends 'workoutLogging/newEntry.html'%}
 {% load staticfiles %}
+{% block buttonblock %}
+<style>
+  #saveEntryButton, #deleteEntryButton {
+    outline:none;
+    border:none;
+    height:50px;
+    width:25%;
+    text-align:center;
+    font-size:16px;
+    /*background-color:#778;*/
+    color:#fff;
+  }
+  #saveEntryButton {
+    margin-left:25%;
+    background-color:#0f0;
+  }
+  #deleteEntryButton {
+    margin-right:25%;
+    background-color:#f00;
+  }
+</style>
+<button id="saveEntryButton">
+  Save
+</button><button id="deleteEntryButton">
+  Delete
+</button>
+{% endblock %}
 {% block comments %}
 <style>
   #commentsDiv {
