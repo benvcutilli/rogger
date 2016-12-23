@@ -23,7 +23,7 @@
 </style>
 <button id="saveEntryButton">
   Save
-</button><button id="deleteEntryButton">
+</button><button id="deleteEntryButton" onclick="deleteEntry();">
   Delete
 </button>
 {% endblock %}
@@ -126,7 +126,7 @@
             </tbody>
           </table>
         </div>
-        <button class="deleteCommentButton">
+        <button class="deleteCommentButton" onclick="deleteComment(1);">
           delete
         </button>
         <div class="commentContent">
@@ -197,4 +197,12 @@
     <textarea id="commentingArea">
     </textarea><button id="submitCommentButton">Post</button>
   </div>
+  {% endblock %}
+  {% block extrascript %}
+  function deleteEntry() {
+    confirm("Are you sure you want to delete this entry?");
+  }
+  function deleteComment(commentID) {
+    confirm("Are you sure you want to delete this comment?");
+  }
   {% endblock %}
