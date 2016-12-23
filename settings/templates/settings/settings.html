@@ -14,13 +14,11 @@
   }
   #shoeSettings, #accountSettings {
     width:50%;
-    background-color:#556;
     display:inline-block;
     color:#fff;
     box-sizing:border-box;
     padding:20px;
     vertical-align:top;
-    border:3px solid #334;
   }
   #shoeSettings > *, #accountSettings > * {
     color:inherit;
@@ -30,21 +28,68 @@
       width:100%;
     }
   }
+  #settingsPanes {
+    background-color:#556;
+  }
+  .settingsTextBox {
+    box-sizing:border-box;
+    display:inline-block;
+    outline:none;
+    border:none;
+    height:50px;
+    width:60%;
+    vertical-align: top;
+    font-size:16px;
+    padding:10px;
+  }
+  #addShoeButton {
+    height:50px;
+    padding-left:10px;
+    padding-right:10px;
+    box-sizing:border-box;
+    outline:none;
+    border:none;
+    background-color:#0f0;
+    color:#fff;
+    font-size:16px;
+    margin: 0px;
+  }
+  #newShoeName, #emailAddress, #displayName {
+    color:#000;
+  }
+  #saveAccountSettingsButton {
+    border:none;
+    outline:none;
+    box-sizing:border-box;
+    height:50px;
+    padding:10px;
+    font-size:16px;
+    color:#fff;
+    background-color:#0f0;
+    min-width:50%;
+    margin: 10px 0px 0px 0px;
+  }
 </style>
 <div id="settingsDiv">
   <h1>
     Settings
   </h1>
-  <div id="shoeSettings">
-    <h3>
-      Shoes
-    </h3>
-  </div><div id="accountSettings">
-    <h3>
-      Account
-    </h3>
-    <input id="emailAddress"/>
-    <input id="displayName"/>
+  <div id="settingsPanes">
+    <div id="shoeSettings">
+      <h3>
+        Shoes
+      </h3>
+      <input id="newShoeName" class="settingsTextBox" placeholder="New Shoe Name"/><button id="addShoeButton">Add</button>
+    </div><div id="accountSettings">
+      <h3>
+        Account
+      </h3>
+      <input id="emailAddress" class="settingsTextBox" placeholder="New Email Address"/>
+      <input id="displayName" class="settingsTextBox" placeholder="New Display Name"/>
+      <button id="saveAccountSettingsButton">
+        Save
+      </button>
+    </div>
   </div>
 </div>
 {% endblock %}
