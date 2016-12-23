@@ -12,16 +12,39 @@
     padding:0px 30px 30px 30px;
     text-align:center;
   }
+  #shoeSettings, #accountSettings {
+    width:50%;
+    background-color:#556;
+    display:inline-block;
+    color:#fff;
+    box-sizing:border-box;
+    padding:20px;
+    vertical-align:top;
+    border:3px solid #334;
+  }
+  #shoeSettings > *, #accountSettings > * {
+    color:inherit;
+  }
+  @media screen and (max-width:600px) {
+    #shoeSettings, #accountSettings {
+      width:100%;
+    }
+  }
 </style>
 <div id="settingsDiv">
   <h1>
     Settings
   </h1>
-  <h3>
-    Shoes
-  </h3>
-  <h3>
-    Account
-  </h3>
+  <div id="shoeSettings">
+    <h3>
+      Shoes
+    </h3>
+  </div><div id="accountSettings">
+    <h3>
+      Account
+    </h3>
+    <input id="emailAddress"/>
+    <input id="displayName"/>
+  </div>
 </div>
 {% endblock %}
