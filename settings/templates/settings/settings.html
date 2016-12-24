@@ -99,6 +99,28 @@
       width:30%;
     }
   }
+  .deleteShoeButton {
+    background-color:#f00;
+    display:inline-block;
+    outline:none;
+    border:none;
+    color:#fff;
+    height:30px;
+    font-size:16px;
+  }
+  .shoeName {
+    font-size:16px;
+    display:inline-block;
+    color:#fff;
+    margin-left:10px;
+  }
+  #shoeListing {
+    margin-top:20px;
+  }
+  .shoeContainer {
+    margin-top:5px;
+    margin-bottom:5px;
+  }
 </style>
 <div id="settingsDiv">
   <h1>
@@ -110,6 +132,36 @@
         Shoes
       </h3>
       <input id="newShoeName" class="settingsTextBox" placeholder="New Shoe Name"/><button id="addShoeButton">Add</button>
+      <div id="shoeListing">
+        <div class="shoeContainer">
+          <button class="deleteShoeButton" onclick="deleteShoe(1);">
+            delete
+          </button><div class="shoeName">
+            a shoe • mileage <!-- BULLET POINT USEAGE FROM CITATION [8] -->
+          </div>
+        </div>
+        <div class="shoeContainer">
+          <button class="deleteShoeButton" onclick="deleteShoe(1);">
+            delete
+          </button><div class="shoeName">
+            a shoe
+          </div>
+        </div>
+        <div class="shoeContainer">
+          <button class="deleteShoeButton" onclick="deleteShoe(1);">
+            delete
+          </button><div class="shoeName">
+            a shoe
+          </div>
+        </div>
+        <div class="shoeContainer">
+          <button class="deleteShoeButton" onclick="deleteShoe(1);">
+            delete
+          </button><div class="shoeName">
+            a shoe
+          </div>
+        </div>
+      </div>
     </div><div id="accountSettings">
       <h3>
         Account
@@ -133,4 +185,9 @@
     </div>
   </div>
 </div>
+<script>
+  function deleteShoe(shoeID) {
+    confirm("Are you sure you want to delete this shoe?");
+  }
+</script
 {% endblock %}
