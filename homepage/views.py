@@ -74,3 +74,7 @@ def loginView(request):
         return HttpResponseRedirect(reverse("homepage"))
     else:
         return render(request, 'homepage/login.html', loginLocalization[debugLocale])
+
+
+def newAccountView(request):
+    return render(request, 'homepage/newaccount.html', {})
