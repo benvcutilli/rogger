@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from shared.languageLocalization import baseLocalization
+from rogger.settings import RECAPTCHA_PUBLIC
 
 debugLocale = 'french'
 godMode = True
@@ -77,4 +78,7 @@ def loginView(request):
 
 
 def newAccountView(request):
-    return render(request, 'homepage/newaccount.html', {})
+    return render(request, 'homepage/newaccount.html', {
+        'recaptchaPublic': RECAPTCHA_PUBLIC,
+        'recaptchaLanguage': 'fr',
+    })
