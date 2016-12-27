@@ -44,11 +44,12 @@
   <h1>
     Create Account
   </h1>
-  <form action="{% url 'newAccountView' %}">
-    <input id="username" type="text" placeholder="username"/>
-    <input id="email" type="text" placeholder="email address"/>
-    <input type="password" id="password" placeholder="password">
-    <input type="password" id="password" placeholder="confirm password">
+  <form action="{% url 'newAccountView' %}" method="post">
+    {% csrf_token %}
+    <input id="username" type="text" placeholder="username" name="username"/>
+    <input id="email" type="text" placeholder="email address" name="emailAddress"/>
+    <input type="password" id="password" placeholder="password" name="password">
+    <input type="password" id="confirmPassword" placeholder="confirm password" name="confirmPassword">
     <div class="g-recaptcha" data-sitekey="6Lc4wg8UAAAAAAcTL8powNg0AW_wfIjIqZjCOTzY"></div>
     <button>
       Make Account
