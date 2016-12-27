@@ -6,6 +6,7 @@ from rogger.settings import RECAPTCHA_PUBLIC, RECAPTCHA_SECRET
 from . import forms
 import urllib
 import json
+from django.contrib.auth.models import User
 
 debugLocale = 'french'
 godMode = True
@@ -121,10 +122,19 @@ def newAccountView(request):
             )
 
             recaptchaResult = json.loads(urllib.request.urlopen(recaptchaRequest).read().decode('ascii'))
+
             if recaptchaResult['success'] == True:
-                pass
+                if creationForm.cleaned_data['password'] == creationForm.cleaned_data['passwordConfirmation']:
+                    pass
+                    #User.objects.createUser(creationForm.cleaned_data['username'], creationForm.cleaned_data['emailAddress'], creationForm['password'])
+                else:
+                    return render(request, 'homepage/newaccount.html', templateDict)
             else:
                 return render(request, 'homepage/newaccount.html', templateDict)
+
+
+
+
         else:
             templateDict.update({
                 'errors': creationForm.errors
