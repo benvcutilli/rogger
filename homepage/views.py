@@ -99,7 +99,9 @@ def loginView(request):
 
 def newAccountView(request):
     templateDict = createAccountLocalizationDict[debugLocale]
-
+    templateDict.update({
+        "error" : ""
+    })
 
     # IS A FORM
     if request.method == "POST":
@@ -123,21 +125,51 @@ def newAccountView(request):
 
             recaptchaResult = json.loads(urllib.request.urlopen(recaptchaRequest).read().decode('ascii'))
 
-            if recaptchaResult['success'] == True:
-                if creationForm.cleaned_data['password'] == creationForm.cleaned_data['passwordConfirmation']:
-                    pass
-                    #User.objects.createUser(creationForm.cleaned_data['username'], creationForm.cleaned_data['emailAddress'], creationForm['password'])
-                else:
-                    return render(request, 'homepage/newaccount.html', templateDict)
-            else:
+            error = ""
+            if not recaptchaResult['success'] == True:
+                error = "Sorry, you seem to be a bot :( Please contact ben@rogger.co if you think this is a mistake"
+
+            if not creationForm.cleaned_data['password'] == creationForm.cleaned_data['passwordConfirmation']:
+                error = "Your passwords don't match"
+
+            if creationForm.cleaned_data['password'] == "":
+                error = "Your password is blank"
+
+            if creationForm.cleaned_data['username'] == "":
+                error = "Your username is blank"
+
+            if creationForm.cleaned_data['emailAddress'] == "":
+                error = "Your email address is blank"
+
+            if User.objects.filter(username=creationForm.cleaned_data['username']).exists():
+                error = "That username is already in use :("
+
+
+
+            if error != "":
+                templateDict['error'] = error
+                print(templateDict['error'])
                 return render(request, 'homepage/newaccount.html', templateDict)
+            else:
+                User.objects.create_user(creationForm.cleaned_data['username'], creationForm.cleaned_data['emailAddress'], creationForm['password']).save()
+                return HttpResponseRedirect(reverse("homepage"))
+
 
 
 
 
         else:
+            errorString = ""
+            formTranslation = {
+                'passwordConfirmation'  :   "password confirmation",
+                'password'              :   "password",
+                'username'              :   "username",
+                'emailAddress'          :   "email address"
+            }
+            for key in creationForm.errors:
+                errorString += formTranslation[key] + ": " + ", ".join([creationForm.errors[key][i] for i in range(len(creationForm.errors[key]))]) + '\n'
             templateDict.update({
-                'errors': creationForm.errors
+                'error': errorString,
             })
 
             return render(request, 'homepage/newaccount.html', templateDict)

@@ -39,8 +39,16 @@
     /* end citation */
     margin-top:20px;
   }
+  #whoops {
+    color:#f00;
+  }
 </style>
 <div id="createAccountDiv">
+  {% if error != "" %}
+  <h3>
+    <span id="whoops">Whoops!</span> {{ error }}
+  </h3>
+  {% endif %}
   <h1>
     Create Account
   </h1>
