@@ -132,15 +132,6 @@ def newAccountView(request):
             if not creationForm.cleaned_data['password'] == creationForm.cleaned_data['passwordConfirmation']:
                 error = "Your passwords don't match"
 
-            if creationForm.cleaned_data['password'] == "":
-                error = "Your password is blank"
-
-            if creationForm.cleaned_data['username'] == "":
-                error = "Your username is blank"
-
-            if creationForm.cleaned_data['emailAddress'] == "":
-                error = "Your email address is blank"
-
             if User.objects.filter(username=creationForm.cleaned_data['username']).exists():
                 error = "That username is already in use :("
 
