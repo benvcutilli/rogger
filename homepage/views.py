@@ -7,7 +7,7 @@ from . import forms
 import urllib
 import json
 from django.contrib.auth.models import User
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 
 debugLocale = 'french'
 godMode = True
@@ -175,3 +175,8 @@ def newAccountView(request):
     # NOT A FORM
     else:
         return render(request, 'homepage/newaccount.html', templateDict)
+
+
+def logoutUser(request):
+    logout(request)
+    return HttpResponseRedirect(reverse("loginView"))
