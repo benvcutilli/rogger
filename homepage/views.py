@@ -102,6 +102,9 @@ def newAccountView(request):
     templateDict.update({
         "error" : ""
     })
+    templateDict.update({
+        'recaptchaPublic': RECAPTCHA_PUBLIC,
+    })
 
     # IS A FORM
     if request.method == "POST":
@@ -168,7 +171,4 @@ def newAccountView(request):
 
     # NOT A FORM
     else:
-        templateDict.update({
-            'recaptchaPublic': RECAPTCHA_PUBLIC,
-        })
         return render(request, 'homepage/newaccount.html', templateDict)
