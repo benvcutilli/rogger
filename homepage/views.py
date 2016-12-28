@@ -7,6 +7,7 @@ from . import forms
 import urllib
 import json
 from django.contrib.auth.models import User
+from django.contrib.auth import login
 
 debugLocale = 'french'
 godMode = True
@@ -145,7 +146,9 @@ def newAccountView(request):
                 print(templateDict['error'])
                 return render(request, 'homepage/newaccount.html', templateDict)
             else:
-                User.objects.create_user(creationForm.cleaned_data['username'], creationForm.cleaned_data['emailAddress'], creationForm['password']).save()
+                newUser = User.objects.create_user(creationForm.cleaned_data['username'], creationForm.cleaned_data['emailAddress'], creationForm['password'])
+                newUser.save()
+                login(request, newUser)
                 return HttpResponseRedirect(reverse("homepage"))
 
 
