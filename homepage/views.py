@@ -7,7 +7,7 @@ from . import forms
 import urllib
 import json
 from django.contrib.auth.models import User
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout, authenticate
 from shared.tools import getErrorString
 
 debugLocale = 'french'
@@ -109,8 +109,8 @@ def loginView(request):
 
     if request.method == "POST":
         loginForm = forms.LoginForm({
-            username:   request.POST['username']
-            password:   request.POST['password']
+            'username':   request.POST['username'],
+            'password':   request.POST['password'],
         })
 
         if loginForm.is_valid():
@@ -119,10 +119,10 @@ def loginView(request):
                 login(request, loggingInUser)
                 return HttpResponseRedirect(reverse("homepage"))
             else:
-                templateDict['error'] = "This user doesn't exist :( Sorry (or maybe not sorry if you are a HACKER!)"
+                templateDict['error'] = "The username and/or password are incorrect :( Sorry (or maybe not sorry if you are a HACKER!)"
         else:
             templateDict['error'] = getErrorString(loginForm)
-            
+
         return render(request, 'homepage/login.html', templateDict)
     else:
         return render(request, 'homepage/login.html', templateDict)

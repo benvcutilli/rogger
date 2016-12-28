@@ -47,14 +47,22 @@
   #inheritorContent {
     margin:70px 10px 10px 10px;
   }
+  #whoops {
+    color:#f00;
+  }
 </style>
 <div id="content">
+  {% if error != "" %}
+  <h3>
+    <span id="whoops">Whoops!</span> {{ error }}
+  </h3>
+  {% endif %}
   <h1>
     {{ loginLocal }}
   </h1>
   <form id="loginForm" action="{% url 'loginView' %}" method="post">
-    <input class="loginTextBox" placeholder="{{ usernameLocal }}"\>
-    <input class="loginTextBox" type="password" placeholder="{{ passwordLocal }}"\>
+    <input class="loginTextBox" placeholder="{{ usernameLocal }}" name="username"\>
+    <input class="loginTextBox" type="password" placeholder="{{ passwordLocal }}" name="password"\>
     {% csrf_token %}
     <div class="separator">
     </div>
