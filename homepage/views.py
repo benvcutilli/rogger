@@ -8,6 +8,7 @@ import urllib
 import json
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout
+from shared.tools import getErrorString
 
 debugLocale = 'french'
 godMode = True
@@ -88,14 +89,54 @@ def homepage(request):
         return render(request, 'homepage/homepage.html', homepageLocalization[debugLocale])
 
 
+
+
+
+
+
+
+
+
+
+
 def loginView(request):
 
-
+    templateDict = {}
+    templateDict.update(loginLocalization[debugLocale])
+    templateDict.update({
+        'error' :   ""
+    })
 
     if request.method == "POST":
-        return HttpResponseRedirect(reverse("homepage"))
+        loginForm = forms.LoginForm({
+            username:   request.POST['username']
+            password:   request.POST['password']
+        })
+
+        if loginForm.is_valid():
+            loggingInUser = authenticate(username=loginForm.cleaned_data['username'], password=loginForm.cleaned_data['password'])
+            if loggingInUser != None:
+                login(request, loggingInUser)
+                return HttpResponseRedirect(reverse("homepage"))
+            else:
+                templateDict['error'] = "This user doesn't exist :( Sorry (or maybe not sorry if you are a HACKER!)"
+        else:
+            templateDict['error'] = getErrorString(loginForm)
+            
+        return render(request, 'homepage/login.html', templateDict)
     else:
-        return render(request, 'homepage/login.html', loginLocalization[debugLocale])
+        return render(request, 'homepage/login.html', templateDict)
+
+
+
+
+
+
+
+
+
+
+
 
 
 def newAccountView(request):
@@ -156,17 +197,8 @@ def newAccountView(request):
 
 
         else:
-            errorString = ""
-            formTranslation = {
-                'passwordConfirmation'  :   "password confirmation",
-                'password'              :   "password",
-                'username'              :   "username",
-                'emailAddress'          :   "email address"
-            }
-            for key in creationForm.errors:
-                errorString += formTranslation[key] + ": " + ", ".join([creationForm.errors[key][i] for i in range(len(creationForm.errors[key]))]) + '\n'
             templateDict.update({
-                'error': errorString,
+                'error': getErrorString(creationForm, formTranslation),
             })
 
             return render(request, 'homepage/newaccount.html', templateDict)
