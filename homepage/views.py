@@ -9,6 +9,7 @@ import json
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from shared.tools import getErrorString
+from django.contrib.auth.forms import SetPasswordForm 
 
 debugLocale = 'french'
 godMode = True
@@ -253,6 +254,15 @@ def changePasswordView(request):
 
     else:
         return HttpResponseRedirect(reverse("loginView"))
+
+def passwordResetView(request, uid, token):
+    if request.method == "POST":
+        setPasswordForm = SetPasswordForm(request.POST)
+        password_reset_confirm(uidb64=uid, token=token, set_password_form=setPasswordForm)
+    else:
+        setPasswordForm = SetPasswordForm()
+
+    return render(request, 'homepage/resetpassword.html', {'form': setPasswordForm})
 
 def logoutUser(request):
     logout(request)

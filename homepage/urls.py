@@ -7,5 +7,6 @@ urlpatterns = [
     url(r'^login$', views.loginView, name='loginView'),
     url(r'^logout$', views.logoutUser, name='logout'),
     url(r'^newaccount$', views.newAccountView, name='newAccountView'),
-    url(r'^changepassword$', views.changePasswordView, name='changePasswordView')
+    url(r'^changepassword$', views.changePasswordView, name='changePasswordView'),
+    url(r'^resetpassword/([^/]+)/([^/]+)$', views.passwordResetView, name='passwordResetView')
 ]
