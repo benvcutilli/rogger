@@ -81,6 +81,18 @@ createAccountLocalizationDict = {
     'english'   :   createAccountEnglishDict,
 }
 
+
+changePasswordFrenchDict = {}
+changePasswordFrenchDict.update(baseLocalization['french'])
+
+changePasswordEnglishDict = {}
+changePasswordEnglishDict.update(baseLocalization['english'])
+
+changePasswordLocalizationDict = {
+    'french'    :   changePasswordFrenchDict,
+    'english'   :   changePasswordEnglishDict,
+}
+
 ######### END OF LOCALIZATION ##########
 def homepage(request):
     if not request.user.is_authenticated and not godMode:
@@ -215,6 +227,7 @@ def changePasswordView(request):
         templateDict.update({
             'error': ""
         })
+        templateDict.update(changePasswordLocalizationDict[debugLocale])
         if request.method == "POST":
             changePasswordForm = forms.ChangePasswordForm({
                 'newPassword'               :   request.POST['password'],
@@ -224,7 +237,10 @@ def changePasswordView(request):
             if changePasswordForm.is_valid():
                 if authenticate(username=request.user.username, password=changePasswordForm.cleaned_data['oldPassword']) != None:
                     if changePasswordForm.cleaned_data['newPassword'] == changePasswordForm.cleaned_data['newPasswordConfirmation']:
+                        username = request.user.username
                         request.user.set_password(changePasswordForm.cleaned_data['newPassword'])
+                        request.user.save()
+                        login(request, User.objects.get(username=username))
                         return HttpResponseRedirect(reverse("homepage"))
                     else:
                         templateDict['error'] = "Your passwords don't match."
