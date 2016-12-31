@@ -215,9 +215,24 @@ def changePasswordView(request):
         'error': ""
     })
     if request.method == "POST":
-        pass
-    else:
-        return render(request, 'homepage/changepassword.html', templateDict)
+        changePasswordForm = forms.ChangePasswordForm({
+            'newPassword'               :   request.POST['password'],
+            'newPasswordConfirmation'   :   request.POST['confirmPassword'],
+            'oldPassword'               :   request.POST['oldPassword']
+        })
+        if changePasswordForm.is_valid():
+            if authenticate(request.user, changePasswordForm.cleaned_data['oldPassword']) != None:
+                if changePasswordForm.cleaned_data['newPassword'] == changePasswordForm.cleaned_data['oldPassword']:
+                    request.user.set_password(changePasswordForm.cleaned_data['newPassword'])
+                    return HttpResponseRedirect(reverse("homepage"))
+                else:
+                    templateDict['error'] = "Your passwords don't match."
+            else:
+                templateDict['error'] = "Your old password is incorrect"
+        else:
+            templateDict['error'] = getErrorString(changePasswordForm)
+
+    return render(request, 'homepage/changepassword.html', templateDict)
 
 def logoutUser(request):
     logout(request)
