@@ -209,6 +209,16 @@ def newAccountView(request):
         return render(request, 'homepage/newaccount.html', templateDict)
 
 
+def changePasswordView(request):
+    templateDict = {}
+    templateDict.update({
+        'error': ""
+    })
+    if request.method == "POST":
+        pass
+    else:
+        return render(request, 'homepage/changepassword.html', templateDict)
+
 def logoutUser(request):
     logout(request)
     return HttpResponseRedirect(reverse("loginView"))

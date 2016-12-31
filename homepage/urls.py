@@ -6,5 +6,6 @@ urlpatterns = [
     url(r'^$', views.homepage, name='homepage'),
     url(r'^login$', views.loginView, name='loginView'),
     url(r'^logout$', views.logoutUser, name='logout'),
-    url(r'^newaccount$', views.newAccountView, name='newAccountView')
+    url(r'^newaccount$', views.newAccountView, name='newAccountView'),
+    url(r'^changepassword$', views.changePasswordView, name='changePasswordView')
 ]
