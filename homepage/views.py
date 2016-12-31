@@ -210,29 +210,33 @@ def newAccountView(request):
 
 
 def changePasswordView(request):
-    templateDict = {}
-    templateDict.update({
-        'error': ""
-    })
-    if request.method == "POST":
-        changePasswordForm = forms.ChangePasswordForm({
-            'newPassword'               :   request.POST['password'],
-            'newPasswordConfirmation'   :   request.POST['confirmPassword'],
-            'oldPassword'               :   request.POST['oldPassword']
+    if request.user.is_authenticated:
+        templateDict = {}
+        templateDict.update({
+            'error': ""
         })
-        if changePasswordForm.is_valid():
-            if authenticate(request.user, changePasswordForm.cleaned_data['oldPassword']) != None:
-                if changePasswordForm.cleaned_data['newPassword'] == changePasswordForm.cleaned_data['oldPassword']:
-                    request.user.set_password(changePasswordForm.cleaned_data['newPassword'])
-                    return HttpResponseRedirect(reverse("homepage"))
+        if request.method == "POST":
+            changePasswordForm = forms.ChangePasswordForm({
+                'newPassword'               :   request.POST['password'],
+                'newPasswordConfirmation'   :   request.POST['confirmPassword'],
+                'oldPassword'               :   request.POST['oldPassword']
+            })
+            if changePasswordForm.is_valid():
+                if authenticate(username=request.user.username, password=changePasswordForm.cleaned_data['oldPassword']) != None:
+                    if changePasswordForm.cleaned_data['newPassword'] == changePasswordForm.cleaned_data['newPasswordConfirmation']:
+                        request.user.set_password(changePasswordForm.cleaned_data['newPassword'])
+                        return HttpResponseRedirect(reverse("homepage"))
+                    else:
+                        templateDict['error'] = "Your passwords don't match."
                 else:
-                    templateDict['error'] = "Your passwords don't match."
+                    templateDict['error'] = "Your old password is incorrect"
             else:
-                templateDict['error'] = "Your old password is incorrect"
-        else:
-            templateDict['error'] = getErrorString(changePasswordForm)
+                templateDict['error'] = getErrorString(changePasswordForm)
 
-    return render(request, 'homepage/changepassword.html', templateDict)
+        return render(request, 'homepage/changepassword.html', templateDict)
+
+    else:
+        return HttpResponseRedirect(reverse("loginView"))
 
 def logoutUser(request):
     logout(request)

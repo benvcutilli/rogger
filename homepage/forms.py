@@ -21,5 +21,6 @@ class LoginForm(forms.Form):
     }
 
 class ChangePasswordForm(forms.Form):
-    newPassword             =   forms.CharField
+    newPassword             =   forms.CharField()
     newPasswordConfirmation =   forms.CharField()
+    oldPassword             =   forms.CharField()
