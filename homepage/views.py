@@ -256,6 +256,14 @@ def changePasswordView(request):
     else:
         return HttpResponseRedirect(reverse("loginView"))
 
+def passwordResetRequestView(request):
+    return password_reset(
+        template_name="homepage/resetpasswordrequest.html",
+        email_template_name="homepage/passwordresetemail.txt",
+        subject_template_name="homepage/passwordresetemailsubject.txt",
+        post_reset_redirect=reverse("homepage")
+    )
+
 def passwordResetView(request, uid, token):
     return password_reset_confirm(request,
         uidb64=uid,
