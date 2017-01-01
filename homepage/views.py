@@ -11,6 +11,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.views import password_reset_confirm, password_reset
 from shared.tools import getErrorString
 from django.contrib.auth.forms import SetPasswordForm
+from shared.models import UserInfo
 
 debugLocale = 'french'
 godMode = True
@@ -203,6 +204,7 @@ def newAccountView(request):
             else:
                 newUser = User.objects.create_user(creationForm.cleaned_data['username'], creationForm.cleaned_data['emailAddress'], creationForm['password'])
                 newUser.save()
+                UserInfo.objects.create(authUser=newUser).save()
                 login(request, newUser)
                 return HttpResponseRedirect(reverse("homepage"))
 

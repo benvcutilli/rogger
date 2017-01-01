@@ -21,6 +21,7 @@ using the [#] notation to index each source found on this page):
 [12]  Whitespace can cause gaps between divs. Reduced font size to 0px to solve this problem.
       Source is unknown.
 [13]  Removing drop down arrow for selects: http://stackoverflow.com/questions/16603979/select-removing-dropdown-arrow
+[14]  Using OneToOneField to mimic additional information added to built-in User model from Django documentation and unknown source (was used in previous project)
 
 This site is built on the Django web development framework.
 

@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from shared.languageLocalization import baseLocalization
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 # Create your views here.
 
@@ -19,4 +21,8 @@ localizationDict = {
 }
 
 def settings(request):
-    return render(request, "settings/settings.html", localizationDict[baseLocale])
+    if request.user.is_authenticated:
+
+        return render(request, "settings/settings.html", localizationDict[baseLocale])
+    else:
+        return HttpResponseRedirect(reverse("loginView"))
