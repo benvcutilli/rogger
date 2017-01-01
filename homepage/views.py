@@ -266,11 +266,18 @@ def passwordResetRequestView(request):
     )
 
 def passwordResetView(request, uid, token):
+    templateDict = {
+        'uid'   :   uid,
+        'token' :   token,
+    }
+    templateDict.update(baseLocalization[debugLocale])
     return password_reset_confirm(request,
         uidb64=uid,
         token=token,
-        post_reset_redirect=reverse("homepage"),
-        template_name='homepage/resetpassword.html'
+        post_reset_redirect=reverse("loginView"),
+        template_name='homepage/resetpassword.html',
+        extra_context=templateDict,
+        set_password_form=forms.RoggerSetPasswordForm
     )
 
 def logoutUser(request):

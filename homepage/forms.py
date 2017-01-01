@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.forms import SetPasswordForm
 
 class CreateAccountForm(forms.Form):
     username                = forms.CharField(label="username")
@@ -24,3 +25,11 @@ class ChangePasswordForm(forms.Form):
     newPassword             =   forms.CharField()
     newPasswordConfirmation =   forms.CharField()
     oldPassword             =   forms.CharField()
+
+class RoggerSetPasswordForm(SetPasswordForm):
+    def getErrorString():
+        errorString = ""
+        for key in self.errors:
+            errorString += key + ": " + ", ".join([self.errors[key][i] for i in range(len(self.errors[key]))])
+
+        return errorString
