@@ -69,12 +69,12 @@
     <input class="customButton" type="submit" value="{{ logInButtonLocal }}"\>
     <div class="separator">
     </div>
-    <a href="">
+    <a href="{% url 'newAccountView' %}">
       <button class="customButton altButton" type="button">
         {{ newUserLocal }}
       </button>
     </a>
-    <a href="">
+    <a href="{% url 'passwordResetRequestView' %}">
       <button id="forgotButton" class="customButton altButton" type="button">
         {{ forgotPasswordLocal }}
       </button>
