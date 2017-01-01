@@ -8,7 +8,7 @@ import urllib
 import json
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.views import password_reset_confirm
+from django.contrib.auth.views import password_reset_confirm, password_reset
 from shared.tools import getErrorString
 from django.contrib.auth.forms import SetPasswordForm
 
@@ -257,11 +257,12 @@ def changePasswordView(request):
         return HttpResponseRedirect(reverse("loginView"))
 
 def passwordResetRequestView(request):
-    return password_reset(
+    return password_reset(request,
         template_name="homepage/resetpasswordrequest.html",
         email_template_name="homepage/passwordresetemail.txt",
         subject_template_name="homepage/passwordresetemailsubject.txt",
-        post_reset_redirect=reverse("homepage")
+        post_reset_redirect=reverse("homepage"),
+        from_email="reset@rogger.co"
     )
 
 def passwordResetView(request, uid, token):
