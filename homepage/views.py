@@ -261,7 +261,7 @@ def passwordResetRequestView(request):
         template_name="homepage/resetpasswordrequest.html",
         email_template_name="homepage/passwordresetemail.txt",
         subject_template_name="homepage/passwordresetemailsubject.txt",
-        post_reset_redirect=reverse("homepage"),
+        post_reset_redirect=reverse("loginView"),
         from_email="reset@rogger.co"
     )
 
