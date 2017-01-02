@@ -1,7 +1,7 @@
 <div class="shoeContainer">
-  <button class="deleteShoeButton" onclick="deleteShoe(1);">
+  <button class="deleteShoeButton" onclick="deleteShoe({{shoe.id}});">
     delete
   </button><div class="shoeName">
-    {{name}} • {{mileage}} <!-- BULLET POINT USEAGE FROM CITATION [8] -->
+    {{shoe.name}} • {{shoe.mileage}} <!-- BULLET POINT USEAGE FROM CITATION [8] -->
   </div>
 </div>

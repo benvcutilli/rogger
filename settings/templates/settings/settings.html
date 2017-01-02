@@ -133,34 +133,9 @@
       </h3>
       <input id="newShoeName" name="newShoeName" class="settingsTextBox" placeholder="New Shoe Name"/><button id="addShoeButton" onclick="addShoe();">Add</button>
       <div id="shoeListing">
-        <div class="shoeContainer">
-          <button class="deleteShoeButton" onclick="deleteShoe(1);">
-            delete
-          </button><div class="shoeName">
-            a shoe • mileage <!-- BULLET POINT USEAGE FROM CITATION [8] -->
-          </div>
-        </div>
-        <div class="shoeContainer">
-          <button class="deleteShoeButton" onclick="deleteShoe(1);">
-            delete
-          </button><div class="shoeName">
-            a shoe
-          </div>
-        </div>
-        <div class="shoeContainer">
-          <button class="deleteShoeButton" onclick="deleteShoe(1);">
-            delete
-          </button><div class="shoeName">
-            a shoe
-          </div>
-        </div>
-        <div class="shoeContainer">
-          <button class="deleteShoeButton" onclick="deleteShoe(1);">
-            delete
-          </button><div class="shoeName">
-            a shoe
-          </div>
-        </div>
+        {% for shoe in shoes %}
+          {% include "settings/shoe.html" %}
+        {% endfor %}
       </div>
     </div><div id="accountSettings">
       <h3>

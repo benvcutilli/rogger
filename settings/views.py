@@ -33,8 +33,7 @@ def settings(request):
             newShoe.save()
 
             return render(request, 'settings/shoe.html', {
-                'name' : newShoe.name,
-                'mileage': 0
+                'shoe': newShoe
             })
         else:
             return HttpResponseServerError()
@@ -43,6 +42,11 @@ def settings(request):
         if request.is_ajax():
             return settingsAJAX(request)
 
-        return render(request, "settings/settings.html", localizationDict[baseLocale])
+        templateDict = {}
+        templateDict.update(localizationDict[baseLocale])
+        templateDict.update({
+            'shoes':    Shoe.objects.filter(userInfo=request.user.userinfo)
+        })
+        return render(request, "settings/settings.html", templateDict)
     else:
         return HttpResponseRedirect(reverse("loginView"))

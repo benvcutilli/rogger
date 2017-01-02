@@ -24,6 +24,8 @@ using the [#] notation to index each source found on this page):
 [14]  Using OneToOneField to mimic additional information added to built-in User model from Django documentation and unknown source (was used in previous project)
 [15]  Passing csrfmiddlewaretoken into POST dictionary to fix the header thing not working is from and unknown source, but used
       in the previous iteraiton of Rogger
+[16]  Used model reference from string found at this location http://stackoverflow.com/a/39712086 to resolve circular dependencies
+      on imports
 
 This site is built on the Django web development framework.
 
