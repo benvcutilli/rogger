@@ -168,7 +168,8 @@
       data    : {
         newShoeName         : shoeName,
         // next line from citation [15]
-        csrfmiddlewaretoken : "{{ csrf_token }}"
+        csrfmiddlewaretoken : "{{ csrf_token }}",
+        todo                : "addShoe"
       },
       success : function(shoeHTML, ajaxStatus, ajaxResponse) {
         $("#shoeListing").append(shoeHTML);
@@ -178,8 +179,25 @@
       }
     })
   }
-  function deleteShoe(shoeID) {
+  function deleteShoe(shoeElement, shoeID) {
     var verdict = confirm("Are you sure you want to delete this shoe?");
+    if (verdict == true) {
+      $.ajax("{% url "settingsView" %}", {
+        method  : "POST",
+        data    : {
+          shoeID              : shoeID,
+          // next line from citation [15]
+          csrfmiddlewaretoken : "{{ csrf_token }}",
+          todo                : "deleteShoe"
+        },
+        success : function(shoeHTML, ajaxStatus, ajaxResponse) {
+          $(shoeElement).remove();
+        },
+        error   : function(ajaxResponse, ajaxStatus, ajaxError) {
+          alert("There was a problem with your shoe deletion. Please try again if you haven't already");
+        }
+      })
+    }
   }
 </script
 {% endblock %}

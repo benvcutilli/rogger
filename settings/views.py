@@ -25,16 +25,21 @@ localizationDict = {
 def settings(request):
 
     def settingsAJAX(request):
-        shoeForm = ShoeForm({
-            'name'  :   request.POST['newShoeName'],
-        })
-        if shoeForm.is_valid():
-            newShoe = Shoe.objects.create(name=shoeForm.cleaned_data['name'], userInfo=request.user.userinfo)
-            newShoe.save()
-
-            return render(request, 'settings/shoe.html', {
-                'shoe': newShoe
+        if request.POST['todo'] == "addShoe":
+            shoeForm = ShoeForm({
+                'name'  :   request.POST['newShoeName'],
             })
+            if shoeForm.is_valid():
+                newShoe = Shoe.objects.create(name=shoeForm.cleaned_data['name'], userInfo=request.user.userinfo)
+                newShoe.save()
+
+                return render(request, 'settings/shoe.html', {
+                    'shoe': newShoe
+                })
+            else:
+                return HttpResponseServerError()
+        elif request.POST['todo'] == "deleteShoe":
+            pass
         else:
             return HttpResponseServerError()
 
