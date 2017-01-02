@@ -186,8 +186,20 @@
   </div>
 </div>
 <script>
+  function addShoe() {
+    var shoeName = document.getElementById("newShoeName").value;
+    $.ajax("{% url "settingsView" %}", {
+      method  : "POST",
+      success : function(shoeHTML, ajaxStatus, ajaxResponse) {
+        $("$shoeListing").append(shoeHTML);
+      },
+      error   : function(ajaxResponse, ajaxStatus, ajaxError) {
+        alert("There was a problem with your shoe creation. Maybe you input something incorrectly?");
+      }
+    })
+  }
   function deleteShoe(shoeID) {
-    confirm("Are you sure you want to delete this shoe?");
+    var verdict = confirm("Are you sure you want to delete this shoe?");
   }
 </script
 {% endblock %}
