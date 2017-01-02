@@ -191,7 +191,7 @@
           todo                : "deleteShoe"
         },
         success : function(shoeHTML, ajaxStatus, ajaxResponse) {
-          $(shoeElement).remove();
+          $(shoeElement).parent().remove();
         },
         error   : function(ajaxResponse, ajaxStatus, ajaxError) {
           alert("There was a problem with your shoe deletion. Please try again if you haven't already");
