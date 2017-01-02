@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from shared.languageLocalization import baseLocalization
-from django.http import HttpResponseRedirect, HttpResponseServerError, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponseServerError, HttpResponse, HttpResponseBadRequest, HttpResponseForbidden
 from django.urls import reverse
 from settings.forms import ShoeForm, AccountSettingsForm
 from settings.models import Shoe
@@ -65,11 +65,17 @@ def settings(request):
                     request.user.userinfo.save()
                     return HttpResponse("")
                 else:
-                    return HttpResponseServerError()
+                    return HttpResponseForbidden("The password you entered is invalid.")
             else:
-                return HttpResponseServerError()
+                return HttpResponseBadRequest("The information you entered is invalid.")
         else:
-            return HttpResponseServerError()
+            return HttpResponseBadRequest("This command isn't recognized.")
+
+
+
+
+
+
 
     if request.user.is_authenticated:
         if request.is_ajax():

@@ -219,11 +219,11 @@
         csrfmiddlewaretoken : "{{ csrf_token }}",
         todo                : "updateAccountSettings"
       },
-      success : function(shoeHTML, ajaxStatus, ajaxResponse) {
+      success : function(ajaxResponse, ajaxStatus, ajaxResponse) {
         alert("Account settings have been updated.")
       },
       error   : function(ajaxResponse, ajaxStatus, ajaxError) {
-        alert("There was a problem with your account settings update. Please try again if you haven't already.");
+        alert(ajaxResponse.responseText);
       }
     })
   }
