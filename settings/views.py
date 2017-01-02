@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from shared.languageLocalization import baseLocalization
-from django.http import HttpResponseRedirect, HttpResponseServerError
+from django.http import HttpResponseRedirect, HttpResponseServerError, HttpResponse
 from django.urls import reverse
 from settings.forms import ShoeForm
 from settings.models import Shoe
@@ -39,7 +39,12 @@ def settings(request):
             else:
                 return HttpResponseServerError()
         elif request.POST['todo'] == "deleteShoe":
-            pass
+            try:
+                Shoe.objects.get(id=int(request.POST['shoeID'])).delete()
+            except:
+                return HttpResponseServerError()
+
+            return HttpResponse("")
         else:
             return HttpResponseServerError()
 
