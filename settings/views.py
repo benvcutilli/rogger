@@ -29,7 +29,7 @@ def settings(request):
             'name'  :   request.POST['newShoeName'],
         })
         if shoeForm.is_valid():
-            newShoe = Shoe.objects.create(name=shoeForm.cleaned_data['name'])
+            newShoe = Shoe.objects.create(name=shoeForm.cleaned_data['name'], userInfo=request.user.userinfo)
             newShoe.save()
 
             return render(request, 'settings/shoe.html', {

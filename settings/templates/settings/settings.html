@@ -131,7 +131,7 @@
       <h3>
         Shoes
       </h3>
-      <input id="newShoeName" name="newShoeName" class="settingsTextBox" placeholder="New Shoe Name"/><button id="addShoeButton">Add</button>
+      <input id="newShoeName" name="newShoeName" class="settingsTextBox" placeholder="New Shoe Name"/><button id="addShoeButton" onclick="addShoe();">Add</button>
       <div id="shoeListing">
         <div class="shoeContainer">
           <button class="deleteShoeButton" onclick="deleteShoe(1);">
@@ -190,8 +190,13 @@
     var shoeName = document.getElementById("newShoeName").value;
     $.ajax("{% url "settingsView" %}", {
       method  : "POST",
+      data    : {
+        newShoeName         : shoeName,
+        // next line from citation [15]
+        csrfmiddlewaretoken : "{{ csrf_token }}"
+      },
       success : function(shoeHTML, ajaxStatus, ajaxResponse) {
-        $("$shoeListing").append(shoeHTML);
+        $("#shoeListing").append(shoeHTML);
       },
       error   : function(ajaxResponse, ajaxStatus, ajaxError) {
         alert("There was a problem with your shoe creation. Maybe you input something incorrectly?");

@@ -22,6 +22,8 @@ using the [#] notation to index each source found on this page):
       Source is unknown.
 [13]  Removing drop down arrow for selects: http://stackoverflow.com/questions/16603979/select-removing-dropdown-arrow
 [14]  Using OneToOneField to mimic additional information added to built-in User model from Django documentation and unknown source (was used in previous project)
+[15]  Passing csrfmiddlewaretoken into POST dictionary to fix the header thing not working is from and unknown source, but used
+      in the previous iteraiton of Rogger
 
 This site is built on the Django web development framework.
 
