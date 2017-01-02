@@ -2,7 +2,7 @@
 {% block inheritor %}
 <style>
   #settingsDiv {
-    box-sizing:border-box;;
+    box-sizing:border-box;
     margin-top:50px;
     height:100%;
     width:100%;
@@ -50,7 +50,7 @@
     font-size:16px;
     margin: 0px;
   }
-  #newShoeName, #emailAddress, #displayName {
+  #newShoeName, #emailAddress, #displayName, #password {
     color:#000;
   }
   #saveAccountSettingsButton {
@@ -148,21 +148,21 @@
       <input id="emailAddress" class="settingsTextBox" placeholder="New Email Address" name="emailAddress"/>
       <input id="displayName" class="settingsTextBox" placeholder="New Display Name" name="displayName"/>
       <select id="privacySelect">
-        <option selected>
+        <option selected value="0">
           Privacy Setting
         </option>
-        <option>
+        <option value="1">
           Public
         </option>
-        <option>
+        <option value="2">
           Locked
         </option>
-        <option>
+        <option value="3">
           Completely hidden
         </option>
       </select>
       <input id="password" type="password" class="settingsTextBox" placeholder="password for verification" name="password"/>
-      <button id="saveAccountSettingsButton">
+      <button id="saveAccountSettingsButton" onclick="updateAccountSettings()">
         Save
       </button>
     </div>
@@ -214,7 +214,7 @@
         displayName               : document.getElementById("displayName").value,
         emailAddress              : document.getElementById("emailAddress").value,
         password                  : document.getElementById("password").value,
-        privacySetting            : document.getElementById("privacySelector").value,
+        privacySelection          : document.getElementById("privacySelect").value,
         // next line from citation [15]
         csrfmiddlewaretoken : "{{ csrf_token }}",
         todo                : "updateAccountSettings"

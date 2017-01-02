@@ -2,8 +2,9 @@ from django.shortcuts import render
 from shared.languageLocalization import baseLocalization
 from django.http import HttpResponseRedirect, HttpResponseServerError, HttpResponse
 from django.urls import reverse
-from settings.forms import ShoeForm
+from settings.forms import ShoeForm, AccountSettingsForm
 from settings.models import Shoe
+from django.contrib.auth import authenticate
 
 # Create your views here.
 
@@ -45,6 +46,28 @@ def settings(request):
                 return HttpResponseServerError()
 
             return HttpResponse("")
+        elif request.POST['todo'] == "updateAccountSettings":
+            accountSettingsForm = AccountSettingsForm({
+                'emailAddress'      :   request.POST['emailAddress'],
+                'privacySelection'  :   request.POST['privacySelection'],
+                'displayName'       :   request.POST['displayName'],
+            })
+            if accountSettingsForm.is_valid():
+                if authenticate(username=request.user.username, password=request.POST['password']) != None:
+                    print("privacy received", accountSettingsForm.cleaned_data['privacySelection'])
+                    if accountSettingsForm.cleaned_data['emailAddress'] != "":
+                        request.user.email = accountSettingsForm.cleaned_data['emailAddress']
+                    if accountSettingsForm.cleaned_data['privacySelection'] != 0:
+                        request.user.userinfo.privacySelection = accountSettingsForm.cleaned_data['privacySelection']
+                    if accountSettingsForm.cleaned_data['displayName'] != "":
+                        request.user.userinfo.displayName = accountSettingsForm.cleaned_data['displayName']
+                    request.user.save()
+                    request.user.userinfo.save()
+                    return HttpResponse("")
+                else:
+                    return HttpResponseServerError()
+            else:
+                return HttpResponseServerError()
         else:
             return HttpResponseServerError()
 
