@@ -79,6 +79,7 @@
     appearance: none;
     /* end citation */
     margin-top:10px;
+    margin-bottom:10px;
     padding:10px;
   }
   @media screen and (max-width:600px) {
@@ -141,10 +142,16 @@
       <h3>
         Account
       </h3>
-      <input id="emailAddress" class="settingsTextBox" placeholder="New Email Address"/>
-      <input id="displayName" class="settingsTextBox" placeholder="New Display Name"/>
+      <h4>
+        Enter any changes you want to your account here. Unentered values will not be considered for change, while entered values will be considered for change.
+      </h4>
+      <input id="emailAddress" class="settingsTextBox" placeholder="New Email Address" name="emailAddress"/>
+      <input id="displayName" class="settingsTextBox" placeholder="New Display Name" name="displayName"/>
       <select id="privacySelect">
         <option selected>
+          Privacy Setting
+        </option>
+        <option>
           Public
         </option>
         <option>
@@ -154,6 +161,7 @@
           Completely hidden
         </option>
       </select>
+      <input id="password" type="password" class="settingsTextBox" placeholder="password for verification" name="password"/>
       <button id="saveAccountSettingsButton">
         Save
       </button>
@@ -194,10 +202,30 @@
           $(shoeElement).parent().remove();
         },
         error   : function(ajaxResponse, ajaxStatus, ajaxError) {
-          alert("There was a problem with your shoe deletion. Please try again if you haven't already");
+          alert("There was a problem with your shoe deletion. Please try again if you haven't already.");
         }
       })
     }
+  }
+  function updateAccountSettings() {
+    $.ajax("{% url "settingsView" %}", {
+      method  : "POST",
+      data    : {
+        displayName               : document.getElementById("displayName").value,
+        emailAddress              : document.getElementById("emailAddress").value,
+        password                  : document.getElementById("password").value,
+        privacySetting            : document.getElementById("privacySelector").value,
+        // next line from citation [15]
+        csrfmiddlewaretoken : "{{ csrf_token }}",
+        todo                : "updateAccountSettings"
+      },
+      success : function(shoeHTML, ajaxStatus, ajaxResponse) {
+        alert("Account settings have been updated.")
+      },
+      error   : function(ajaxResponse, ajaxStatus, ajaxError) {
+        alert("There was a problem with your account settings update. Please try again if you haven't already.");
+      }
+    })
   }
 </script>
 {% endblock %}
