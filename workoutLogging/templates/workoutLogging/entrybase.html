@@ -90,24 +90,26 @@
   }
 </style>
 <div id="pageContainer">
-  <div id="entryPropertiesDiv">
-    <input type="text" id="titleText" placeholder="title of workout" {% block titledisable %}{% endblock %}/><input type="text" id="dateText" placeholder="yyyy.mm.dd" {% block datedisable %}{% endblock %}/>
-    <div id="durationText"><input type="text" id="durationHours" placeholder="hh" oninput="processLogDistance();"{% block hoursdisable %}{% endblock %}/><input type="text" id="durationMinutes" placeholder="mm" oninput="processLogDistance();"{% block minutesdisable %}{% endblock %}/><input type="text" id="durationSeconds" placeholder="ss.ss" oninput="processLogDistance();"{% block secondsdisable %}{% endblock %}/></div><div id="distanceText">0</div>
-    <select id="shoeSelect" selected="shoe" {% block shoedisable %}{% endblock %}>
-      <option>shoe</option>
-      <option>shoe 1</option>
-      <option>shoe2</option>
-    </select><select id="typeSelect" {% block typedisable %}{% endblock %}>
-      <option>type</option>
-      <option>type 1</option>
-      <option>type 2</option>
-    </select><select id="subtypeSelect" {% block subtypedisable %}{% endblock %}>
-      <option>subtype</option>
-      <option>subtype 1</option>
-      <option>subtype 2</option>
-    </select>
-  </div>
-  <textarea id="entryText"></textarea>
+  <form action="" method="post">
+    <div id="entryPropertiesDiv">
+      <input type="text" id="titleText" name="title" placeholder="title of workout" {% block titledisable %}{% endblock %}/><input type="text" id="dateText" placeholder="yyyy.mm.dd" {% block datedisable %}{% endblock %}/>
+      <div id="durationText"><input type="text" id="durationHours" name="hours" placeholder="hh" oninput="processLogDistance();"{% block hoursdisable %}{% endblock %}/><input type="text" id="durationMinutes" name="minutes" placeholder="mm" oninput="processLogDistance();"{% block minutesdisable %}{% endblock %}/><input type="text" id="durationSeconds" name="seconds" placeholder="ss.ss" oninput="processLogDistance();"{% block secondsdisable %}{% endblock %}/></div><div id="distanceText">0</div><input type="text" id="distanceInput" name="distance" hidden/>
+      <select id="shoeSelect" name="shoe" selected="shoe" {% block shoedisable %}{% endblock %}>
+        <option>shoe</option>
+        <option>shoe 1</option>
+        <option>shoe2</option>
+      </select><select id="typeSelect" name="type" {% block typedisable %}{% endblock %}>
+        <option>type</option>
+        <option>type 1</option>
+        <option>type 2</option>
+      </select><select id="subtypeSelect" name="subtype" {% block subtypedisable %}{% endblock %}>
+        <option>subtype</option>
+        <option>subtype 1</option>
+        <option>subtype 2</option>
+      </select>
+    </div>
+    <textarea id="entryText" name="entryText"></textarea>
+  </form>
   {% block buttonblock %}{% endblock %}
   {% block comments %}
   {% endblock %}
@@ -174,6 +176,7 @@
       }
       //console.log(total);
       document.getElementById("distanceText").innerHTML = total + " miles";
+      document.getElementById("distanceInput").value = total;
       var hours = document.getElementById("durationHours").value;
       var minutes = document.getElementById("durationMinutes").value;
       var seconds = document.getElementById("durationSeconds").value;
