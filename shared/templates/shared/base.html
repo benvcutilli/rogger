@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load staticfiles %}
 <html>
   <head>
     <!-- FROM Google Fonts (citation [3])-->
@@ -8,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css?family=Quattrocento" rel="stylesheet">
     <!-- END CITATION -->
     <script src='https://www.google.com/recaptcha/api.js'></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="{% static "shared/jquery-3.1.1.min.js" %}" ></script><!--"https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>-->
   </head>
   <body>
     <style>
