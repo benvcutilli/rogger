@@ -88,9 +88,17 @@
     padding:15px;
     font-size:16px;
   }
+  #whoops {
+    color:#f00;
+  }
 </style>
 <div id="pageContainer">
-  <form action="" method="post">
+  {% if error != "" %}
+  <h3>
+    <span id="whoops">Whoops!</span> {{ error }}
+  </h3>
+  {% endif %}
+  <form action="{{ formURL }}" method="post">
     <div id="entryPropertiesDiv">
       <input type="text" id="titleText" name="title" placeholder="title of workout" {% block titledisable %}{% endblock %}/><input type="text" id="dateText" placeholder="yyyy.mm.dd" {% block datedisable %}{% endblock %}/>
       <div id="durationText"><input type="text" id="durationHours" name="hours" placeholder="hh" oninput="processLogDistance();"{% block hoursdisable %}{% endblock %}/><input type="text" id="durationMinutes" name="minutes" placeholder="mm" oninput="processLogDistance();"{% block minutesdisable %}{% endblock %}/><input type="text" id="durationSeconds" name="seconds" placeholder="ss.ss" oninput="processLogDistance();"{% block secondsdisable %}{% endblock %}/></div><div id="distanceText">0</div><input type="text" id="distanceInput" name="distance" hidden/>
