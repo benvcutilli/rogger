@@ -91,6 +91,9 @@
   #whoops {
     color:#f00;
   }
+  h3 {
+    text-align:center;
+  }
 </style>
 <div id="pageContainer">
   {% if error != "" %}
@@ -99,13 +102,13 @@
   </h3>
   {% endif %}
   <form action="{{ formURL }}" method="post">
+    {% csrf_token %}
     <div id="entryPropertiesDiv">
-      <input type="text" id="titleText" name="title" placeholder="title of workout" {% block titledisable %}{% endblock %}/><input type="text" id="dateText" placeholder="yyyy.mm.dd" {% block datedisable %}{% endblock %}/>
-      <div id="durationText"><input type="text" id="durationHours" name="hours" placeholder="hh" oninput="processLogDistance();"{% block hoursdisable %}{% endblock %}/><input type="text" id="durationMinutes" name="minutes" placeholder="mm" oninput="processLogDistance();"{% block minutesdisable %}{% endblock %}/><input type="text" id="durationSeconds" name="seconds" placeholder="ss.ss" oninput="processLogDistance();"{% block secondsdisable %}{% endblock %}/></div><div id="distanceText">0</div><input type="text" id="distanceInput" name="distance" hidden/>
+      <input type="text" id="titleText" name="title" placeholder="title of workout" {% block titledisable %}{% endblock %} value="{{form.title.data}}"/><input type="text" id="dateText" name="date" placeholder="yyyy.mm.dd" {% block datedisable %}{% endblock %} value="{{form.date.data}}"/>
+      <div id="durationText"><input type="text" id="durationHours" name="hours" placeholder="hh" oninput="processLogDistance();"{% block hoursdisable %}{% endblock %} value="{{form.hours.data}}"/><input type="text" id="durationMinutes" name="minutes" placeholder="mm" oninput="processLogDistance();"{% block minutesdisable %}{% endblock %} vale="{{form.minutes.data}}"/><input type="text" id="durationSeconds" name="seconds" placeholder="ss.ss" oninput="processLogDistance();"{% block secondsdisable %}{% endblock %} value="{{form.seconds.data}}"/></div><div id="distanceText">{{form.distance.data}}</div><input type="text" id="distanceInput" value="{% block defaultdistance %}{% endblock %}" name="distance" value="{{form.distance.data}}"hidden/>
       <select id="shoeSelect" name="shoe" selected="shoe" {% block shoedisable %}{% endblock %}>
-        <option>shoe</option>
-        <option>shoe 1</option>
-        <option>shoe2</option>
+        {% block shoeblock %}
+        {% endblock %}
       </select><select id="typeSelect" name="type" {% block typedisable %}{% endblock %}>
         <option>type</option>
         <option>type 1</option>
@@ -117,8 +120,9 @@
       </select>
     </div>
     <textarea id="entryText" name="entryText"></textarea>
+    {% block buttonblock %}{% endblock %}
   </form>
-  {% block buttonblock %}{% endblock %}
+
   {% block comments %}
   {% endblock %}
 </div>
@@ -163,6 +167,7 @@
     {% block logentrydisable %}{% endblock %}
   })
   logEditorCodeMirrorInstance.on("change", processLogDistance);
+  logEditorCodeMirrorInstance.setValue("{{ form.getEscapedEntry|safe }}")
 
   function processLogDistance() {
     var logText = logEditorCodeMirrorInstance.getValue();

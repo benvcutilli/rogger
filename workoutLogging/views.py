@@ -26,23 +26,37 @@ def newEntry(request):
     templateDict = entryLocalization[debugLocale]
     templateDict.update({
         'formURL'   :   reverse("newEntryView"),
-        'error'     :   ""
+        'error'     :   "",
+        'shoes'     :   [(element, repr(element.id)) for element in Shoe.objects.filter(owner=request.user)]
     })
 
     if request.user.is_authenticated:
-        if request.method = "POST":
+        workoutForm = forms.WorkoutForm({
+            'title'     :   "",
+            'distance'  :   "",
+            'hours'     :   "",
+            'minutes'   :   "",
+            'seconds'   :   "",
+            'wtype'     :   "",
+            'wsubtype'  :   "",
+            'shoe'      :   "",
+            'entry'     :   "",
+            'date'      :   "",
+        })
+        if request.method == "POST":
             workoutForm = forms.WorkoutForm({
                 'title'     :   request.POST['title'],
                 'distance'  :   request.POST['distance'],
-                'hours'     :   request.POST['durationHours'],
-                'minutes'   :   request.POST['durationMinutes'],
-                'seconds'   :   request.POST['durationSeconds'],
+                'hours'     :   request.POST['hours'],
+                'minutes'   :   request.POST['minutes'],
+                'seconds'   :   request.POST['seconds'],
                 'wtype'     :   request.POST['type'],
                 'wsubtype'  :   request.POST['subtype'],
                 'shoe'      :   request.POST['shoe'],
-                'entry'     :   request.POST['entryText']
+                'entry'     :   request.POST['entryText'],
+                'date'      :   request.POST['date'],
             })
-
+            print([workoutForm['shoe'].data == shoe.id for shoe in Shoe.objects.filter(owner=request.user)])
             if workoutForm.is_valid():
                 workout = Workout.object.create(
                     title       =   workoutForm.cleaned_data['title'],
@@ -52,15 +66,20 @@ def newEntry(request):
                     seconds     =   workoutForm.cleaned_data['seconds'],
                     wtype       =   workoutForm.cleaned_data['wtype'],
                     wsubtype    =   workoutForm.cleaned_data['wsubtype'],
-                    shoe        =   Shoe.objects.get(id=workoutForm.cleaned_data['shoe']),
+                    shoe        =   Shoe.objects.get(id=workoutForm.cleaned_data['shoe']) if workoutForm.cleaned_data['shoe'] >= 0 else None,
                     entry       =   workoutForm.cleaned_data['entry'],
-                    owner       =   request.user
+                    owner       =   request.user,
+                    date        =   workoutForm.cleaned_data['date']
                 )
 
                 workout.save()
                 return HttpResponseRedirect(reverse("homepage"))
             else:
                 templateDict['error'] = workoutForm.getErrorString()
+
+        templateDict.update({
+            'form': workoutForm
+        })
         return render(request, "workoutLogging/newentry.html", templateDict)
     else:
         return HttpResponseForbidden()

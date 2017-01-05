@@ -31,7 +31,7 @@ def settings(request):
                 'name'  :   request.POST['newShoeName'],
             })
             if shoeForm.is_valid():
-                newShoe = Shoe.objects.create(name=shoeForm.cleaned_data['name'], userInfo=request.user.userinfo)
+                newShoe = Shoe.objects.create(name=shoeForm.cleaned_data['name'], owner=request.user)
                 newShoe.save()
 
                 return render(request, 'settings/shoe.html', {
@@ -84,7 +84,7 @@ def settings(request):
         templateDict = {}
         templateDict.update(localizationDict[baseLocale])
         templateDict.update({
-            'shoes':    Shoe.objects.filter(userInfo=request.user.userinfo)
+            'shoes':    Shoe.objects.filter(owner=request.user)
         })
         return render(request, "settings/settings.html", templateDict)
     else:
