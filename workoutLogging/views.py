@@ -33,7 +33,7 @@ def newEntry(request):
     if request.user.is_authenticated:
         workoutForm = forms.WorkoutForm({
             'title'     :   "",
-            'distance'  :   "",
+            'distance'  :   "0 miles",
             'hours'     :   "",
             'minutes'   :   "",
             'seconds'   :   "",

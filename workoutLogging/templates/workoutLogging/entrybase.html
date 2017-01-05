@@ -56,14 +56,15 @@
     width:50%;
     display:inline-block;
   }
-  #shoeSelect, #typeSelect, #subtypeSelect {
-    width:33.33%;
+  #shoeSelect, #typeSelect {
+    width:28%;
     /* citation [13] */
     -moz-appearance: none;
     -webkit-appearance: none;
     appearance: none;
     /* end citation */
     height:60px;
+    margin-left:22%;
   }
   @media screen and (max-width:600px) {
     #durationText, #distanceText, #titleText, #dateText {
@@ -113,10 +114,6 @@
         <option>type</option>
         <option>type 1</option>
         <option>type 2</option>
-      </select><select id="subtypeSelect" name="subtype" {% block subtypedisable %}{% endblock %}>
-        <option>subtype</option>
-        <option>subtype 1</option>
-        <option>subtype 2</option>
       </select>
     </div>
     <textarea id="entryText" name="entryText"></textarea>
