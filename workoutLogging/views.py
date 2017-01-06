@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from shared.languageLocalization import baseLocalization
 from django.urls import reverse
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseForbidden, HttpResponseRedirect
 from workoutLogging import forms
 from settings.models import Shoe, WorkoutType
+from workoutLogging.models import Workout
 
 debugLocale = 'french'
 
@@ -60,14 +61,13 @@ def newEntry(request):
             })
             print([workoutForm['shoe'].data == shoe.id for shoe in Shoe.objects.filter(owner=request.user)])
             if workoutForm.is_valid():
-                workout = Workout.object.create(
+                workout = Workout.objects.create(
                     title       =   workoutForm.cleaned_data['title'],
                     distance    =   workoutForm.cleaned_data['distance'],
                     hours       =   workoutForm.cleaned_data['hours'],
                     minutes     =   workoutForm.cleaned_data['minutes'],
                     seconds     =   workoutForm.cleaned_data['seconds'],
-                    wtype       =   workoutForm.cleaned_data['wtype'],
-                    wsubtype    =   workoutForm.cleaned_data['wsubtype'],
+                    wtype       =   WorkoutType.objects.get(id=int(workoutForm.cleaned_data['wtype'])),
                     shoe        =   Shoe.objects.get(id=workoutForm.cleaned_data['shoe']) if workoutForm.cleaned_data['shoe'] >= 0 else None,
                     entry       =   workoutForm.cleaned_data['entry'],
                     owner       =   request.user,
