@@ -33,7 +33,7 @@ def newEntry(request):
         'types'     :   [(element, repr(element.id)) for element in availableWorkoutTypes]
     })
 
-    print(WorkoutType.objects.filter(owner__isnull=True))
+    
 
     if request.user.is_authenticated:
         workoutForm = forms.WorkoutForm({
