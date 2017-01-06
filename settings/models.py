@@ -18,14 +18,14 @@ class Shoe(models.Model):
         return totalMileage
 
 universalWorkoutTypeNames = [
-    # FOLLOWING ARE FROM AND/OR INSPIRED BY MERV
+    # FOLLOWING ARE FROM AND/OR INSPIRED BY THE ORIGINAL Rogger (which was inspired by Merv), NOT MY OWN CREATION
     ("Easy Run",    0),
     ("Tempo",       0),
     ("Repeats",     0),
     ("Bike",        0),
     ("Cross Train", 1),
     ("Swim",        0),
-    # FOLLOWING ARE DEFINITELY FROM MERV
+    # FOLLOWING ARE DEFINITELY FROM THE ORIGINAL ROGGER (which were from Merv), NOT MY OWN CREATION
     ("Weights",     0),
     ("Rower",       1),
     ("Stepper",     0),

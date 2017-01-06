@@ -1,12 +1,6 @@
 {% extends 'workoutLogging/entrybase.html' %}
 {% load staticfiles %}
 {% block defaultdistance %}0{% endblock %}
-{% block shoeblock %}
-  <option value="-1">select shoe</option>
-{% for shoe in shoes %}
-  <option value="{{ shoe.0.id }}" {% if form.shoe.data == shoe.1 %}selected{% endif %}>{{ shoe.0.name }}</option>
-{% endfor %}
-{% endblock %}
 {% block buttonblock %}
 <style>
   #saveEntryButton {

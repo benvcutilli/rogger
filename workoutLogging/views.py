@@ -3,7 +3,7 @@ from shared.languageLocalization import baseLocalization
 from django.urls import reverse
 from django.http import HttpResponseForbidden
 from workoutLogging import forms
-from settings.models import Shoe
+from settings.models import Shoe, WorkoutType
 
 debugLocale = 'french'
 
@@ -24,11 +24,15 @@ entryLocalization = {
 
 def newEntry(request):
     templateDict = entryLocalization[debugLocale]
+    availableWorkoutTypes = WorkoutType.objects.filter(owner__isnull=True) | WorkoutType.objects.filter(owner=request.user)
     templateDict.update({
         'formURL'   :   reverse("newEntryView"),
         'error'     :   "",
-        'shoes'     :   [(element, repr(element.id)) for element in Shoe.objects.filter(owner=request.user)]
+        'shoes'     :   [(element, repr(element.id)) for element in Shoe.objects.filter(owner=request.user)],
+        'types'     :   [(element, repr(element.id)) for element in availableWorkoutTypes]
     })
+
+    print(WorkoutType.objects.filter(owner__isnull=True))
 
     if request.user.is_authenticated:
         workoutForm = forms.WorkoutForm({
@@ -38,7 +42,6 @@ def newEntry(request):
             'minutes'   :   "",
             'seconds'   :   "",
             'wtype'     :   "",
-            'wsubtype'  :   "",
             'shoe'      :   "",
             'entry'     :   "",
             'date'      :   "",
@@ -51,7 +54,6 @@ def newEntry(request):
                 'minutes'   :   request.POST['minutes'],
                 'seconds'   :   request.POST['seconds'],
                 'wtype'     :   request.POST['type'],
-                'wsubtype'  :   request.POST['subtype'],
                 'shoe'      :   request.POST['shoe'],
                 'entry'     :   request.POST['entryText'],
                 'date'      :   request.POST['date'],

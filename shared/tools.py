@@ -10,4 +10,4 @@ from settings.models import WorkoutType, universalWorkoutTypeNames
 
 def initializeUniversalTypes():
     for workoutType in universalWorkoutTypeNames:
-        WorkoutType.object.create(owner=None, name=workoutType[0], displayMeasurement=workoutType[1])
+        WorkoutType.objects.create(owner=None, name=workoutType[0], displayMeasurement=workoutType[1]).save()
