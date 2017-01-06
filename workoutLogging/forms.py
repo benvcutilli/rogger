@@ -9,7 +9,7 @@ class WorkoutForm(forms.Form):
     # type/subtype from Merv
     wtype           =   forms.IntegerField()
     shoe            =   forms.IntegerField(required=False)
-    entry           =   forms.CharField()
+    entry           =   forms.CharField(required=False)
     date            =   forms.DateField(input_formats=["%Y.%m.%d"])
 
     def getErrorString(self):
