@@ -124,4 +124,20 @@
       })
     }
   }
+  function addComment() {
+    $.ajax("{% url "commentAddView" %}", {
+      method  : "POST",
+      data    : {
+        text               : document.getElementById("commentingArea".value,
+        // next line from citation [15]
+        csrfmiddlewaretoken : "{{ csrf_token }}",
+      },
+      success : function(ajaxResponse, ajaxStatus, ajaxResponse) {
+        $("#commentsArea").append(ajaxResponse);
+      },
+      error   : function(ajaxResponse, ajaxStatus, ajaxError) {
+        alert(ajaxResponse.responseText);
+      }
+    })
+  }
   {% endblock %}
