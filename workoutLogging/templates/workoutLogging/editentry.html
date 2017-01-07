@@ -93,91 +93,9 @@
       Comments
     </h2>
     <div id="commentsHolder">
-      <div class="comment">
-        <div class="commentHeader">
-          <table class="commentInfo">
-            <tbody>
-              <tr>
-                <td>
-                  <img src="{% static 'userProfile/pennrosediagram.png' %}" class="commentUserPicture"/>
-                </td>
-                <td>
-                  username
-                </td>
-                <td>
-                  date time
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <button class="deleteCommentButton" onclick="deleteComment(1);">
-          delete
-        </button>
-        <div class="commentContent">
-          hihihihihihihihihihih hihihihihihihihi hihihihihihihihihihih hihihihihihihihihihih hihihihihihihihi hihihihihihihihihihih hihihihihihihihihihih hihihihihihihihi hihihihihihihihihihih hihihihihihihihihihih hihihihihihihihi hihihihihihihihihihih hihihihihihihihihihih hihihihihihihihi hihihihihihihihihihih hihihihihihihihihihih hihihihihihihihi hihihihihihihihihihih hihihihihihihihihihih hihihihihihihihi hihihihihihihihihihih hihihihihihihihihihih hihihihihihihihi hihihihihihihihihihih hihihihihihihihihihih hihihihihihihihi hihihihihihihihihihih hihihihihihihihihihih hihihihihihihihi hihihihihihihihihihih
-        </div>
-      </div>
-      <div class="comment">
-        <table class="commentInfo">
-          <tbody>
-            <tr>
-              <td>
-                <img src="{% static 'userProfile/pennrosediagram.png' %}" class="commentUserPicture"/>
-              </td>
-              <td>
-                username
-              </td>
-              <td>
-                date time
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="commentContent">
-          hihihihihihihihihihih hihihihihihihihi hihihihihihihihihihih hihihihihihihihihihih hihihihihihihihi hihihihihihihihihihih hihihihihihihihihihih hihihihihihihihi hihihihihihihihihihih hihihihihihihihihihih hihihihihihihihi hihihihihihihihihihih hihihihihihihihihihih hihihihihihihihi hihihihihihihihihihih hihihihihihihihihihih hihihihihihihihi hihihihihihihihihihih hihihihihihihihihihih hihihihihihihihi hihihihihihihihihihih hihihihihihihihihihih hihihihihihihihi hihihihihihihihihihih hihihihihihihihihihih hihihihihihihihi hihihihihihihihihihih hihihihihihihihihihih hihihihihihihihi hihihihihihihihihihih
-        </div>
-      </div>
-      <div class="comment">
-        <table class="commentInfo">
-          <tbody>
-            <tr>
-              <td>
-                <img src="{% static 'userProfile/pennrosediagram.png' %}" class="commentUserPicture"/>
-              </td>
-              <td>
-                username
-              </td>
-              <td>
-                date time
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="commentContent">
-          hihihihihihihihihihih hihihihihihihihi hihihihihihihihihihih hihihihihihihihihihih hihihihihihihihi hihihihihihihihihihih hihihihihihihihihihih hihihihihihihihi hihihihihihihihihihih hihihihihihihihihihih hihihihihihihihi hihihihihihihihihihih hihihihihihihihihihih hihihihihihihihi hihihihihihihihihihih hihihihihihihihihihih hihihihihihihihi hihihihihihihihihihih hihihihihihihihihihih hihihihihihihihi hihihihihihihihihihih hihihihihihihihihihih hihihihihihihihi hihihihihihihihihihih hihihihihihihihihihih hihihihihihihihi hihihihihihihihihihih hihihihihihihihihihih hihihihihihihihi hihihihihihihihihihih
-        </div>
-      </div>
-      <div class="comment">
-        <table class="commentInfo">
-          <tbody>
-            <tr>
-              <td>
-                <img src="{% static 'userProfile/pennrosediagram.png' %}" class="commentUserPicture"/>
-              </td>
-              <td>
-                username
-              </td>
-              <td>
-                date time
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="commentContent">
-          hihihihihihihihihihih hihihihihihihihi hihihihihihihihihihih hihihihihihihihihihih hihihihihihihihi hihihihihihihihihihih hihihihihihihihihihih hihihihihihihihi hihihihihihihihihihih hihihihihihihihihihih hihihihihihihihi hihihihihihihihihihih hihihihihihihihihihih hihihihihihihihi hihihihihihihihihihih hihihihihihihihihihih hihihihihihihihi hihihihihihihihihihih hihihihihihihihihihih hihihihihihihihi hihihihihihihihihihih hihihihihihihihihihih hihihihihihihihi hihihihihihihihihihih hihihihihihihihihihih hihihihihihihihi hihihihihihihihihihih hihihihihihihihihihih hihihihihihihihi hihihihihihihihihihih
-        </div>
-      </div>
+      {% for comment in comments %}
+      {% include "workoutLogging/comment.html" %}
+      {% endfor %}
     </div>
     <textarea id="commentingArea">
     </textarea><button id="submitCommentButton">Post</button>
@@ -187,7 +105,23 @@
   function deleteEntry() {
     confirm("Are you sure you want to delete this entry?");
   }
-  function deleteComment(commentID) {
-    confirm("Are you sure you want to delete this comment?");
+  function deleteComment(commentButton, commentID) {
+    var verdict = confirm("Are you sure you want to delete this comment?");
+    if (verdict) {
+      $.ajax("{% url "commentDeleteView" %}", {
+        method  : "POST",
+        data    : {
+          id               : commentID,
+          // next line from citation [15]
+          csrfmiddlewaretoken : "{{ csrf_token }}",
+        },
+        success : function(ajaxResponse, ajaxStatus, ajaxResponse) {
+          $(this).parent().remove();
+        },
+        error   : function(ajaxResponse, ajaxStatus, ajaxError) {
+          alert(ajaxResponse.responseText);
+        }
+      })
+    }
   }
   {% endblock %}

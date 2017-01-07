@@ -185,6 +185,7 @@ def commentAddView(request, workoutID):
         commentText = request.POST['text']
         newComment = Comment.objects.create(commentText=commentText, owner=request.user, workout=Workout.objects.get(id=workoutID))
         newComment.save()
+        return render(request, "workoutLogging/comment.html", { 'comment' : newComment })
     else:
         return HttpResponseForbidden("Please log in to use this feature.")
 

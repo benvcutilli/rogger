@@ -1,0 +1,25 @@
+<div class="comment">
+  <div class="commentHeader">
+    <table class="commentInfo">
+      <tbody>
+        <tr>
+          <td>
+            <img src="{% static 'userProfile/pennrosediagram.png' %}" class="commentUserPicture"/>
+          </td>
+          <td>
+            {{ comment.owner.username }}
+          </td>
+          <td>
+            {{ comment.dateAndTime }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <button class="deleteCommentButton" onclick="deleteComment(this, {{ comment.id }});">
+    delete
+  </button>
+  <div class="commentContent">
+    {{ comment.commentText }}
+  </div>
+</div>
