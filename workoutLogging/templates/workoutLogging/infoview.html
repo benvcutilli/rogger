@@ -1,0 +1,3 @@
+<div>
+  {{ user.username }} • {{ form.title.data }} • {{ form.distance.data }} {% if form.hours.data != "" %}• {{ form.hours.data }}:{% endif %}{% if form.minutes.data != "" %}{{ form.data.minutes }}:{% endif %}{% if form.seconds.data != "" %}{{ form.seconds.data }}{% endif %}{% if form.shoe.data != "" %} • {% for shoe in shoes}{% if shoe.1 == form.shoe.data %}{{ shoe.name }}{% endfor %}{% endif %}
+</div>

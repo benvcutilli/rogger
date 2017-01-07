@@ -1,28 +1,7 @@
 {% extends 'workoutLogging/entrybase.html' %}
 {% load staticfiles %}
-{% block defaultdistance %}0{% endblock %}
-{% block buttonblock %}
-<style>
-  #saveEntryButton {
-    outline:none;
-    border:none;
-    height:50px;
-    width:50%;
-    text-align:center;
-    font-size:16px;
-    /*background-color:#778;*/
-    color:#fff;
-  }
-  #saveEntryButton {
-    margin-left:25%;
-    margin-right:25%;
-    background-color:#0f0;
-  }
-</style>
-
-<button id="saveEntryButton">
-  Save
-</button>
+{% block workoutinfo %}
+{% include "workoutLogging/infonew.html" %}
 {% endblock %}
 {% block comments %}
 {% endblock %}

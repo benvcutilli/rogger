@@ -102,25 +102,8 @@
     <span id="whoops">Whoops!</span> {{ error }}
   </h3>
   {% endif %}
-  <form action="{{ formURL }}" method="post">
-    {% csrf_token %}
-    <div id="entryPropertiesDiv">
-      <input type="text" id="titleText" name="title" placeholder="title of workout" {% block titledisable %}{% endblock %} value="{{form.title.data}}"/><input type="text" id="dateText" name="date" placeholder="yyyy.mm.dd" {% block datedisable %}{% endblock %} value="{{form.date.data}}"/>
-      <div id="durationText"><input type="text" id="durationHours" name="hours" placeholder="hh" oninput="processLogDistance();"{% block hoursdisable %}{% endblock %} value="{{form.hours.data}}"/><input type="text" id="durationMinutes" name="minutes" placeholder="mm" oninput="processLogDistance();"{% block minutesdisable %}{% endblock %} value="{{form.minutes.data}}"/><input type="text" id="durationSeconds" name="seconds" placeholder="ss.ss" oninput="processLogDistance();"{% block secondsdisable %}{% endblock %} value="{{form.seconds.data}}"/></div><div id="distanceText">{{form.distance.data}}</div><input type="text" id="distanceInput" value="{% block defaultdistance %}{% endblock %}" name="distance" value="{{form.distance.data}}"hidden/>
-      <select id="shoeSelect" name="shoe" selected="shoe" {% block shoedisable %}{% endblock %}>
-        <option value="-1">select shoe</option>
-        {% for shoe in shoes %}
-        <option value="{{ shoe.0.id }}" {% if form.shoe.data == shoe.1 %}selected{% endif %}>{{ shoe.0.name }}</option>
-        {% endfor %}
-      </select><select id="typeSelect" name="type" {% block typedisable %}{% endblock %}>
-        {% for type in types %}
-        <option value="{{ type.0.id }}" {% if type.1 == form.wtype.data %}selected{% endif %}>{{ type.0.name }}</option>
-        {% endfor %}
-      </select>
-    </div>
-    <textarea id="entryText" name="entryText"></textarea>
-    {% block buttonblock %}{% endblock %}
-  </form>
+  {% block workoutinfo %}
+  {% endblock %}
 
   {% block comments %}
   {% endblock %}
