@@ -81,7 +81,8 @@ def newEntry(request):
                 templateDict['error'] = workoutForm.getErrorString()
 
         templateDict.update({
-            'form': workoutForm
+            'form': workoutForm,
+            'escapedEntry'  :   ""
         })
         return render(request, "workoutLogging/newentry.html", templateDict)
     else:
@@ -153,8 +154,6 @@ def editEntry(request, workoutID):
         'escapedEntry'  :   workoutForm.getEscapedEntry()
     })
     return render(request, "workoutLogging/editentry.html", templateDict)
-
-
 
 def viewEntry(request, workoutID):
     workout = Workout.objects.get(id=workoutID)
