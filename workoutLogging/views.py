@@ -120,24 +120,31 @@ def editEntry(request, workoutID):
             'entry'     :   request.POST['entryText'],
             'date'      :   request.POST['date'],
         })
-        if workoutForm.is_valid():
+        # THIS WHOLE IF/ELSE SEGMENT CONDITIONAL LINES FROM [17]
+        if 'saveButton' in request.POST:
             workout = Workout.objects.get(id=workoutID)
-
-            workout.title       =   workoutForm.cleaned_data['title'],
-            workout.distance    =   workoutForm.cleaned_data['distance'],
-            workout.hours       =   workoutForm.cleaned_data['hours'],
-            workout.minutes     =   workoutForm.cleaned_data['minutes'],
-            workout.seconds     =   workoutForm.cleaned_data['seconds'],
-            workout.wtype       =   WorkoutType.objects.get(id=int(workoutForm.cleaned_data['wtype'])),
-            workout.shoe        =   Shoe.objects.get(id=workoutForm.cleaned_data['shoe']) if workoutForm.cleaned_data['shoe'] >= 0 else None,
-            workout.entry       =   workoutForm.cleaned_data['entry'],
-            workout.owner       =   request.user,
-            workout.date        =   workoutForm.cleaned_data['date']
-            workout.updated     =   True
+            if workoutForm.is_valid():
 
 
-            workout.save()
+                workout.title       =   workoutForm.cleaned_data['title']
+                workout.distance    =   workoutForm.cleaned_data['distance']
+                workout.hours       =   workoutForm.cleaned_data['hours']
+                workout.minutes     =   workoutForm.cleaned_data['minutes']
+                workout.seconds     =   workoutForm.cleaned_data['seconds']
+                workout.wtype       =   WorkoutType.objects.get(id=int(workoutForm.cleaned_data['wtype']))
+                workout.shoe        =   Shoe.objects.get(id=workoutForm.cleaned_data['shoe']) if workoutForm.cleaned_data['shoe'] >= 0 else None
+                workout.entry       =   workoutForm.cleaned_data['entry']
+                workout.owner       =   request.user
+                workout.date        =   workoutForm.cleaned_data['date']
+                workout.updated     =   True
+
+
+                workout.save()
+                return HttpResponseRedirect(reverse("homepage"))
+        else:
+            workout.delete()
             return HttpResponseRedirect(reverse("homepage"))
+        # END CITATION
 
     templateDict.update({
         'form'  :   workoutForm

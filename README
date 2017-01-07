@@ -26,6 +26,7 @@ using the [#] notation to index each source found on this page):
       in the previous iteraiton of Rogger
 [16]  Used model reference from string found at this location http://stackoverflow.com/a/39712086 to resolve circular dependencies
       on imports
+[17]  Differentiating between different button presses in form submission from http://stackoverflow.com/questions/1395807/proper-way-to-handle-multiple-forms-on-one-page-in-django
 
 This site is built on the Django web development framework.
 
