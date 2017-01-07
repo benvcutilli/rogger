@@ -180,8 +180,22 @@ def viewEntry(request, workoutID):
 
 
 
-def commentView(request, workoutID):
+def commentAddView(request, workoutID):
     if request.user.is_authenticated:
-        pass
+        commentText = request.POST['text']
+        newComment = Comment.objects.create(commentText=commentText, owner=request.user, workout=Workout.objects.get(id=workoutID))
+        newComment.save()
     else:
         return HttpResponseForbidden("Please log in to use this feature.")
+
+def commentDeleteView(request, workoutID):
+    if request.user.is_authenticated:
+        commentID = request.POST['id']
+        comment = Comment.objects.get(id=commentID)
+        if request.user == comment.owner:
+            comment.delete()
+            return HttpResponse("")
+        else:
+            return HttpReponseForbidden("You don't own this comment, so you can't delete it.")
+    else:
+        return HttpReponseForbidden("Please log in to use this feature")
