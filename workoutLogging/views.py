@@ -89,77 +89,77 @@ def newEntry(request):
 
 def editEntry(request, workoutID):
     workout = Workout.objects.get(id=int(workoutID))
-    if request.user == workout.owner:
-        templateDict = entryLocalization[debugLocale]
-        availableWorkoutTypes = WorkoutType.objects.filter(owner__isnull=True) | WorkoutType.objects.filter(owner=request.user)
-        templateDict.update({
-            'formURL'   :   reverse("editEntryView", args=[workoutID]),
-            'error'     :   "",
-            'shoes'     :   [(element, repr(element.id)) for element in Shoe.objects.filter(owner=request.user)],
-            'types'     :   [(element, repr(element.id)) for element in availableWorkoutTypes]
-        })
+    templateDict = entryLocalization[debugLocale]
+    availableWorkoutTypes = WorkoutType.objects.filter(owner__isnull=True) | WorkoutType.objects.filter(owner=request.user)
+    templateDict.update({
+        'formURL'   :   reverse("editEntryView", args=[workoutID]),
+        'error'     :   "",
+        'shoes'     :   [(element, repr(element.id)) for element in Shoe.objects.filter(owner=request.user)],
+        'types'     :   [(element, repr(element.id)) for element in availableWorkoutTypes]
+    })
 
+    workoutForm = forms.WorkoutForm({
+        'title'     :   workout.title,
+        'distance'  :   repr(workout.distance),
+        'hours'     :   repr(workout.hours) if workout.hours != None else "",
+        'minutes'   :   repr(workout.minutes) if workout.minutes != None else "",
+        'seconds'   :   repr(workout.seconds) if workout.seconds != None else "",
+        'wtype'     :   repr(workout.wtype.id),
+        'shoe'      :   repr(workout.shoe.id) if workout.shoe != None else "-1",
+        'entry'     :   workout.entry,
+        'date'      :   repr(workout.date.year) + "." + ("0" if workout.date.month < 10 else "") + repr(workout.date.month) + "." + ("0" if workout.date.day < 10 else "") + repr(workout.date.day),
+    })
+
+    if request.method == "POST":
         workoutForm = forms.WorkoutForm({
-            'title'     :   workout.title,
-            'distance'  :   repr(workout.distance),
-            'hours'     :   repr(workout.hours) if workout.hours != None else "",
-            'minutes'   :   repr(workout.minutes) if workout.minutes != None else "",
-            'seconds'   :   repr(workout.seconds) if workout.seconds != None else "",
-            'wtype'     :   repr(workout.wtype.id),
-            'shoe'      :   repr(workout.shoe.id) if workout.shoe != None else "-1",
-            'entry'     :   workout.entry,
-            'date'      :   repr(workout.date.year) + "." + ("0" if workout.date.month < 10 else "") + repr(workout.date.month) + "." + ("0" if workout.date.day < 10 else "") + repr(workout.date.day),
+            'title'     :   request.POST['title'],
+            'distance'  :   request.POST['distance'],
+            'hours'     :   request.POST['hours'],
+            'minutes'   :   request.POST['minutes'],
+            'seconds'   :   request.POST['seconds'],
+            'wtype'     :   request.POST['type'],
+            'shoe'      :   request.POST['shoe'],
+            'entry'     :   request.POST['entryText'],
+            'date'      :   request.POST['date'],
         })
-
-        if request.method == "POST":
-            workoutForm = forms.WorkoutForm({
-                'title'     :   request.POST['title'],
-                'distance'  :   request.POST['distance'],
-                'hours'     :   request.POST['hours'],
-                'minutes'   :   request.POST['minutes'],
-                'seconds'   :   request.POST['seconds'],
-                'wtype'     :   request.POST['type'],
-                'shoe'      :   request.POST['shoe'],
-                'entry'     :   request.POST['entryText'],
-                'date'      :   request.POST['date'],
-            })
-            # THIS WHOLE IF/ELSE SEGMENT CONDITIONAL LINES FROM [17]
-            if 'saveButton' in request.POST:
-                workout = Workout.objects.get(id=workoutID)
-                if workoutForm.is_valid():
+        # THIS WHOLE IF/ELSE SEGMENT CONDITIONAL LINES FROM [17]
+        if 'saveButton' in request.POST:
+            workout = Workout.objects.get(id=workoutID)
+            if workoutForm.is_valid():
 
 
-                    workout.title       =   workoutForm.cleaned_data['title']
-                    workout.distance    =   workoutForm.cleaned_data['distance']
-                    workout.hours       =   workoutForm.cleaned_data['hours']
-                    workout.minutes     =   workoutForm.cleaned_data['minutes']
-                    workout.seconds     =   workoutForm.cleaned_data['seconds']
-                    workout.wtype       =   WorkoutType.objects.get(id=int(workoutForm.cleaned_data['wtype']))
-                    workout.shoe        =   Shoe.objects.get(id=workoutForm.cleaned_data['shoe']) if workoutForm.cleaned_data['shoe'] >= 0 else None
-                    workout.entry       =   workoutForm.cleaned_data['entry']
-                    workout.owner       =   request.user
-                    workout.date        =   workoutForm.cleaned_data['date']
-                    workout.updated     =   True
+                workout.title       =   workoutForm.cleaned_data['title']
+                workout.distance    =   workoutForm.cleaned_data['distance']
+                workout.hours       =   workoutForm.cleaned_data['hours']
+                workout.minutes     =   workoutForm.cleaned_data['minutes']
+                workout.seconds     =   workoutForm.cleaned_data['seconds']
+                workout.wtype       =   WorkoutType.objects.get(id=int(workoutForm.cleaned_data['wtype']))
+                workout.shoe        =   Shoe.objects.get(id=workoutForm.cleaned_data['shoe']) if workoutForm.cleaned_data['shoe'] >= 0 else None
+                workout.entry       =   workoutForm.cleaned_data['entry']
+                workout.owner       =   request.user
+                workout.date        =   workoutForm.cleaned_data['date']
+                workout.updated     =   True
 
 
-                    workout.save()
-                    return HttpResponseRedirect(reverse("homepage"))
-            else:
-                workout.delete()
+                workout.save()
                 return HttpResponseRedirect(reverse("homepage"))
-            # END CITATION
+        else:
+            workout.delete()
+            return HttpResponseRedirect(reverse("homepage"))
+        # END CITATION
 
-        templateDict.update({
-            'form'  :   workoutForm,
-            'escapedEntry'  :   workoutForm.getEscapedEntry()
-        })
-        return render(request, "workoutLogging/editentry.html", templateDict)
+    templateDict.update({
+        'form'  :   workoutForm,
+        'escapedEntry'  :   workoutForm.getEscapedEntry()
+    })
+    return render(request, "workoutLogging/editentry.html", templateDict)
 
-    else:
-        return viewEntry(request, workoutID)
+
 
 def viewEntry(request, workoutID):
     workout = Workout.objects.get(id=workoutID)
+    if request.user == workout.owner:
+        return editEntry(request, workoutID)
     workoutInfo = {
         'title'     :   workout.title,
         'distance'  :   repr(workout.distance),
