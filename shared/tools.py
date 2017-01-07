@@ -11,3 +11,6 @@ from settings.models import WorkoutType, universalWorkoutTypeNames
 def initializeUniversalTypes():
     for workoutType in universalWorkoutTypeNames:
         WorkoutType.objects.create(owner=None, name=workoutType[0], displayMeasurement=workoutType[1]).save()
+
+def getEscapedEntry(entry):
+    return entry.replace("\\", "\\\\").replace("\"", "\\\"")

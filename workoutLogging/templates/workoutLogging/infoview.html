@@ -1,3 +1,14 @@
-<div>
-  {{ user.username }} • {{ form.title.data }} • {{ form.distance.data }} {% if form.hours.data != "" %}• {{ form.hours.data }}:{% endif %}{% if form.minutes.data != "" %}{{ form.data.minutes }}:{% endif %}{% if form.seconds.data != "" %}{{ form.seconds.data }}{% endif %}{% if form.shoe.data != "" %} • {% for shoe in shoes}{% if shoe.1 == form.shoe.data %}{{ shoe.name }}{% endfor %}{% endif %}
+<style>
+  #infoDiv {
+    color:#fff;
+    background-color:#334;
+    padding:20px;
+    width:100%;
+    box-sizing:border-box;
+  }
+</style>
+<div id="infoDiv">
+  <!-- using bullets for data separation from citation [8] -->
+  {{ user.username }} • {{ info.title }} • {{ info.distance }}{% if info.hours != "" or info.minutes != "" or info.seconds != "" %} •{% if info.hours != "" %} {{ info.hours }}:{% endif %}{% if info.minutes != "" %}{{ info.minutes }}:{% endif %}{% if info.seconds != "" %}:{{ info.seconds }}{% endif %}{% endif %}{% if info.shoe != None %} • {{ info.shoe.name }}{% endif %}
 </div>
+<textarea id="entryText" name="entryText"></textarea>

@@ -149,7 +149,7 @@
     {% block logentrydisable %}{% endblock %}
   })
   logEditorCodeMirrorInstance.on("change", processLogDistance);
-  logEditorCodeMirrorInstance.setValue("{{ form.getEscapedEntry|safe }}")
+  logEditorCodeMirrorInstance.setValue("{{ escapedEntry|safe }}")
 
   function processLogDistance() {
     var logText = logEditorCodeMirrorInstance.getValue();
