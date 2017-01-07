@@ -177,3 +177,11 @@ def viewEntry(request, workoutID):
     }
     templateDict.update(entryLocalization[debugLocale])
     return render(request, "workoutLogging/viewentry.html", templateDict)
+
+
+
+def commentView(request, workoutID):
+    if request.user.is_authenticated:
+        pass
+    else:
+        return HttpResponseForbidden("Please log in to use this feature.")

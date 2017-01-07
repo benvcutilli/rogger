@@ -21,3 +21,10 @@ class Workout(models.Model):
     updated         =   models.BooleanField(default=False)
 
     owner           =   models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+
+
+class Comment(models.Model):
+    commentText     =   models.TextField()
+    owner           =   models.ForeignKey(User, on_delete=models.CASCADE)
+    workout         =   models.ForeignKey(Workout, on_delete=models.CASCADE)
+    dateandtime     =   models.DateTimeField(auto_now=True)
