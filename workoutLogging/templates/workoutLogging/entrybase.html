@@ -148,9 +148,10 @@
     lineWrapping: true,
     {% block logentrydisable %}{% endblock %}
   })
-  logEditorCodeMirrorInstance.on("change", processLogDistance);
-  logEditorCodeMirrorInstance.setValue("{{ escapedEntry|safe }}")
 
+  logEditorCodeMirrorInstance.setValue("{{ escapedEntry|safe }}")
+  {% if viewRenderMode == False %}
+  logEditorCodeMirrorInstance.on("change", processLogDistance);
   function processLogDistance() {
     var logText = logEditorCodeMirrorInstance.getValue();
     var globalParse = logText.match(distanceRegex);
@@ -204,6 +205,7 @@
     }
 
   }
+  {% endif %}
   {% block extrascript %}
   {% endblock %}
 

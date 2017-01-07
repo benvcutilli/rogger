@@ -82,7 +82,8 @@ def newEntry(request):
 
         templateDict.update({
             'form': workoutForm,
-            'escapedEntry'  :   ""
+            'escapedEntry'  :   "",
+            'viewRenderMode':   False
         })
         return render(request, "workoutLogging/newentry.html", templateDict)
     else:
@@ -150,8 +151,12 @@ def editEntry(request, workoutID):
         # END CITATION
 
     templateDict.update({
+        'error' :   "",
+        'info'  :   workoutInfo,
         'form'  :   workoutForm,
-        'escapedEntry'  :   workoutForm.getEscapedEntry()
+        'escapedEntry'  :   workoutForm.getEscapedEntry(),
+        'workoutID'     :   workoutID,
+        'viewRenderMode':   False
     })
     return render(request, "workoutLogging/editentry.html", templateDict)
 
@@ -171,9 +176,10 @@ def viewEntry(request, workoutID):
         'date'      :   repr(workout.date.year) + "." + ("0" if workout.date.month < 10 else "") + repr(workout.date.month) + "." + ("0" if workout.date.day < 10 else "") + repr(workout.date.day),
     }
     templateDict = {
-        'error' :   "",
-        'info'  :   workoutInfo,
-        'escapedEntry' : getEscapedEntry(workoutInfo['entry'])
+
+        'escapedEntry'      : getEscapedEntry(workoutInfo['entry']),
+        'workoutID'         :   workoutID,
+        'viewRenderMode'    :   True
     }
     templateDict.update(entryLocalization[debugLocale])
     return render(request, "workoutLogging/viewentry.html", templateDict)

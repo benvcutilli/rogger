@@ -103,12 +103,15 @@
   {% endblock %}
   {% block extrascript %}
   function deleteEntry() {
-    confirm("Are you sure you want to delete this entry?");
+    var verdict = confirm("Are you sure you want to delete this entry?");
+    if (verdict) {
+      $("form").submit();
+    }
   }
   function deleteComment(commentButton, commentID) {
     var verdict = confirm("Are you sure you want to delete this comment?");
     if (verdict) {
-      $.ajax("{% url "commentDeleteView" %}", {
+      $.ajax("{% url "commentDeleteView" workoutID %}", {
         method  : "POST",
         data    : {
           id               : commentID,
@@ -125,10 +128,10 @@
     }
   }
   function addComment() {
-    $.ajax("{% url "commentAddView" %}", {
+    $.ajax("{% url "commentAddView" workoutID %}", {
       method  : "POST",
       data    : {
-        text               : document.getElementById("commentingArea".value,
+        text               : document.getElementById("commentingArea").value,
         // next line from citation [15]
         csrfmiddlewaretoken : "{{ csrf_token }}",
       },
