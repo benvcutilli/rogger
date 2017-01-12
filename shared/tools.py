@@ -21,8 +21,8 @@ def getWeeksForMonthRepresentation(monthNumber, yearNumber):
         dayList.append(day)
         day += timedelta(1)
 
-    backwards   =   7 - dayList[0].weekday()
-    forwards    =   7 - dayList[-1].weekday()
+    backwards   =   dayList[0].isoweekday() - 1
+    forwards    =   7 - dayList[-1].isoweekday()
 
     day = dayList[0]
     for i in range(backwards):
@@ -33,3 +33,9 @@ def getWeeksForMonthRepresentation(monthNumber, yearNumber):
     for i in range(forwards):
         day += timedelta(1)
         dayList.append(day)
+
+    weekList = []
+    for i in range(len(dayList)//7):
+        weekList.append(dayList[i*7:(i+1)*7])
+
+    return weekList
