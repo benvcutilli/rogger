@@ -20,7 +20,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('homepage.urls')),
     url(r'^about', include('about.urls')),
-    url(r'^user', include('userProfile.urls')),
+    url(r'^users/', include('userProfile.urls')),
     url(r'^workouts/', include('workoutLogging.urls')),
     url(r'^settings', include('settings.urls')),
 ]

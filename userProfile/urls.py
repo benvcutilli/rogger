@@ -3,5 +3,5 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    url(r'^$', views.userView, name='userView'),
+    url(r'([a-zA-Z0-9_]+)^$', views.userView, name='userView'),
 ]

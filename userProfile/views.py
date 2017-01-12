@@ -19,5 +19,5 @@ userPageLocalization = {
 }
 ######## END LOCALIZATION ####################
 
-def userView(request):
+def userView(request, username):
     return render(request, 'userProfile/userProfileBase.html', userPageLocalization[debugLocale])
