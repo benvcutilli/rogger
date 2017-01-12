@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from shared.languageLocalization import baseLocalization
 from django.urls import reverse
-from django.http import HttpResponseForbidden, HttpResponseRedirect
+from django.http import HttpResponseForbidden, HttpResponseRedirect, HttpResponse
 from workoutLogging import forms
 from settings.models import Shoe, WorkoutType
-from workoutLogging.models import Workout
+from workoutLogging.models import Workout, Comment
 from shared.tools import getEscapedEntry
 
 debugLocale = 'french'
@@ -152,11 +152,12 @@ def editEntry(request, workoutID):
 
     templateDict.update({
         'error' :   "",
-        'info'  :   workoutInfo,
+        #'info'  :   workoutInfo,
         'form'  :   workoutForm,
         'escapedEntry'  :   workoutForm.getEscapedEntry(),
         'workoutID'     :   workoutID,
-        'viewRenderMode':   False
+        'viewRenderMode':   False,
+        'comments'          :   Comment.objects.filter(workout=workout)
     })
     return render(request, "workoutLogging/editentry.html", templateDict)
 
@@ -179,7 +180,8 @@ def viewEntry(request, workoutID):
 
         'escapedEntry'      : getEscapedEntry(workoutInfo['entry']),
         'workoutID'         :   workoutID,
-        'viewRenderMode'    :   True
+        'viewRenderMode'    :   True,
+        'comments'          :   Comment.objects.filter(workout=workout)
     }
     templateDict.update(entryLocalization[debugLocale])
     return render(request, "workoutLogging/viewentry.html", templateDict)
@@ -198,7 +200,7 @@ def commentAddView(request, workoutID):
 def commentDeleteView(request, workoutID):
     if request.user.is_authenticated:
         commentID = request.POST['id']
-        comment = Comment.objects.get(id=commentID)
+        comment = Comment.objects.get(id=int(commentID))
         if request.user == comment.owner:
             comment.delete()
             return HttpResponse("")

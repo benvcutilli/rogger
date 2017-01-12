@@ -98,7 +98,7 @@
       {% endfor %}
     </div>
     <textarea id="commentingArea">
-    </textarea><button id="submitCommentButton">Post</button>
+    </textarea><button id="submitCommentButton" onclick="addComment();">Post</button>
   </div>
   {% endblock %}
   {% block extrascript %}
@@ -118,8 +118,8 @@
           // next line from citation [15]
           csrfmiddlewaretoken : "{{ csrf_token }}",
         },
-        success : function(ajaxResponse, ajaxStatus, ajaxResponse) {
-          $(this).parent().remove();
+        success : function(ajaxResponseText, ajaxStatus, ajaxResponse) {
+          $(commentButton).parent().remove();
         },
         error   : function(ajaxResponse, ajaxStatus, ajaxError) {
           alert(ajaxResponse.responseText);
@@ -135,10 +135,11 @@
         // next line from citation [15]
         csrfmiddlewaretoken : "{{ csrf_token }}",
       },
-      success : function(ajaxResponse, ajaxStatus, ajaxResponse) {
-        $("#commentsArea").append(ajaxResponse);
+      success : function(ajaxResponseText, ajaxStatus, ajaxResponse) {
+        $("#commentsHolder").append(ajaxResponseText);
+        document.getElementById("commentingArea").value = "";
       },
-      error   : function(ajaxResponse, ajaxStatus, ajaxError) {
+      error   : function(ajaxResponseText, ajaxStatus, ajaxError) {
         alert(ajaxResponse.responseText);
       }
     })
