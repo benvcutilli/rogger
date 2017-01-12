@@ -9,6 +9,6 @@
 </style>
 <div id="infoDiv">
   <!-- using bullets for data separation from citation [8] -->
-  {{ user.username }} • {{ info.title }} • {{ info.distance }}{% if info.hours != "" or info.minutes != "" or info.seconds != "" %} •{% if info.hours != "" %} {{ info.hours }}:{% endif %}{% if info.minutes != "" %}{{ info.minutes }}:{% endif %}{% if info.seconds != "" %}:{{ info.seconds }}{% endif %}{% endif %}{% if info.shoe != None %} • {{ info.shoe.name }}{% endif %}
+  {{ info.username }} • {{ info.title }} • {{ info.distance }}{% if info.hours != "" or info.minutes != "" or info.seconds != "" %} •{% if info.hours != "" %} {{ info.hours }}:{% endif %}{% if info.minutes != "" %}{{ info.minutes }}:{% endif %}{% if info.seconds != "" %}:{{ info.seconds }}{% endif %}{% endif %}{% if info.shoe != None %} • {{ info.shoe.name }}{% endif %}
 </div>
 <textarea id="entryText" name="entryText"></textarea>

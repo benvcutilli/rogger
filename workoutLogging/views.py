@@ -5,7 +5,6 @@ from django.http import HttpResponseForbidden, HttpResponseRedirect, HttpRespons
 from workoutLogging import forms
 from settings.models import Shoe, WorkoutType
 from workoutLogging.models import Workout, Comment
-from shared.tools import getEscapedEntry
 from django.core.mail import send_mail
 
 debugLocale = 'french'
@@ -152,12 +151,12 @@ def editEntry(request, workoutID):
         # END CITATION
 
     templateDict.update({
-        'error' :   "",
+        'error'             :   "",
         #'info'  :   workoutInfo,
-        'form'  :   workoutForm,
-        'escapedEntry'  :   workoutForm.getEscapedEntry(),
-        'workoutID'     :   workoutID,
-        'viewRenderMode':   False,
+        'form'              :   workoutForm,
+        'escapedEntry'      :   workout.getEscapedEntry(),
+        'workoutID'         :   workoutID,
+        'viewRenderMode'    :   False,
         'comments'          :   Comment.objects.filter(workout=workout)
     })
     return render(request, "workoutLogging/editentry.html", templateDict)
@@ -176,13 +175,16 @@ def viewEntry(request, workoutID):
         'shoe'      :   workout.shoe,
         'entry'     :   workout.entry,
         'date'      :   repr(workout.date.year) + "." + ("0" if workout.date.month < 10 else "") + repr(workout.date.month) + "." + ("0" if workout.date.day < 10 else "") + repr(workout.date.day),
+        'username'  :   workout.owner.username
     }
     templateDict = {
 
-        'escapedEntry'      : getEscapedEntry(workoutInfo['entry']),
+        'escapedEntry'      :   workout.getEscapedEntry(),
         'workoutID'         :   workoutID,
+        'info'              :   workoutInfo,
         'viewRenderMode'    :   True,
-        'comments'          :   Comment.objects.filter(workout=workout)
+        'comments'          :   Comment.objects.filter(workout=workout),
+        'error'             :   ""
     }
     templateDict.update(entryLocalization[debugLocale])
     return render(request, "workoutLogging/viewentry.html", templateDict)

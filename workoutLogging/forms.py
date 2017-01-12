@@ -19,5 +19,4 @@ class WorkoutForm(forms.Form):
 
         return errorString
 
-    def getEscapedEntry(self):
-        return self['entry'].data.replace("\\", "\\\\").replace("\"", "\\\"")
+    

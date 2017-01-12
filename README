@@ -27,6 +27,7 @@ using the [#] notation to index each source found on this page):
 [16]  Used model reference from string found at this location http://stackoverflow.com/a/39712086 to resolve circular dependencies
       on imports
 [17]  Differentiating between different button presses in form submission from http://stackoverflow.com/questions/1395807/proper-way-to-handle-multiple-forms-on-one-page-in-django
+[18]  Help with putting string in raw format for javascript safety: http://stackoverflow.com/a/15392758 (used this answer and the comments on the answer for help)
 
 This site is built on the Django web development framework.
 
