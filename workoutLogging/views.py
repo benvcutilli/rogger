@@ -6,6 +6,7 @@ from workoutLogging import forms
 from settings.models import Shoe, WorkoutType
 from workoutLogging.models import Workout, Comment
 from shared.tools import getEscapedEntry
+from django.core.mail import send_mail
 
 debugLocale = 'french'
 
@@ -189,10 +190,18 @@ def viewEntry(request, workoutID):
 
 
 def commentAddView(request, workoutID):
+    workout = Workout.objects.get(id=workoutID)
     if request.user.is_authenticated:
         commentText = request.POST['text']
-        newComment = Comment.objects.create(commentText=commentText, owner=request.user, workout=Workout.objects.get(id=workoutID))
+        otherEmails = []
+        for comment in Comment.objects.filter(workout=workout):
+            if request.user != comment.owner:
+                otherEmails.append(comment.owner.email)
+        emailRecipients = ([workout.owner.email] if workout.owner != request.user else []) + otherEmails
+        send_mail("Some posted a comment on a workout with which you have interacted", "See the comment at https://rogger.co" + reverse("editEntryView", args=[workoutID]), "alertbot@rogger.co", emailRecipients)
+        newComment = Comment.objects.create(commentText=commentText, owner=request.user, workout=workout)
         newComment.save()
+
         return render(request, "workoutLogging/comment.html", { 'comment' : newComment })
     else:
         return HttpResponseForbidden("Please log in to use this feature.")
