@@ -1,6 +1,6 @@
 <div class="monthContainer">
   <div class="monthName">
-    {{ month.month }} {{ month.year }}
+    {{ month.monthWorded }} {{ month.year }}
   </div>
   {% for week in month.weeks %}
   <div class="weekContainer">
@@ -9,8 +9,8 @@
     </div>
     <div class="dateShiftContainer leftAlign">
       {% for day in week.days %}
-      <div class="date">
-        {{ day.date.day }}
+      <div class="date {% if day.date.month == month.month %}darkDate{% endif %}">
+        {{ day.dayOfWeekWorded }} {{ day.date.day }}
         <div class="dateWorkoutDiv">
           {% for workout in day.workouts %}
           <a href="{% url "viewEntryView" workout.id %}">{{ workout.title }}</a>

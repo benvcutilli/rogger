@@ -20,6 +20,18 @@ class WorkoutDay():
         self.date = dateInstance
         self.workouts = workouts
 
+    def dayOfWeekWorded(self):
+        daysDict = {
+            1   :   "Monday",
+            2   :   "Tuesday",
+            3   :   "Wednesday",
+            4   :   "Thursday",
+            5   :   "Friday",
+            6   :   "Saturday",
+            7   :   "Sunday"
+        }
+        return daysDict[self.date.isoweekday()]
+
 class WorkoutWeek():
     def __init__(self, days):
         self.days = days
@@ -56,6 +68,23 @@ class WorkoutMonth():
         self.weeks  = weeks
         self.month  = month
         self.year   = year
+    def monthWorded(self):
+        monthDict = {
+            1   :   "January",
+            2   :   "February",
+            3   :   "March",
+            4   :   "April",
+            5   :   "May",
+            6   :   "June",
+            7   :   "July",
+            8   :   "August",
+            9   :   "September",
+            10  :   "October",
+            11  :   "November",
+            12  :   "December"
+        }
+
+        return monthDict[self.month]
 
 def getSurroundingMonths(monthNumber, yearNumber, user):
     monthsWeeks = [WorkoutMonth(getWeeksForMonthRepresentation(monthNumber, yearNumber, user), monthNumber, yearNumber)]

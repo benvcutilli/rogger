@@ -34,7 +34,7 @@ def userView(request, username):
             return HttpResponseNotFound()
         else:
             months = getSurroundingMonths(date.today().month, date.today().year, user)
-            print(months)
+            
             templateDict.update({
                 'months': months
             })
