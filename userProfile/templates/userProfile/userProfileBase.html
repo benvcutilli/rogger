@@ -223,6 +223,23 @@
     text-decoration:none;
     color:#000;
   }
+  #followButton, #blockButton {
+    outline:none;
+    border:none;
+    height:25px;
+    background-color:#334;
+    color:#fff;
+
+
+  }
+  #followButton {
+    margin-left:10px;
+    margin-right:2px;
+  }
+  #blockButton {
+    margin-left:2px;
+    margin-right:10px;
+  }
 </style>
 <div id="userWrapper">
   <!--<div id="banner">
@@ -275,6 +292,20 @@
               <td>
                 {{ mileage }} miles
               </td>
+              {% if user.is_authenticated %}
+              <td>
+                <button id="followButton">
+                  follow
+                </button>
+              </td>
+              {% endif %}
+              {% if user.is_authenticated %}
+              <td>
+                <button id="blockButton">
+                  block
+                </button>
+              </td>
+              {% endif %}
             </tr>
           </tbody>
         </table>
