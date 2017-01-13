@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from shared.languageLocalization import baseLocalization, debugLocale
-from django.http import HttpResponseNotFound
+from django.http import HttpResponseNotFound, HttpResponseBadRequest, HttpResponse
 from django.contrib.auth.models import User
 from shared.tools import getSurroundingMonths
+from shared.models import Follow, Block
 from datetime import date
 from workoutLogging.models import Workout
 # Create your views here.
@@ -43,3 +44,27 @@ def userView(request, username):
             })
 
     return render(request, 'userProfile/userProfileBase.html', templateDict)
+
+
+def userViewAJAX(request, username):
+    if not User.objects.get(username=username).exists():
+        return HttpResponseNotFound()
+    else:
+        user = User.objects.get(username=username)
+        if (user.privacySelection == 2 and user != request.user) or (Block.objects.filter(blockee=request.user, blocker=user).exists() and request.user != user):
+            return HttpResponseNotFound()
+        else:
+            if   request.POST['todo']   ==  "followAction":
+                if request.user.is_authenticated():
+                    if not Follow.objects.filter(followee=user, follower=request.user).exists():
+                        Follow.objects.create(followee=user, follower=request.user).save()
+                        return HttpResponse("1")
+                    else:
+                        Follow.objects.get(followee=user, follower=request.user).delete()
+                        return HttpResponse("0")
+                else:
+                    return HttpResponseBadRequest("You need to be logged in to use this function")
+            elif request.POST['todo']   ==  "calendarChange":
+            elif request.POST['todo']   ==  "blockaction":
+            else:
+                return HttpResponseBadRequest()
