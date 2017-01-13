@@ -28,6 +28,7 @@ using the [#] notation to index each source found on this page):
       on imports
 [17]  Differentiating between different button presses in form submission from http://stackoverflow.com/questions/1395807/proper-way-to-handle-multiple-forms-on-one-page-in-django
 [18]  Help with putting string in raw format for javascript safety: http://stackoverflow.com/a/15392758 (used this answer and the comments on the answer for help)
+[18]  Probably a commonly-used way to wrap a counter to mimic a ring buffer, but this code was at least sanity checked by, but possibly derived from, my knowledge that "Operating System Design: The Xinu Approach (Second Edition)" by Douglas Comer uses this technique
 
 This site is built on the Django web development framework.
 

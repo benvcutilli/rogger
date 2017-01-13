@@ -45,19 +45,23 @@ def getSurroundingMonths(monthNumber, yearNumber):
     tempYearNumber      =   yearNumber
     tempMonthNumber     =   monthNumber
     for i in range(5):
+        # citation [19]
         tempMonthNumber -= 1
         if tempMonthNumber < 1:
             tempMonthNumber =   12
             tempYearNumber  -=  1
+        # end citation
         monthsWeeks.insert(0, ((tempMonthNumber, tempYearNumber), getWeeksForMonthRepresentation(tempMonthNumber, tempYearNumber)))
 
     tempYearNumber      =   yearNumber
     tempMonthNumber     =   monthNumber
     for i in range(6):
+        # citation [19]
         tempMonthNumber += 1
         if tempMonthNumber > 12:
             tempMonthNumber =   1
             tempYearNumber  +=  1
+        # end citation
         monthsWeeks.append(((tempMonthNumber, tempYearNumber), getWeeksForMonthRepresentation(tempMonthNumber, tempYearNumber)))
 
 
