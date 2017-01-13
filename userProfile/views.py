@@ -4,6 +4,7 @@ from django.http import HttpResponseNotFound
 from django.contrib.auth.models import User
 from shared.tools import getSurroundingMonths
 from datetime import date
+from workoutLogging.models import Workout
 # Create your views here.
 
 ######### USER PAGE LOCALIZATION #############
@@ -34,9 +35,11 @@ def userView(request, username):
             return HttpResponseNotFound()
         else:
             months = getSurroundingMonths(date.today().month, date.today().year, user)
-            
+
             templateDict.update({
-                'months': months
+                'months'        :   months,
+                'profileOwner'  :   user,
+                'mileage'       :   sum([workout.distance for workout in Workout.objects.filter(owner=user)])
             })
 
     return render(request, 'userProfile/userProfileBase.html', templateDict)

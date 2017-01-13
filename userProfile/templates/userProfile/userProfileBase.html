@@ -217,7 +217,11 @@
     display:inline-block;
   }
   .dateWorkoutDiv {
-    padding-top:0px;
+    padding-top:10px;
+  }
+  .dateWorkoutDiv > a {
+    text-decoration:none;
+    color:#000;
   }
 </style>
 <div id="userWrapper">
@@ -266,10 +270,10 @@
           <tbody>
             <tr>
               <td>
-                username
+                {{ profileOwner.username }} • <!-- bullet point idea from citation [8] -->
               </td>
               <td>
-                mileage
+                {{ mileage }} miles
               </td>
             </tr>
           </tbody>
