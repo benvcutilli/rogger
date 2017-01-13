@@ -39,3 +39,28 @@ def getWeeksForMonthRepresentation(monthNumber, yearNumber):
         weekList.append(dayList[i*7:(i+1)*7])
 
     return weekList
+
+def getSurroundingMonths(monthNumber, yearNumber):
+    monthsWeeks = [((monthNumber, yearNumber), getWeeksForMonthRepresentation(monthNumber, yearNumber))]
+    tempYearNumber      =   yearNumber
+    tempMonthNumber     =   monthNumber
+    for i in range(5):
+        tempMonthNumber -= 1
+        if tempMonthNumber < 1:
+            tempMonthNumber =   12
+            tempYearNumber  -=  1
+        monthsWeeks.insert(0, ((tempMonthNumber, tempYearNumber), getWeeksForMonthRepresentation(tempMonthNumber, tempYearNumber)))
+
+    tempYearNumber      =   yearNumber
+    tempMonthNumber     =   monthNumber
+    for i in range(6):
+        tempMonthNumber += 1
+        if tempMonthNumber > 12:
+            tempMonthNumber =   1
+            tempYearNumber  +=  1
+        monthsWeeks.append(((tempMonthNumber, tempYearNumber), getWeeksForMonthRepresentation(tempMonthNumber, tempYearNumber)))
+
+
+
+
+    return monthsWeeks
