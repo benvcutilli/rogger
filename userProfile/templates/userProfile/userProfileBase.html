@@ -294,7 +294,7 @@
               </td>
               {% if user.is_authenticated %}
               <td>
-                <button id="followButton">
+                <button id="followButton" onclick="followAction();">
                   follow
                 </button>
               </td>
@@ -318,4 +318,26 @@
     </div>
   </div>
 </div>
+<script>
+  function followAction() {
+    $.ajax("{% url "userView" profileOwner.username %}", {
+      method  : "POST",
+      data    : {
+        // next line from citation [15]
+        csrfmiddlewaretoken : "{{ csrf_token }}",
+        todo                : "followAction"
+      },
+      success : function(ajaxResponseText, ajaxStatus, ajaxResponse) {
+        if (ajaxResponseText == "1") {
+          document.getElementById("followButton").innerHTML = "unfollow";
+        } else {
+          document.getElementById("followButton").innerHTML = "follow";
+        }
+      },
+      error   : function(ajaxResponse, ajaxStatus, ajaxError) {
+        alert(ajaxResponse.responseText);
+      }
+    })
+  }
+</script
 {% endblock %}

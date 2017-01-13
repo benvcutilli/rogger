@@ -35,6 +35,10 @@ def userView(request, username):
         if user.userinfo.privacySelection == 2 and request.user != user:
             return HttpResponseNotFound()
         else:
+            if request.is_ajax():
+                return userViewAJAX(request, username)
+
+
             months = getSurroundingMonths(date.today().month, date.today().year, user)
 
             templateDict.update({
@@ -47,11 +51,11 @@ def userView(request, username):
 
 
 def userViewAJAX(request, username):
-    if not User.objects.get(username=username).exists():
+    if not User.objects.filter(username=username).exists():
         return HttpResponseNotFound()
     else:
         user = User.objects.get(username=username)
-        if (user.privacySelection == 2 and user != request.user) or (Block.objects.filter(blockee=request.user, blocker=user).exists() and request.user != user):
+        if (user.userinfo.privacySelection == 2 and user != request.user) or (Block.objects.filter(blockee=request.user, blocker=user).exists() and request.user != user):
             return HttpResponseNotFound()
         else:
             if   request.POST['todo']   ==  "followAction":
@@ -65,6 +69,8 @@ def userViewAJAX(request, username):
                 else:
                     return HttpResponseBadRequest("You need to be logged in to use this function")
             elif request.POST['todo']   ==  "calendarChange":
+                pass
             elif request.POST['todo']   ==  "blockaction":
+                pass
             else:
                 return HttpResponseBadRequest()

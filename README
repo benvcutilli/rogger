@@ -28,7 +28,8 @@ using the [#] notation to index each source found on this page):
       on imports
 [17]  Differentiating between different button presses in form submission from http://stackoverflow.com/questions/1395807/proper-way-to-handle-multiple-forms-on-one-page-in-django
 [18]  Help with putting string in raw format for javascript safety: http://stackoverflow.com/a/15392758 (used this answer and the comments on the answer for help)
-[18]  Probably a commonly-used way to wrap a counter to mimic a ring buffer, but this code was at least sanity checked by, but possibly derived from, my knowledge that "Operating System Design: The Xinu Approach (Second Edition)" by Douglas Comer uses this technique
+[19]  Probably a commonly-used way to wrap a counter to mimic a ring buffer, but this code was at least sanity checked by, but possibly derived from, my knowledge that "Operating System Design: The Xinu Approach (Second Edition)" by Douglas Comer uses this technique
+[20]  related_name naming scheme from https://docs.djangoproject.com/en/1.10/topics/db/queries/#following-relationships-backward (the FOO_set explanation part); also, I think I did this using-related_name-thing-to-resolve-migration-conflicts thing in the original Rogger project, suggested by a citation that I don't have on me right now, but this modification was recommended anyway by the django library when i tried to run the site, and I just followed those instructions, so citing the other resource may not be necessary 
 
 This site is built on the Django web development framework.
 
