@@ -295,14 +295,14 @@
               {% if user.is_authenticated %}
               <td>
                 <button id="followButton" onclick="followAction();">
-                  follow
+                  {% if followsUser %}unfollow{% else %}follow{% endif %}
                 </button>
               </td>
               {% endif %}
               {% if user.is_authenticated %}
               <td>
                 <button id="blockButton">
-                  block
+                  {% if blocked %}unblock{% else %}block{% endif %}
                 </button>
               </td>
               {% endif %}

@@ -44,7 +44,9 @@ def userView(request, username):
             templateDict.update({
                 'months'        :   months,
                 'profileOwner'  :   user,
-                'mileage'       :   sum([workout.distance for workout in Workout.objects.filter(owner=user)])
+                'mileage'       :   sum([workout.distance for workout in Workout.objects.filter(owner=user)]),
+                'followsUser'   :   Follow.objects.filter(followee=user, follower=request.user).exists() if request.user.is_authenticated else None,
+                'blocked'       :   Block.objects.filter(blockee=user, blocker=request.user) if request.user.is_authenticated else None
             })
 
     return render(request, 'userProfile/userProfileBase.html', templateDict)
