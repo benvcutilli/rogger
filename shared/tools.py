@@ -13,8 +13,18 @@ def initializeUniversalTypes():
         WorkoutType.objects.create(owner=None, name=workoutType[0], displayMeasurement=workoutType[1]).save()
 
 from datetime import date, timedelta
+from workoutLogging.models import Workout
 
-def getWeeksForMonthRepresentation(monthNumber, yearNumber):
+class WorkoutDay():
+    def __init__(self, dateInstance, workouts):
+        self.date = dateInstance
+        self.workouts = workouts
+
+class WorkoutWeek():
+    def __init__(self, days):
+        self.days = days
+
+def getWeeksForMonthRepresentation(monthNumber, yearNumber, user):
     day = date(yearNumber, monthNumber, 1)
     dayList = []
     while day.month == monthNumber:
@@ -27,21 +37,28 @@ def getWeeksForMonthRepresentation(monthNumber, yearNumber):
     day = dayList[0]
     for i in range(backwards):
         day -= timedelta(1)
-        dayList.insert(0, day)
+        dayList.insert(0, WorkoutDay(day, Workout.objects.filter(date=day, owner=user)))
 
     day = dayList[-1]
     for i in range(forwards):
         day += timedelta(1)
-        dayList.append(day)
+        dayList.append(WorkoutDay(day, Workout.objects.filter(date=day, owner=user)))
 
     weekList = []
     for i in range(len(dayList)//7):
-        weekList.append(dayList[i*7:(i+1)*7])
+        weekList.append(WorkoutWeek(dayList[i*7:(i+1)*7]))
 
     return weekList
 
-def getSurroundingMonths(monthNumber, yearNumber):
-    monthsWeeks = [((monthNumber, yearNumber), getWeeksForMonthRepresentation(monthNumber, yearNumber))]
+
+class WorkoutMonth():
+    def __init__(self, weeks, month, year):
+        self.weeks  = weeks
+        self.month  = month
+        self.year   = year
+
+def getSurroundingMonths(monthNumber, yearNumber, user):
+    monthsWeeks = [((monthNumber, yearNumber), getWeeksForMonthRepresentation(monthNumber, yearNumber, user))]
     tempYearNumber      =   yearNumber
     tempMonthNumber     =   monthNumber
     for i in range(5):
@@ -51,7 +68,7 @@ def getSurroundingMonths(monthNumber, yearNumber):
             tempMonthNumber =   12
             tempYearNumber  -=  1
         # end citation
-        monthsWeeks.insert(0, ((tempMonthNumber, tempYearNumber), getWeeksForMonthRepresentation(tempMonthNumber, tempYearNumber)))
+        monthsWeeks.insert(0, WorkoutMonth(getWeeksForMonthRepresentation(tempMonthNumber, tempYearNumber, user), tempMonthNumber, tempYearNumber))
 
     tempYearNumber      =   yearNumber
     tempMonthNumber     =   monthNumber
@@ -62,7 +79,7 @@ def getSurroundingMonths(monthNumber, yearNumber):
             tempMonthNumber =   1
             tempYearNumber  +=  1
         # end citation
-        monthsWeeks.append(((tempMonthNumber, tempYearNumber), getWeeksForMonthRepresentation(tempMonthNumber, tempYearNumber)))
+        monthsWeeks.append(WorkoutMonth(getWeeksForMonthRepresentation(tempMonthNumber, tempYearNumber, user), tempMonthNumber, tempYearNumber))
 
 
 
