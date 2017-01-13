@@ -1,0 +1,24 @@
+<div class="monthContainer">
+  <div class="monthName">
+    {{ month.month }} {{ month.year }}
+  </div>
+  {% for week in month.weeks %}
+  <div class="weekContainer">
+    <div class="weekStats">
+      stats
+    </div>
+    <div class="dateShiftContainer leftAlign">
+      {% for day in week.days %}
+      <div class="date">
+        {{ day.date.day }}
+        <div class="dateWorkoutDiv">
+          {% for workout in day.workouts %}
+          <a href="{% url "viewEntryView" workout.id %}">{{ workout.title }}</a>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endfor %}
+</div>

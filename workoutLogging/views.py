@@ -94,7 +94,7 @@ def editEntry(request, workoutID):
     templateDict = entryLocalization[debugLocale]
     availableWorkoutTypes = WorkoutType.objects.filter(owner__isnull=True) | WorkoutType.objects.filter(owner=request.user)
     templateDict.update({
-        'formURL'   :   reverse("editEntryView", args=[workoutID]),
+        'formURL'   :   reverse("viewEntryView", args=[workoutID]),
         'error'     :   "",
         'shoes'     :   [(element, repr(element.id)) for element in Shoe.objects.filter(owner=request.user)],
         'types'     :   [(element, repr(element.id)) for element in availableWorkoutTypes]
@@ -200,7 +200,7 @@ def commentAddView(request, workoutID):
             if request.user != comment.owner:
                 otherEmails.append(comment.owner.email)
         emailRecipients = ([workout.owner.email] if workout.owner != request.user else []) + otherEmails
-        send_mail("Some posted a comment on a workout with which you have interacted", "See the comment at https://rogger.co" + reverse("editEntryView", args=[workoutID]), "alertbot@rogger.co", emailRecipients)
+        send_mail("Some posted a comment on a workout with which you have interacted", "See the comment at https://rogger.co" + reverse("viewEntryView", args=[workoutID]), "alertbot@rogger.co", emailRecipients)
         newComment = Comment.objects.create(commentText=commentText, owner=request.user, workout=workout)
         newComment.save()
 

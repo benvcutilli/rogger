@@ -35,5 +35,8 @@ def userView(request, username):
         else:
             months = getSurroundingMonths(date.today().month, date.today().year, user)
             print(months)
+            templateDict.update({
+                'months': months
+            })
 
     return render(request, 'userProfile/userProfileBase.html', templateDict)

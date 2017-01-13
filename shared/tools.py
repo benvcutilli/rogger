@@ -28,18 +28,18 @@ def getWeeksForMonthRepresentation(monthNumber, yearNumber, user):
     day = date(yearNumber, monthNumber, 1)
     dayList = []
     while day.month == monthNumber:
-        dayList.append(day)
+        dayList.append(WorkoutDay(day, Workout.objects.filter(date=day, owner=user)))
         day += timedelta(1)
 
-    backwards   =   dayList[0].isoweekday() - 1
-    forwards    =   7 - dayList[-1].isoweekday()
+    backwards   =   dayList[0].date.isoweekday() - 1
+    forwards    =   7 - dayList[-1].date.isoweekday()
 
-    day = dayList[0]
+    day = dayList[0].date
     for i in range(backwards):
         day -= timedelta(1)
         dayList.insert(0, WorkoutDay(day, Workout.objects.filter(date=day, owner=user)))
 
-    day = dayList[-1]
+    day = dayList[-1].date
     for i in range(forwards):
         day += timedelta(1)
         dayList.append(WorkoutDay(day, Workout.objects.filter(date=day, owner=user)))
@@ -58,7 +58,7 @@ class WorkoutMonth():
         self.year   = year
 
 def getSurroundingMonths(monthNumber, yearNumber, user):
-    monthsWeeks = [((monthNumber, yearNumber), getWeeksForMonthRepresentation(monthNumber, yearNumber, user))]
+    monthsWeeks = [WorkoutMonth(getWeeksForMonthRepresentation(monthNumber, yearNumber, user), monthNumber, yearNumber)]
     tempYearNumber      =   yearNumber
     tempMonthNumber     =   monthNumber
     for i in range(5):
