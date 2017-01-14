@@ -1,0 +1,40 @@
+{% for workout in updates %}
+<div class="update">
+  <div class="updateHeader">
+    <div class="workoutTitle">
+      <a href="{% url "viewEntryView" workout.id %}" class="workoutLink">{{ workout.title }}</a>
+    </div>
+    <div class="workoutStats">
+      {% if workout.updated %}
+      <div class="updatedTag">
+        {{ updatedTag }}
+      </div>
+      {% endif %}
+      <!-- citation [8] -->
+      {{ workout.date }} • {{ workout.distance }}{% if workout.type != None %} • {{ workout.type }}{% endif %}{% if workout.shoe != None %} • {{ workout.shoe.name }}{% endif %}
+      <!-- end citation -->
+    </div>
+    <!-- <div class="userPicture updateHeaderComponent">
+    </div>
+    <div class="usernameDiv updateHeaderComponent">
+      Username
+    </div> -->
+  </div>
+  <div class="workoutSummary">
+    {{ workout.entry|linebreaksbr }}
+  </div>
+  <div class="updateFooter">
+    <div class="userPicture">
+    </div>
+    <div class="usernameOuter">
+      <!-- citation [10] -->
+      <div class="usernameInner">
+        <div class="usernameCell">
+          {{ workout.owner.username }}
+        </div>
+      </div>
+      <!-- end citation -->
+    </div>
+  </div>
+</div>
+{% endfor %}

@@ -11,7 +11,8 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.views import password_reset_confirm, password_reset
 from shared.tools import getErrorString
 from django.contrib.auth.forms import SetPasswordForm
-from shared.models import UserInfo
+from shared.models import UserInfo, Follow, Block
+from workoutLogging.models import Workout
 
 debugLocale = 'french'
 godMode = True
@@ -101,7 +102,16 @@ def homepage(request):
     if not request.user.is_authenticated and not godMode:
         return loginView(request)
     else:
-        return render(request, 'homepage/homepage.html', homepageLocalization[debugLocale])
+        followedUsers = []
+        for follow in Follow.objects.filter(follower=request.user):
+            if not (Block.objects.filter(blocker=follow.followee, blockee=request.user).exists() or Block.objects.filter(blocker=request.user, blockee=follow.followee).exists()):
+                followedUsers.append(follow.followee)
+        templateDict = {
+            'updates'   :   Workout.objects.filter(owner__in=followedUsers).order_by("-modifiedDate")
+        }
+        templateDict.update(homepageLocalization[debugLocale])
+
+        return render(request, 'homepage/homepage.html', templateDict)
 
 
 
