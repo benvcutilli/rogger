@@ -255,7 +255,7 @@
           <tbody>
             <tr>
               <td class="calendarControl">
-                <select id="monthSelector">
+                <select id="monthSelector" onchange="updateCalendar();">
                   <option value="1">
                     January
                   </option>
@@ -295,7 +295,7 @@
                 </select>
               </td>
               <td class="calendarControl">
-                <select id="yearSelector">
+                <select id="yearSelector" onchange="updateCalendar();">
                   <option value="1998">
                     1998
                   </option>
@@ -458,6 +458,25 @@
         } else {
           document.getElementById("followButton").innerHTML = "follow";
         }
+      },
+      error   : function(ajaxResponse, ajaxStatus, ajaxError) {
+        alert(ajaxResponse.responseText);
+      }
+    })
+  }
+
+  function updateCalendar() {
+    $.ajax("{% url "userView" profileOwner.username %}", {
+      method  : "POST",
+      data    : {
+        month               : document.getElementById("monthSelector").value,
+        year                : document.getElementById("yearSelector").value,
+        // next line from citation [15]
+        csrfmiddlewaretoken : "{{ csrf_token }}",
+        todo                : "updateCalendar"
+      },
+      success : function(ajaxResponseText, ajaxStatus, ajaxResponse) {
+        document.getElementById("dates").innerHTML = ajaxResponseText;
       },
       error   : function(ajaxResponse, ajaxStatus, ajaxError) {
         alert(ajaxResponse.responseText);
