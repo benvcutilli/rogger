@@ -32,7 +32,7 @@ def userView(request, username):
         return HttpResponseNotFound()
     else:
         user = User.objects.get(username=username)
-        if user.userinfo.privacySelection == 2 and request.user != user:
+        if (user.userinfo.privacySelection == 2 and request.user != user) or (Block.objects.filter(blockee=request.user, blocker=user).exists()):
             return HttpResponseNotFound()
         else:
             if request.is_ajax():
