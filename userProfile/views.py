@@ -72,7 +72,15 @@ def userViewAJAX(request, username):
                     return HttpResponseBadRequest("You need to be logged in to use this function")
             elif request.POST['todo']   ==  "updateCalendar":
                 return render(request, "userProfile/months.html", { 'months': getSurroundingMonths(int(request.POST['month']), int(request.POST['year']), user) })
-            elif request.POST['todo']   ==  "blockaction":
-                pass
+            elif request.POST['todo']   ==  "blockAction":
+                if request.user.is_authenticated():
+                    if not Block.objects.filter(blockee=user, blocker=request.user).exists():
+                        Block.objects.create(blockee=user, blocker=request.user).save()
+                        return HttpResponse("1")
+                    else:
+                        Block.objects.get(blockee=user, blocker=request.user).delete()
+                        return HttpResponse("0")
+                else:
+                    return HttpResponseBadRequest("You need to be logged in to use this function")
             else:
                 return HttpResponseBadRequest()

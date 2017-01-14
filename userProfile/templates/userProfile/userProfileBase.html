@@ -426,7 +426,7 @@
               {% endif %}
               {% if user.is_authenticated %}
               <td>
-                <button id="blockButton">
+                <button id="blockButton" onclick="blockAction();">
                   {% if blocked %}unblock{% else %}block{% endif %}
                 </button>
               </td>
@@ -464,6 +464,29 @@
       }
     })
   }
+
+  function blockAction() {
+    $.ajax("{% url "userView" profileOwner.username %}", {
+      method  : "POST",
+      data    : {
+        // next line from citation [15]
+        csrfmiddlewaretoken : "{{ csrf_token }}",
+        todo                : "blockAction"
+      },
+      success : function(ajaxResponseText, ajaxStatus, ajaxResponse) {
+        if (ajaxResponseText == "1") {
+          document.getElementById("blockButton").innerHTML = "unblock";
+        } else {
+          document.getElementById("blockButton").innerHTML = "block";
+        }
+      },
+      error   : function(ajaxResponse, ajaxStatus, ajaxError) {
+        alert(ajaxResponse.responseText);
+      }
+    })
+  }
+
+
 
   function updateCalendar() {
     $.ajax("{% url "userView" profileOwner.username %}", {
