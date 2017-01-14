@@ -70,8 +70,8 @@ def userViewAJAX(request, username):
                         return HttpResponse("0")
                 else:
                     return HttpResponseBadRequest("You need to be logged in to use this function")
-            elif request.POST['todo']   ==  "calendarChange":
-                pass
+            elif request.POST['todo']   ==  "updateCalendar":
+                return render(request, "userProfile/months.html", { 'months': getSurroundingMonths(int(request.POST['month']), int(request.POST['year']), user) })
             elif request.POST['todo']   ==  "blockaction":
                 pass
             else:

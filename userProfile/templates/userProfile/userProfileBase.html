@@ -477,6 +477,8 @@
       },
       success : function(ajaxResponseText, ajaxStatus, ajaxResponse) {
         document.getElementById("dates").innerHTML = ajaxResponseText;
+        // scrollIntoView() suggestion from citation [21]
+        document.getElementById(document.getElementById("monthSelector").value + "." + document.getElementById("yearSelector").value).scrollIntoView(true);
       },
       error   : function(ajaxResponse, ajaxStatus, ajaxError) {
         alert(ajaxResponse.responseText);
