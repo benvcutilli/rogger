@@ -249,7 +249,7 @@
   </div>
 </div>
 <div id="feedViewport">
-  <div id="feedContainer">
+  <div id="feedContainer" onscroll="checkForScrollBottomHit();">
     <div id="feed">
       <h1 id="updatesTitle">
         {{ updatesTitle }}
@@ -257,13 +257,43 @@
       <div id="updatesDiv">
         {% include "homepage/updates.html" %}
       </div>
-      <h3 id="noPostsAlert">
+      <h3 id="noPostsAlert" {% if updates.count != 0 %}hidden{% endif %}>
         {{ noPosts }}
       </h3>
-      <h4 id="encouragement">
+      <h4 id="encouragement" {% if updates.count != 0 %}hidden{% endif %}>
         {{ encouragement }}
       </h4>
     </div>
   </div>
 </div>
+<script>
+  var earliestID = {{ updates.last.id }};
+  var earliestYear = 1;
+  var noMoreUpdates = false;
+  function checkForScrollBottomHit() {
+    var feedContainer = $("#feedContainer");
+    // condition in next "if" statement from citation [22]
+    if (feedContainer.scrollTop() + feedContainer.height() >= $("#feed").outerHeight() && !noMoreUpdates) {
+      $.ajax("{% url "homepage" %}", {
+        method  : "POST",
+        data    : {
+          lastID              : earliestID,
+          // next line from citation [15]
+          csrfmiddlewaretoken : "{{ csrf_token }}",
+          todo                : "fetchMoreUpdates"
+        },
+        dataType: "json",
+        success : function(ajaxResponseText, ajaxStatus, ajaxResponse) {
+          earliestID = ajaxResponseText['id']
+          $("#updatesDiv").append(ajaxResponseText['html'])
+        },
+        error   : function(ajaxResponse, ajaxStatus, ajaxError) {
+          noMoreUpdates = true;
+          $("#encouragement").show();
+          $("#noPostsAlert").show();
+        }
+      });
+    }
+  }
+</script>
 {% endblock %}

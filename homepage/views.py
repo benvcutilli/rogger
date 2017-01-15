@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse, HttpResponseNotFound
 from django.urls import reverse
 from shared.languageLocalization import baseLocalization
 from rogger.settings import RECAPTCHA_PUBLIC, RECAPTCHA_SECRET
@@ -13,6 +13,7 @@ from shared.tools import getErrorString
 from django.contrib.auth.forms import SetPasswordForm
 from shared.models import UserInfo, Follow, Block
 from workoutLogging.models import Workout
+from django.template.loader import render_to_string
 
 debugLocale = 'french'
 godMode = True
@@ -99,15 +100,47 @@ changePasswordLocalizationDict = {
 
 ######### END OF LOCALIZATION ##########
 def homepage(request):
+
+    def homepageAJAX(request):
+        if request.POST['todo'] == "fetchMoreUpdates":
+            followedUsers = []
+            for follow in Follow.objects.filter(follower=request.user):
+                if not (Block.objects.filter(blocker=follow.followee, blockee=request.user).exists() or Block.objects.filter(blocker=request.user, blockee=follow.followee).exists()):
+                    followedUsers.append(follow.followee)
+            workouts = Workout.objects.filter(owner__in=followedUsers) \
+                                        .order_by("-modifiedDate", "id") \
+                                        .filter(
+                                            id__gt=int(request.POST['lastID']),
+                                            modifiedDate__lte=Workout.objects.get(id=int(request.POST['lastID'])).modifiedDate
+                                        )
+            if not workouts.count() > 0:
+                return HttpResponseNotFound()
+            else:
+                workouts = workouts[:(25 if workouts.count() >= 25 else len(workouts))]
+                return JsonResponse({
+                    'id'    :   workouts[len(workouts)-1].id,
+                    'html'  :   render_to_string("homepage/updates.html", {
+                        'updates'   :   workouts
+                    })
+                })
+        else:
+            return HttpResponseBadRequest()
+
+
     if not request.user.is_authenticated and not godMode:
         return loginView(request)
     else:
+        if request.is_ajax():
+            return homepageAJAX(request)
+
         followedUsers = []
         for follow in Follow.objects.filter(follower=request.user):
             if not (Block.objects.filter(blocker=follow.followee, blockee=request.user).exists() or Block.objects.filter(blocker=request.user, blockee=follow.followee).exists()):
                 followedUsers.append(follow.followee)
+        workouts = Workout.objects.filter(owner__in=followedUsers).order_by("-modifiedDate", "id")
         templateDict = {
-            'updates'   :   Workout.objects.filter(owner__in=followedUsers).order_by("-modifiedDate")
+            'updates'   :   workouts[:workouts.count() if workouts.count() < 25 else 25],
+            #'earliestID':   workouts[workouts.count()-1 if workouts.count() < 25 else 24].id
         }
         templateDict.update(homepageLocalization[debugLocale])
 

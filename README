@@ -31,6 +31,7 @@ using the [#] notation to index each source found on this page):
 [19]  Probably a commonly-used way to wrap a counter to mimic a ring buffer, but this code was at least sanity checked by, but possibly derived from, my knowledge that "Operating System Design: The Xinu Approach (Second Edition)" by Douglas Comer uses this technique
 [20]  related_name naming scheme from https://docs.djangoproject.com/en/1.10/topics/db/queries/#following-relationships-backward (the FOO_set explanation part); also, I think I did this using-related_name-thing-to-resolve-migration-conflicts thing in the original Rogger project, suggested by a citation that I don't have on me right now, but this modification was recommended anyway by the django library when i tried to run the site, and I just followed those instructions, so citing the other resource may not be necessary
 [21]  Using scrollIntoView() to scroll parent element to the element calling scrollIntoView() from unknown source
+[22]  This conditional, for calculating if scrolling has reached the bottom, from multiple sources that are unknown
 
 This site is built on the Django web development framework.
 
