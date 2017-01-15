@@ -269,6 +269,7 @@
 <script>
   var earliestID = {{ updates.last.id }};
   var earliestYear = 1;
+  // noMoreUpdates usage from citation [23]
   var noMoreUpdates = false;
   function checkForScrollBottomHit() {
     var feedContainer = $("#feedContainer");
@@ -288,6 +289,7 @@
           $("#updatesDiv").append(ajaxResponseText['html'])
         },
         error   : function(ajaxResponse, ajaxStatus, ajaxError) {
+          // noMoreUpdates usage from citation [23]
           noMoreUpdates = true;
           $("#encouragement").show();
           $("#noPostsAlert").show();
