@@ -86,11 +86,11 @@ class WorkoutMonth():
 
         return monthDict[self.month]
 
-def getSurroundingMonths(monthNumber, yearNumber, user):
+def getSurroundingMonths(monthNumber, yearNumber, user, before=5, after=6):
     monthsWeeks = [WorkoutMonth(getWeeksForMonthRepresentation(monthNumber, yearNumber, user), monthNumber, yearNumber)]
     tempYearNumber      =   yearNumber
     tempMonthNumber     =   monthNumber
-    for i in range(5):
+    for i in range(before):
         # citation [19]
         tempMonthNumber -= 1
         if tempMonthNumber < 1:
@@ -101,7 +101,7 @@ def getSurroundingMonths(monthNumber, yearNumber, user):
 
     tempYearNumber      =   yearNumber
     tempMonthNumber     =   monthNumber
-    for i in range(6):
+    for i in range(after):
         # citation [19]
         tempMonthNumber += 1
         if tempMonthNumber > 12:

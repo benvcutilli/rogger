@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from shared.languageLocalization import baseLocalization, debugLocale
-from django.http import HttpResponseNotFound, HttpResponseBadRequest, HttpResponse
+from django.http import HttpResponseNotFound, HttpResponseBadRequest, HttpResponse, JsonResponse
 from django.contrib.auth.models import User
 from shared.tools import getSurroundingMonths
 from shared.models import Follow, Block
 from datetime import date
 from workoutLogging.models import Workout
+from django.template.loader import render_to_string
 # Create your views here.
 
 ######### USER PAGE LOCALIZATION #############
@@ -43,6 +44,10 @@ def userView(request, username):
 
             templateDict.update({
                 'months'        :   months,
+                'earliestMonth' :   months[0].month,
+                'earliestYear'  :   months[0].year,
+                'latestMonth'   :   months[-1].month,
+                'latestYear'    :   months[-1].year,
                 'profileOwner'  :   user,
                 'mileage'       :   sum([workout.distance for workout in Workout.objects.filter(owner=user)]),
                 'followsUser'   :   Follow.objects.filter(followee=user, follower=request.user).exists() if request.user.is_authenticated else None,
@@ -72,6 +77,20 @@ def userViewAJAX(request, username):
                     return HttpResponseBadRequest("You need to be logged in to use this function")
             elif request.POST['todo']   ==  "updateCalendar":
                 return render(request, "userProfile/months.html", { 'months': getSurroundingMonths(int(request.POST['month']), int(request.POST['year']), user) })
+            elif request.POST['todo']   ==  "scrollEarlier":
+                months = getSurroundingMonths(int(request.POST['month']), int(request.POST['year']), user, 11, 0)
+                return JsonResponse({
+                    'earliestMonth' :   months[0].month,
+                    'earliestYear'  :   months[0].year,
+                    'html'          :   render_to_string("userProfile/months.html", { 'months': months })
+                })
+            elif request.POST['todo']   ==  "scrollLater":
+                months = getSurroundingMonths(int(request.POST['month']), int(request.POST['year']), user, 0, 11)
+                return JsonResponse({
+                    'earliestMonth' :   months[0].month,
+                    'earliestYear'  :   months[0].year,
+                    'html'          :   render_to_string("userProfile/months.html", { 'months': months })
+                })
             elif request.POST['todo']   ==  "blockAction":
                 if request.user.is_authenticated():
                     if not Block.objects.filter(blockee=user, blocker=request.user).exists():
