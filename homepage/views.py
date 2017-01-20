@@ -134,13 +134,14 @@ def homepage(request):
             return homepageAJAX(request)
 
         followedUsers = []
-        for follow in Follow.objects.filter(follower=request.user):
+        for follow in Follow.objects.filter(follower=request.user).order_by("followee__username"):
             if not (Block.objects.filter(blocker=follow.followee, blockee=request.user).exists() or Block.objects.filter(blocker=request.user, blockee=follow.followee).exists()):
                 followedUsers.append(follow.followee)
         workouts = Workout.objects.filter(owner__in=followedUsers).order_by("-modifiedDate", "id")
         templateDict = {
             'updates'   :   workouts[:workouts.count() if workouts.count() < 25 else 25],
             #'earliestID':   workouts[workouts.count()-1 if workouts.count() < 25 else 24].id
+            'follows'   :   followedUsers
         }
         templateDict.update(homepageLocalization[debugLocale])
 

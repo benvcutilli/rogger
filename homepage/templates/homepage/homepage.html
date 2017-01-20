@@ -130,7 +130,10 @@
     vertical-align: middle;
     /* end citation */
     color: #fdfdfd; /* HTML color picker used (citation [2] in top-level repository README) */
-
+  }
+  .followedUserUsernameCell > a {
+    text-decoration:none;
+    color: #fdfdfd; /* HTML color picker used (citation [2] in top-level repository README) */
   }
   .updateHeaderComponent {
     display:inline-block;
@@ -179,6 +182,7 @@
         {{ followingTitle }}
       </h3>
       <div>
+        {% for follow in follows %}
         <div class="followedUser">
           <div class="followedUserPicture">
           </div>
@@ -186,64 +190,13 @@
             <!-- citation [10] -->
             <div class="followedUserUsernameInner">
               <div class="followedUserUsernameCell">
-                username
+                <a href="{% url "userView" follow.username %}">{{ follow.username }}</a>
               </div>
             </div>
             <!-- end citation -->
           </div>
         </div>
-        <div class="followedUser">
-          <div class="followedUserPicture">
-          </div>
-          <div class="followedUserUsernameOuter">
-            <!-- citation [10] -->
-            <div class="followedUserUsernameInner">
-              <div class="followedUserUsernameCell">
-                username
-              </div>
-            </div>
-            <!-- end citation -->
-          </div>
-        </div>
-        <div class="followedUser">
-          <div class="followedUserPicture">
-          </div>
-          <div class="followedUserUsernameOuter">
-            <!-- citation [10] -->
-            <div class="followedUserUsernameInner">
-              <div class="followedUserUsernameCell">
-                username
-              </div>
-            </div>
-            <!-- end citation -->
-          </div>
-        </div>
-        <div class="followedUser">
-          <div class="followedUserPicture">
-          </div>
-          <div class="followedUserUsernameOuter">
-            <!-- citation [10] -->
-            <div class="followedUserUsernameInner">
-              <div class="followedUserUsernameCell">
-                username
-              </div>
-            </div>
-            <!-- end citation -->
-          </div>
-        </div>
-        <div class="followedUser">
-          <div class="followedUserPicture">
-          </div>
-          <div class="followedUserUsernameOuter">
-            <!-- citation [10] -->
-            <div class="followedUserUsernameInner">
-              <div class="followedUserUsernameCell">
-                username
-              </div>
-            </div>
-            <!-- end citation -->
-          </div>
-        </div>
+        {% endfor %}
       </div>
     </div>
   </div>

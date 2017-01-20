@@ -10,13 +10,13 @@ class UserInfo(models.Model):
     privacySelection    =   models.IntegerField(default=1)
 
 class Follow(models.Model):
-    # related_names usage: citation [20]
+    # related_name usage in next line: citation [20]
     followee    =   models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_followee_set")
-    # related_names usage: citation [20]
+    # related_name usage in next line: citation [20]
     follower    =   models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_follower_set")
 
 class Block(models.Model):
-    # related_names usage: citation [20]
+    # related_name usage in next line: citation [20]
     blockee     =   models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_blockee_set")
-    # related_names usage: citation [20]
+    # related_name usage in next line: citation [20]
     blocker     =   models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_blocker_set")
