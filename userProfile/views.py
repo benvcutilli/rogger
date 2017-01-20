@@ -80,15 +80,15 @@ def userViewAJAX(request, username):
             elif request.POST['todo']   ==  "scrollEarlier":
                 months = getSurroundingMonths(int(request.POST['month']), int(request.POST['year']), user, 11, 0)
                 return JsonResponse({
-                    'earliestMonth' :   months[0].month,
-                    'earliestYear'  :   months[0].year,
+                    'month' :   months[0].month,
+                    'year'  :   months[0].year,
                     'html'          :   render_to_string("userProfile/months.html", { 'months': months })
                 })
             elif request.POST['todo']   ==  "scrollLater":
                 months = getSurroundingMonths(int(request.POST['month']), int(request.POST['year']), user, 0, 11)
                 return JsonResponse({
-                    'earliestMonth' :   months[0].month,
-                    'earliestYear'  :   months[0].year,
+                    'month' :   months[0].month,
+                    'year'  :   months[0].year,
                     'html'          :   render_to_string("userProfile/months.html", { 'months': months })
                 })
             elif request.POST['todo']   ==  "blockAction":
