@@ -76,19 +76,26 @@ def userViewAJAX(request, username):
                 else:
                     return HttpResponseBadRequest("You need to be logged in to use this function")
             elif request.POST['todo']   ==  "updateCalendar":
-                return render(request, "userProfile/months.html", { 'months': getSurroundingMonths(int(request.POST['month']), int(request.POST['year']), user) })
+                months = getSurroundingMonths(int(request.POST['month']), int(request.POST['year']), user)
+                return JsonResponse({
+                    'earlierMonth'  :   months[0].month,
+                    'earlierYear'   :   months[0].year,
+                    'laterMonth'    :   months[-1].month,
+                    'laterYear'     :   months[-1].year,
+                    'html'          :   render_to_string("userProfile/months.html", { 'months': months })
+                })
             elif request.POST['todo']   ==  "scrollEarlier":
-                months = getSurroundingMonths(int(request.POST['month']), int(request.POST['year']), user, 11, 0)
+                months = getSurroundingMonths(int(request.POST['month']), int(request.POST['year']), user, 12, 0)[:-1]
                 return JsonResponse({
                     'month' :   months[0].month,
                     'year'  :   months[0].year,
                     'html'          :   render_to_string("userProfile/months.html", { 'months': months })
                 })
             elif request.POST['todo']   ==  "scrollLater":
-                months = getSurroundingMonths(int(request.POST['month']), int(request.POST['year']), user, 0, 11)
+                months = getSurroundingMonths(int(request.POST['month']), int(request.POST['year']), user, 0, 12)[1:]
                 return JsonResponse({
-                    'month' :   months[0].month,
-                    'year'  :   months[0].year,
+                    'month' :   months[-1].month,
+                    'year'  :   months[-1].year,
                     'html'          :   render_to_string("userProfile/months.html", { 'months': months })
                 })
             elif request.POST['todo']   ==  "blockAction":

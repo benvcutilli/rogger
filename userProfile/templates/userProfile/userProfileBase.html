@@ -486,34 +486,43 @@
     })
   }
 
-
+  var fetchingMonths      = false;
 
   function updateCalendar() {
-    $.ajax("{% url "userView" profileOwner.username %}", {
-      method  : "POST",
-      data    : {
-        month               : document.getElementById("monthSelector").value,
-        year                : document.getElementById("yearSelector").value,
-        // next line from citation [15]
-        csrfmiddlewaretoken : "{{ csrf_token }}",
-        todo                : "updateCalendar"
-      },
-      success : function(ajaxResponseText, ajaxStatus, ajaxResponse) {
-        document.getElementById("dates").innerHTML = ajaxResponseText;
-        // scrollIntoView() suggestion from citation [21]
-        document.getElementById(document.getElementById("monthSelector").value + "." + document.getElementById("yearSelector").value).scrollIntoView(true);
-      },
-      error   : function(ajaxResponse, ajaxStatus, ajaxError) {
-        alert(ajaxResponse.responseText);
-      }
-    });
+    if (!fetchingMonths) {
+      fetchingMonths = true;
+      $.ajax("{% url "userView" profileOwner.username %}", {
+        method  : "POST",
+        data    : {
+          month               : document.getElementById("monthSelector").value,
+          year                : document.getElementById("yearSelector").value,
+          // next line from citation [15]
+          csrfmiddlewaretoken : "{{ csrf_token }}",
+          todo                : "updateCalendar"
+        },
+        success : function(ajaxResponseText, ajaxStatus, ajaxResponse) {
+          document.getElementById("dates").innerHTML = ajaxResponseText['html'];
+          // scrollIntoView() suggestion from citation [21]
+          document.getElementById(document.getElementById("monthSelector").value + "." + document.getElementById("yearSelector").value).scrollIntoView(true);
+          scrollMonthEarlier  = ajaxResponseText['earlierMonth'];
+          scrollYearEarlier   = ajaxResponseText['earlierYear'];
+          scrollMonthLater    = ajaxResponseText['laterMonth'];
+          scrollYearLater     = ajaxResponseText['laterYear'];
+          fetchingMonths = false;
+        },
+        error   : function(ajaxResponse, ajaxStatus, ajaxError) {
+          alert(ajaxResponse.responseText);
+          fetchingMonths = false;
+        }
+      });
+    }
   }
 
   var scrollMonthEarlier  = {{ earliestMonth }};
   var scrollMonthLater    = {{ latestMonth }};
   var scrollYearEarlier   = {{ earliestYear }};
   var scrollYearLater     = {{ latestYear }};
-  var fetchingMonths      = false;
+
 
   function getMonthsScroll() {
     var monthsHeight = 0.0;
