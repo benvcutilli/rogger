@@ -577,5 +577,7 @@
   // scrollIntoView() suggestion from citation [21]
   document.getElementById(dateString).scrollIntoView(true);
   console.log(dateString);
+  document.getElementById("yearSelector").value = currDate.getFullYear();
+  document.getElementById("monthSelector").value = currDate.getMonth()+1;
 </script>
 {% endblock %}
