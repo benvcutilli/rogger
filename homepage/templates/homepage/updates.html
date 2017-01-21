@@ -30,7 +30,7 @@
       <!-- citation [10] -->
       <div class="usernameInner">
         <div class="usernameCell">
-          {{ workout.owner.username }}
+          <a href="{% url "userView" workout.owner.username %}">{{ workout.owner.username }}</a>
         </div>
       </div>
       <!-- end citation -->
