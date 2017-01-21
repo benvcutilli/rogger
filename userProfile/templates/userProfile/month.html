@@ -7,7 +7,10 @@
   {% for week in month.weeks %}
   <div class="weekContainer">
     <div class="weekStats">
-      stats
+      stats<br>
+      {% for typeStat in week.getStats %}
+      <div class="typeStat">{{ typeStat }}</div>
+      {% endfor %}
     </div>
     <div class="dateShiftContainer leftAlign">
       {% for day in week.days %}

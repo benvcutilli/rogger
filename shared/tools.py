@@ -36,6 +36,17 @@ class WorkoutWeek():
     def __init__(self, days):
         self.days = days
 
+    def getStats(self):
+        workoutTypes = {}
+        for day in self.days:
+            for workout in day.workouts:
+                if workout.wtype.name in workoutTypes:
+                    workoutTypes[workout.wtype.name] += workout.distance
+                else:
+                    workoutTypes[workout.wtype.name] = workout.distance
+
+        return [key + ": " + str(workoutTypes[key]) for key in workoutTypes]
+
 def getWeeksForMonthRepresentation(monthNumber, yearNumber, user):
     day = date(yearNumber, monthNumber, 1)
     dayList = []
