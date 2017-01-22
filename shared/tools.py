@@ -51,8 +51,8 @@ class WorkoutWeek():
 
         return [key + ": " + str(workoutTypes[key]) for key in workoutTypes]
 
-    def getPDF(self, responseObject=None):
-        pdf = SimpleDocTemplate("hello.pdf", pagesize=letter)
+    def getPDF(self, responseObject):
+        pdf = SimpleDocTemplate(responseObject, pagesize=letter)
         flowables = []
         dateStyle = ParagraphStyle("")
         dateStyle.spaceBefore   = 12
@@ -79,6 +79,15 @@ class WorkoutWeek():
             flowables.append(Paragraph(stat, statStyle))
 
         pdf.build(flowables)
+
+def getWeek(year, month, day, user):
+    currentDate = date(year, month, day)
+    days = []
+    for i in range(7):
+        days.append(WorkoutDay(currentDate, Workout.objects.filter(owner=user, date=currentDate)))
+        currentDate += timedelta(1)
+
+    return WorkoutWeek(days)
 
 def getWeeksForMonthRepresentation(monthNumber, yearNumber, user):
     day = date(yearNumber, monthNumber, 1)

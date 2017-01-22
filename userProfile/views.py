@@ -2,7 +2,7 @@ from django.shortcuts import render
 from shared.languageLocalization import baseLocalization, debugLocale
 from django.http import HttpResponseNotFound, HttpResponseBadRequest, HttpResponse, JsonResponse
 from django.contrib.auth.models import User
-from shared.tools import getSurroundingMonths
+from shared.tools import getSurroundingMonths, getWeek
 from shared.models import Follow, Block
 from datetime import date
 from workoutLogging.models import Workout
@@ -82,21 +82,21 @@ def userViewAJAX(request, username):
                     'earlierYear'   :   months[0].year,
                     'laterMonth'    :   months[-1].month,
                     'laterYear'     :   months[-1].year,
-                    'html'          :   render_to_string("userProfile/months.html", { 'months': months })
+                    'html'          :   render_to_string("userProfile/months.html", { 'months': months, 'profileOwner': user, 'user': request.user })
                 })
             elif request.POST['todo']   ==  "scrollEarlier":
                 months = getSurroundingMonths(int(request.POST['month']), int(request.POST['year']), user, 12, 0)[:-1]
                 return JsonResponse({
                     'month' :   months[0].month,
                     'year'  :   months[0].year,
-                    'html'          :   render_to_string("userProfile/months.html", { 'months': months })
+                    'html'          :   render_to_string("userProfile/months.html", { 'months': months, 'profileOwner': user, 'user': request.user })
                 })
             elif request.POST['todo']   ==  "scrollLater":
                 months = getSurroundingMonths(int(request.POST['month']), int(request.POST['year']), user, 0, 12)[1:]
                 return JsonResponse({
                     'month' :   months[-1].month,
                     'year'  :   months[-1].year,
-                    'html'          :   render_to_string("userProfile/months.html", { 'months': months })
+                    'html'          :   render_to_string("userProfile/months.html", { 'months': months, 'profileOwner': user, 'user': request.user })
                 })
             elif request.POST['todo']   ==  "blockAction":
                 if request.user.is_authenticated():
@@ -110,3 +110,19 @@ def userViewAJAX(request, username):
                     return HttpResponseBadRequest("You need to be logged in to use this function")
             else:
                 return HttpResponseBadRequest()
+
+
+def weekPDFView(request, username, yearString, monthString, dayString):
+    year    =   int(yearString)
+    month   =   int(monthString)
+    day     =   int(dayString)
+
+    if User.objects.get(username=username).userinfo.privacySelection == 3 and request.user.username != username:
+        return HttpResponseNotFound()
+    if not (request.user.is_authenticated and request.user.username == username):
+        return HttpResponseForbidden()
+
+    pdfResponse = HttpResponse(content_type="application/pdf")
+    pdfResponse['Content-Disposition'] = 'attachment; filename=week' + yearString + "." + monthString + "." + dayString + ".pdf"
+    getWeek(year, month, day, request.user).getPDF(pdfResponse)
+    return pdfResponse

@@ -7,10 +7,11 @@
   {% for week in month.weeks %}
   <div class="weekContainer">
     <div class="weekStats">
-      stats<br>
+      stats{% if user == profileOwner %}<a href="{% url "weekPDFView" profileOwner.username week.days.0.date.year week.days.0.date.month week.days.0.date.day %}">PDF</a>{% endif %}<br>
       {% for typeStat in week.getStats %}
       <div class="typeStat">{{ typeStat }}</div>
       {% endfor %}
+
     </div>
     <div class="dateShiftContainer leftAlign">
       {% for day in week.days %}
