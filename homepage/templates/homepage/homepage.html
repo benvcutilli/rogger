@@ -220,34 +220,35 @@
   </div>
 </div>
 <script>
-  var earliestID = {{ updates.last.id }};
-  var earliestYear = 1;
+  var earliestID = {% if updates|length > 0 %}{{ updates.last.id }}{% else %}-1{% endif %};
   // noMoreUpdates usage from citation [23]
   var noMoreUpdates = false;
   function checkForScrollBottomHit() {
     var feedContainer = $("#feedContainer");
     // condition in next "if" statement from citation [22]
     if (feedContainer.scrollTop() + feedContainer.height() >= $("#feed").outerHeight() && !noMoreUpdates) {
-      $.ajax("{% url "homepage" %}", {
-        method  : "POST",
-        data    : {
-          lastID              : earliestID,
-          // next line from citation [15]
-          csrfmiddlewaretoken : "{{ csrf_token }}",
-          todo                : "fetchMoreUpdates"
-        },
-        dataType: "json",
-        success : function(ajaxResponseText, ajaxStatus, ajaxResponse) {
-          earliestID = ajaxResponseText['id']
-          $("#updatesDiv").append(ajaxResponseText['html'])
-        },
-        error   : function(ajaxResponse, ajaxStatus, ajaxError) {
-          // noMoreUpdates usage from citation [23]
-          noMoreUpdates = true;
-          $("#encouragement").show();
-          $("#noPostsAlert").show();
-        }
-      });
+      if (earliestID >= 0) {
+        $.ajax("{% url "homepage" %}", {
+          method  : "POST",
+          data    : {
+            lastID              : earliestID,
+            // next line from citation [15]
+            csrfmiddlewaretoken : "{{ csrf_token }}",
+            todo                : "fetchMoreUpdates"
+          },
+          dataType: "json",
+          success : function(ajaxResponseText, ajaxStatus, ajaxResponse) {
+            earliestID = ajaxResponseText['id']
+            $("#updatesDiv").append(ajaxResponseText['html'])
+          },
+          error   : function(ajaxResponse, ajaxStatus, ajaxError) {
+            // noMoreUpdates usage from citation [23]
+            noMoreUpdates = true;
+            $("#encouragement").show();
+            $("#noPostsAlert").show();
+          }
+        });
+      }
     }
   }
 </script>

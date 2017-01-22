@@ -186,6 +186,7 @@ def viewEntry(request, workoutID):
         'comments'          :   Comment.objects.filter(workout=workout),
         'error'             :   ""
     }
+    #print(templateDict['escapedEntry'])
     templateDict.update(entryLocalization[debugLocale])
     return render(request, "workoutLogging/viewentry.html", templateDict)
 
