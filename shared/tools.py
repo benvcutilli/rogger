@@ -32,6 +32,10 @@ class WorkoutDay():
         }
         return daysDict[self.date.isoweekday()]
 
+from reportlab.platypus import SimpleDocTemplate, Paragraph
+from reportlab.lib.pagesizes import letter
+from reportlab.lib.styles import ParagraphStyle
+
 class WorkoutWeek():
     def __init__(self, days):
         self.days = days
@@ -46,6 +50,35 @@ class WorkoutWeek():
                     workoutTypes[workout.wtype.name] = workout.distance
 
         return [key + ": " + str(workoutTypes[key]) for key in workoutTypes]
+
+    def getPDF(self, responseObject=None):
+        pdf = SimpleDocTemplate("hello.pdf", pagesize=letter)
+        flowables = []
+        dateStyle = ParagraphStyle("")
+        dateStyle.spaceBefore   = 12
+        dateStyle.spaceAfter    = 12
+        dateStyle.fontSize      = 16
+        dateStyle.fontName      = "Times-Roman"
+        workoutInfoStyle                = ParagraphStyle("")
+        workoutInfoStyle.fontName       = "Times-Roman"
+        workoutInfoStyle.spaceBefore    = 8
+        workoutEntryStyle               = ParagraphStyle("")
+        workoutEntryStyle.spaceBefore   = 4
+        workoutEntryStyle.fontName      = "Times-Roman"
+        for day in self.days:
+            flowables.append(Paragraph(str(day.date.strftime("%A, %B %d, %Y")), dateStyle))
+            for workout in day.workouts:
+                flowables.append(Paragraph("<strong>" + workout.title + " - " + str(workout.distance) + " miles" + (" - " + workout.wtype.name if workout.wtype != None else "") + (" - " + workout.shoe.name if workout.shoe != None else "") + "</strong>", workoutInfoStyle))
+                flowables.append(Paragraph(workout.entry, workoutEntryStyle))
+
+        weekTotalStyle  = dateStyle
+        statStyle       = workoutEntryStyle
+
+        flowables.append(Paragraph("Week Totals", weekTotalStyle))
+        for stat in self.getStats():
+            flowables.append(Paragraph(stat, statStyle))
+
+        pdf.build(flowables)
 
 def getWeeksForMonthRepresentation(monthNumber, yearNumber, user):
     day = date(yearNumber, monthNumber, 1)
