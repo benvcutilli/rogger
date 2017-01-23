@@ -69,6 +69,7 @@ class WorkoutWeek():
             flowables.append(Paragraph(str(day.date.strftime("%A, %B %d, %Y")), dateStyle))
             for workout in day.workouts:
                 flowables.append(Paragraph("<strong>" + workout.title + " - " + str(workout.distance) + " miles" + (" - " + workout.wtype.name if workout.wtype != None else "") + (" - " + workout.shoe.name if workout.shoe != None else "") + "</strong>", workoutInfoStyle))
+                # using <br/>'s from citation [24]
                 flowables.append(Paragraph(workout.entry.replace("\r\n", "<br/>"), workoutEntryStyle))
 
         weekTotalStyle  = dateStyle
