@@ -165,6 +165,11 @@ def viewEntry(request, workoutID):
     workout = Workout.objects.get(id=workoutID)
     if request.user == workout.owner:
         return editEntry(request, workoutID)
+    if request.user != workout.owner and workout.owner.userinfo.privacySelection == 2:
+        if not Follow.objects.filter(followee=workout.owner, follower=request.user).exists():
+            return HttpResponseNotFound()
+    if request.user != workout.owner and workout.owner.userinfo.privacySelection == 3:
+        return HttpResponseNotFound()
     workoutInfo = {
         'title'     :   workout.title,
         'distance'  :   repr(workout.distance),

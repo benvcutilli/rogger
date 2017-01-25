@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from shared.languageLocalization import baseLocalization, debugLocale
-from django.http import HttpResponseNotFound, HttpResponseBadRequest, HttpResponse, JsonResponse
+from django.http import HttpResponseNotFound, HttpResponseBadRequest, HttpResponse, JsonResponse, HttpResponseForbidden
 from django.contrib.auth.models import User
 from shared.tools import getSurroundingMonths, getWeek
 from shared.models import Follow, Block
@@ -33,7 +33,7 @@ def userView(request, username):
         return HttpResponseNotFound()
     else:
         user = User.objects.get(username=username)
-        if (user.userinfo.privacySelection == 2 and request.user != user) or (Block.objects.filter(blockee=request.user, blocker=user).exists()):
+        if (user.userinfo.privacySelection == 3 and request.user != user) or (Block.objects.filter(blockee=request.user, blocker=user).exists()):
             return HttpResponseNotFound()
         else:
             if request.is_ajax():
@@ -62,8 +62,8 @@ def userViewAJAX(request, username):
         return HttpResponseNotFound()
     else:
         user = User.objects.get(username=username)
-        if (user.userinfo.privacySelection == 2 and user != request.user) or (Block.objects.filter(blockee=request.user, blocker=user).exists() and request.user != user):
-            return HttpResponseNotFound()
+        if (user.userinfo.privacySelection >= 2 and user != request.user) or (Block.objects.filter(blockee=request.user, blocker=user).exists() and request.user != user):
+            return HttpResponseForbidden()
         else:
             if   request.POST['todo']   ==  "followAction":
                 if request.user.is_authenticated():
