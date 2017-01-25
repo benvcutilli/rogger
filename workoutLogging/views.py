@@ -200,6 +200,10 @@ def viewEntry(request, workoutID):
 
 def commentAddView(request, workoutID):
     workout = Workout.objects.get(id=workoutID)
+    if workout.owner.userinfo.privacySelection == 3:
+        return HttpResponseNotFound()
+    if workout.owner.userinfo.privacySelection == 2 and not (Follow.objects.filter(followee=workout.owner, follower=request.user).exists() or workout.owner == request.user):
+        return HttpResponseNotFound()
     if request.user.is_authenticated:
         commentText = request.POST['text']
         otherEmails = []
@@ -223,6 +227,8 @@ def commentDeleteView(request, workoutID):
             comment.delete()
             return HttpResponse("")
         else:
+            if comment.owner.userinfo.privacySelection == 3 or comment.owner.userinfo.privacySelection == 2:
+                return HttpResponseNotFound("This comment isn't available. It may not exist.")
             return HttpReponseForbidden("You don't own this comment, so you can't delete it.")
     else:
         return HttpReponseForbidden("Please log in to use this feature")
