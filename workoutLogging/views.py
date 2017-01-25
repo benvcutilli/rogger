@@ -6,6 +6,7 @@ from workoutLogging import forms
 from settings.models import Shoe, WorkoutType
 from workoutLogging.models import Workout, Comment
 from django.core.mail import send_mail
+from shared.models import Block
 
 debugLocale = 'french'
 
@@ -188,7 +189,7 @@ def viewEntry(request, workoutID):
         'workoutID'         :   workoutID,
         'info'              :   workoutInfo,
         'viewRenderMode'    :   True,
-        'comments'          :   Comment.objects.filter(workout=workout),
+        'comments'          :   Comment.objects.filter(workout=workout).exclude(owner__in=[block.blockee for block in Block.objects.filter(blocker=request.user)]),
         'error'             :   ""
     }
     #print(templateDict['escapedEntry'])
