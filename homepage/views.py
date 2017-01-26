@@ -16,7 +16,7 @@ from workoutLogging.models import Workout
 from django.template.loader import render_to_string
 
 debugLocale = 'french'
-godMode = True
+godMode = False
 
 ######### LOGIN LOCALIZATION ##########
 loginFrenchDict = {

@@ -62,8 +62,10 @@ def userViewAJAX(request, username):
         return HttpResponseNotFound()
     else:
         user = User.objects.get(username=username)
-        if (user.userinfo.privacySelection >= 2 and user != request.user) or (Block.objects.filter(blockee=request.user, blocker=user).exists() and request.user != user):
+        if (user.userinfo.privacySelection >= 2 and user != request.user):
             return HttpResponseForbidden()
+        else if (Block.objects.filter(blockee=request.user, blocker=user).exists() and request.user != user):
+            return HttpResponseNotFound()
         else:
             if   request.POST['todo']   ==  "followAction":
                 if request.user.is_authenticated():
@@ -100,7 +102,7 @@ def userViewAJAX(request, username):
                 })
             elif request.POST['todo']   ==  "blockAction":
                 if request.user.is_authenticated():
-                    if not Block.objects.filter(blockee=user, blocker=request.user).exists():
+                    if not Block.objects.filter(blockee=user, blocker=request.user).exists() and user != request.user:
                         Block.objects.create(blockee=user, blocker=request.user).save()
                         return HttpResponse("1")
                     else:
