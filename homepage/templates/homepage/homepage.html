@@ -292,17 +292,17 @@
     $.ajax("{% url "homepage" %}", {
       method  : "POST",
       data    : {
-        lastID              : followID,
+        followID              : followID,
         // next line from citation [15]
         csrfmiddlewaretoken : "{{ csrf_token }}",
         todo                : "acceptFollow"
       },
-      dataType: "data",
+      dataType: "text",
       success : function(ajaxResponseText, ajaxStatus, ajaxResponse) {
-        $(requestButton).parent().parent().parent().parent().parent().parent().remove();
+        $(requestButton).parent().parent().parent().parent().parent().remove();
       },
-      error   : function(ajaxResponseText, ajaxStatus, ajaxError) {
-        alert(ajaxResponseText);
+      error   : function(ajaxResponse, ajaxStatus, ajaxError) {
+        alert(ajaxResponse.responseText);
       }
     });
   }

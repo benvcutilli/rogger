@@ -139,7 +139,7 @@
         $("#commentsHolder").append(ajaxResponseText);
         document.getElementById("commentingArea").value = "";
       },
-      error   : function(ajaxResponseText, ajaxStatus, ajaxError) {
+      error   : function(ajaxResponse, ajaxStatus, ajaxError) {
         alert(ajaxResponse.responseText);
       }
     })

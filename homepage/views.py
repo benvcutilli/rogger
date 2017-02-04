@@ -126,7 +126,7 @@ def homepage(request):
 
         if request.POST['todo'] == "acceptFollow":
             if request.user.userinfo.privacySelection < 2:
-                return HttpResponseBadRequest()
+                return HttpResponseBadRequest("This action is only for users who have their profile locked")
             followID = request.POST['followID']
             follow = Follow.objects.get(id=followID)
             # usage of the "approved" attribute in a Follow object from citation [25]
