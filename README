@@ -34,6 +34,11 @@ using the [#] notation to index each source found on this page):
 [22]  This conditional, for calculating if scrolling has reached the bottom, from multiple sources that are unknown
 [23]  noMoreUpdates variable for keeping track of if we received notice that no more updates were available from the previous version of Rogger (codebase at bitbucket.org/roggerlogger), can't remember if I got this technique from an outside source
 [24]  <br/> usage to break lines in ReportLab from unknown source
+[25]  The strategy of allowing both approved and unapproved followers see user data if the privacy setting is set to public
+      but then showing all follows that have occurred but still need to be approved when the privacy setting is public or more
+      secure is from the previous version of Rogger; I don't think there are any resources that I used to get that strategy.
+      The "approved" attribute in the Follow model keeps track of whether a follow is approved, and, again, is only looked at
+      if the user-who-is-being-followed's profile is not on the public setting.
 
 This site is built on the Django web development framework.
 

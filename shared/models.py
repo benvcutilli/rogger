@@ -14,6 +14,8 @@ class Follow(models.Model):
     followee    =   models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_followee_set")
     # related_name usage in next line: citation [20]
     follower    =   models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_follower_set")
+    # "approved" attribute: citation [25]
+    approved    =   models.BooleanField(default=False)
 
 class Block(models.Model):
     # related_name usage in next line: citation [20]

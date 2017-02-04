@@ -1,12 +1,13 @@
 from django.shortcuts import render
 from shared.languageLocalization import baseLocalization
 from django.urls import reverse
-from django.http import HttpResponseForbidden, HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseForbidden, HttpResponseRedirect, HttpResponse, HttpResponseBadRequest
 from workoutLogging import forms
 from settings.models import Shoe, WorkoutType
 from workoutLogging.models import Workout, Comment
 from django.core.mail import send_mail
 from shared.models import Block
+import datetime
 
 debugLocale = 'french'
 
@@ -29,11 +30,18 @@ def newEntry(request):
     templateDict = entryLocalization[debugLocale]
     availableWorkoutTypes = WorkoutType.objects.filter(owner__isnull=True) | WorkoutType.objects.filter(owner=request.user)
     templateDict.update({
-        'formURL'   :   reverse("newEntryView"),
-        'error'     :   "",
-        'shoes'     :   [(element, repr(element.id)) for element in Shoe.objects.filter(owner=request.user)],
-        'types'     :   [(element, repr(element.id)) for element in availableWorkoutTypes]
+        'formURL'       :   reverse("newEntryView"),
+        'error'         :   "",
+        'shoes'         :   [(element, repr(element.id)) for element in Shoe.objects.filter(owner=request.user)],
+        'types'         :   [(element, repr(element.id)) for element in availableWorkoutTypes],
+        # NEXT LINE: THE STORING OF newWorkoutDate IN THE SESSION FOR TEMPORARY HOLDING BETWEEN WEBPAGES FROM CITATION [25]
+        'workoutDate'   :   request.session['newWorkoutDate'] if request.session.has_key('newWorkoutDate') else datetime.date.today.strftime("%Y.%m.%d")
     })
+
+    # NEXT LINES: THE STORING (AND NOW DELETION) OF newWorkoutDate IN THE SESSION FOR TEMPORARY HOLDING BETWEEN WEBPAGES FROM CITATION [25]
+    if request.session.has_key['newWorkoutDate']:
+        del request.session['newWorkoutDate']
+    # END CITATION
 
 
 
@@ -232,3 +240,12 @@ def commentDeleteView(request, workoutID):
             return HttpReponseForbidden("You don't own this comment, so you can't delete it.")
     else:
         return HttpReponseForbidden("Please log in to use this feature")
+
+# THIS METHOD, USED IN THE FUNCTION storeDate BELOW, OF STORING THE DATE (FOR A NEW LOG ENTRY) IN THE USER'S SESSION FROM
+# CITATION [25]
+def storeDate(request):
+    if not request.user.is_authenticated:
+        return HttpReponseForbidden()
+
+    request.session['newWorkoutDate'] = request.POST['entryDate']
+    return HttpResponse()

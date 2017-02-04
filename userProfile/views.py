@@ -35,10 +35,14 @@ def userView(request, username):
         user = User.objects.get(username=username)
         if (user.userinfo.privacySelection == 3 and request.user != user) or (Block.objects.filter(blockee=request.user, blocker=user).exists()):
             return HttpResponseNotFound()
+
         else:
             if request.is_ajax():
                 return userViewAJAX(request, username)
 
+            # usage of the "accepted" attribute in a Follow object from citation [25]
+            if user.userinfo.privacySelection == 2 and not Follow.objects.filter(followee=user, follower=request.user, approved=True).exists():
+                return HttpResponseForbidden()
 
             months = getSurroundingMonths(date.today().month, date.today().year, user)
 
@@ -62,15 +66,17 @@ def userViewAJAX(request, username):
         return HttpResponseNotFound()
     else:
         user = User.objects.get(username=username)
-        if (user.userinfo.privacySelection >= 2 and user != request.user):
-            return HttpResponseForbidden()
-        else if (Block.objects.filter(blockee=request.user, blocker=user).exists() and request.user != user):
+        if (Block.objects.filter(blockee=request.user, blocker=user).exists() and request.user != user):
             return HttpResponseNotFound()
         else:
             if   request.POST['todo']   ==  "followAction":
                 if request.user.is_authenticated():
                     if not Follow.objects.filter(followee=user, follower=request.user).exists():
-                        Follow.objects.create(followee=user, follower=request.user).save()
+                        if user == request.user:
+                            # usage of the "accepted" attribute in a Follow object from citation [25]
+                            Follow.objects.create(followee=user, follower=request.user, approved=True).create()
+                        else:
+                            Follow.objects.create(followee=user, follower=request.user).save()
                         return HttpResponse("1")
                     else:
                         Follow.objects.get(followee=user, follower=request.user).delete()
@@ -78,6 +84,9 @@ def userViewAJAX(request, username):
                 else:
                     return HttpResponseBadRequest("You need to be logged in to use this function")
             elif request.POST['todo']   ==  "updateCalendar":
+                # usage of the "accepted" attribute in a Follow object from citation [25]
+                if user.userinfo.privacySelection == 2 and not Follow.objects.filter(followee=user, follower=request.user, approved=True).exists():
+                    return HttpResponseForbidden()
                 months = getSurroundingMonths(int(request.POST['month']), int(request.POST['year']), user)
                 return JsonResponse({
                     'earlierMonth'  :   months[0].month,
@@ -87,6 +96,9 @@ def userViewAJAX(request, username):
                     'html'          :   render_to_string("userProfile/months.html", { 'months': months, 'profileOwner': user, 'user': request.user })
                 })
             elif request.POST['todo']   ==  "scrollEarlier":
+                # usage of the "accepted" attribute in a Follow object from citation [25]
+                if user.userinfo.privacySelection == 2 and not Follow.objects.filter(followee=user, follower=request.user, approved=True).exists():
+                    return HttpResponseForbidden()
                 months = getSurroundingMonths(int(request.POST['month']), int(request.POST['year']), user, 12, 0)[:-1]
                 return JsonResponse({
                     'month' :   months[0].month,
@@ -94,6 +106,9 @@ def userViewAJAX(request, username):
                     'html'          :   render_to_string("userProfile/months.html", { 'months': months, 'profileOwner': user, 'user': request.user })
                 })
             elif request.POST['todo']   ==  "scrollLater":
+                # usage of the "accepted" attribute in a Follow object from citation [25]
+                if user.userinfo.privacySelection == 2 and not Follow.objects.filter(followee=user, follower=request.user, approved=True).exists():
+                    return HttpResponseForbidden()
                 months = getSurroundingMonths(int(request.POST['month']), int(request.POST['year']), user, 0, 12)[1:]
                 return JsonResponse({
                     'month' :   months[-1].month,
@@ -128,3 +143,16 @@ def weekPDFView(request, username, yearString, monthString, dayString):
     pdfResponse['Content-Disposition'] = 'attachment; filename=week' + yearString + "." + monthString + "." + dayString + ".pdf"
     getWeek(year, month, day, request.user).getPDF(pdfResponse)
     return pdfResponse
+
+
+# THIS METHOD, USED IN THE FUNCTION storeDate BELOW, OF STORING THE DATE (FOR A NEW LOG ENTRY) IN THE USER'S SESSION FROM
+# CITATION [25]
+def storeDate(request):
+    if not user.is_authenticated:
+        return HttpReponseForbidden()
+
+    if request.POST.has_key('entryDate'):
+        request.session['newWorkoutDate'] = request.POST['entryDate']
+        return HttpResponse()
+    else:
+        return HttpResponseBadRequest()

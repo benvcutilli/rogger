@@ -16,7 +16,8 @@
     <div class="dateShiftContainer leftAlign">
       {% for day in week.days %}
       <div class="date {% if day.date.month == month.month %}darkDate{% endif %}">
-        {{ day.dayOfWeekWorded }} {{ day.date.day }}
+        <!-- STORING DATE (CALL TO storeDate(this) IN NEXT LINE) TECHNIQUE FROM CITATION [25] -->
+        {% if user == profileOwner %}<a onclick="storeDate(this)" data="{{ day.date.year }}.{% if day.date.month < 10%}0{% endif %}{{ day.date.month }}.{% if day.date.day < 10 %}0{% endif %}{{ day.date.day }}">{% endif %}{{ day.dayOfWeekWorded }} {{ day.date.day }}{% if user == profileOwner %}</a>{% endif %}
         <div class="dateWorkoutDiv">
           {% for workout in day.workouts %}
           <a href="{% url "viewEntryView" workout.id %}">{{ workout.title }}</a>

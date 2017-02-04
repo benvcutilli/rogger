@@ -163,6 +163,10 @@
     padding:10px;
 
   }
+  .date > a {
+    text-decoration:none;
+    cursor:pointer;
+  }
   .darkDate {
     background-color:#ccd;
   }
@@ -597,5 +601,25 @@
   console.log(dateString);
   document.getElementById("yearSelector").value = currDate.getFullYear();
   document.getElementById("monthSelector").value = currDate.getMonth()+1;
+
+  // storeDate PART OF TECHNIQUE USED TO STORE DATES FOR OTHER PAGES OF THE SITE
+  // FROM CITATION [25]
+  function storeDate(itself) {
+    console.log(itself.data);
+    $.ajax("{% url "storeDate" %}", {
+      method  : "POST",
+      data    : {
+        entryDate           : itself.data,
+        // next line from citation [15]
+        csrfmiddlewaretoken : "{{ csrf_token }}",
+      },
+      success : function(ajaxResponseText, ajaxStatus, ajaxResponse) {
+        window.location.href = "{% url "newEntryView" %}";
+      },
+      error   : function(ajaxResponse, ajaxStatus, ajaxError) {
+        alert(ajaxResponse.responseText);
+      }
+    });
+  }
 </script>
 {% endblock %}
