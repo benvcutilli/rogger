@@ -17,7 +17,7 @@
     /* end citation */
   }
   /* citation [7] */
-  #followingContainer {
+  #followingContainer, #followRequestsContainer {
     width:100%;
     margin-right:-50px;
     padding-right:50px;
@@ -27,12 +27,12 @@
 
   }
   /* end citation */
-  #following {
+  #following, #followRequesting {
     width:100%;
     height:10000px;
     margin:0px;
   }
-  #following > * {
+  #following > *, #followRequesting > * {
     color: #fdfdfd; /* HTML color picker used (citation [2] in top-level repository README) */
   }
   #feedViewport {
@@ -156,14 +156,14 @@
   .workoutSummary {
     margin:20px;
   }
-  .followedUser {
+  .followedUser, .followRequestUser {
     margin:10px;
   }
-  .followedUser > div {
+  .followedUser > div, .followRequestUser > div {
     display:inline-block;
     color: #fdfdfd; /* HTML color picker used (citation [2] in top-level repository README) */
   }
-  .followedUserPicture {
+  .followedUserPicture, .followRequestUserPicture {
     width:40px;
     height:40px;
     border-radius:0px;
@@ -200,6 +200,34 @@
       </div>
     </div>
   </div>
+  <!-- for follow request treatment, see citation [25] for where I got the idea from -->
+  {% if user.userinfo.privacySelection == 2 %}
+  <div id="followRequestsContainer">
+    <div id="followRequesting">
+      <h3 id="followRequestingTitle">
+        Follow Requests
+      </h3>
+      <div>
+        {% for followRequest in followRequests %}
+        <div class="followRequestUser">
+          <div class="followRequestUserPicture">
+          </div>
+          <div class="followRequestUserUsernameOuter">
+            <!-- citation [10] -->
+            <div class="followRequestUserUsernameInner">
+              <div class="followRequestUserUsernameCell">
+                <a href="{% url "userView" followRequest.username %}">{{ followRequest.username }}</a>
+              </div>
+            </div>
+            <!-- end citation -->
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  <!-- end citation -->
 </div>
 <div id="feedViewport">
   <div id="feedContainer" onscroll="checkForScrollBottomHit();">

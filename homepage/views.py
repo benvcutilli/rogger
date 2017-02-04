@@ -150,9 +150,11 @@ def homepage(request):
                 followedUsers.append(follow.followee)
         workouts = Workout.objects.filter(owner__in=followedUsers).order_by("-modifiedDate", "id")
         templateDict = {
-            'updates'   :   workouts[:workouts.count() if workouts.count() < 25 else 25],
+            'updates'           :   workouts[:workouts.count() if workouts.count() < 25 else 25],
             #'earliestID':   workouts[workouts.count()-1 if workouts.count() < 25 else 24].id
-            'follows'   :   followedUsers
+            'follows'           :   followedUsers,
+            # see citation [25] for where usage of "approved" in the next line comes from
+            'followRequests'    :   Follow.objects.filter(followee=request.user, approved=False).exclude(follower__in=[ block.blockee for block in Block.objects.filter(blocker=request.user) ])
         }
         templateDict.update(homepageLocalization[debugLocale])
 
