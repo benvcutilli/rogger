@@ -29,7 +29,7 @@
   /* end citation */
   #following, #followRequesting {
     width:100%;
-    height:10000px;
+    /*height:10000px;*/
     margin:0px;
   }
   #following > *, #followRequesting > * {
@@ -64,7 +64,7 @@
     text-align:center;
     color:#778;
   }
-  #followingTitle {
+  #followingTitle, #followRequestingTitle {
     text-align:center;
   }
   #noPostsAlert {
@@ -114,24 +114,24 @@
     display:inline-block;
     margin-bottom:-4px;
   }
-  .usernameOuter, .followedUserUsernameOuter {
+  .usernameOuter, .followedUserUsernameOuter, .followRequestUserUsernameOuter {
     display:inline-block;
     margin-left:10px;
     margin-bottom:-4px;
     height:40px;
   }
-  .usernameInner, .followedUserUsernameInner {
+  .usernameInner, .followedUserUsernameInner, .followRequestUserUsernameInner {
     height:100%;
     /* citation [10] (continues on to the usernameCell class CSS definition, see citation end tag) */
     display:table;
   }
-  .usernameCell, .followedUserUsernameCell {
+  .usernameCell, .followedUserUsernameCell, .followRequestUserUsernameCell{
     display:table-cell;
     vertical-align: middle;
     /* end citation */
     color: #fdfdfd; /* HTML color picker used (citation [2] in top-level repository README) */
   }
-  .usernameCell > a, .followedUserUsernameCell > a {
+  .usernameCell > a, .followedUserUsernameCell > a, .followRequestUserUsernameCell > a {
     text-decoration:none;
     color: #fdfdfd; /* HTML color picker used (citation [2] in top-level repository README) */
   }
@@ -173,6 +173,15 @@
   .workoutLink {
     text-decoration:none;
     color: #fdfdfd; /* HTML color picker used (citation [2] in top-level repository README) */
+  }
+  .requestAcceptButton {
+    outline:none;
+    border:none;
+    height:100%;
+    background-color:#0f0;
+    color:#000;
+    font-weight:normal;
+    margin-left:10px;
   }
 </style>
 <div id="sidebar">
@@ -216,7 +225,7 @@
             <!-- citation [10] -->
             <div class="followRequestUserUsernameInner">
               <div class="followRequestUserUsernameCell">
-                <a href="{% url "userView" followRequest.username %}">{{ followRequest.username }}</a>
+                <a href="{% url "userView" followRequest.follower.username %}">{{ followRequest.follower.username }}</a><button class="requestAcceptButton" onclick="acceptFollowRequest({{ followRequest.id }})">accept</button>
               </div>
             </div>
             <!-- end citation -->

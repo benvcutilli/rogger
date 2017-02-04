@@ -238,7 +238,7 @@ def commentDeleteView(request, workoutID):
             return HttpResponse("")
         else:
             # usage of the "approved" attribute in a Follow object from citation [25]
-            if comment.owner.userinfo.privacySelection == 3 or (comment.owner.userinfo.privacySelection == 2 and not Follow.objects.filter(followee=comment.owner, follower=request.user, approved=True).exists():
+            if comment.owner.userinfo.privacySelection == 3 or (comment.owner.userinfo.privacySelection == 2 and not Follow.objects.filter(followee=comment.owner, follower=request.user, approved=True).exists()):
                 return HttpResponseNotFound("This comment isn't available. It may not exist.")
             return HttpReponseForbidden("You don't own this comment, so you can't delete it.")
     else:
