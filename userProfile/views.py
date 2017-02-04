@@ -40,7 +40,7 @@ def userView(request, username):
             if request.is_ajax():
                 return userViewAJAX(request, username)
 
-            # usage of the "accepted" attribute in a Follow object from citation [25]
+            # usage of the "approved" attribute in a Follow object from citation [25]
             if user.userinfo.privacySelection == 2 and not Follow.objects.filter(followee=user, follower=request.user, approved=True).exists():
                 return HttpResponseForbidden()
 
@@ -73,7 +73,7 @@ def userViewAJAX(request, username):
                 if request.user.is_authenticated():
                     if not Follow.objects.filter(followee=user, follower=request.user).exists():
                         if user == request.user:
-                            # usage of the "accepted" attribute in a Follow object from citation [25]
+                            # usage of the "approved" attribute in a Follow object from citation [25]
                             Follow.objects.create(followee=user, follower=request.user, approved=True).create()
                         else:
                             Follow.objects.create(followee=user, follower=request.user).save()
@@ -84,7 +84,7 @@ def userViewAJAX(request, username):
                 else:
                     return HttpResponseBadRequest("You need to be logged in to use this function")
             elif request.POST['todo']   ==  "updateCalendar":
-                # usage of the "accepted" attribute in a Follow object from citation [25]
+                # usage of the "approved" attribute in a Follow object from citation [25]
                 if user.userinfo.privacySelection == 2 and not Follow.objects.filter(followee=user, follower=request.user, approved=True).exists():
                     return HttpResponseForbidden()
                 months = getSurroundingMonths(int(request.POST['month']), int(request.POST['year']), user)
@@ -96,7 +96,7 @@ def userViewAJAX(request, username):
                     'html'          :   render_to_string("userProfile/months.html", { 'months': months, 'profileOwner': user, 'user': request.user })
                 })
             elif request.POST['todo']   ==  "scrollEarlier":
-                # usage of the "accepted" attribute in a Follow object from citation [25]
+                # usage of the "approved" attribute in a Follow object from citation [25]
                 if user.userinfo.privacySelection == 2 and not Follow.objects.filter(followee=user, follower=request.user, approved=True).exists():
                     return HttpResponseForbidden()
                 months = getSurroundingMonths(int(request.POST['month']), int(request.POST['year']), user, 12, 0)[:-1]
@@ -106,7 +106,7 @@ def userViewAJAX(request, username):
                     'html'          :   render_to_string("userProfile/months.html", { 'months': months, 'profileOwner': user, 'user': request.user })
                 })
             elif request.POST['todo']   ==  "scrollLater":
-                # usage of the "accepted" attribute in a Follow object from citation [25]
+                # usage of the "approved" attribute in a Follow object from citation [25]
                 if user.userinfo.privacySelection == 2 and not Follow.objects.filter(followee=user, follower=request.user, approved=True).exists():
                     return HttpResponseForbidden()
                 months = getSurroundingMonths(int(request.POST['month']), int(request.POST['year']), user, 0, 12)[1:]

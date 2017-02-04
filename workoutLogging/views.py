@@ -175,7 +175,8 @@ def viewEntry(request, workoutID):
     if request.user == workout.owner:
         return editEntry(request, workoutID)
     if request.user != workout.owner and workout.owner.userinfo.privacySelection == 2:
-        if not Follow.objects.filter(followee=workout.owner, follower=request.user).exists():
+        # usage of the "approved" attribute in a Follow object from citation [25]
+        if not Follow.objects.filter(followee=workout.owner, follower=request.user, approved=True).exists():
             return HttpResponseNotFound()
     if request.user != workout.owner and workout.owner.userinfo.privacySelection == 3:
         return HttpResponseNotFound()
@@ -210,7 +211,8 @@ def commentAddView(request, workoutID):
     workout = Workout.objects.get(id=workoutID)
     if workout.owner.userinfo.privacySelection == 3:
         return HttpResponseNotFound()
-    if workout.owner.userinfo.privacySelection == 2 and not (Follow.objects.filter(followee=workout.owner, follower=request.user).exists() or workout.owner == request.user):
+    # usage of the "approved" attribute in a Follow object from citation [25]
+    if workout.owner.userinfo.privacySelection == 2 and not (Follow.objects.filter(followee=workout.owner, follower=request.user, approved=True).exists() or workout.owner == request.user):
         return HttpResponseNotFound()
     if request.user.is_authenticated:
         commentText = request.POST['text']
@@ -235,7 +237,8 @@ def commentDeleteView(request, workoutID):
             comment.delete()
             return HttpResponse("")
         else:
-            if comment.owner.userinfo.privacySelection == 3 or comment.owner.userinfo.privacySelection == 2:
+            # usage of the "approved" attribute in a Follow object from citation [25]
+            if comment.owner.userinfo.privacySelection == 3 or (comment.owner.userinfo.privacySelection == 2 and not Follow.objects.filter(followee=comment.owner, follower=request.user, approved=True).exists():
                 return HttpResponseNotFound("This comment isn't available. It may not exist.")
             return HttpReponseForbidden("You don't own this comment, so you can't delete it.")
     else:
