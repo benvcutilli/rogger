@@ -225,7 +225,7 @@
             <!-- citation [10] -->
             <div class="followRequestUserUsernameInner">
               <div class="followRequestUserUsernameCell">
-                <a href="{% url "userView" followRequest.follower.username %}">{{ followRequest.follower.username }}</a><button class="requestAcceptButton" onclick="acceptFollowRequest({{ followRequest.id }})">accept</button>
+                <a href="{% url "userView" followRequest.follower.username %}">{{ followRequest.follower.username }}</a><button class="requestAcceptButton" onclick="acceptFollowRequest(this, {{ followRequest.id }})">accept</button>
               </div>
             </div>
             <!-- end citation -->
@@ -287,6 +287,24 @@
         });
       }
     }
+  }
+  function acceptFollowRequest(requestButton, followID) {
+    $.ajax("{% url "homepage" %}", {
+      method  : "POST",
+      data    : {
+        lastID              : followID,
+        // next line from citation [15]
+        csrfmiddlewaretoken : "{{ csrf_token }}",
+        todo                : "acceptFollow"
+      },
+      dataType: "data",
+      success : function(ajaxResponseText, ajaxStatus, ajaxResponse) {
+        $(requestButton).parent().parent().parent().parent().parent().parent().remove();
+      },
+      error   : function(ajaxResponseText, ajaxStatus, ajaxError) {
+        alert(ajaxResponseText);
+      }
+    });
   }
 </script>
 {% endblock %}
