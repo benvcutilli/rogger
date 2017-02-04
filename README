@@ -36,7 +36,8 @@ using the [#] notation to index each source found on this page):
 [24]  <br/> usage to break lines in ReportLab from unknown source
 [25]  The strategy of allowing both approved and unapproved followers see user data if the privacy setting is set to public
       but then showing all follows that have occurred but still need to be approved when the privacy setting is public or more
-      secure is from the previous version of Rogger; I don't think there are any resources that I used to get that strategy.
+      secure is from the previous version of Rogger; I don't think there are any resources that I used to get that strategy,
+      but I can't remember everything that I used, so to be safe I will say that there is a possibility an outside resrouce helped.
       The "approved" attribute in the Follow model keeps track of whether a follow is approved, and, again, is only looked at
       if the user-who-is-being-followed's profile is not on the public setting.
 
