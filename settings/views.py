@@ -3,7 +3,7 @@ from shared.languageLocalization import baseLocalization
 from django.http import HttpResponseRedirect, HttpResponseServerError, HttpResponse, HttpResponseBadRequest, HttpResponseForbidden
 from django.urls import reverse
 from settings.forms import ShoeForm, AccountSettingsForm
-from settings.models import Shoe
+from settings.models import Shoe, WorkoutType
 from django.contrib.auth import authenticate
 
 # Create your views here.
@@ -68,6 +68,14 @@ def settings(request):
                     return HttpResponseForbidden("The password you entered is invalid.")
             else:
                 return HttpResponseBadRequest("The information you entered is invalid.")
+        elif request.POST['todo'] == "addType":
+            typeName = request.POST['newTypeName']
+            workoutType = WorkoutType.objects.create(name=typeName, owner=request.user)
+            workoutType.save()
+            return render(request, "settings/type.html", { 'workoutType': workoutType })
+        elif request.POST['todo'] == "deleteType":
+            WorkoutType.objects.get(id=request.POST['typeID'], owner=request.user).delete()
+            return HttpResponse()
         else:
             return HttpResponseBadRequest("This command isn't recognized.")
 

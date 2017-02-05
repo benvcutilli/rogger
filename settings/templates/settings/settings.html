@@ -12,15 +12,15 @@
     padding:0px 30px 30px 30px;
     text-align:center;
   }
-  #shoeSettings, #accountSettings {
-    width:50%;
+  #shoeSettings, #typeSettings, #accountSettings {
+    width:33%;
     display:inline-block;
     color:#fff;
     box-sizing:border-box;
     padding:20px;
     vertical-align:top;
   }
-  #shoeSettings > *, #accountSettings > * {
+  #shoeSettings > *, #typeSettings > *, #accountSettings > * {
     color:inherit;
   }
 
@@ -33,12 +33,12 @@
     outline:none;
     border:none;
     height:50px;
-    width:60%;
+    width:80%;
     vertical-align: top;
     font-size:16px;
     padding:10px;
   }
-  #addShoeButton {
+  #addShoeButton, #addTypeButton {
     height:50px;
     padding-left:10px;
     padding-right:10px;
@@ -49,8 +49,9 @@
     color:#fff;
     font-size:16px;
     margin: 0px;
+    width:20%;
   }
-  #newShoeName, #emailAddress, #displayName, #password {
+  #newShoeName, #newTypeName, #emailAddress, #displayName, #password {
     color:#000;
   }
   #saveAccountSettingsButton {
@@ -83,7 +84,7 @@
     padding:10px;
   }
   @media screen and (max-width:600px) {
-    #shoeSettings, #accountSettings {
+    #shoeSettings, #typeSettings, #accountSettings {
       width:100%;
     }
     #emailAddress, #displayName, #privacySelect, #saveAccountSettingsButton {
@@ -93,14 +94,14 @@
       padding-left:0px;
       padding-right:0px;
     }
-    #newShoeName {
+    #newShoeName, #newTypeName {
       width:70%;
     }
-    #addShoeButton {
+    #addShoeButton, #addTypeButton {
       width:30%;
     }
   }
-  .deleteShoeButton {
+  .deleteShoeButton, .deleteTypeButton {
     background-color:#f00;
     display:inline-block;
     outline:none;
@@ -109,16 +110,16 @@
     height:30px;
     font-size:16px;
   }
-  .shoeName {
+  .shoeName, .typeName {
     font-size:16px;
     display:inline-block;
     color:#fff;
     margin-left:10px;
   }
-  #shoeListing {
+  #shoeListing, #typeListing {
     margin-top:20px;
   }
-  .shoeContainer {
+  .shoeContainer, .typeContainer {
     margin-top:5px;
     margin-bottom:5px;
   }
@@ -136,6 +137,17 @@
       <div id="shoeListing">
         {% for shoe in shoes %}
           {% include "settings/shoe.html" %}
+        {% endfor %}
+      </div>
+    </div>
+    <div id="typeSettings">
+      <h3>
+        Workout Types
+      </h3>
+      <input id="newTypeName" name="newTypeName" class="settingsTextBox" placeholder="New Workout Type Name"/><button id="addTypeButton" onclick="addType();">Add</button>
+      <div id="typeListing">
+        {% for workoutType in workoutTypes %}
+          {% include "settings/type.html" %}
         {% endfor %}
       </div>
     </div><div id="accountSettings">
@@ -185,7 +197,7 @@
       error   : function(ajaxResponse, ajaxStatus, ajaxError) {
         alert("There was a problem with your shoe creation. Maybe you input something incorrectly?");
       }
-    })
+    });
   }
   function deleteShoe(shoeElement, shoeID) {
     var verdict = confirm("Are you sure you want to delete this shoe?");
@@ -204,7 +216,45 @@
         error   : function(ajaxResponse, ajaxStatus, ajaxError) {
           alert("There was a problem with your shoe deletion. Please try again if you haven't already.");
         }
-      })
+      });
+    }
+  }
+  function addType() {
+    var typeName = document.getElementById("newTypeName").value;
+    $.ajax("{% url "settingsView" %}", {
+      method  : "POST",
+      data    : {
+        newTypeName         : typeName,
+        // next line from citation [15]
+        csrfmiddlewaretoken : "{{ csrf_token }}",
+        todo                : "addType"
+      },
+      success : function(typeHTML, ajaxStatus, ajaxResponse) {
+        $("#typeListing").append(typeHTML);
+      },
+      error   : function(ajaxResponse, ajaxStatus, ajaxError) {
+        alert("There was a problem with your type creation. Maybe you input something incorrectly?");
+      }
+    });
+  }
+  function deleteType(typeElement, typeID) {
+    var verdict = confirm("Are you sure you want to delete this type?");
+    if (verdict == true) {
+      $.ajax("{% url "settingsView" %}", {
+        method  : "POST",
+        data    : {
+          typeID              : typeID,
+          // next line from citation [15]
+          csrfmiddlewaretoken : "{{ csrf_token }}",
+          todo                : "deleteType"
+        },
+        success : function(ajaxResponseText, ajaxStatus, ajaxResponse) {
+          $(typeElement).parent().remove();
+        },
+        error   : function(ajaxResponse, ajaxStatus, ajaxError) {
+          alert("There was a problem with your type deletion. Please try again if you haven't already.");
+        }
+      });
     }
   }
   function updateAccountSettings() {

@@ -35,11 +35,13 @@ def newEntry(request):
         'shoes'         :   [(element, repr(element.id)) for element in Shoe.objects.filter(owner=request.user)],
         'types'         :   [(element, repr(element.id)) for element in availableWorkoutTypes],
         # NEXT LINE: THE STORING OF newWorkoutDate IN THE SESSION FOR TEMPORARY HOLDING BETWEEN WEBPAGES FROM CITATION [25]
-        'workoutDate'   :   request.session['newWorkoutDate'] if request.session.has_key('newWorkoutDate') else datetime.date.today.strftime("%Y.%m.%d")
+        'workoutDate'   :   request.session['newWorkoutDate'] if request.session.has_key('newWorkoutDate') else datetime.date.today().strftime("%Y.%m.%d")
     })
 
+    
+
     # NEXT LINES: THE STORING (AND NOW DELETION) OF newWorkoutDate IN THE SESSION FOR TEMPORARY HOLDING BETWEEN WEBPAGES FROM CITATION [25]
-    if request.session.has_key['newWorkoutDate']:
+    if request.session.has_key('newWorkoutDate'):
         del request.session['newWorkoutDate']
     # END CITATION
 
