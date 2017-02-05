@@ -253,6 +253,12 @@
     color:#fff;
     padding-top:5px;
   }
+  h2 {
+    text-align:center;
+    color:#fff;
+    margin-top:40px;
+    font-size:20px;
+  }
 </style>
 <div id="userWrapper">
   <!--<div id="banner">
@@ -260,7 +266,7 @@
   <div id="profilePictureDiv">
     <img id="profilePicture" src="{% static "userProfile/pennrosediagram.png" %}"/>
   </div>
-
+{% block privateHTML %}
   <div id="calendar">
     <div id="calendarControls">
       <div class="tableInlineDiv">
@@ -455,6 +461,7 @@
       {% endfor %}
     </div>
   </div>
+{% endblock %}
 </div>
 <script>
   function followAction() {
@@ -498,7 +505,7 @@
       }
     })
   }
-
+{% block privateJS %}
   var fetchingMonths      = false;
 
   function updateCalendar() {
@@ -621,5 +628,6 @@
       }
     });
   }
+{% endblock %}
 </script>
 {% endblock %}

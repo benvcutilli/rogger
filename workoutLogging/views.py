@@ -1,12 +1,12 @@
 from django.shortcuts import render
 from shared.languageLocalization import baseLocalization
 from django.urls import reverse
-from django.http import HttpResponseForbidden, HttpResponseRedirect, HttpResponse, HttpResponseBadRequest
+from django.http import HttpResponseForbidden, HttpResponseRedirect, HttpResponse, HttpResponseBadRequest, HttpResponseNotFound
 from workoutLogging import forms
 from settings.models import Shoe, WorkoutType
 from workoutLogging.models import Workout, Comment
 from django.core.mail import send_mail
-from shared.models import Block
+from shared.models import Block, Follow
 import datetime
 
 debugLocale = 'french'
@@ -176,7 +176,7 @@ def viewEntry(request, workoutID):
         return editEntry(request, workoutID)
     if request.user != workout.owner and workout.owner.userinfo.privacySelection == 2:
         # usage of the "approved" attribute in a Follow object from citation [25]
-        if not Follow.objects.filter(followee=workout.owner, follower=request.user, approved=True).exists():
+        if not (request.user.is_authenticated and Follow.objects.filter(followee=workout.owner, follower=request.user, approved=True).exists()) or not request.user.is_authenticated:
             return HttpResponseNotFound()
     if request.user != workout.owner and workout.owner.userinfo.privacySelection == 3:
         return HttpResponseNotFound()
@@ -198,7 +198,7 @@ def viewEntry(request, workoutID):
         'workoutID'         :   workoutID,
         'info'              :   workoutInfo,
         'viewRenderMode'    :   True,
-        'comments'          :   Comment.objects.filter(workout=workout).exclude(owner__in=[block.blockee for block in Block.objects.filter(blocker=request.user)]),
+        'comments'          :   Comment.objects.filter(workout=workout).exclude(owner__in=[block.blockee for block in Block.objects.filter(blocker=request.user)]) if request.user.is_authenticated else Comment.objects.filter(workout=workout),
         'error'             :   ""
     }
     #print(templateDict['escapedEntry'])

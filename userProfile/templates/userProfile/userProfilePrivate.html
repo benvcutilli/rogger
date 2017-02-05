@@ -1,0 +1,39 @@
+{% extends "userProfile/userProfileBase.html" %}
+{% block privateHTML %}
+<div id="calendar">
+  <div id="calendarControls">
+    <div class="tableInlineDiv" id="userInformationTableWrapper">
+      <table id="userInformationTable">
+        <tbody>
+          <tr>
+            <td>
+              {{ profileOwner.username }} • <!-- bullet point idea from citation [8] -->
+            </td>
+            <td>
+              {{ mileage }} miles
+            </td>
+            {% if user.is_authenticated %}
+            <td>
+              <button id="followButton" onclick="followAction();">
+                {% if followsUser %}unfollow{% else %}follow{% endif %}
+              </button>
+            </td>
+            {% endif %}
+            {% if user.is_authenticated %}
+            <td>
+              <button id="blockButton" onclick="blockAction();">
+                {% if blocked %}unblock{% else %}block{% endif %}
+              </button>
+            </td>
+            {% endif %}
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <h2>This profile is private. Follow this user to request access!</h2>
+</div>
+
+{% endblock %}
+{% block privateJS %}
+{% endblock %}
