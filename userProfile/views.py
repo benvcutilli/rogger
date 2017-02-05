@@ -72,7 +72,7 @@ def userViewAJAX(request, username):
         return HttpResponseNotFound()
     else:
         user = User.objects.get(username=username)
-        if (Block.objects.filter(blockee=request.user, blocker=user).exists() and request.user != user):
+        if (request.user.is_authenticated and Block.objects.filter(blockee=request.user, blocker=user).exists() and request.user != user):
             return HttpResponseNotFound()
         else:
             if   request.POST['todo']   ==  "followAction":

@@ -14,7 +14,7 @@ class Workout(models.Model):
     seconds         =   models.FloatField(null=True)
     # type/subtype from Merv
     # next line citation [16]
-    wtype           =   models.ForeignKey('settings.WorkoutType', null=True)
+    wtype           =   models.ForeignKey('settings.WorkoutType', null=True, on_delete=models.SET_NULL)
     title           =   models.CharField(max_length=100, default="")
     modifiedDate    =   models.DateTimeField(auto_now=True)
     date            =   models.DateField(default=date(1970,1,1)) # DEFAULT IS UNIX EPOCH
