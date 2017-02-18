@@ -38,7 +38,7 @@ def newEntry(request):
         'workoutDate'   :   request.session['newWorkoutDate'] if request.session.has_key('newWorkoutDate') else datetime.date.today().strftime("%Y.%m.%d")
     })
 
-    
+
 
     # NEXT LINES: THE STORING (AND NOW DELETION) OF newWorkoutDate IN THE SESSION FOR TEMPORARY HOLDING BETWEEN WEBPAGES FROM CITATION [25]
     if request.session.has_key('newWorkoutDate'):
@@ -74,16 +74,17 @@ def newEntry(request):
             print([workoutForm['shoe'].data == shoe.id for shoe in Shoe.objects.filter(owner=request.user)])
             if workoutForm.is_valid():
                 workout = Workout.objects.create(
-                    title       =   workoutForm.cleaned_data['title'],
-                    distance    =   workoutForm.cleaned_data['distance'],
-                    hours       =   workoutForm.cleaned_data['hours'],
-                    minutes     =   workoutForm.cleaned_data['minutes'],
-                    seconds     =   workoutForm.cleaned_data['seconds'],
-                    wtype       =   WorkoutType.objects.get(id=int(workoutForm.cleaned_data['wtype'])),
-                    shoe        =   Shoe.objects.get(id=workoutForm.cleaned_data['shoe']) if workoutForm.cleaned_data['shoe'] >= 0 else None,
-                    entry       =   workoutForm.cleaned_data['entry'],
-                    owner       =   request.user,
-                    date        =   workoutForm.cleaned_data['date']
+                    title           =   workoutForm.cleaned_data['title'],
+                    distance        =   workoutForm.cleaned_data['distance'],
+                    hours           =   workoutForm.cleaned_data['hours'],
+                    minutes         =   workoutForm.cleaned_data['minutes'],
+                    seconds         =   workoutForm.cleaned_data['seconds'],
+                    wtype           =   WorkoutType.objects.get(id=int(workoutForm.cleaned_data['wtype'])),
+                    shoe            =   Shoe.objects.get(id=workoutForm.cleaned_data['shoe']) if workoutForm.cleaned_data['shoe'] >= 0 else None,
+                    entry           =   workoutForm.cleaned_data['entry'],
+                    owner           =   request.user,
+                    date            =   workoutForm.cleaned_data['date'],
+                    modifiedDate    =   datetime.datetime.now()
                 )
 
                 workout.save()
@@ -141,17 +142,18 @@ def editEntry(request, workoutID):
             if workoutForm.is_valid():
 
 
-                workout.title       =   workoutForm.cleaned_data['title']
-                workout.distance    =   workoutForm.cleaned_data['distance']
-                workout.hours       =   workoutForm.cleaned_data['hours']
-                workout.minutes     =   workoutForm.cleaned_data['minutes']
-                workout.seconds     =   workoutForm.cleaned_data['seconds']
-                workout.wtype       =   WorkoutType.objects.get(id=int(workoutForm.cleaned_data['wtype']))
-                workout.shoe        =   Shoe.objects.get(id=workoutForm.cleaned_data['shoe']) if workoutForm.cleaned_data['shoe'] >= 0 else None
-                workout.entry       =   workoutForm.cleaned_data['entry']
-                workout.owner       =   request.user
-                workout.date        =   workoutForm.cleaned_data['date']
-                workout.updated     =   True
+                workout.title           =   workoutForm.cleaned_data['title']
+                workout.distance        =   workoutForm.cleaned_data['distance']
+                workout.hours           =   workoutForm.cleaned_data['hours']
+                workout.minutes         =   workoutForm.cleaned_data['minutes']
+                workout.seconds         =   workoutForm.cleaned_data['seconds']
+                workout.wtype           =   WorkoutType.objects.get(id=int(workoutForm.cleaned_data['wtype']))
+                workout.shoe            =   Shoe.objects.get(id=workoutForm.cleaned_data['shoe']) if workoutForm.cleaned_data['shoe'] >= 0 else None
+                workout.entry           =   workoutForm.cleaned_data['entry']
+                workout.owner           =   request.user
+                workout.date            =   workoutForm.cleaned_data['date']
+                workout.updated         =   True
+                workout.modifiedDate    =   datetime.datetime.now()
 
 
                 workout.save()

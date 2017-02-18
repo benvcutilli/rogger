@@ -36,6 +36,7 @@ universalWorkoutTypeNames = [
     ("Hill Run",    0),
     ("Fartlek",     0),
     ("Race",        0),
+    ("Run",         0)
 
 ]
 

@@ -5,6 +5,10 @@ from django.urls import reverse
 from settings.forms import ShoeForm, AccountSettingsForm
 from settings.models import Shoe, WorkoutType
 from django.contrib.auth import authenticate
+import datetime
+from settings.forms import ImportForm
+import re
+from workoutLogging.models import Workout
 
 # Create your views here.
 
@@ -97,3 +101,78 @@ def settings(request):
         return render(request, "settings/settings.html", templateDict)
     else:
         return HttpResponseRedirect(reverse("loginView"))
+
+
+def importView(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse("loginView"))
+
+    if request.method == "POST":
+        form = ImportForm({
+            'mervData': request.POST['mervData']
+        })
+        if form.is_valid():
+            wdate          = r'(\d\d\d\d-\d{1,2}-\d{1,2}),'
+            wtype         = r'(?<!")"(.*)"(?!"),'
+            subtype       = r'(?<!")"(.*)"(?!"),'
+            distance      = r'(?<!")"(\d*(?:\.\d+)?)"(?!"),'
+            distanceUnits = r'(?<!")"(.*)"(?!"),'
+            pace          = r'(?<!")"(\d*(?:\.\d+)?)"(?!"),'
+            paceUnits     = r'(?<!")"(.*)"(?!"),'
+            minutes       = r'(?<!")"(\d*(?:\.\d+)?)"(?!"),'
+            shoe          = r'(?<!")"(.*)"(?!"),'
+            heartrate     = r'(?<!")"(\d*(?:\.\d+)?)"(?!"),'
+            title         = r'(?<!")"(.*)"(?!"),'
+            addendum      = r'(?<!")"(.*)"(?!"),'
+            entryText     = r'(?<!")"(.*)"(?!"),'
+
+
+            regexPattern = wdate + wtype + subtype + distance + distanceUnits + pace + paceUnits + minutes + shoe + heartrate + title + addendum + entryText
+            regexedWorkouts = re.findall(regexPattern, form.cleaned_data['mervData'])
+
+            for workoutTuple in regexedWorkouts:
+                workoutDate = workoutTuple[0].split('-')
+                workoutType = None
+                if WorkoutType.objects.filter(name=workoutTuple[1], owner=request.user).exists():
+                    workoutType = WorkoutType.objects.get(name=workoutTuple[1], owner=request.user)
+                elif WorkoutType.objects.filter(name=workoutTuple[1], owner__isnull=True).exists():
+                    workoutType = WorkoutType.objects.get(name=workoutTuple[1], owner__isnull=True)
+                else:
+                    workoutType = WorkoutType.objects.create(name=workoutTuple[1], owner=request.user)
+                    workoutType.save()
+
+                shoe = None
+                if Shoe.objects.filter(name=workoutTuple[8], owner=request.user).exists():
+                    shoe = Shoe.objects.get(name=workoutTuple[8], owner=request.user)
+                else:
+                    shoe = Shoe.objects.create(name=workoutTuple[8], owner=request.user)
+                    shoe.save()
+
+                Workout.objects.create(
+                    owner                   = request.user,
+                    date                    = datetime.date(int(workoutDate[0]), int(workoutDate[1]), int(workoutDate[2])),
+                    wtype                   = workoutType,
+                    mervLegacySubtype       = workoutTuple[2],
+                    distance                = (float(workoutTuple[3])*1.609 if workoutTuple[4] == 'km' else (float(workoutTuple[3]*1609 if workoutTuple[4] == 'm' else float(workoutTuple[3])))),
+                    mervLegacyDistance      = float(workoutTuple[3]),
+                    mervLegacyDistanceUnits = workoutTuple[4],
+                    mervLegacyPace          = workoutTuple[5],
+                    mervLegacyPaceUnits     = workoutTuple[6],
+                    hours                   = int(float(workoutTuple[7])) // 60,
+                    minutes                 = int(float(workoutTuple[7])) % 60,
+                    seconds                 = round(60 * (float(workoutTuple[7]) - int(float(workoutTuple[7]))), 2),
+                    shoe                    = shoe,
+                    mervLegacyHeartrate     = int(workoutTuple[9]),
+                    title                   = workoutTuple[10],
+                    mervLegacyAddendum      = workoutTuple[11],
+                    entry                   = workoutTuple[12].replace('""', '"'),
+                    mervImport              = True,
+                    modifiedDate            = datetime.datetime(1970, 1, 1, 0, 0, 0) # UNIX EPOCH TIME
+                ).save()
+
+            return HttpResponseRedirect(reverse("homepage"))
+        else:
+            return render(request, 'settings/import.html', baseLocalization[baseLocale])
+
+    else:
+        return render(request, 'settings/import.html', baseLocalization[baseLocale])
