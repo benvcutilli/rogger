@@ -7,6 +7,7 @@ from shared.models import Follow, Block
 from datetime import date
 from workoutLogging.models import Workout
 from django.template.loader import render_to_string
+from django.shortcuts import get_object_or_404
 # Create your views here.
 
 ######### USER PAGE LOCALIZATION #############
@@ -32,8 +33,8 @@ def userView(request, username):
     if not User.objects.filter(username=username).exists():
         return HttpResponseNotFound()
     else:
-        user = User.objects.get(username=username)
-        if (user.userinfo.privacySelection == 3 and request.user != user) or (request.user.is_authenticated and Block.objects.filter(blockee=request.user, blocker=user).exists()):
+        user = get_object_or_404(User, username=username)
+        if (user.userinfo.privacySelection == 3 and request.user != user) or (request.user.is_authenticated and Block.objects.filter(blockee=request.user, blocker=user).exists() and request.user == user):
             return HttpResponseNotFound()
 
         else:
@@ -71,68 +72,65 @@ def userViewAJAX(request, username):
     if not User.objects.filter(username=username).exists():
         return HttpResponseNotFound()
     else:
-        user = User.objects.get(username=username)
-        if (request.user.is_authenticated and Block.objects.filter(blockee=request.user, blocker=user).exists() and request.user != user):
-            return HttpResponseNotFound()
-        else:
-            if   request.POST['todo']   ==  "followAction":
-                if request.user.is_authenticated():
-                    if not Follow.objects.filter(followee=user, follower=request.user).exists():
-                        if user == request.user:
-                            # usage of the "approved" attribute in a Follow object from citation [25]
-                            Follow.objects.create(followee=user, follower=request.user, approved=True).create()
-                        else:
-                            Follow.objects.create(followee=user, follower=request.user).save()
-                        return HttpResponse("1")
+        user = get_object_or_404(User, username=username)
+        if   request.POST['todo']   ==  "followAction":
+            if request.user.is_authenticated():
+                if not Follow.objects.filter(followee=user, follower=request.user).exists():
+                    if user == request.user:
+                        # usage of the "approved" attribute in a Follow object from citation [25]
+                        Follow.objects.create(followee=user, follower=request.user, approved=True).create()
                     else:
-                        Follow.objects.get(followee=user, follower=request.user).delete()
-                        return HttpResponse("0")
+                        Follow.objects.create(followee=user, follower=request.user).save()
+                    return HttpResponse("1")
                 else:
-                    return HttpResponseBadRequest("You need to be logged in to use this function")
-            elif request.POST['todo']   ==  "updateCalendar":
-                # usage of the "approved" attribute in a Follow object from citation [25]
-                if user.userinfo.privacySelection == 2 and not Follow.objects.filter(followee=user, follower=request.user, approved=True).exists():
-                    return HttpResponseForbidden()
-                months = getSurroundingMonths(int(request.POST['month']), int(request.POST['year']), user)
-                return JsonResponse({
-                    'earlierMonth'  :   months[0].month,
-                    'earlierYear'   :   months[0].year,
-                    'laterMonth'    :   months[-1].month,
-                    'laterYear'     :   months[-1].year,
-                    'html'          :   render_to_string("userProfile/months.html", { 'months': months, 'profileOwner': user, 'user': request.user })
-                })
-            elif request.POST['todo']   ==  "scrollEarlier":
-                # usage of the "approved" attribute in a Follow object from citation [25]
-                if user.userinfo.privacySelection == 2 and not Follow.objects.filter(followee=user, follower=request.user, approved=True).exists():
-                    return HttpResponseForbidden()
-                months = getSurroundingMonths(int(request.POST['month']), int(request.POST['year']), user, 12, 0)[:-1]
-                return JsonResponse({
-                    'month' :   months[0].month,
-                    'year'  :   months[0].year,
-                    'html'          :   render_to_string("userProfile/months.html", { 'months': months, 'profileOwner': user, 'user': request.user })
-                })
-            elif request.POST['todo']   ==  "scrollLater":
-                # usage of the "approved" attribute in a Follow object from citation [25]
-                if user.userinfo.privacySelection == 2 and not Follow.objects.filter(followee=user, follower=request.user, approved=True).exists():
-                    return HttpResponseForbidden()
-                months = getSurroundingMonths(int(request.POST['month']), int(request.POST['year']), user, 0, 12)[1:]
-                return JsonResponse({
-                    'month' :   months[-1].month,
-                    'year'  :   months[-1].year,
-                    'html'          :   render_to_string("userProfile/months.html", { 'months': months, 'profileOwner': user, 'user': request.user })
-                })
-            elif request.POST['todo']   ==  "blockAction":
-                if request.user.is_authenticated():
-                    if not Block.objects.filter(blockee=user, blocker=request.user).exists() and user != request.user:
-                        Block.objects.create(blockee=user, blocker=request.user).save()
-                        return HttpResponse("1")
-                    else:
-                        Block.objects.get(blockee=user, blocker=request.user).delete()
-                        return HttpResponse("0")
-                else:
-                    return HttpResponseBadRequest("You need to be logged in to use this function")
+                    Follow.objects.get(followee=user, follower=request.user).delete()
+                    return HttpResponse("0")
             else:
-                return HttpResponseBadRequest()
+                return HttpResponseBadRequest("You need to be logged in to use this function")
+        elif request.POST['todo']   ==  "updateCalendar":
+            # usage of the "approved" attribute in a Follow object from citation [25]
+            if user.userinfo.privacySelection == 2 and not Follow.objects.filter(followee=user, follower=request.user, approved=True).exists():
+                return HttpResponseForbidden()
+            months = getSurroundingMonths(int(request.POST['month']), int(request.POST['year']), user)
+            return JsonResponse({
+                'earlierMonth'  :   months[0].month,
+                'earlierYear'   :   months[0].year,
+                'laterMonth'    :   months[-1].month,
+                'laterYear'     :   months[-1].year,
+                'html'          :   render_to_string("userProfile/months.html", { 'months': months, 'profileOwner': user, 'user': request.user })
+            })
+        elif request.POST['todo']   ==  "scrollEarlier":
+            # usage of the "approved" attribute in a Follow object from citation [25]
+            if user.userinfo.privacySelection == 2 and not Follow.objects.filter(followee=user, follower=request.user, approved=True).exists():
+                return HttpResponseForbidden()
+            months = getSurroundingMonths(int(request.POST['month']), int(request.POST['year']), user, 12, 0)[:-1]
+            return JsonResponse({
+                'month' :   months[0].month,
+                'year'  :   months[0].year,
+                'html'          :   render_to_string("userProfile/months.html", { 'months': months, 'profileOwner': user, 'user': request.user })
+            })
+        elif request.POST['todo']   ==  "scrollLater":
+            # usage of the "approved" attribute in a Follow object from citation [25]
+            if user.userinfo.privacySelection == 2 and not Follow.objects.filter(followee=user, follower=request.user, approved=True).exists():
+                return HttpResponseForbidden()
+            months = getSurroundingMonths(int(request.POST['month']), int(request.POST['year']), user, 0, 12)[1:]
+            return JsonResponse({
+                'month' :   months[-1].month,
+                'year'  :   months[-1].year,
+                'html'          :   render_to_string("userProfile/months.html", { 'months': months, 'profileOwner': user, 'user': request.user })
+            })
+        elif request.POST['todo']   ==  "blockAction":
+            if request.user.is_authenticated():
+                if not Block.objects.filter(blockee=user, blocker=request.user).exists() and user != request.user:
+                    Block.objects.create(blockee=user, blocker=request.user).save()
+                    return HttpResponse("1")
+                else:
+                    Block.objects.get(blockee=user, blocker=request.user).delete()
+                    return HttpResponse("0")
+            else:
+                return HttpResponseBadRequest("You need to be logged in to use this function")
+        else:
+            return HttpResponseBadRequest()
 
 
 def weekPDFView(request, username, yearString, monthString, dayString):
@@ -140,7 +138,8 @@ def weekPDFView(request, username, yearString, monthString, dayString):
     month   =   int(monthString)
     day     =   int(dayString)
 
-    if User.objects.get(username=username).userinfo.privacySelection == 3 and request.user.username != username:
+    user = get_object_or_404(User, username=username)
+    if (user.userinfo.privacySelection == 3 and request.user != user) or (request.user.is_authenticated and Block.objects.filter(blockee=user, blocker=request.user).exists() and request.user != user):
         return HttpResponseNotFound()
     if not (request.user.is_authenticated and request.user.username == username):
         return HttpResponseForbidden()

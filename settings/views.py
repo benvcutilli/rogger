@@ -47,7 +47,7 @@ def settings(request):
             try:
                 Shoe.objects.get(id=int(request.POST['shoeID'])).delete()
             except:
-                return HttpResponseServerError()
+                return HttpResponseNotFound()
 
             return HttpResponse("")
         elif request.POST['todo'] == "updateAccountSettings":

@@ -128,7 +128,7 @@ def homepage(request):
             if request.user.userinfo.privacySelection < 2:
                 return HttpResponseBadRequest("This action is only for users who have their profile locked")
             followID = request.POST['followID']
-            follow = Follow.objects.get(id=followID)
+            follow = get_object_or_404(Follow, id=followID)
             # usage of the "approved" attribute in a Follow object from citation [25]
             follow.approved = True
             follow.save()

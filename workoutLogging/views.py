@@ -102,7 +102,7 @@ def newEntry(request):
         return HttpResponseForbidden()
 
 def editEntry(request, workoutID):
-    workout = Workout.objects.get(id=int(workoutID))
+    workout = get_object_or_404(Workout, id=int(workoutID))
     templateDict = entryLocalization[debugLocale]
     availableWorkoutTypes = WorkoutType.objects.filter(owner__isnull=True) | WorkoutType.objects.filter(owner=request.user)
     templateDict.update({
@@ -138,7 +138,7 @@ def editEntry(request, workoutID):
         })
         # THIS WHOLE IF/ELSE SEGMENT CONDITIONAL LINES FROM [17]
         if 'saveButton' in request.POST:
-            workout = Workout.objects.get(id=workoutID)
+            workout = get_object_or_404(Workout, id=workoutID)
             if workoutForm.is_valid():
 
 
@@ -175,14 +175,14 @@ def editEntry(request, workoutID):
     return render(request, "workoutLogging/editentry.html", templateDict)
 
 def viewEntry(request, workoutID):
-    workout = Workout.objects.get(id=workoutID)
+    workout = get_object_or_404(Workout, id=workoutID)
     if request.user == workout.owner:
         return editEntry(request, workoutID)
     if request.user != workout.owner and workout.owner.userinfo.privacySelection == 2:
         # usage of the "approved" attribute in a Follow object from citation [25]
         if not (request.user.is_authenticated and Follow.objects.filter(followee=workout.owner, follower=request.user, approved=True).exists()) or not request.user.is_authenticated:
             return HttpResponseNotFound()
-    if request.user != workout.owner and workout.owner.userinfo.privacySelection == 3:
+    if (request.user != workout.owner and workout.owner.userinfo.privacySelection == 3) or (request.user.is_authenticated and Block.objects.filter(blockee=request.user, blocker=workout.owner)):
         return HttpResponseNotFound()
     workoutInfo = {
         'title'     :   workout.title,
@@ -212,7 +212,7 @@ def viewEntry(request, workoutID):
 
 
 def commentAddView(request, workoutID):
-    workout = Workout.objects.get(id=workoutID)
+    workout = get_object_or_404(Workout, id=workoutID)
     if workout.owner.userinfo.privacySelection == 3:
         return HttpResponseNotFound()
     # usage of the "approved" attribute in a Follow object from citation [25]
@@ -236,7 +236,7 @@ def commentAddView(request, workoutID):
 def commentDeleteView(request, workoutID):
     if request.user.is_authenticated:
         commentID = request.POST['id']
-        comment = Comment.objects.get(id=int(commentID))
+        comment = get_object_or_404(Comment, id=int(commentID))
         if request.user == comment.owner:
             comment.delete()
             return HttpResponse("")
