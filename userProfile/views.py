@@ -2,7 +2,7 @@ from django.shortcuts import render
 from shared.languageLocalization import baseLocalization, debugLocale
 from django.http import HttpResponseNotFound, HttpResponseBadRequest, HttpResponse, JsonResponse, HttpResponseForbidden
 from django.contrib.auth.models import User
-from shared.tools import getSurroundingMonths, getWeek
+from shared.tools import getSurroundingMonths, getWeek, cropProfilePicture
 from shared.models import Follow, Block
 from datetime import date
 from workoutLogging.models import Workout
@@ -161,3 +161,14 @@ def storeDate(request):
         return HttpResponse()
     else:
         return HttpResponseBadRequest()
+
+
+
+
+# CITATION [26]
+def changePictureView(request, username):
+    if request.method == "POST":
+        pictureFile = request.FILES['pictureFile']
+        croppedPictureFile = cropProfilePicture(pictureFile)
+        return HttpResponseRedirect(reverse('userView', args=['username']))
+# END CITATION

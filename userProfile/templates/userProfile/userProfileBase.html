@@ -267,6 +267,11 @@
     <img id="profilePicture" src="{% static "userProfile/pennrosediagram.png" %}"/>
   </div>
 {% block privateHTML %}
+  <!-- CITATION: [26] -->
+  <form method="post" id="pictureForm" action="{% url 'changePictureView' %}" hidden>
+    <input type="file" id="pictureFile" name="pictureFile"/>
+  </form>
+  <!-- END CITATION -->
   <div id="calendar">
     <div id="calendarControls">
       <div class="tableInlineDiv">
@@ -450,6 +455,15 @@
                 </button>
               </td>
               {% endif %}
+              {% if user.is_authenticated and user == profileOwner %}
+              <td>
+                <!-- CITATION: [26] -->
+                <button id="editPictureButton" onclick="changePicture();">
+                  change picture
+                </button>
+                <!-- END CITATION -->
+              </td>
+              {% endif %}
             </tr>
           </tbody>
         </table>
@@ -609,7 +623,7 @@
   document.getElementById("yearSelector").value = currDate.getFullYear();
   document.getElementById("monthSelector").value = currDate.getMonth()+1;
 
-  // storeDate PART OF TECHNIQUE USED TO STORE DATES FOR OTHER PAGES OF THE SITE
+  // storeDate() IS PART OF TECHNIQUE USED TO STORE DATES FOR OTHER PAGES OF THE SITE
   // FROM CITATION [25]
   function storeDate(itself) {
     console.log(itself.data);
@@ -628,6 +642,13 @@
       }
     });
   }
+
+  // CITATION [26]
+  function changePicture() {
+    $("#pictureFile").click();
+    $("#pictureForm").submit();
+  }
+  // END CITATION
 {% endblock %}
 </script>
 {% endblock %}
