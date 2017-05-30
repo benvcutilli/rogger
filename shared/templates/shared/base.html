@@ -76,10 +76,10 @@
       <div id="navigationBarButtonWrapper">
         {% if user.is_authenticated %}
         <div class="navigationBarButton">
-          <a class="navigationBarButtonLinks" href="{% url 'about' %}">{{ newLog }}</a>
+          <a class="navigationBarButtonLinks" href="{% url 'newEntryView' %}">{{ newLog }}</a>
         </div>
         <div class="navigationBarButton">
-          <a class="navigationBarButtonLinks" href="{% url 'about' %}"> {{ settings }}</a>
+          <a class="navigationBarButtonLinks" href="{% url 'settingsView' %}"> {{ settings }}</a>
         </div>
         <div class="navigationBarButton">
           <a class="navigationBarButtonLinks" href="{% url 'logout' %}">{{ logout }}</a>

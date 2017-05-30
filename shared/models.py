@@ -8,6 +8,7 @@ class UserInfo(models.Model):
     authUser            =   models.OneToOneField(User, on_delete=models.CASCADE)
     displayName         =   models.CharField(max_length=100, default="")
     privacySelection    =   models.IntegerField(default=1)
+    pdfName             = models.CharField(max_length=100, default="")
 
 class Follow(models.Model):
     # related_name usage in next line: citation [20]

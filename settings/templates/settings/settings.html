@@ -51,7 +51,7 @@
     margin: 0px;
     width:20%;
   }
-  #newShoeName, #newTypeName, #emailAddress, #displayName, #password {
+  #newShoeName, #newTypeName, #emailAddress, #displayName, #password, #pdfName {
     color:#000;
   }
   #saveAccountSettingsButton {
@@ -173,6 +173,7 @@
           Completely hidden
         </option>
       </select>
+      <input id="pdfName" type="text" class="settingsTextBox" placeholder="PDF printout name" name="pdfName"/>
       <input id="password" type="password" class="settingsTextBox" placeholder="password for verification" name="password"/>
       <button id="saveAccountSettingsButton" onclick="updateAccountSettings()">
         Save
@@ -265,6 +266,7 @@
         emailAddress              : document.getElementById("emailAddress").value,
         password                  : document.getElementById("password").value,
         privacySelection          : document.getElementById("privacySelect").value,
+        pdfName                   : document.getElementById("pdfName").value,
         // next line from citation [15]
         csrfmiddlewaretoken : "{{ csrf_token }}",
         todo                : "updateAccountSettings"

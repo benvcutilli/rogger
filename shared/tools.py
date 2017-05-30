@@ -37,8 +37,9 @@ from reportlab.lib.pagesizes import letter
 from reportlab.lib.styles import ParagraphStyle
 
 class WorkoutWeek():
-    def __init__(self, days):
+    def __init__(self, days, user=None):
         self.days = days
+        self.user = user
 
     def getStats(self):
         workoutTypes = {}
@@ -55,16 +56,18 @@ class WorkoutWeek():
         pdf = SimpleDocTemplate(responseObject, pagesize=letter)
         flowables = []
         dateStyle = ParagraphStyle("")
-        dateStyle.spaceBefore   = 12
-        dateStyle.spaceAfter    = 12
-        dateStyle.fontSize      = 16
-        dateStyle.fontName      = "Times-Roman"
+        dateStyle.spaceBefore           = 12
+        dateStyle.spaceAfter            = 12
+        dateStyle.fontSize              = 16
+        dateStyle.fontName              = "Times-Roman"
         workoutInfoStyle                = ParagraphStyle("")
         workoutInfoStyle.fontName       = "Times-Roman"
         workoutInfoStyle.spaceBefore    = 8
         workoutEntryStyle               = ParagraphStyle("")
         workoutEntryStyle.spaceBefore   = 4
         workoutEntryStyle.fontName      = "Times-Roman"
+        flowables.append(Paragraph(self.user.userinfo.pdfName, dateStyle))
+        flowables.append(Paragraph("", dateStyle))
         for day in self.days:
             flowables.append(Paragraph(str(day.date.strftime("%A, %B %d, %Y")), dateStyle))
             for workout in day.workouts:
@@ -88,7 +91,7 @@ def getWeek(year, month, day, user):
         days.append(WorkoutDay(currentDate, Workout.objects.filter(owner=user, date=currentDate)))
         currentDate += timedelta(1)
 
-    return WorkoutWeek(days)
+    return WorkoutWeek(days, user)
 
 def getWeeksForMonthRepresentation(monthNumber, yearNumber, user):
     day = date(yearNumber, monthNumber, 1)

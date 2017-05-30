@@ -8,6 +8,7 @@ class AccountSettingsForm(forms.Form):
     emailAddress        =   forms.EmailField(required=False)
     displayName         =   forms.CharField(max_length=100, required=False)
     privacySelection    =   forms.IntegerField()
+    pdfName             =   forms.CharField(max_length=100)
 
 class ImportForm(forms.Form):
     mervData = forms.CharField()

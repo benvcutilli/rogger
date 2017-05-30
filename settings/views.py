@@ -55,6 +55,7 @@ def settings(request):
                 'emailAddress'      :   request.POST['emailAddress'],
                 'privacySelection'  :   request.POST['privacySelection'],
                 'displayName'       :   request.POST['displayName'],
+                'pdfName'           :   request.POST['pdfName']
             })
             if accountSettingsForm.is_valid():
                 if authenticate(username=request.user.username, password=request.POST['password']) != None:
@@ -65,6 +66,8 @@ def settings(request):
                         request.user.userinfo.privacySelection = accountSettingsForm.cleaned_data['privacySelection']
                     if accountSettingsForm.cleaned_data['displayName'] != "":
                         request.user.userinfo.displayName = accountSettingsForm.cleaned_data['displayName']
+                    if accountSettingsForm.cleaned_data['pdfName'] != "":
+                        request.user.userinfo.pdfName = accountSettingsForm.cleaned_data['pdfName']
                     request.user.save()
                     request.user.userinfo.save()
                     return HttpResponse("")
