@@ -163,12 +163,24 @@ def storeDate(request):
         return HttpResponseBadRequest()
 
 
-
+from rogger.settings import MEDIA_BUCKET_NAME, MEDIA_BUCKET_ID, MEDIA_BUCKET_SECRET
 
 # CITATION [26]
 def changePictureView(request, username):
-    if request.method == "POST":
-        pictureFile = request.FILES['pictureFile']
-        croppedPictureFile = cropProfilePicture(pictureFile)
-        return HttpResponseRedirect(reverse('userView', args=['username']))
+    if request.user.is_authenticated and request.user.username == username:
+        if request.method == "POST":
+            pictureFile = request.FILES['pictureFile']
+            croppedPictureFile = cropProfilePicture(pictureFile)
+            mediaBucket = boto3.resource('s3', aws_access_key_id=MEDIA_BUCKET_ID, aws_secret_access_key=MEDIA_BUCKET_SECRET).bucket(MEDIA_BUCKET_NAME)
+            mediaBucket.put_object(Key="profilepictureofuser" + str(request.user.id) + ".jpg", Body=croppedPictureFile)
+            request.user.userinfo.uploadedProfilePicture = True
+            request.user.userinfo.save()
+            return HttpResponseRedirect(reverse('userView', args=['username']))
+        else:
+            return HttpResponseBadRequest()
+    else:
+        if User.objects.get(username=username).userinfo.privacySelection == 3):
+            return HttpResponseNotFound()
+        else:
+            return HttpResponseForbidden()
 # END CITATION

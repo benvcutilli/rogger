@@ -190,6 +190,4 @@ def cropProfilePicture(pictureFile):
     )
     picture = picture.resize((400, 400))
     return picture
-
-
 # END CITATION
