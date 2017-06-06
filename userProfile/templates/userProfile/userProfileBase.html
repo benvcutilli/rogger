@@ -264,12 +264,13 @@
   <!--<div id="banner">
   </div>-->
   <div id="profilePictureDiv">
-    <img id="profilePicture" src="{% static "userProfile/pennrosediagram.png" %}"/>
+    <img id="profilePicture" src="{{ profileOwner.userinfo.profilePictureURL }}"/>
   </div>
 {% block privateHTML %}
   <!-- CITATION: [26] -->
-  <form method="post" id="pictureForm" action="{% url 'changePictureView' %}" hidden>
-    <input type="file" id="pictureFile" name="pictureFile"/>
+  <form method="post" id="pictureForm" action="{% url 'changePictureView' profileOwner %}" enctype="multipart/form-data" hidden>
+    <input type="file" id="pictureFile" name="pictureFile" onchange="pushNewPicture()"/>
+    {% csrf_token %}
   </form>
   <!-- END CITATION -->
   <div id="calendar">
@@ -646,6 +647,8 @@
   // CITATION [26]
   function changePicture() {
     $("#pictureFile").click();
+  }
+  function pushNewPicture() {
     $("#pictureForm").submit();
   }
   // END CITATION

@@ -40,7 +40,7 @@ using the [#] notation to index each source found on this page):
       but I can't remember everything that I used, so to be safe I will say that there is a possibility an outside resrouce helped.
       The "approved" attribute in the Follow model keeps track of whether a follow is approved, and, again, is only looked at
       if the user-who-is-being-followed's profile is not on the public setting.
-[26]  This technique of a hidden form to be triggered from a remote button from unknown source.
+[26]  This technique of a hidden form to be triggered from a remote button from unknown source(s).
 [27]  Not sure if I used this kind of variable in the last version of Rogger and if there is a citation for it.
 [28]  Using a presigned URL to control access to files in buckets is an idea from an unknown source.
 

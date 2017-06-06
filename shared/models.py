@@ -17,10 +17,10 @@ class UserInfo(models.Model):
     def profilePictureURL(self):
         if self.uploadedProfilePicture:
             s3client = boto3.client('s3', aws_secret_access_key=MEDIA_BUCKET_SECRET, aws_access_key_id=MEDIA_BUCKET_ID)
-            # SENDING A PRESIGNED URL FROM [28]
+            # SENDING A PRESIGNED URL FROM CITATION [28]
             return s3client.generate_presigned_url(
                                                     'get_object',
-                                                    Params={ Bucket=MEDIA_BUCKET_NAME, Key=("profilepictureofuser" + str(self.authUser.id) + ".jpg") },
+                                                    Params={ 'Bucket' : MEDIA_BUCKET_NAME, 'Key' : "profilepictureofuser"+str(self.authUser.id)+".jpg" },
                                                     ExpiresIn=PROFILE_PICTURE_EXPIRATION_SECONDS
             )
         else:

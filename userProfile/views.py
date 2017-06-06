@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from shared.languageLocalization import baseLocalization, debugLocale
-from django.http import HttpResponseNotFound, HttpResponseBadRequest, HttpResponse, JsonResponse, HttpResponseForbidden
+from django.http import HttpResponseNotFound, HttpResponseBadRequest, HttpResponse, JsonResponse, HttpResponseForbidden, HttpResponseRedirect
+from django.urls import reverse
 from django.contrib.auth.models import User
 from shared.tools import getSurroundingMonths, getWeek, cropProfilePicture
 from shared.models import Follow, Block
@@ -8,6 +9,7 @@ from datetime import date
 from workoutLogging.models import Workout
 from django.template.loader import render_to_string
 from django.shortcuts import get_object_or_404
+import boto3
 # Create your views here.
 
 ######### USER PAGE LOCALIZATION #############
@@ -164,22 +166,26 @@ def storeDate(request):
 
 
 from rogger.settings import MEDIA_BUCKET_NAME, MEDIA_BUCKET_ID, MEDIA_BUCKET_SECRET
+from io import BytesIO
 
 # CITATION [26]
 def changePictureView(request, username):
     if request.user.is_authenticated and request.user.username == username:
         if request.method == "POST":
+            print("did i even get here?")
             pictureFile = request.FILES['pictureFile']
-            croppedPictureFile = cropProfilePicture(pictureFile)
-            mediaBucket = boto3.resource('s3', aws_access_key_id=MEDIA_BUCKET_ID, aws_secret_access_key=MEDIA_BUCKET_SECRET).bucket(MEDIA_BUCKET_NAME)
+            croppedPictureFile = BytesIO()
+            cropProfilePicture(pictureFile).save(croppedPictureFile, format='PNG')
+            mediaBucket = boto3.resource('s3', aws_access_key_id=MEDIA_BUCKET_ID, aws_secret_access_key=MEDIA_BUCKET_SECRET).Bucket(MEDIA_BUCKET_NAME)
+            croppedPictureFile.seek(0)
             mediaBucket.put_object(Key="profilepictureofuser" + str(request.user.id) + ".jpg", Body=croppedPictureFile)
             request.user.userinfo.uploadedProfilePicture = True
             request.user.userinfo.save()
-            return HttpResponseRedirect(reverse('userView', args=['username']))
+            return HttpResponseRedirect(reverse('userView', args=[username]))
         else:
             return HttpResponseBadRequest()
     else:
-        if User.objects.get(username=username).userinfo.privacySelection == 3):
+        if User.objects.get(username=username).userinfo.privacySelection == 3:
             return HttpResponseNotFound()
         else:
             return HttpResponseForbidden()
