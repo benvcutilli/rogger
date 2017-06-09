@@ -14,7 +14,7 @@
   #entryPropertiesDiv {
     background-color: #556;
   }
-  #titleText, #durationText, #distanceText, #shoeSelect, #typeSelect, #subtypeSelect, #dateText {
+  #titleText, #durationText, #distanceText, #shoeSelect, #typeSelect, #subtypeSelect, #dateText, #distanceInput {
     box-sizing: border-box;
     height:50px;
     font-size:20px;
@@ -95,6 +95,11 @@
   h3 {
     text-align:center;
   }
+  #distanceInput {
+    background-color:none;
+    text-align:right;
+    width:90px;
+  }
 </style>
 <div id="pageContainer">
   {% if error != "" %}
@@ -171,7 +176,7 @@
         total += subTotal;
       }
       //console.log(total);
-      document.getElementById("distanceText").innerHTML = total + " miles";
+      //document.getElementById("distanceText").innerHTML = total + " miles";
       document.getElementById("distanceInput").value = total;
       var hours = document.getElementById("durationHours").value;
       var minutes = document.getElementById("durationMinutes").value;
@@ -201,7 +206,7 @@
         document.getElementById("distanceText").innerHTML += (minutesPerMile < 10 == 1 ? "0" + minutesPerMile : minutesPerMile) + ":" + secondsPerMileInteger + (secondsPerMileDecimal.length != 0 ? "." : "") + secondsPerMileDecimal + "/mile";
       }
     } else {
-      document.getElementById("distanceText").innerHTML = "0 miles";
+      //document.getElementById("distanceText").innerHTML = "0 miles";
     }
 
   }
