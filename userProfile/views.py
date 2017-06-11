@@ -80,7 +80,7 @@ def userViewAJAX(request, username):
                 if not Follow.objects.filter(followee=user, follower=request.user).exists():
                     if user == request.user:
                         # usage of the "approved" attribute in a Follow object from citation [25]
-                        Follow.objects.create(followee=user, follower=request.user, approved=True).create()
+                        Follow.objects.create(followee=user, follower=request.user, approved=True).save()
                     else:
                         Follow.objects.create(followee=user, follower=request.user).save()
                     return HttpResponse("1")

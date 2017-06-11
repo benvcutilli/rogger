@@ -193,8 +193,7 @@
       <div>
         {% for follow in follows %}
         <div class="followedUser">
-          <div class="followedUserPicture">
-          </div>
+          <img class="followedUserPicture" src="{{ follow.userinfo.profilePictureURL }}">
           <div class="followedUserUsernameOuter">
             <!-- citation [10] -->
             <div class="followedUserUsernameInner">
@@ -219,8 +218,7 @@
       <div>
         {% for followRequest in followRequests %}
         <div class="followRequestUser">
-          <div class="followRequestUserPicture">
-          </div>
+          <img class="followRequestUserPicture" src="{{ followRequest.follower.userinfo.profilePictureURL }}"/>
           <div class="followRequestUserUsernameOuter">
             <!-- citation [10] -->
             <div class="followRequestUserUsernameInner">

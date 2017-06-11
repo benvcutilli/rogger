@@ -176,8 +176,13 @@
         total += subTotal;
       }
       //console.log(total);
-      document.getElementById("distanceLabel").innerHTML = " miles";
-      document.getElementById("distanceInput").value = total;
+      document.getElementById("distanceLabel").innerHTML = "miles";
+      var intPart  = total.toString().split(".")[0]
+      var fracPart = "00"
+      if (total % 1 != 0) {
+        fracPart = total.toString().split(".").length >= 2 ? total.toString().split(".")[1].substring(0,2) : total.toString().split(".")[1];
+      }
+      document.getElementById("distanceInput").value = intPart + "." + fracPart;
       var hours = document.getElementById("durationHours").value;
       var minutes = document.getElementById("durationMinutes").value;
       var seconds = document.getElementById("durationSeconds").value;

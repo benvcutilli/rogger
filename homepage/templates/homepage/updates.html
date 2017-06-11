@@ -11,7 +11,7 @@
       </div>
       {% endif %}
       <!-- citation [8] -->
-      {{ workout.date }} • {{ workout.distance }}{% if workout.type != None %} • {{ workout.type }}{% endif %}{% if workout.shoe != None %} • {{ workout.shoe.name }}{% endif %}
+      {{ workout.date }} • {{ workout.distance }} miles{% if workout.type != None %} • {{ workout.type }}{% endif %}{% if workout.shoe != None %} • {{ workout.shoe.name }}{% endif %}
       <!-- end citation -->
     </div>
     <!-- <div class="userPicture updateHeaderComponent">
@@ -24,8 +24,7 @@
     {{ workout.entry|linebreaksbr }}
   </div>
   <div class="updateFooter">
-    <div class="userPicture">
-    </div>
+    <img class="userPicture" src="{{ workout.owner.userinfo.profilePictureURL }}"/>
     <div class="usernameOuter">
       <!-- citation [10] -->
       <div class="usernameInner">
