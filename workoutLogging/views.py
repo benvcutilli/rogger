@@ -8,6 +8,7 @@ from workoutLogging.models import Workout, Comment
 from django.core.mail import send_mail
 from shared.models import Block, Follow
 import datetime
+from django.shortcuts import get_object_or_404
 
 debugLocale = 'french'
 

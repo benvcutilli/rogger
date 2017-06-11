@@ -176,7 +176,7 @@
         total += subTotal;
       }
       //console.log(total);
-      //document.getElementById("distanceText").innerHTML = total + " miles";
+      document.getElementById("distanceLabel").innerHTML = " miles";
       document.getElementById("distanceInput").value = total;
       var hours = document.getElementById("durationHours").value;
       var minutes = document.getElementById("durationMinutes").value;
@@ -189,9 +189,9 @@
         var hoursPerMile = Math.floor(perMile/(3600));
         var minutesPerMile = Math.floor((perMile - (hoursPerMile*3600))/60);
         var secondsPerMile = (perMile - hoursPerMile*3600 - minutesPerMile*60);
-        document.getElementById("distanceText").innerHTML += " @ ";
+        document.getElementById("distanceLabel").innerHTML += " @ ";
         if (hoursPerMile != 0) {
-          document.getElementById("distanceText").innerHTML += (hoursPerMile < 10 == 1 ? "0" + hoursPerMile : hoursPerMile) + ":";
+          document.getElementById("distanceLabel").innerHTML += (hoursPerMile < 10 == 1 ? "0" + hoursPerMile : hoursPerMile) + ":";
         }
         var secondsPerMileInteger = secondsPerMile.toString().split('.')[0];
         var secondsPerMileDecimal = secondsPerMile.toString().split('.')[1];
@@ -203,7 +203,7 @@
         } else if (secondsPerMileDecimal == null) {
           secondsPerMileDecimal = "0"
         }
-        document.getElementById("distanceText").innerHTML += (minutesPerMile < 10 == 1 ? "0" + minutesPerMile : minutesPerMile) + ":" + secondsPerMileInteger + (secondsPerMileDecimal.length != 0 ? "." : "") + secondsPerMileDecimal + "/mile";
+        document.getElementById("distanceLabel").innerHTML += (minutesPerMile < 10 == 1 ? "0" + minutesPerMile : minutesPerMile) + ":" + secondsPerMileInteger + (secondsPerMileDecimal.length != 0 ? "." : "") + secondsPerMileDecimal + "/mile";
       }
     } else {
       //document.getElementById("distanceText").innerHTML = "0 miles";
