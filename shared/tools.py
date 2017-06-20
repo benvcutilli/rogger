@@ -7,10 +7,25 @@ def getErrorString(form):
 
 
 from settings.models import WorkoutType, universalWorkoutTypeNames
+from workoutLogging.models import Unit
 
-def initializeUniversalTypes():
+def initializeUniversals():
     for workoutType in universalWorkoutTypeNames:
         WorkoutType.objects.create(owner=None, name=workoutType[0], displayMeasurement=workoutType[1]).save()
+    units = {
+        'miles':      1.0,
+        'mile':       1.0,
+        'mi':         1.0,
+        'meters':     1.0/1609.0,
+        'meter':      1.0/1609.0,
+        'm':          1.0/1609.0,
+        'kilometers': 1.0/1.609,
+        'kilometer':  1.0/1.609,
+        'km':         1.0/1.609,
+        'k':          1.0/1.609,
+    }
+    for unit in units:
+        Unit.objects.create(owner=None, name=unit, distance=units[unit]).save()
 
 from datetime import date, timedelta
 from workoutLogging.models import Workout

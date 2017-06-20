@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.http import HttpResponseForbidden, HttpResponseRedirect, HttpResponse, HttpResponseBadRequest, HttpResponseNotFound
 from workoutLogging import forms
 from settings.models import Shoe, WorkoutType
-from workoutLogging.models import Workout, Comment
+from workoutLogging.models import Workout, Comment, Unit
 from django.core.mail import send_mail
 from shared.models import Block, Follow
 import datetime
@@ -36,7 +36,8 @@ def newEntry(request):
         'shoes'         :   [(element, repr(element.id)) for element in Shoe.objects.filter(owner=request.user)],
         'types'         :   [(element, repr(element.id)) for element in availableWorkoutTypes],
         # NEXT LINE: THE STORING OF newWorkoutDate IN THE SESSION FOR TEMPORARY HOLDING BETWEEN WEBPAGES FROM CITATION [25]
-        'workoutDate'   :   request.session['newWorkoutDate'] if request.session.has_key('newWorkoutDate') else datetime.date.today().strftime("%Y.%m.%d")
+        'workoutDate'   :   request.session['newWorkoutDate'] if request.session.has_key('newWorkoutDate') else datetime.date.today().strftime("%Y.%m.%d"),
+        'units'         :   (Unit.objects.filter(owner=request.user) | Unit.objects.filter(owner=None)).order_by("-name")
     })
 
 
@@ -110,7 +111,8 @@ def editEntry(request, workoutID):
         'formURL'   :   reverse("viewEntryView", args=[workoutID]),
         'error'     :   "",
         'shoes'     :   [(element, repr(element.id)) for element in Shoe.objects.filter(owner=request.user)],
-        'types'     :   [(element, repr(element.id)) for element in availableWorkoutTypes]
+        'types'     :   [(element, repr(element.id)) for element in availableWorkoutTypes],
+        'units'     :   (Unit.objects.filter(owner=request.user) | Unit.objects.filter(owner=None)).order_by("-name")
     })
 
     workoutForm = forms.WorkoutForm({

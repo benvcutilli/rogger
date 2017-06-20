@@ -42,3 +42,9 @@ class Comment(models.Model):
     owner           =   models.ForeignKey(User, on_delete=models.CASCADE)
     workout         =   models.ForeignKey(Workout, on_delete=models.CASCADE)
     dateAndTime     =   models.DateTimeField(auto_now=True)
+
+
+class Unit(models.Model):
+    owner       = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    name        = models.CharField(max_length=100)
+    distance    = models.FloatField()
