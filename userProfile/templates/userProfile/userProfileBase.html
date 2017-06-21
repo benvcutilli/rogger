@@ -20,6 +20,11 @@
     box-sizing:border-box;
     height:100%;
     padding:1%;
+    /* CITATION [26] */
+    {% if user == profileOwner %}
+    cursor:pointer;
+    {% endif %}
+    /* END CITATION */
   }
   /* end citation [11] */
   #profilePictureDiv {
@@ -264,7 +269,7 @@
   <!--<div id="banner">
   </div>-->
   <div id="profilePictureDiv">
-    <img id="profilePicture" src="{{ profileOwner.userinfo.profilePictureURL }}"/>
+    <img id="profilePicture" src="{{ profileOwner.userinfo.profilePictureURL }}" {% if user == profileOwner %}onclick="changePicture()"{% endif %} />
   </div>
 {% block privateHTML %}
   <!-- CITATION: [26] -->
@@ -459,9 +464,9 @@
               {% if user.is_authenticated and user == profileOwner %}
               <td>
                 <!-- CITATION: [26] -->
-                <button id="editPictureButton" onclick="changePicture();">
+                <!--<button id="editPictureButton" onclick="changePicture();">
                   change picture
-                </button>
+                </button>-->
                 <!-- END CITATION -->
               </td>
               {% endif %}
