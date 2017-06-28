@@ -68,7 +68,24 @@
         color:#778;
         font-family:'Katibeh', serif;
       }
+      #searchDiv {
+        width:200px;
+        display:inline-block;
+        background-color:#fff;
+      }
+      #searchText {
+        padding:10px;
+        border:none;
+        width:100%;
+        box-sizing:border-box;
+      }
+      #searchMatches {
+        width:100%;
+        max-height:80%;
+        overflow-y:scroll;
+      }
     </style>
+    <!-- NAV BAR USAGE INSPIRED BY THE COMMON USAGE OF IT AROUND THE WEB -->
     <div id="navigationBar">
       <div id="homepageButtonWrapper">
         <a href="{% url 'homepage' %}" id="homepageButton">rogger</a>
@@ -76,6 +93,11 @@
       <!-- NAV BAR USAGE INSPIRED BY THE COMMON USAGE OF IT AROUND THE WEB -->
       <div id="navigationBarButtonWrapper">
         {% if user.is_authenticated %}
+        <div id="searchDiv">
+          <input type="text" id="searchText" oninput="sendSearch()" placeholder="user search" />
+          <div id="searchMatches">
+          </div>
+        </div>
         <div class="navigationBarButton">
           <a class="navigationBarButtonLinks" href="{% url 'newEntryView' %}">{{ newLog }}</a>
         </div>
@@ -96,4 +118,22 @@
     {% endblock %}
     </div>
   </body>
+  <script>
+    function sendSearch() {
+      $.ajax("{% url "search" %}", {
+        method  : "POST",
+        data    : {
+          // next line from citation [15]
+          csrfmiddlewaretoken : "{{ csrf_token }}",
+          searchphrase        : $("#searchText")[0].value
+        },
+        success : function(ajaxResponseText, ajaxStatus, ajaxResponse) {
+          $("#searchMatches").html(ajaxResponseText);
+        },
+        error   : function(ajaxResponse, ajaxStatus, ajaxError) {
+          alert(ajaxResponse.responseText);
+        }
+      })
+    }
+  </script>
 </html>

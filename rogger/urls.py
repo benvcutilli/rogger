@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from shared import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -23,4 +24,5 @@ urlpatterns = [
     url(r'^users/', include('userProfile.urls')),
     url(r'^workouts/', include('workoutLogging.urls')),
     url(r'^settings', include('settings.urls')),
+    url(r'^search', views.search, name='search')
 ]
