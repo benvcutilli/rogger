@@ -3,14 +3,20 @@ from collections import Counter
 from django.contrib.auth.models import User
 from shared.models import Follow, Block
 
+possibleBigrams = []
+for c1 in "abcdefghijklmnopqrstuvwxyz_ ":
+    for c2 in "abcdefghijklmnopqrstuvwxyz_ ":
+        possibleBigrams.append(c1 + c2)
+
 
 
 class Histogram():
     def __init__(self, phrase):
         self.phrase = phrase
-        histo = Counter("abcdefghijklmnopqrstuvwxyz_")
-        for c in phrase:
-            histo[c] += 1
+        global possibleBigrams
+        histo = Counter(possibleBigrams)
+        for c in range(len(phrase) - 1):
+            histo[phrase[c:c+2]] += 1
         histo = list(histo.items())
         histo.sort(key=lambda item: item[0])
         self.histo  = [ thing[1] for thing in histo ]
@@ -35,5 +41,5 @@ def search(request):
             results.append((user, Histogram(user.username).distance(searchPhrase)))
 
     results.sort(key=(lambda pair: pair[1]))
-    results.reverse()
+    #results.reverse()
     return render(request, "shared/searchmatches.html", { 'matches' : [u[0] for u in results] })

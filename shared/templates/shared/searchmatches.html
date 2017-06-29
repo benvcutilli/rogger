@@ -1,5 +1,5 @@
 {% for match in matches %}
-<div>
-  {{ match.username }}
+<div class="match">
+  <a class="matchLink" href="{% url "userView" match.username %}">{{ match.username }}</a>
 </div>
 {% endfor %}
