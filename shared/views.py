@@ -16,7 +16,8 @@ class Histogram():
         global possibleBigrams
         histo = Counter(possibleBigrams)
         for c in range(len(phrase) - 1):
-            histo[phrase[c:c+2]] += 1
+            if phrase[c:c+2] in histo:
+                histo[phrase[c:c+2]] += 1
         histo = list(histo.items())
         histo.sort(key=lambda item: item[0])
         self.histo  = [ thing[1] for thing in histo ]

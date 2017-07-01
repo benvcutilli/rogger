@@ -1,5 +1,5 @@
 {% for match in matches %}
 <div class="match">
-  <a class="matchLink" href="{% url "userView" match.username %}">{{ match.username }}</a>
+  <img src="{{ match.userinfo.profilePictureURL }}" class="matchThumbnail"/><div class="matchLinkDiv"><a class="matchLink" href="{% url "userView" match.username %}">{{ match.username }}</a></div>
 </div>
 {% endfor %}
