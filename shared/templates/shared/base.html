@@ -52,6 +52,7 @@
       #homepageButtonWrapper {
         margin:6px 10px 5px 25px; /* citation [4] */
         display:inline-block;
+        vertical-align:top;
       }
       #navigationBarButtonWrapper {
         float:right;
@@ -105,12 +106,21 @@
         margin-right:5px;
         display:inline-block;
       }
+      #usersOwnLink {
+        height:100%;
+      }
+      #usersOwnLink > img {
+        height:100%;
+        padding:7px;
+        box-sizing:border-box;
+      }
     </style>
     <!-- NAV BAR USAGE INSPIRED BY THE COMMON USAGE OF IT AROUND THE WEB -->
     <div id="navigationBar">
       <div id="homepageButtonWrapper">
         <a href="{% url 'homepage' %}" id="homepageButton">rogger</a>
       </div>
+      <a href="{% url "userView" user.username %}" id="usersOwnLink"><img src="{{ user.userinfo.profilePictureURL }}" /></a>
       <!-- NAV BAR USAGE INSPIRED BY THE COMMON USAGE OF IT AROUND THE WEB -->
       <div id="navigationBarButtonWrapper">
         {% if user.is_authenticated %}
