@@ -127,6 +127,8 @@ def editEntry(request, workoutID):
         'date'      :   repr(workout.date.year) + "." + ("0" if workout.date.month < 10 else "") + repr(workout.date.month) + "." + ("0" if workout.date.day < 10 else "") + repr(workout.date.day),
     })
 
+    isError = False
+    error = ""
     if request.method == "POST":
         workoutForm = forms.WorkoutForm({
             'title'     :   request.POST['title'],
@@ -161,13 +163,18 @@ def editEntry(request, workoutID):
 
                 workout.save()
                 return HttpResponseRedirect(reverse("homepage"))
+            else:
+                isError = True
+                error = workoutForm.errors
+                print(workoutForm.errors)
         else:
             workout.delete()
             return HttpResponseRedirect(reverse("homepage"))
         # END CITATION
 
     templateDict.update({
-        'error'             :   "",
+        'isError'           :   isError,
+        'error'             :   error,
         #'info'  :   workoutInfo,
         'form'              :   workoutForm,
         'escapedEntry'      :   workout.getEscapedEntry(),
