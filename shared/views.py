@@ -39,7 +39,12 @@ def search(request):
         follow  = Follow.objects.filter(follower=request.user, followee=user).exists()
 
         if not user.is_staff and ((user.userinfo.privacySelection == 1 and not block) or (user.userinfo.privacySelection == 2 and follow and not block)):
-            results.append((user, min(Histogram(user.username).distance(searchPhrase), Histogram(user.userinfo.displayName).distance(searchPhrase))))
+            if user.userinfo.searchUsername and user.userinfo.searchDisplayName:
+                results.append((user, min(Histogram(user.username).distance(searchPhrase), Histogram(user.userinfo.displayName).distance(searchPhrase))))
+            elif user.userinfo.searchUsername:
+                results.append((user, Histogram(user.username).distance(searchPhrase)))
+            elif user.userinfo.searchDisplayName:
+                results.append((user, Histogram(user.userinfo.displayName).distance(searchPhrase)))
 
     results.sort(key=(lambda pair: pair[1]))
     #results.reverse()

@@ -13,6 +13,8 @@ class UserInfo(models.Model):
     pdfName                 =   models.CharField(max_length=100, default="")
     # NEXT LINE CITATION [27]
     uploadedProfilePicture  =   models.BooleanField(default=False)
+    searchUsername          =   models.BooleanField(default=True)
+    searchDisplayName       =   models.BooleanField(default=True)
 
     def profilePictureURL(self):
         if self.uploadedProfilePicture:
