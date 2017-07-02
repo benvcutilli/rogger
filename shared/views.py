@@ -12,12 +12,12 @@ for c1 in "abcdefghijklmnopqrstuvwxyz_ ":
 
 class Histogram():
     def __init__(self, phrase):
-        self.phrase = phrase
+        self.phrase = phrase.lower()
         global possibleBigrams
         histo = Counter(possibleBigrams)
-        for c in range(len(phrase) - 1):
-            if phrase[c:c+2] in histo:
-                histo[phrase[c:c+2]] += 1
+        for c in range(len(self.phrase) - 1):
+            if self.phrase[c:c+2] in histo:
+                histo[self.phrase[c:c+2]] += 1
         histo = list(histo.items())
         histo.sort(key=lambda item: item[0])
         self.histo  = [ thing[1] for thing in histo ]
@@ -39,7 +39,7 @@ def search(request):
         follow  = Follow.objects.filter(follower=request.user, followee=user).exists()
 
         if not user.is_staff and ((user.userinfo.privacySelection == 1 and not block) or (user.userinfo.privacySelection == 2 and follow and not block)):
-            results.append((user, Histogram(user.username).distance(searchPhrase)))
+            results.append((user, min(Histogram(user.username).distance(searchPhrase), Histogram(user.userinfo.displayName).distance(searchPhrase))))
 
     results.sort(key=(lambda pair: pair[1]))
     #results.reverse()

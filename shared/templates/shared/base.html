@@ -88,7 +88,7 @@
       }
       .match {
         display:inline-block;
-        height:30px;
+        height:50px;
         margin:5px;
       }
       .matchLink {
@@ -116,7 +116,7 @@
         {% if user.is_authenticated %}
         <div id="searchDiv">
           <input type="text" id="searchText" oninput="sendSearch()" placeholder="user search" onfocusout="hideSearchResults()" onfocusin="showSearchResults()"/>
-          <div id="searchMatches" hidden>
+          <div id="searchMatches" onmouseover="disableHiding()" onmouseout="enableHiding()" hidden>
           </div>
         </div>
         <div class="navigationBarButton">
@@ -140,6 +140,8 @@
     </div>
   </body>
   <script>
+    var hidingEnabled = true;
+    var focusLost     = false;
     function sendSearch() {
       $.ajax("{% url "search" %}", {
         method  : "POST",
@@ -158,11 +160,29 @@
     }
 
     function hideSearchResults() {
-      $("#searchMatches")[0].hidden = true;
+      if (hidingEnabled) {
+        $("#searchMatches")[0].hidden = true;
+      } else {
+        focusLost = true;
+      }
     }
 
     function showSearchResults() {
       $("#searchMatches")[0].hidden = false;
+      focusLost = false;
+    }
+
+    function enableHiding() {
+      if (focusLost) {
+        $("#searchMatches")[0].hidden = true;
+      }
+      hidingEnabled = true;
+      console.log("hiding enabled");
+    }
+
+    function disableHiding() {
+      hidingEnabled = false;
+      console.log("hiding disabled");
     }
   </script>
 </html>
