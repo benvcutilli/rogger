@@ -68,6 +68,8 @@ def settings(request):
                         request.user.userinfo.displayName = accountSettingsForm.cleaned_data['displayName']
                     if accountSettingsForm.cleaned_data['pdfName'] != "":
                         request.user.userinfo.pdfName = accountSettingsForm.cleaned_data['pdfName']
+                    request.user.userinfo.searchUsername    = True if request.POST['searchUsername'] == "true" else False
+                    request.user.userinfo.searchDisplayName = True if request.POST['searchDisplayName'] == "true" else False
                     request.user.save()
                     request.user.userinfo.save()
                     return HttpResponse("")

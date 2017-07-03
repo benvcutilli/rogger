@@ -173,6 +173,8 @@
           Completely hidden
         </option>
       </select>
+      <br><input type="checkbox" id="searchUsername"{% if user.userinfo.searchUsername %} checked{% endif %}> Allow others to search for my username (disabled if profile is completely hidden)</input>
+      <br><input type="checkbox" id="searchDisplayName"{% if user.userinfo.searchDisplayName %} checked{% endif %}> Allow others to search for my display name (disabled if profile is completely hidden)</input><br><br>
       <input id="pdfName" type="text" class="settingsTextBox" placeholder="PDF printout name" name="pdfName"/>
       <input id="password" type="password" class="settingsTextBox" placeholder="password for verification" name="password"/>
       <button id="saveAccountSettingsButton" onclick="updateAccountSettings()">
@@ -267,6 +269,8 @@
         password                  : document.getElementById("password").value,
         privacySelection          : document.getElementById("privacySelect").value,
         pdfName                   : document.getElementById("pdfName").value,
+        searchUsername            : document.getElementById("searchUsername").checked,
+        searchDisplayName         : document.getElementById("searchDisplayName").checked,
         // next line from citation [15]
         csrfmiddlewaretoken : "{{ csrf_token }}",
         todo                : "updateAccountSettings"
