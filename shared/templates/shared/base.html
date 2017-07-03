@@ -120,7 +120,7 @@
       <div id="homepageButtonWrapper">
         <a href="{% url 'homepage' %}" id="homepageButton">rogger</a>
       </div>
-      <a href="{% url "userView" user.username %}" id="usersOwnLink"><img src="{{ user.userinfo.profilePictureURL }}" /></a>
+      <a href="{% url "userView" user.username %}" id="usersOwnLink"><img src="{{ user.userinfo.thumbURL }}" /></a>
       <!-- NAV BAR USAGE INSPIRED BY THE COMMON USAGE OF IT AROUND THE WEB -->
       <div id="navigationBarButtonWrapper">
         {% if user.is_authenticated %}

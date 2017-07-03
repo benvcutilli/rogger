@@ -175,10 +175,14 @@ def changePictureView(request, username):
             print("did i even get here?")
             pictureFile = request.FILES['pictureFile']
             croppedPictureFile = BytesIO()
-            cropProfilePicture(pictureFile).save(croppedPictureFile, format='PNG')
+            cropProfilePicture(pictureFile, "full").save(croppedPictureFile, format='PNG')
             mediaBucket = boto3.resource('s3', aws_access_key_id=MEDIA_BUCKET_ID, aws_secret_access_key=MEDIA_BUCKET_SECRET).Bucket(MEDIA_BUCKET_NAME)
             croppedPictureFile.seek(0)
-            mediaBucket.put_object(Key="profilepictureofuser" + str(request.user.id) + ".jpg", Body=croppedPictureFile)
+            mediaBucket.put_object(Key="profilepictureofuser" + str(request.user.id) + ".png", Body=croppedPictureFile)
+            croppedPictureFile = BytesIO()
+            cropProfilePicture(pictureFile, "thumb").save(croppedPictureFile, format='PNG')
+            croppedPictureFile.seek(0)
+            mediaBucket.put_object(Key="thumbofuser" + str(request.user.id) + ".png", Body=croppedPictureFile)
             request.user.userinfo.uploadedProfilePicture = True
             request.user.userinfo.save()
             return HttpResponseRedirect(reverse('userView', args=[username]))

@@ -5,7 +5,7 @@
       <tbody>
         <tr>
           <td>
-            <img src="{% static 'userProfile/pennrosediagram.png' %}" class="commentUserPicture"/>
+            <img src="{{ comment.owner.userinfo.thumbURL }}" class="commentUserPicture"/>
           </td>
           <td>
             {{ comment.owner.username }}

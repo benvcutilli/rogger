@@ -22,7 +22,19 @@ class UserInfo(models.Model):
             # SENDING A PRESIGNED URL FROM CITATION [28]
             return s3client.generate_presigned_url(
                                                     'get_object',
-                                                    Params={ 'Bucket' : MEDIA_BUCKET_NAME, 'Key' : "profilepictureofuser"+str(self.authUser.id)+".jpg" },
+                                                    Params={ 'Bucket' : MEDIA_BUCKET_NAME, 'Key' : "profilepictureofuser"+str(self.authUser.id)+".png" },
+                                                    ExpiresIn=PROFILE_PICTURE_EXPIRATION_SECONDS
+            )
+        else:
+            return STATIC_URL + DEFAULT_PROFILE_PICTURE_FILENAME
+
+    def thumbURL(self):
+        if self.uploadedProfilePicture:
+            s3client = boto3.client('s3', aws_secret_access_key=MEDIA_BUCKET_SECRET, aws_access_key_id=MEDIA_BUCKET_ID)
+            # SENDING A PRESIGNED URL FROM CITATION [28]
+            return s3client.generate_presigned_url(
+                                                    'get_object',
+                                                    Params={ 'Bucket' : MEDIA_BUCKET_NAME, 'Key' : "thumbofuser"+str(self.authUser.id)+".png" },
                                                     ExpiresIn=PROFILE_PICTURE_EXPIRATION_SECONDS
             )
         else:

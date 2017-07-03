@@ -193,7 +193,7 @@ def getSurroundingMonths(monthNumber, yearNumber, user, before=5, after=6):
 
 # CITATION [26]
 from PIL import Image
-def cropProfilePicture(pictureFile):
+def cropProfilePicture(pictureFile, format="full"):
     picture = Image.open(pictureFile)
     picture = picture.crop(
                             (
@@ -203,6 +203,6 @@ def cropProfilePicture(pictureFile):
                                 picture.height if picture.height < picture.width else (picture.height - (picture.height - picture.width) // 2),
                             )
     )
-    picture = picture.resize((400, 400))
+    picture = picture.resize((400, 400) if format == "full" else (70, 70))
     return picture
 # END CITATION
