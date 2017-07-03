@@ -16,7 +16,7 @@ class UserInfo(models.Model):
     uploadedProfilePicture  =   models.BooleanField(default=False)
     searchUsername          =   models.BooleanField(default=True)
     searchDisplayName       =   models.BooleanField(default=True)
-    lastActive              =   models.DatTimeField(default=datetime.datetime.now())
+    lastActive              =   models.DateTimeField(default=datetime.datetime.now())
 
     def profilePictureURL(self):
         if self.uploadedProfilePicture:

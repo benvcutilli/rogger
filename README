@@ -43,6 +43,7 @@ using the [#] notation to index each source found on this page):
 [26]  This technique of a hidden form to be triggered from a remote button from unknown source(s).
 [27]  Not sure if I used this kind of variable in the last version of Rogger and if there is a citation for it.
 [28]  Using a presigned URL to control access to files in buckets is an idea from an unknown source.
+[29]  Using middleware to remember when the user was last active from unknown source.
 
 This site is built on the Django web development framework.
 
