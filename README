@@ -44,6 +44,9 @@ using the [#] notation to index each source found on this page):
 [27]  Not sure if I used this kind of variable in the last version of Rogger and if there is a citation for it.
 [28]  Using a presigned URL to control access to files in buckets is an idea from an unknown source.
 [29]  Using middleware to remember when the user was last active from unknown source.
+[30]  I was told by some unknown source that using the .dataset property in javascript isn't backwards compatible,
+      so there was an alternate method discussed, which I believe was .getAttribute(), which
+      https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes suggested.
 
 This site is built on the Django web development framework.
 

@@ -636,7 +636,8 @@
     $.ajax("{% url "storeDate" %}", {
       method  : "POST",
       data    : {
-        entryDate           : itself.data,
+        // USE OF .getAttribute() ON NEXT LINE FROM CITATION [30]
+        entryDate           : itself.getAttribute('data'),
         // next line from citation [15]
         csrfmiddlewaretoken : "{{ csrf_token }}",
       },

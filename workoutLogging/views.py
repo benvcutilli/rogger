@@ -264,5 +264,6 @@ def storeDate(request):
     if not request.user.is_authenticated:
         return HttpReponseForbidden()
 
+
     request.session['newWorkoutDate'] = request.POST['entryDate']
     return HttpResponse()
