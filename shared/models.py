@@ -16,6 +16,7 @@ class UserInfo(models.Model):
     uploadedProfilePicture  =   models.BooleanField(default=False)
     searchUsername          =   models.BooleanField(default=True)
     searchDisplayName       =   models.BooleanField(default=True)
+    # NEXT ATTRIBUTE FROM CITATION [29]
     lastActive              =   models.DateTimeField(default=datetime.datetime.now())
 
     def profilePictureURL(self):
