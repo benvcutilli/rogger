@@ -9,6 +9,7 @@ import datetime
 class UserInfo(models.Model):
     # next line from citation [14]
     authUser                =   models.OneToOneField(User, on_delete=models.CASCADE)
+    # NEXT LINE CITATION [31]
     displayName             =   models.CharField(max_length=100, default="")
     privacySelection        =   models.IntegerField(default=1)
     pdfName                 =   models.CharField(max_length=100, default="")
