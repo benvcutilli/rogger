@@ -1,5 +1,7 @@
 Resources used to make this project (citations can be found in the code base as well,
-using the [#] notation to index each source found on this page):
+using the [#] notation to index each source found on this page; for any reference to
+the original version of Rogger, you can find information on how to find that under the
+"ACKNOWLEDGEMENTS" section):
 
 [1]   http://stackoverflow.com/questions/4571686/django-include-template-from-another-app
 [2]   http://www.w3schools.com/colors/colors_picker.asp for picking colors
@@ -50,6 +52,10 @@ using the [#] notation to index each source found on this page):
 [31]  Having display names is inspired by Twitter (and probably inspired by others as well)
 [32]  http://stackoverflow.com/questions/4571686/django-include-template-from-another-app
 [33]  MIT License from https://opensource.org/licenses/MIT via https://en.wikipedia.org/wiki/MIT_License
+[34]  These types are from and/or inspired by the original Rogger (see url for the original Rogger below in the "ACKNOWLEDGEMENTS" section),
+      and they were inspired by merv.stanford.edu, so they were not my own creation
+[35]  These types are definitely from the original Rogger (see url for the original Rogger below in the "ACKNOWLEDGEMENTS" section),
+      and they were from merv.stanford.edu, so they were not my own creation.
 
 
 This site is built on the Django web development framework.
