@@ -56,6 +56,7 @@ the original version of Rogger, you can find information on how to find that und
       and they were inspired by merv.stanford.edu, so they were not my own creation
 [35]  These types are definitely from the original Rogger (see url for the original Rogger below in the "ACKNOWLEDGEMENTS" section),
       and they were from merv.stanford.edu, so they were not my own creation.
+[36]  To seek to the 0 position in a BytesIO before sending the file with boto3 from https://stackoverflow.com/questions/36274868/saving-an-image-to-bytes-and-uploading-to-boto3-returning-content-md5-mismatch
 
 
 This site is built on the Django web development framework.

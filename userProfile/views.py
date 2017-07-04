@@ -177,10 +177,12 @@ def changePictureView(request, username):
             croppedPictureFile = BytesIO()
             cropProfilePicture(pictureFile, "full").save(croppedPictureFile, format='PNG')
             mediaBucket = boto3.resource('s3', aws_access_key_id=MEDIA_BUCKET_ID, aws_secret_access_key=MEDIA_BUCKET_SECRET).Bucket(MEDIA_BUCKET_NAME)
+            # NEXT LINE FROM CITATION [36]
             croppedPictureFile.seek(0)
             mediaBucket.put_object(Key="profilepictureofuser" + str(request.user.id) + ".png", Body=croppedPictureFile)
             croppedPictureFile = BytesIO()
             cropProfilePicture(pictureFile, "thumb").save(croppedPictureFile, format='PNG')
+            # NEXT LINE CITATION [36]
             croppedPictureFile.seek(0)
             mediaBucket.put_object(Key="thumbofuser" + str(request.user.id) + ".png", Body=croppedPictureFile)
             request.user.userinfo.uploadedProfilePicture = True
