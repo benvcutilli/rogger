@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 import boto3
 from rogger.settings import MEDIA_BUCKET_NAME, MEDIA_BUCKET_ID, MEDIA_BUCKET_SECRET, PROFILE_PICTURE_EXPIRATION_SECONDS, DEFAULT_PROFILE_PICTURE_FILENAME, STATIC_URL
 import datetime
+from django.utils import timezone
 
 # Create your models here.
 
@@ -18,7 +19,7 @@ class UserInfo(models.Model):
     searchUsername          =   models.BooleanField(default=True)
     searchDisplayName       =   models.BooleanField(default=True)
     # NEXT ATTRIBUTE FROM CITATION [29]
-    lastActive              =   models.DateTimeField(default=datetime.datetime.now())
+    lastActive              =   models.DateTimeField(default=timezone.now())
 
     def profilePictureURL(self):
         if self.uploadedProfilePicture:
