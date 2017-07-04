@@ -273,7 +273,7 @@
     <img id="profilePicture" src="{{ profileOwner.userinfo.profilePictureURL }}" {% if user == profileOwner %}onclick="changePicture()"{% endif %} />
   </div>
 {% block privateHTML %}
-  <!-- CITATION: [26] -->
+  <!-- CITATION: [26], SETTING UP THE FORM CITATION [37] -->
   <form method="post" id="pictureForm" action="{% url 'changePictureView' profileOwner %}" enctype="multipart/form-data" hidden>
     <input type="file" id="pictureFile" name="pictureFile" onchange="pushNewPicture()"/>
     {% csrf_token %}
