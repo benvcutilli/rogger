@@ -140,12 +140,14 @@
   }
   .weekContainer > .weekStats, .weekContainer > .dateShiftContainer > .date {
     box-sizing:border-box;
-    min-height:150px;
-    margin-top:1px;
+    /*min-height:150px;*/
+    /*margin-top:1px;*/
     border-right:1px solid #778;
   }
   .monthContainer {
-    margin-top:50px;
+    margin-top:20px;
+    width:100%;
+    margin-bottom:50px;
   }
   .monthName {
     font-size:20px;
@@ -160,9 +162,9 @@
     float:right;
   }
   .date {
-    width:14.28%;
-    height:100%;
-    display:inline-block;
+    width:12.8%;
+    height:150px;
+    vertical-align:top;
     background-color:#aab;
     font-size:12px;
     box-sizing:border-box;
@@ -179,12 +181,11 @@
   .weekStats {
     box-sizing: border-box;
     padding:10px;
-    display:inline-block;
-    width:12.5%;
+    vertical-align:top;
+    width:10.4%;
     height:100%;
     font-size:12px;
     background-color: #223;
-    float:left;
   }
   .weekStats > a {
     float:right;

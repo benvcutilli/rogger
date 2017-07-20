@@ -13,7 +13,7 @@
       {% endfor %}
 
     </td>
-    <div class="dateShiftContainer leftAlign">
+    <!--<div class="dateShiftContainer leftAlign">-->
       {% for day in week.days %}
       <td class="date {% if day.date.month == month.month %}darkDate{% endif %}">
         <!-- STORING DATE (CALL TO storeDate(this) IN NEXT LINE) TECHNIQUE FROM CITATION [25] -->
@@ -25,7 +25,7 @@
         </div>
       </td>
       {% endfor %}
-    </div>
+    <!--</div>-->
   </tr>
   {% endfor %}
 </table>
