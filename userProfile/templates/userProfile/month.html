@@ -1,21 +1,21 @@
-<div class="monthContainer">
+<table class="monthContainer">
   <!-- next span from citation [21] -->
   <span id="{{ month.month }}.{{ month.year }}"></span>
   <div class="monthName">
     {{ month.monthWorded }} {{ month.year }}
   </div>
   {% for week in month.weeks %}
-  <div class="weekContainer">
-    <div class="weekStats">
+  <tr class="weekContainer">
+    <td class="weekStats">
       stats{% if user == profileOwner %}<a href="{% url "weekPDFView" profileOwner.username week.days.0.date.year week.days.0.date.month week.days.0.date.day %}">PDF</a>{% endif %}<br>
       {% for typeStat in week.getStats %}
       <div class="typeStat">{{ typeStat }}</div>
       {% endfor %}
 
-    </div>
+    </td>
     <div class="dateShiftContainer leftAlign">
       {% for day in week.days %}
-      <div class="date {% if day.date.month == month.month %}darkDate{% endif %}">
+      <td class="date {% if day.date.month == month.month %}darkDate{% endif %}">
         <!-- STORING DATE (CALL TO storeDate(this) IN NEXT LINE) TECHNIQUE FROM CITATION [25] -->
         {% if user == profileOwner %}<a onclick="storeDate(this)" data="{{ day.date.year }}.{% if day.date.month < 10%}0{% endif %}{{ day.date.month }}.{% if day.date.day < 10 %}0{% endif %}{{ day.date.day }}">{% endif %}{{ day.dayOfWeekWorded }} {{ day.date.day }}{% if user == profileOwner %}</a>{% endif %}
         <div class="dateWorkoutDiv">
@@ -23,9 +23,9 @@
           <a href="{% url "viewEntryView" workout.id %}">{{ workout.title }}</a><br>
           {% endfor %}
         </div>
-      </div>
+      </td>
       {% endfor %}
     </div>
-  </div>
+  </tr>
   {% endfor %}
-</div>
+</table>
