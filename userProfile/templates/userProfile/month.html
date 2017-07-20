@@ -1,9 +1,9 @@
+<!-- next span from citation [21] -->
+<span id="{{ month.month }}.{{ month.year }}"></span>
+<div class="monthName">
+  {{ month.monthWorded }} {{ month.year }}
+</div>
 <table class="monthContainer">
-  <!-- next span from citation [21] -->
-  <span id="{{ month.month }}.{{ month.year }}"></span>
-  <div class="monthName">
-    {{ month.monthWorded }} {{ month.year }}
-  </div>
   {% for week in month.weeks %}
   <tr class="weekContainer">
     <td class="weekStats">
