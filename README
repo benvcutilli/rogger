@@ -58,6 +58,11 @@ the original version of Rogger, you can find information on how to find that und
       and they were from merv.stanford.edu, so they were not my own creation.
 [36]  To seek to the 0 position in a BytesIO before sending the file with boto3 from https://stackoverflow.com/questions/36274868/saving-an-image-to-bytes-and-uploading-to-boto3-returning-content-md5-mismatch
 [37]  Properly setting up the form for picture upload from https://www.cs.tut.fi/~jkorpela/forms/file.html
+[38]  Using a table, tr, and td (and whatever tags show up that the browser puts in itself automatically) is
+      an idea derivative to the answer(s) found here:
+      https://stackoverflow.com/questions/8468066/child-inside-parent-with-min-height-100-not-inheriting-height
+[39]  Using height instead of min-height to specify a minimum height and learning that I have to use it on
+      a <td> element is from https://stackoverflow.com/questions/19432092/can-i-use-a-min-height-for-table-tr-or-td
 
 
 This site is built on the Django web development framework.
