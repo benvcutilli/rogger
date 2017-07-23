@@ -63,6 +63,8 @@ the original version of Rogger, you can find information on how to find that und
       https://stackoverflow.com/questions/8468066/child-inside-parent-with-min-height-100-not-inheriting-height
 [39]  Using height instead of min-height to specify a minimum height and learning that I have to use it on
       a <td> element is from https://stackoverflow.com/questions/19432092/can-i-use-a-min-height-for-table-tr-or-td
+[40]  Suggestion to use CodeMirror as a syntax highlighter is from
+      https://stackoverflow.com/questions/1619167/textarea-that-can-do-syntax-highlighting-on-the-fly
 
 
 This site is built on the Django web development framework.

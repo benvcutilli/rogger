@@ -1,6 +1,7 @@
 {% extends 'shared/base.html'%}
 {% load staticfiles %}
 {% block inheritor %}
+<!-- MAJOR CITATION: THE SUGGESTION TO USE CODEMIRROR AS A SYNTAX HIGHLIGHTER IS FROM CITATION [40] -->
 <script src="{% static 'shared/codemirror-5.22.0/lib/codemirror.js' %}"></script>
 <link rel="stylesheet" href="{% static 'shared/codemirror-5.22.0/lib/codemirror.css' %}">
 <script src="{% static 'shared/codemirror-5.22.0/addon/mode/simple.js' %}"></script>
@@ -219,4 +220,5 @@
   {% endblock %}
 
 </script>
+<!-- END MAJOR CITATION -->
 {% endblock %}
