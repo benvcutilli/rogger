@@ -139,11 +139,11 @@ def importView(request):
                 workoutDate = workoutTuple[0].split('-')
                 workoutType = None
                 if WorkoutType.objects.filter(name=workoutTuple[1], owner=request.user).exists():
-                    workoutType = WorkoutType.objects.get(name=workoutTuple[1], owner=request.user)
-                elif WorkoutType.objects.filter(name=workoutTuple[1], owner__isnull=True).exists():
-                    workoutType = WorkoutType.objects.get(name=workoutTuple[1], owner__isnull=True)
+                    workoutType = WorkoutType.objects.get(name=workoutTuple[2]+" "+workoutTuple[1], owner=request.user)
+                #elif WorkoutType.objects.filter(name=workoutTuple[1], owner__isnull=True).exists():
+                #    workoutType = WorkoutType.objects.get(name=workoutTuple[1], owner__isnull=True)
                 else:
-                    workoutType = WorkoutType.objects.create(name=workoutTuple[1], owner=request.user)
+                    workoutType = WorkoutType.objects.create(name=workoutTuple[2]+" "+workoutTuple[1], owner=request.user)
                     workoutType.save()
 
                 shoe = None
@@ -157,6 +157,7 @@ def importView(request):
                     owner                   = request.user,
                     date                    = datetime.date(int(workoutDate[0]), int(workoutDate[1]), int(workoutDate[2])),
                     wtype                   = workoutType,
+                    mervOldRoggerLegacyType = workoutTuple[1],
                     mervLegacySubtype       = workoutTuple[2],
                     distance                = (float(workoutTuple[3])*1.609 if workoutTuple[4] == 'km' else (float(workoutTuple[3]*1609 if workoutTuple[4] == 'm' else float(workoutTuple[3])))),
                     mervLegacyDistance      = float(workoutTuple[3]),
