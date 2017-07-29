@@ -30,6 +30,8 @@ class Workout(models.Model):
     updated                 =   models.BooleanField(default=False)
     # mervImport FROM THE PREVIOUS VERSION OF ROGGER (I don't think this idea came from an outside resource, but I'm not sure)
     mervImport              =   models.BooleanField(default=False)
+    # oldRoggerTransfer IS INSPIRED BY mervImport, WHICH IS FROM THE PREVIOUS VERSION OF ROGGER (I don't think the mervImport idea came from an outside resource, but I'm not sure)
+    oldRoggerTransfer       =   models.BooleanField(default=False)
 
     owner                   =   models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
