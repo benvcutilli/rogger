@@ -20,7 +20,7 @@ class Workout(models.Model):
     mervLegacySubtype       =   models.CharField(max_length=100, null=True)
     mervLegacyPace          =   models.CharField(max_length=100, null=True)
     mervLegacyPaceUnits     =   models.CharField(max_length=50, null=True)
-    mervLegacyHeartrate     =   models.IntegerField(null=True)
+    mervLegacyHeartrate     =   models.FloatField(null=True)
     mervLegacyAddendum      =   models.CharField(max_length=100, null=True)
     mervLegacyDistance      =   models.FloatField(null=True)
     mervLegacyDistanceUnits =   models.CharField(max_length=30, null=True)
