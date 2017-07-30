@@ -67,7 +67,9 @@ the original version of Rogger, you can find information on how to find that und
       https://stackoverflow.com/questions/1619167/textarea-that-can-do-syntax-highlighting-on-the-fly
 
 
-This site is built on the Django web development framework.
+This site is built on the Django web development framework. How to set up NGINX (the web server) to serve this Django app
+is from https://www.digitalocean.com/community/tutorials/how-to-serve-django-applications-with-uwsgi-and-nginx-on-ubuntu-14-04
+and probably other unknown resources as well.
 
 ACKNOWLEDGEMENTS:
 The design of this site is inspired by all my experience using the web. The
