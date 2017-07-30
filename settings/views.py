@@ -12,7 +12,7 @@ from workoutLogging.models import Workout
 
 # Create your views here.
 
-baseLocale = 'french'
+baseLocale = 'english'
 
 settingsFrenchDict = {
 }

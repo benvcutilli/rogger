@@ -212,7 +212,7 @@
   {% else %}
   $(".cm-username").each(function(index, element) {
     element.onclick = function() {
-      window.location = "http://localhost:8000/users/" + element.innerHTML.slice(1, element.innerHTML.length);
+      window.location = "{% url 'userViewStub' %}" + element.innerHTML.slice(1, element.innerHTML.length);
     };
   });
   {% endif %}

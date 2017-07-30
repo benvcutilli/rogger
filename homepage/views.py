@@ -15,7 +15,7 @@ from shared.models import UserInfo, Follow, Block
 from workoutLogging.models import Workout
 from django.template.loader import render_to_string
 
-debugLocale = 'french'
+debugLocale = 'english'
 godMode = False
 
 ######### LOGIN LOCALIZATION ##########

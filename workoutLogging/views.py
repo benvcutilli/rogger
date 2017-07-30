@@ -10,7 +10,7 @@ from shared.models import Block, Follow
 import datetime
 from django.shortcuts import get_object_or_404
 
-debugLocale = 'french'
+debugLocale = 'english'
 
 entryFrenchDict = {
 }
