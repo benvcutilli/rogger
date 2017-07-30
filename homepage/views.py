@@ -218,6 +218,7 @@ def newAccountView(request):
     })
     templateDict.update({
         'recaptchaPublic': RECAPTCHA_PUBLIC,
+        'pageIsRecaptcha': "yes"
     })
 
     # IS A FORM
