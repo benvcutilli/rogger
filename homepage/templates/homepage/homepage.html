@@ -255,7 +255,7 @@
   </div>
 </div>
 <script>
-  var earliestID = {% if updates|length > 0 %}{{ updates.last.id }}{% else %}-1{% endif %};
+  var earliestID = {% if updates|length > 0 %}{{ lastUpdate.id }}{% else %}-1{% endif %};
   // noMoreUpdates usage from citation [23]
   var noMoreUpdates = false;
   function checkForScrollBottomHit() {
