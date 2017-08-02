@@ -110,9 +110,8 @@ def homepage(request):
             workouts = Workout.objects.filter(owner__in=followedUsers) \
                                         .order_by("-modifiedDate", "id") \
                                         .filter(
-                                            id__gt=int(request.POST['lastID']),
                                             modifiedDate__lte=Workout.objects.get(id=int(request.POST['lastID'])).modifiedDate
-                                        )
+                                        ).exclude(id=int(request.POST['lastID']))
             if not workouts.count() > 0:
                 return HttpResponseNotFound()
             else:
