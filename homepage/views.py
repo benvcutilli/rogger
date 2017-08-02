@@ -115,12 +115,12 @@ def homepage(request):
             if not workouts.count() > 0:
                 return HttpResponseNotFound()
             else:
-                workouts = workouts[:(25 if workouts.count() >= 25 else len(workouts))]
+                workouts = workouts[:(2 if workouts.count() >= 2 else len(workouts))]
                 return JsonResponse({
                     'id'    :   workouts[len(workouts)-1].id,
                     'html'  :   render_to_string("homepage/updates.html", {
                         'updates'   :   workouts,
-                        'lastUpdate':   workouts[-1] if len(workouts) > 0 else -1
+                        'lastUpdateID':   workouts[len(workouts)-1].id if len(workouts) > 0 else -1
                     })
                 })
 
@@ -150,8 +150,8 @@ def homepage(request):
                 followedUsers.append(follow.followee)
         workouts = Workout.objects.filter(owner__in=followedUsers).order_by("-modifiedDate", "id")
         templateDict = {
-            'updates'           :   workouts[:workouts.count() if workouts.count() < 25 else 25],
-            'lastUpdate'        :   workouts[:workouts.count() if workouts.count() < 25 else 25][-1] if len(workouts) > 0 else -1,
+            'updates'           :   workouts[:workouts.count() if workouts.count() < 2 else 2],
+            'lastUpdateID'        :   workouts[:workouts.count() if workouts.count() < 2 else 2][-1].id if len(workouts) > 0 else -1,
             #'earliestID':   workouts[workouts.count()-1 if workouts.count() < 25 else 24].id
             'follows'           :   followedUsers,
             # see citation [25] for where usage of "approved" in the next line comes from

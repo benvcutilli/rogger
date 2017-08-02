@@ -255,14 +255,16 @@
   </div>
 </div>
 <script>
-  var earliestID = {% if updates|length > 0 %}{{ lastUpdate.id }}{% else %}-1{% endif %};
+  var earliestID = {% if updates|length > 0 %}{{ lastUpdateID }}{% else %}-1{% endif %};
+  var fetchingUpdates = false;
   // noMoreUpdates usage from citation [23]
   var noMoreUpdates = false;
   function checkForScrollBottomHit() {
     var feedContainer = $("#feedContainer");
     // condition in next "if" statement from citation [22]
     if (feedContainer.scrollTop() + feedContainer.height() >= $("#feed").outerHeight() && !noMoreUpdates) {
-      if (earliestID >= 0) {
+      if (earliestID >= 0 && !fetchingUpdates) {
+        fetchingUpdates = true;
         $.ajax("{% url "homepage" %}", {
           method  : "POST",
           data    : {
@@ -273,14 +275,16 @@
           },
           dataType: "json",
           success : function(ajaxResponseText, ajaxStatus, ajaxResponse) {
-            earliestID = ajaxResponseText['id']
-            $("#updatesDiv").append(ajaxResponseText['html'])
+            earliestID = ajaxResponseText['id'];
+            $("#updatesDiv").append(ajaxResponseText['html']);
+            fetchingUpdates = false;
           },
           error   : function(ajaxResponse, ajaxStatus, ajaxError) {
             // noMoreUpdates usage from citation [23]
             noMoreUpdates = true;
             $("#encouragement").show();
             $("#noPostsAlert").show();
+            fetchingUpdates = false;
           }
         });
       }
