@@ -9,9 +9,9 @@ class Workout(models.Model):
     # next line citation [16]
     shoe                    =   models.ForeignKey('settings.Shoe', on_delete=models.SET_NULL, null=True)
     entry                   =   models.TextField(default="")
-    hours                   =   models.FloatField(null=True)
-    minutes                 =   models.FloatField(null=True)
-    seconds                 =   models.FloatField(null=True)
+    hours                   =   models.DecimalField(null=True)
+    minutes                 =   models.DecimalField(null=True)
+    seconds                 =   models.DecimalField(null=True)
     # type/subtype from Merv
     # next line citation [16]
     wtype                   =   models.ForeignKey('settings.WorkoutType', null=True, on_delete=models.SET_NULL)
@@ -20,9 +20,9 @@ class Workout(models.Model):
     mervLegacySubtype       =   models.CharField(max_length=100, null=True)
     mervLegacyPace          =   models.CharField(max_length=100, null=True)
     mervLegacyPaceUnits     =   models.CharField(max_length=50, null=True)
-    mervLegacyHeartrate     =   models.FloatField(null=True)
+    mervLegacyHeartrate     =   models.DecimalField(null=True)
     mervLegacyAddendum      =   models.CharField(max_length=100, null=True)
-    mervLegacyDistance      =   models.FloatField(null=True)
+    mervLegacyDistance      =   models.DecimalField(null=True)
     mervLegacyDistanceUnits =   models.CharField(max_length=30, null=True)
     title                   =   models.CharField(max_length=100, default="")
     modifiedDate            =   models.DateTimeField()
@@ -50,4 +50,4 @@ class Comment(models.Model):
 class Unit(models.Model):
     owner       = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     name        = models.CharField(max_length=100)
-    distance    = models.FloatField()
+    distance    = models.DecimalField()

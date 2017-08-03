@@ -9,6 +9,7 @@ import datetime
 from settings.forms import ImportForm
 import re
 from workoutLogging.models import Workout
+from decimal import Decimal
 
 # Create your views here.
 
@@ -159,14 +160,14 @@ def importView(request):
                     wtype                   = workoutType,
                     mervOldRoggerLegacyType = workoutTuple[1],
                     mervLegacySubtype       = workoutTuple[2],
-                    distance                = (float(workoutTuple[3])*1.609 if workoutTuple[4] == 'km' else (float(workoutTuple[3]*1609 if workoutTuple[4] == 'm' else float(workoutTuple[3])))),
-                    mervLegacyDistance      = float(workoutTuple[3]),
+                    distance                = (Decimal(workoutTuple[3])*Decimal('1.609') if workoutTuple[4] == 'km' else (Decimal(workoutTuple[3])*Decimal('1609') if workoutTuple[4] == 'm' else Decimal(workoutTuple[3]))),
+                    mervLegacyDistance      = Decimal(workoutTuple[3]),
                     mervLegacyDistanceUnits = workoutTuple[4],
                     mervLegacyPace          = workoutTuple[5],
                     mervLegacyPaceUnits     = workoutTuple[6],
-                    hours                   = int(float(workoutTuple[7])) // 60,
-                    minutes                 = int(float(workoutTuple[7])) % 60,
-                    seconds                 = round(60 * (float(workoutTuple[7]) - int(float(workoutTuple[7]))), 2),
+                    hours                   = int(Decimal(workoutTuple[7])) // 60,
+                    minutes                 = int(Decimal(workoutTuple[7])) % 60,
+                    seconds                 = round(Decimal('60') * (Decimal(workoutTuple[7]) - int(Decimal(workoutTuple[7]))), 2),
                     shoe                    = shoe,
                     mervLegacyHeartrate     = int(workoutTuple[9]),
                     title                   = workoutTuple[10],

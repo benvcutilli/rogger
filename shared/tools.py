@@ -8,21 +8,22 @@ def getErrorString(form):
 
 from settings.models import WorkoutType, universalWorkoutTypeNames
 from workoutLogging.models import Unit
+from decimal import Decimal
 
 def initializeUniversals():
     for workoutType in universalWorkoutTypeNames:
         WorkoutType.objects.create(owner=None, name=workoutType[0], displayMeasurement=workoutType[1]).save()
     units = {
-        'miles':      1.0,
-        'mile':       1.0,
-        'mi':         1.0,
-        'meters':     1.0/1609.0,
-        'meter':      1.0/1609.0,
-        'm':          1.0/1609.0,
-        'kilometers': 1.0/1.609,
-        'kilometer':  1.0/1.609,
-        'km':         1.0/1.609,
-        'k':          1.0/1.609,
+        'miles':      Decimal('1.0'),
+        'mile':       Decimal('1.0'),
+        'mi':         Decimal('1.0'),
+        'meters':     Decimal('1.0')/Decimal('1609.0'),
+        'meter':      Decimal('1.0')/Decimal('1609.0'),
+        'm':          Decimal('1.0')/Decimal('1609.0'),
+        'kilometers': Decimal('1.0')/Decimal('1.609'),
+        'kilometer':  Decimal('1.0')/Decimal('1.609'),
+        'km':         Decimal('1.0')/Decimal('1.609'),
+        'k':          Decimal('1.0')/Decimal('1.609'),
     }
     for unit in units:
         Unit.objects.create(owner=None, name=unit, distance=units[unit]).save()

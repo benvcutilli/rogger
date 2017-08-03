@@ -2,10 +2,10 @@ from django import forms
 
 class WorkoutForm(forms.Form):
     title           =   forms.CharField(max_length=100)
-    distance        =   forms.FloatField()
+    distance        =   forms.DecimalField()
     hours           =   forms.IntegerField(required=False)
     minutes         =   forms.IntegerField(required=False)
-    seconds         =   forms.FloatField(required=False)
+    seconds         =   forms.DecimalField(required=False)
     # type/subtype from Merv
     wtype           =   forms.IntegerField()
     shoe            =   forms.IntegerField(required=False)
@@ -18,5 +18,3 @@ class WorkoutForm(forms.Form):
             errorString += key + ": " + ", ".join([self.errors[key][i] for i in range(len(self.errors[key]))]) + " "
 
         return errorString
-
-    
