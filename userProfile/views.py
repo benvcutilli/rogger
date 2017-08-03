@@ -47,7 +47,7 @@ def userView(request, username):
             if user.userinfo.privacySelection == 2 and ((request.user.is_authenticated and not Follow.objects.filter(followee=user, follower=request.user, approved=True).exists()) or not request.user.is_authenticated) and request.user != user:
                 templateDict.update({
                     'profileOwner'  :   user,
-                    'mileage'       :   sum([workout.distance for workout in Workout.objects.filter(owner=user)]),
+                    'mileage'       :   sum([workout.distance for workout in Workout.objects.filter(owner=user)]).normalize(),
                     'followsUser'   :   Follow.objects.filter(followee=user, follower=request.user).exists() if request.user.is_authenticated else None,
                     'blocked'       :   Block.objects.filter(blockee=user, blocker=request.user) if request.user.is_authenticated else None
                 })
@@ -62,7 +62,7 @@ def userView(request, username):
                 'latestMonth'   :   months[-1].month,
                 'latestYear'    :   months[-1].year,
                 'profileOwner'  :   user,
-                'mileage'       :   sum([workout.distance for workout in Workout.objects.filter(owner=user)]),
+                'mileage'       :   sum([workout.distance for workout in Workout.objects.filter(owner=user)]).normalize(),
                 'followsUser'   :   Follow.objects.filter(followee=user, follower=request.user).exists() if request.user.is_authenticated else None,
                 'blocked'       :   Block.objects.filter(blockee=user, blocker=request.user) if request.user.is_authenticated else None
             })

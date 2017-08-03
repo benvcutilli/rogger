@@ -33,8 +33,8 @@ def newEntry(request):
     templateDict.update({
         'formURL'       :   reverse("newEntryView"),
         'error'         :   "",
-        'shoes'         :   [(element, repr(element.id)) for element in Shoe.objects.filter(owner=request.user)],
-        'types'         :   [(element, repr(element.id)) for element in availableWorkoutTypes],
+        'shoes'         :   [(element, str(element.id)) for element in Shoe.objects.filter(owner=request.user)],
+        'types'         :   [(element, str(element.id)) for element in availableWorkoutTypes],
         # NEXT LINE: THE STORING OF newWorkoutDate IN THE SESSION FOR TEMPORARY HOLDING BETWEEN WEBPAGES FROM CITATION [25]
         'workoutDate'   :   request.session['newWorkoutDate'] if request.session.has_key('newWorkoutDate') else datetime.date.today().strftime("%Y.%m.%d"),
         'units'         :   (Unit.objects.filter(owner=request.user) | Unit.objects.filter(owner=None)).order_by("-name")
@@ -110,21 +110,21 @@ def editEntry(request, workoutID):
     templateDict.update({
         'formURL'   :   reverse("viewEntryView", args=[workoutID]),
         'error'     :   "",
-        'shoes'     :   [(element, repr(element.id)) for element in Shoe.objects.filter(owner=request.user)],
-        'types'     :   [(element, repr(element.id)) for element in availableWorkoutTypes],
+        'shoes'     :   [(element, str(element.id)) for element in Shoe.objects.filter(owner=request.user)],
+        'types'     :   [(element, str(element.id)) for element in availableWorkoutTypes],
         'units'     :   (Unit.objects.filter(owner=request.user) | Unit.objects.filter(owner=None)).order_by("-name")
     })
 
     workoutForm = forms.WorkoutForm({
         'title'     :   workout.title,
-        'distance'  :   repr(workout.distance),
-        'hours'     :   repr(workout.hours) if workout.hours != None else "",
-        'minutes'   :   repr(workout.minutes) if workout.minutes != None else "",
-        'seconds'   :   repr(workout.seconds) if workout.seconds != None else "",
-        'wtype'     :   repr(workout.wtype.id),
-        'shoe'      :   repr(workout.shoe.id) if workout.shoe != None else "-1",
+        'distance'  :   str(workout.distance.normalize()),
+        'hours'     :   str(workout.hours.normalize()) if workout.hours != None else "",
+        'minutes'   :   str(workout.minutes.normalize()) if workout.minutes != None else "",
+        'seconds'   :   str(workout.seconds.normalize()) if workout.seconds != None else "",
+        'wtype'     :   str(workout.wtype.id),
+        'shoe'      :   str(workout.shoe.id) if workout.shoe != None else "-1",
         'entry'     :   workout.entry,
-        'date'      :   repr(workout.date.year) + "." + ("0" if workout.date.month < 10 else "") + repr(workout.date.month) + "." + ("0" if workout.date.day < 10 else "") + repr(workout.date.day),
+        'date'      :   str(workout.date.year) + "." + ("0" if workout.date.month < 10 else "") + str(workout.date.month) + "." + ("0" if workout.date.day < 10 else "") + str(workout.date.day),
     })
 
     isError = False
@@ -196,14 +196,14 @@ def viewEntry(request, workoutID):
         return HttpResponseNotFound()
     workoutInfo = {
         'title'     :   workout.title,
-        'distance'  :   repr(workout.distance),
-        'hours'     :   repr(workout.hours) if workout.hours != None else "",
-        'minutes'   :   repr(workout.minutes) if workout.minutes != None else "",
-        'seconds'   :   repr(workout.seconds) if workout.seconds != None else "",
-        'wtype'     :   repr(workout.wtype.id),
+        'distance'  :   str(workout.distance.normalize()),
+        'hours'     :   str(workout.hours.normalize()) if workout.hours != None else "",
+        'minutes'   :   str(workout.minutes.normalize()) if workout.minutes != None else "",
+        'seconds'   :   str(workout.seconds.normalize()) if workout.seconds != None else "",
+        'wtype'     :   str(workout.wtype.id),
         'shoe'      :   workout.shoe,
         'entry'     :   workout.entry,
-        'date'      :   repr(workout.date.year) + "." + ("0" if workout.date.month < 10 else "") + repr(workout.date.month) + "." + ("0" if workout.date.day < 10 else "") + repr(workout.date.day),
+        'date'      :   str(workout.date.year) + "." + ("0" if workout.date.month < 10 else "") + str(workout.date.month) + "." + ("0" if workout.date.day < 10 else "") + str(workout.date.day),
         'username'  :   workout.owner.username
     }
     templateDict = {

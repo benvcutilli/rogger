@@ -2,6 +2,7 @@ from django.db import models
 from shared.models import UserInfo
 from workoutLogging.models import Workout
 from django.contrib.auth.models import User
+from decimal import Decimal
 
 # Create your models here.
 
@@ -11,7 +12,7 @@ class Shoe(models.Model):
 
     def mileage(self):
         workouts = Workout.objects.filter(shoe=self)
-        totalMileage = 0.0
+        totalMileage = Decimal('0.0')
         for workout in workouts:
             totalMileage += workout.distance
 
