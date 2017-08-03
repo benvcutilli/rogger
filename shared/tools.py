@@ -66,7 +66,7 @@ class WorkoutWeek():
                 else:
                     workoutTypes[workout.wtype.name] = workout.distance
 
-        return [key + ": " + str(workoutTypes[key]) for key in workoutTypes]
+        return [key + ": " + str(workoutTypes[key].normalize()) for key in workoutTypes]
 
     def getPDF(self, responseObject):
         pdf = SimpleDocTemplate(responseObject, pagesize=letter)
