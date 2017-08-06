@@ -65,6 +65,7 @@ the original version of Rogger, you can find information on how to find that und
       a <td> element is from https://stackoverflow.com/questions/19432092/can-i-use-a-min-height-for-table-tr-or-td
 [40]  Suggestion to use CodeMirror as a syntax highlighter is from
       https://stackoverflow.com/questions/1619167/textarea-that-can-do-syntax-highlighting-on-the-fly
+[41]  Confirming that escapejs is safe for use in Javascript strings that are within HTML files is from https://stackoverflow.com/questions/23331988/djangos-escapejs-filter-and-xss
 
 
 This site is built on the Django web development framework. How to set up NGINX (the web server) to serve this Django app

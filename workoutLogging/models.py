@@ -36,8 +36,8 @@ class Workout(models.Model):
     owner                   =   models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
     def getEscapedEntry(self):
-        # next line citation [18]
-        return self.entry.encode("unicode_escape")
+        # (NOTE: THIS CITATION DOES NOT APPLY HERE, BUT KEEPING IT HERE JUST IN CASE I NEED IT BACK AGAIN): next line citation [18]
+        return self.entry
 
 
 class Comment(models.Model):

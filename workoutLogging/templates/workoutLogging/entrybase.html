@@ -148,7 +148,8 @@
     {% block logentrydisable %}{% endblock %}
   })
 
-  logEditorCodeMirrorInstance.setValue("{{ escapedEntry|safe }}")
+  // MAKING SURE THAT THE escapejs FILTER IS GOOD TO USE FROM CITATION [41]
+  logEditorCodeMirrorInstance.setValue("{{ escapedEntry|escapejs|escape }}")
   {% if viewRenderMode == False %}
   logEditorCodeMirrorInstance.on("change", processLogDistance);
   function processLogDistance() {
