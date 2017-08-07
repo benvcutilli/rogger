@@ -9,6 +9,7 @@ from django.core.mail import send_mail
 from shared.models import Block, Follow
 import datetime
 from django.shortcuts import get_object_or_404
+from copy import deepcopy
 
 debugLocale = 'english'
 
@@ -28,7 +29,7 @@ entryLocalization = {
 # Create your views here.
 
 def newEntry(request):
-    templateDict = entryLocalization[debugLocale]
+    templateDict = deepcopy(entryLocalization[debugLocale])
     availableWorkoutTypes = WorkoutType.objects.filter(owner__isnull=True) | WorkoutType.objects.filter(owner=request.user)
     templateDict.update({
         'formURL'       :   reverse("newEntryView"),
@@ -105,7 +106,7 @@ def newEntry(request):
 
 def editEntry(request, workoutID):
     workout = get_object_or_404(Workout, id=int(workoutID))
-    templateDict = entryLocalization[debugLocale]
+    templateDict = deepcopy(entryLocalization[debugLocale])
     availableWorkoutTypes = WorkoutType.objects.filter(owner__isnull=True) | WorkoutType.objects.filter(owner=request.user)
     templateDict.update({
         'formURL'   :   reverse("viewEntryView", args=[workoutID]),
