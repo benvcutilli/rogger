@@ -69,8 +69,11 @@ the original version of Rogger, you can find information on how to find that und
 
 
 This site is built on the Django web development framework. How to set up NGINX (the web server) to serve this Django app
-is from https://www.digitalocean.com/community/tutorials/how-to-serve-django-applications-with-uwsgi-and-nginx-on-ubuntu-14-04
-and probably other unknown resources as well. This site also uses JQuery, ReportLab, Boto3, and probably other things I'm forgetting
+is from https://www.digitalocean.com/community/tutorials/how-to-serve-django-applications-with-uwsgi-and-nginx-on-ubuntu-14-04,
+http://uwsgi-docs.readthedocs.io/en/latest/WSGIquickstart.html,
+and probably other unknown resources as well. Thanks to https://www.whatsmydns.net and
+http://www.inmotionhosting.com/support/tools/visual-domain-routing, and other unknown sources, for helping debug the server.
+This site also uses JQuery, ReportLab, Boto3, and probably other things I'm forgetting
 to mention as well.
 
 ACKNOWLEDGEMENTS:
