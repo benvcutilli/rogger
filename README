@@ -68,11 +68,23 @@ the original version of Rogger, you can find information on how to find that und
 [41]  Confirming that escapejs is safe for use in Javascript strings that are within HTML files is from https://stackoverflow.com/questions/23331988/djangos-escapejs-filter-and-xss
 
 
-This site is built on the Django web development framework. How to set up NGINX (the web server) to serve this Django app
+This site is built on the Django web development framework.
+
+How to set up NGINX (the web server) to serve this Django app
 is from https://www.digitalocean.com/community/tutorials/how-to-serve-django-applications-with-uwsgi-and-nginx-on-ubuntu-14-04,
 http://uwsgi-docs.readthedocs.io/en/latest/WSGIquickstart.html,
-and probably other unknown resources as well. Thanks to https://www.whatsmydns.net and
-http://www.inmotionhosting.com/support/tools/visual-domain-routing, and other unknown sources, for helping debug the server.
+and probably other unknown resources as well.
+
+Thanks to https://www.whatsmydns.net, http://www.inmotionhosting.com/support/tools/visual-domain-routing, and other unknown sources, for helping debug the server.
+
+Using json.loads() to convert strings with surrogate pairs into proper unicode for data import from a json file is from
+https://stackoverflow.com/questions/38147259/how-to-work-with-surrogate-pairs-in-python and possibly others as well.
+
+Thanks to https://community.letsencrypt.org/t/are-they-limitations-on-who-can-use-lets-encrypt/687 for clearing up
+whether or not I can use Certbot and Let's Encrypt on my site and still stay compliant by licensing the site code under the MIT License (below).
+
+Thanks to https://stackoverflow.com/questions/44892085/letsencrypt-certbot-timeout-error for helping me debug using Certbot and Let's Encrypt.
+
 This site also uses JQuery, ReportLab, Boto3, and probably other things I'm forgetting
 to mention as well.
 
