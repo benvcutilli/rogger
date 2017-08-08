@@ -85,6 +85,8 @@ whether or not I can use Certbot and Let's Encrypt on my site and still stay com
 
 Thanks to https://stackoverflow.com/questions/44892085/letsencrypt-certbot-timeout-error for helping me debug using Certbot and Let's Encrypt.
 
+Thanks to https://lifehacker.com/5683682/five-best-domain-name-registrars for suggesting Name.com to use as a domain name registrar.
+
 This site also uses JQuery, ReportLab, Boto3, and probably other things I'm forgetting
 to mention as well.
 
