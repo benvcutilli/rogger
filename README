@@ -87,6 +87,8 @@ Thanks to https://stackoverflow.com/questions/44892085/letsencrypt-certbot-timeo
 
 Thanks to https://lifehacker.com/5683682/five-best-domain-name-registrars for suggesting Name.com to use as a domain name registrar.
 
+Thanks to https://serverfault.com/questions/785502/create-daemon-on-ubuntu-16-04 for possibly convincing me that I need to use systemd for launching uwsgi.
+
 This site also uses JQuery, ReportLab, Boto3, and probably other things I'm forgetting
 to mention as well.
 
