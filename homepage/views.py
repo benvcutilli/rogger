@@ -146,7 +146,7 @@ def homepage(request):
 
         followedUsers = []
         for follow in Follow.objects.filter(follower=request.user).order_by("followee__username"):
-            if not (Block.objects.filter(blocker=follow.followee, blockee=request.user).exists() or Block.objects.filter(blocker=request.user, blockee=follow.followee).exists() or (follow.followee.userinfo.privacySelection == 2 and follow.approved == False)): # usage of the "approved" attribute in a Follow object from citation [25]
+            if not (Block.objects.filter(blocker=follow.followee, blockee=request.user).exists() or Block.objects.filter(blocker=request.user, blockee=follow.followee).exists() or (follow.followee.userinfo.privacySelection == 2 and follow.approved == False) or follow.followee.userinfo.privacySelection == 3): # usage of the "approved" attribute in a Follow object from citation [25]
                 followedUsers.append(follow.followee)
         workouts = Workout.objects.filter(owner__in=followedUsers).order_by("-modifiedDate", "id")
         templateDict = {
