@@ -1,3 +1,4 @@
+{% load sharedfilters %}
 <!-- next span from citation [21] -->
 <span id="{{ month.month }}.{{ month.year }}"></span>
 <div class="monthName">
@@ -10,7 +11,7 @@
     <td class="weekStats">
       stats{% if user == profileOwner %}<a href="{% url "weekPDFView" profileOwner.username week.days.0.date.year week.days.0.date.month week.days.0.date.day %}">PDF</a>{% endif %}<br>
       {% for typeStat in week.getStats %}
-      <div class="typeStat">{{ typeStat }}</div>
+      <div class="typeStat">{{ typeStat.0 }}: {{ typeStat.1|prettydecimal }}</div>
       {% endfor %}
 
     </td>

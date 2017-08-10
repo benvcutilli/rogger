@@ -1,6 +1,7 @@
 {% extends 'shared/base.html' %}
 {% block inheritor %}
 {% load staticfiles %}
+{% load sharedfilters %}
 <style>
   #userWrapper {
     box-sizing:border-box;
@@ -455,7 +456,7 @@
                 {{ profileOwner.username }} • <!-- bullet point idea from citation [8] -->
               </td>
               <td>
-                {{ mileage }} miles
+                {{ mileage|prettydecimal }} miles
               </td>
               {% if user.is_authenticated %}
               <td>

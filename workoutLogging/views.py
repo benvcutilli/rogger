@@ -118,10 +118,10 @@ def editEntry(request, workoutID):
 
     workoutForm = forms.WorkoutForm({
         'title'     :   workout.title,
-        'distance'  :   str(workout.distance.normalize()),
-        'hours'     :   str(workout.hours.normalize()) if workout.hours != None else "",
-        'minutes'   :   str(workout.minutes.normalize()) if workout.minutes != None else "",
-        'seconds'   :   str(workout.seconds.normalize()) if workout.seconds != None else "",
+        'distance'  :   str(workout.distance),
+        'hours'     :   str(workout.hours) if workout.hours != None else "",
+        'minutes'   :   str(workout.minutes) if workout.minutes != None else "",
+        'seconds'   :   str(workout.seconds) if workout.seconds != None else "",
         'wtype'     :   str(workout.wtype.id),
         'shoe'      :   str(workout.shoe.id) if workout.shoe != None else "-1",
         'entry'     :   workout.entry,
@@ -197,7 +197,7 @@ def viewEntry(request, workoutID):
         return HttpResponseNotFound()
     workoutInfo = {
         'title'     :   workout.title,
-        'distance'  :   str(workout.distance.normalize()),
+        'distance'  :   str(workout.distance),
         'hours'     :   str(workout.hours.normalize()) if workout.hours != None else "",
         'minutes'   :   str(workout.minutes.normalize()) if workout.minutes != None else "",
         'seconds'   :   str(workout.seconds.normalize()) if workout.seconds != None else "",

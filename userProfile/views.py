@@ -63,7 +63,7 @@ def userView(request, username):
                 'latestMonth'   :   months[-1].month,
                 'latestYear'    :   months[-1].year,
                 'profileOwner'  :   user,
-                'mileage'       :   Decimal(str(sum([workout.distance for workout in Workout.objects.filter(owner=user)]))).normalize(),
+                'mileage'       :   Decimal(str(sum([workout.distance for workout in Workout.objects.filter(owner=user)]))),
                 'followsUser'   :   Follow.objects.filter(followee=user, follower=request.user).exists() if request.user.is_authenticated else None,
                 'blocked'       :   Block.objects.filter(blockee=user, blocker=request.user) if request.user.is_authenticated else None
             })
