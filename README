@@ -66,6 +66,7 @@ the original version of Rogger, you can find information on how to find that und
 [40]  Suggestion to use CodeMirror as a syntax highlighter is from
       https://stackoverflow.com/questions/1619167/textarea-that-can-do-syntax-highlighting-on-the-fly
 [41]  Confirming that escapejs is safe for use in Javascript strings that are within HTML files is from https://stackoverflow.com/questions/23331988/djangos-escapejs-filter-and-xss
+[42]  I am not sure if this filter method to remove zeros from end of number is from someone else's idea. I feel like there is a chance it is, but I can't remember
 
 
 This site is built on the Django web development framework.
@@ -88,6 +89,10 @@ Thanks to https://stackoverflow.com/questions/44892085/letsencrypt-certbot-timeo
 Thanks to https://lifehacker.com/5683682/five-best-domain-name-registrars for suggesting Name.com to use as a domain name registrar.
 
 Thanks to https://serverfault.com/questions/785502/create-daemon-on-ubuntu-16-04 for possibly convincing me that I need to use systemd for launching uwsgi.
+
+Thanks to https://serverfault.com/questions/814767/413-request-entity-too-large-in-nginx-with-client-max-body-size-set for telling me what the variable is in the nginx configuration that controls how big a request is allowed through the server. Limiting the request size using the web server is a suggestion from an unknown source.
+
+# Method of redirecting non-HTTPS requests in the ngix rogger server config file (The "if ($scheme != "https")" if clause) was made by Certbot, and https://serverfault.com/questions/250476/how-to-force-or-redirect-to-ssl-in-nginx confirmed for me that this was a way to do that and also pointed out that I can still listen on port 80 in the same server definition to allow those non-HTTPS connections to come in and get redirected to the HTTPS site. Certbot set up all the stuff that is tagged with "# managed by Certbot" in the rogger server config file, but you guys don't see this part unless you have access to my server configuration file.
 
 This site also uses JQuery, ReportLab, Boto3, and probably other things I'm forgetting
 to mention as well.

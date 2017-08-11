@@ -2,6 +2,7 @@ from django import template
 
 register = template.Library()
 
+# THIS FILTER IS PROBABLY A SUGGESTION FROM CITATION [42]
 @register.filter
 def prettydecimal(thing):
     stringThing = str(thing)
