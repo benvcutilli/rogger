@@ -44,7 +44,7 @@ class Comment(models.Model):
     commentText     =   models.TextField()
     owner           =   models.ForeignKey(User, on_delete=models.CASCADE)
     workout         =   models.ForeignKey(Workout, on_delete=models.CASCADE)
-    dateAndTime     =   models.DateTimeField(auto_now=True)
+    dateAndTime     =   models.DateTimeField()
 
 
 class Unit(models.Model):
