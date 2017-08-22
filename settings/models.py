@@ -19,9 +19,6 @@ class Shoe(models.Model):
         return totalMileage
 
 
-
-universalWorkoutTypeNames = universalWorkoutTypeNames[-4:] + universalWorkoutTypeNames[:-4]
-
 class WorkoutType(models.Model):
     owner               =   models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     name                =   models.CharField(max_length=50)
