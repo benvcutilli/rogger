@@ -11,8 +11,6 @@ from workoutLogging.models import Unit
 from decimal import Decimal
 
 def initializeUniversals():
-    for workoutType in universalWorkoutTypeNames:
-        WorkoutType.objects.create(owner=None, name=workoutType[0], displayMeasurement=workoutType[1]).save()
     units = {
         'miles':      Decimal('1.0'),
         'mile':       Decimal('1.0'),
