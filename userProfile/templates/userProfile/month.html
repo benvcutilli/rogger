@@ -15,19 +15,17 @@
       {% endfor %}
 
     </td>
-    <!--<div class="dateShiftContainer leftAlign">-->
-      {% for day in week.days %}
-      <td class="date {% if day.date.month == month.month %}darkDate{% endif %}">
-        <!-- STORING DATE (CALL TO storeDate(this) IN NEXT LINE) TECHNIQUE FROM CITATION [25] -->
-        {% if user == profileOwner %}<a onclick="storeDate(this)" data="{{ day.date.year }}.{% if day.date.month < 10%}0{% endif %}{{ day.date.month }}.{% if day.date.day < 10 %}0{% endif %}{{ day.date.day }}">{% endif %}{{ day.dayOfWeekWorded }} {{ day.date.day }}{% if user == profileOwner %}</a>{% endif %}
-        <div class="dateWorkoutDiv">
-          {% for workout in day.workouts %}
-          <a href="{% url "viewEntryView" workout.id %}">{{ workout.title }}</a><br>
-          {% endfor %}
-        </div>
-      </td>
-      {% endfor %}
-    <!--</div>-->
+    {% for day in week.days %}
+    <td class="date {% if day.date.month == month.month %}darkDate{% endif %}">
+      <!-- STORING DATE (CALL TO storeDate(this) IN NEXT LINE) TECHNIQUE FROM CITATION [25], CLICKING ON THE DATE TITLE LINK (the <a></a> tag in the next line) IS IDEA FROM CITATION [43] -->
+      {% if user == profileOwner %}<a onclick="storeDate(this)" data="{{ day.date.year }}.{% if day.date.month < 10%}0{% endif %}{{ day.date.month }}.{% if day.date.day < 10 %}0{% endif %}{{ day.date.day }}">{% endif %}{{ day.dayOfWeekWorded }} {{ day.date.day }}{% if user == profileOwner %}</a>{% endif %}
+      <div class="dateWorkoutDiv">
+        {% for workout in day.workouts %}
+        <a href="{% url "viewEntryView" workout.id %}">{{ workout.title }}</a><br>
+        {% endfor %}
+      </div>
+    </td>
+    {% endfor %}
   </tr>
   {% endfor %}
 </table>

@@ -67,6 +67,7 @@ the original version of Rogger, you can find information on how to find that und
       https://stackoverflow.com/questions/1619167/textarea-that-can-do-syntax-highlighting-on-the-fly
 [41]  Confirming that escapejs is safe for use in Javascript strings that are within HTML files is from https://stackoverflow.com/questions/23331988/djangos-escapejs-filter-and-xss
 [42]  I am not sure if this filter method to remove zeros from end of number is from someone else's idea. I feel like there is a chance it is, but I can't remember
+[43]  merv.stanford.edu
 
 
 This site is built on the Django web development framework.
