@@ -18,30 +18,7 @@ class Shoe(models.Model):
 
         return totalMileage
 
-universalWorkoutTypeNames = [
-    # NEXT SEQUENCE OF TYPES FROM CITATION [34]
-    ("Easy Run",    0),
-    ("Tempo",       0),
-    ("Repeats",     0),
-    ("Bike",        0),
-    ("Cross Train", 1),
-    ("Swim",        0),
-    # END CITATION
-    # NEXT SEQUENCE OF TYPES FROM CITATION [35]
-    ("Weights",     0),
-    ("Rower",       1),
-    ("Stepper",     0),
-    ("Skate",       0),
-    ("Walk",        0),
-    ("Ski",         0),
-    ("Steady Run",  0),
-    ("Hill Run",    0),
-    ("Fartlek",     0),
-    ("Race",        0),
-    ("Run",         0)
-    # END CITATION
 
-]
 
 universalWorkoutTypeNames = universalWorkoutTypeNames[-4:] + universalWorkoutTypeNames[:-4]
 
