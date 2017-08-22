@@ -176,7 +176,6 @@ def editEntry(request, workoutID):
     templateDict.update({
         'isError'           :   isError,
         'error'             :   error,
-        #'info'  :   workoutInfo,
         'form'              :   workoutForm,
         'escapedEntry'      :   workout.getEscapedEntry(),
         'workoutID'         :   workoutID,
@@ -216,7 +215,7 @@ def viewEntry(request, workoutID):
         'comments'          :   Comment.objects.filter(workout=workout).exclude(owner__in=[block.blockee for block in Block.objects.filter(blocker=request.user)]) if request.user.is_authenticated else Comment.objects.filter(workout=workout),
         'error'             :   ""
     }
-    #print(templateDict['escapedEntry'])
+
     templateDict.update(entryLocalization[debugLocale])
     return render(request, "workoutLogging/viewentry.html", templateDict)
 
@@ -236,7 +235,7 @@ def commentAddView(request, workoutID):
             if request.user != comment.owner:
                 otherEmails.append(comment.owner.email)
         emailRecipients = ([workout.owner.email] if workout.owner != request.user else []) + otherEmails
-        send_mail("Some posted a comment on a workout with which you have interacted", "See the comment at https://rogger.co" + reverse("viewEntryView", args=[workoutID]), "alertbot@rogger.co", emailRecipients)
+        send_mail("Someone posted a comment on a workout with which you have interacted", "See the comment at https://rogger.co" + reverse("viewEntryView", args=[workoutID]), "alertbot@rogger.co", emailRecipients)
         newComment = Comment.objects.create(commentText=commentText, owner=request.user, workout=workout, dateAndTime=datetime.datetime.now())
         newComment.save()
 
