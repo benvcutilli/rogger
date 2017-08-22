@@ -6,7 +6,7 @@ def getErrorString(form):
     return errorString
 
 
-from settings.models import WorkoutType, universalWorkoutTypeNames
+from settings.models import WorkoutType
 from workoutLogging.models import Unit
 from decimal import Decimal
 
