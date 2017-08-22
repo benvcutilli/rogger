@@ -227,7 +227,7 @@ def commentAddView(request, workoutID):
     if workout.owner.userinfo.privacySelection == 3:
         return HttpResponseNotFound()
     # usage of the "approved" attribute in a Follow object from citation [25]
-    if (workout.owner.userinfo.privacySelection == 2 and not (Follow.objects.filter(followee=workout.owner, follower=request.user, approved=True).exists() or workout.owner == request.user)) or (workout.owner.userinfo.privacySelect == 3 and not workout.owner == request.user):
+    if (workout.owner.userinfo.privacySelection == 2 and not (Follow.objects.filter(followee=workout.owner, follower=request.user, approved=True).exists() or workout.owner == request.user)) or (workout.owner.userinfo.privacySelection == 3 and not workout.owner == request.user):
         return HttpResponseNotFound()
     if request.user.is_authenticated:
         commentText = request.POST['text']
