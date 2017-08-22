@@ -102,7 +102,8 @@ def settings(request):
         templateDict = {}
         templateDict.update(localizationDict[baseLocale])
         templateDict.update({
-            'shoes':    Shoe.objects.filter(owner=request.user)
+            'shoes'         : Shoe.objects.filter(owner=request.user),
+            'workoutTypes'  : WorkoutType.objects.filter(owner=request.user)
         })
         return render(request, "settings/settings.html", templateDict)
     else:
