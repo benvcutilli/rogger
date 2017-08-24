@@ -30,7 +30,7 @@ entryLocalization = {
 
 def newEntry(request):
     templateDict = deepcopy(entryLocalization[debugLocale])
-    availableWorkoutTypes = WorkoutType.objects.filter(owner__isnull=True) | WorkoutType.objects.filter(owner=request.user)
+    availableWorkoutTypes = WorkoutType.objects.filter(owner__isnull=True) | WorkoutType.objects.filter(owner=request.user).exclude(name="Unknown")
     templateDict.update({
         'formURL'       :   reverse("newEntryView"),
         'error'         :   "",
@@ -107,7 +107,7 @@ def newEntry(request):
 def editEntry(request, workoutID):
     workout = get_object_or_404(Workout, id=int(workoutID))
     templateDict = deepcopy(entryLocalization[debugLocale])
-    availableWorkoutTypes = WorkoutType.objects.filter(owner__isnull=True) | WorkoutType.objects.filter(owner=request.user)
+    availableWorkoutTypes = WorkoutType.objects.filter(owner__isnull=True) | (WorkoutType.objects.filter(owner=request.user).exclude(name="Unknown") if workout.wtype != "Unknown" else WorkoutType.objects.filter(owner=request.user))
     templateDict.update({
         'formURL'   :   reverse("viewEntryView", args=[workoutID]),
         'error'     :   "",
