@@ -84,8 +84,16 @@ def settings(request):
             workoutType.save()
             return render(request, "settings/type.html", { 'workoutType': workoutType })
         elif request.POST['todo'] == "deleteType":
-            WorkoutType.objects.get(id=request.POST['typeID'], owner=request.user).delete()
-            return HttpResponse()
+            if Workout.objects.get(id=request.POST['typeID'], owner=request.user).name != "Unknown":
+                workoutType = WorkoutType.objects.get(id=request.POST['typeID'], owner=request.user)
+                unknownWorkoutType = WorkoutType.objects.get(name="Unknown", owner=request.user)
+                for workout in Workout.objects.filter(wtype=workoutType, owner=request.user):
+                    workout.wtype = unknownWorkoutType
+                    workout.save()
+                workoutType.delete()
+                return HttpResponse()
+            else:
+                return HttpResponseForbidden("You can't delete this type; this is a default type in case of deletion of other types.")
         else:
             return HttpResponseBadRequest("This command isn't recognized.")
 

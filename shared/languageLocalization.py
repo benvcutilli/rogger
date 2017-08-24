@@ -19,4 +19,4 @@ baseLocalization = {
     'french'    :  frenchLocalization,
 }
 
-debugLocale = 'french'
+debugLocale = 'english'
