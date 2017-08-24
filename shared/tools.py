@@ -9,6 +9,7 @@ def getErrorString(form):
 from settings.models import WorkoutType
 from workoutLogging.models import Unit
 from decimal import Decimal
+from shared.templatetags.sharedfilters import prettydecimal
 
 def initializeUniversals():
     units = {
