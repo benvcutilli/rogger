@@ -88,7 +88,8 @@ def settings(request):
                 workoutType = WorkoutType.objects.get(id=request.POST['typeID'], owner=request.user)
                 unknownWorkoutType = WorkoutType.objects.get(name="Unknown", owner=request.user)
                 for workout in Workout.objects.filter(wtype=workoutType, owner=request.user):
-                    workout.wtype = unknownWorkoutType
+                    workout.wtype       = unknownWorkoutType
+                    workout.backupType  = workoutType.name
                     workout.save()
                 workoutType.delete()
                 return HttpResponse()

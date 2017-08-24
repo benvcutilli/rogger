@@ -15,6 +15,7 @@ class Workout(models.Model):
     # type/subtype from Merv
     # next line citation [16]
     wtype                   =   models.ForeignKey('settings.WorkoutType', null=True, on_delete=models.SET_NULL)
+    backupType              =   models.CharField(max_length=50, null=True)
     # THESE NEXT SEVEN ARE NOT USED IN ROGGER OTHER THAN TO SAVE MERV/OLD ROGGER DATA FOR POTENTIAL LATER USE
     mervOldRoggerLegacyType =   models.CharField(max_length=100, null=True)
     mervLegacySubtype       =   models.CharField(max_length=100, null=True)
