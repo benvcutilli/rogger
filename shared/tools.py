@@ -85,7 +85,7 @@ class WorkoutWeek():
         for day in self.days:
             flowables.append(Paragraph(str(day.date.strftime("%A, %B %d, %Y")), dateStyle))
             for workout in day.workouts:
-                flowables.append(Paragraph("<strong>" + workout.title + " - " + str(workout.distance) + " miles" + (" - " + workout.wtype.name if workout.wtype != None else "") + (" - " + workout.shoe.name if workout.shoe != None else "") + "</strong>", workoutInfoStyle))
+                flowables.append(Paragraph("<strong>" + workout.title + " - " + prettydecimal(str(workout.distance)) + " miles" + (" - " + workout.wtype.name if workout.wtype != None else "") + (" - " + workout.shoe.name if workout.shoe != None else "") + "</strong>", workoutInfoStyle))
                 # using <br/>'s from citation [24]
                 flowables.append(Paragraph(workout.entry.replace("\r\n", "<br/>"), workoutEntryStyle))
 
@@ -94,7 +94,7 @@ class WorkoutWeek():
 
         flowables.append(Paragraph("Week Totals", weekTotalStyle))
         for stat in self.getStats():
-            flowables.append(Paragraph(stat, statStyle))
+            flowables.append(Paragraph(stat[0] + ": " + prettydecimal(str(stat[1])), statStyle))
 
         pdf.build(flowables)
 
