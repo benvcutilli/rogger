@@ -241,7 +241,7 @@
     });
   }
   function deleteType(typeElement, typeID) {
-    var verdict = confirm("Are you sure you want to delete this type?");
+    var verdict = confirm("ONCE YOU DELETE THIS TYPE, ALL WORKOUTS WITH THIS TYPE WILL REVERT TO THE \"Unknown\" TYPE AND YOU WILL HAVE TO MANUALLY CHANGE BACK THEIR TYPES IF YOU WANT SOMETHING DIFFERENT THAN \"Unknown\". Are you sure you want to delete this type?");
     if (verdict == true) {
       $.ajax("{% url "settingsView" %}", {
         method  : "POST",
