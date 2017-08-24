@@ -197,5 +197,29 @@
       hidingEnabled = false;
       console.log("hiding disabled");
     }
+
+    function convertToLocalTime() {
+      $(".toBeLocalTime").each(function(elementIndex, toBeLocalTimeElement) {
+        if (toBeLocalTimeElement.hidden) {
+          var timeDateLocal = new Date(toBeLocalTimeElement.innerHTML);
+          var hour   = timeDateLocal.getHours();
+          var minute = timeDateLocal.getMinutes();
+          if (minute < 10) {
+            minute = "0" + minutes
+          }
+          var second = timeDateLocal.getSeconds();
+          if (second < 10) {
+            second = "0" + second;
+          }
+          var year  = timeDateLocal.getFullYear();
+          var month = timeDateLocal.getMonth();
+          var day   = timeDateLocal.getDate();
+          toBeLocalTimeElement.innerHTML        = year + "." + month + "." + day + " " + hour + ":" + minute + ":" + second;
+          toBeLocalTimeElement.hidden = false;
+        }
+      })
+    }
+
+    window.addEventListener("onload", convertToLocalTime());
   </script>
 </html>

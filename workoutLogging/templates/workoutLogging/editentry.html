@@ -36,7 +36,7 @@
   .commentInfo {
 
   }
-  .commentInfo > tbody > tr > td {
+  .commentInfo > tbody > tr > td, .commentInfo > tbody > tr > td > .toBeLocalTime {
     color:#fff;
     text-align:left;
     padding:5px;
@@ -138,6 +138,7 @@
       success : function(ajaxResponseText, ajaxStatus, ajaxResponse) {
         $("#commentsHolder").append(ajaxResponseText);
         document.getElementById("commentingArea").value = "";
+        convertToLocalTime();
       },
       error   : function(ajaxResponse, ajaxStatus, ajaxError) {
         alert(ajaxResponse.responseText);

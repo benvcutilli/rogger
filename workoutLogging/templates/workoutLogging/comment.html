@@ -11,7 +11,7 @@
             {{ comment.owner.username }}
           </td>
           <td>
-            {{ comment.dateAndTime }}
+            <span class="toBeLocalTime" hidden>{{ comment.dateAndTime.isoformat }}</span>
           </td>
         </tr>
       </tbody>
