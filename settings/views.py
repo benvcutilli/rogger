@@ -84,7 +84,7 @@ def settings(request):
             workoutType.save()
             return render(request, "settings/type.html", { 'workoutType': workoutType })
         elif request.POST['todo'] == "deleteType":
-            if Workout.objects.get(id=request.POST['typeID'], owner=request.user).name != "Unknown":
+            if WorkoutType.objects.get(id=request.POST['typeID'], owner=request.user).name != "Unknown":
                 workoutType = WorkoutType.objects.get(id=request.POST['typeID'], owner=request.user)
                 unknownWorkoutType = WorkoutType.objects.get(name="Unknown", owner=request.user)
                 for workout in Workout.objects.filter(wtype=workoutType, owner=request.user):
