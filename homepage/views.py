@@ -116,12 +116,14 @@ def homepage(request):
                 return HttpResponseNotFound()
             else:
                 workouts = workouts[:(25 if workouts.count() >= 25 else len(workouts))]
+                templateDict = {
+                    'updates'   :   workouts,
+                    'lastUpdateID':   workouts[len(workouts)-1].id if len(workouts) > 0 else -1
+                }
+                templateDict.update(homepageLocalization[debugLocale])
                 return JsonResponse({
                     'id'    :   workouts[len(workouts)-1].id,
-                    'html'  :   render_to_string("homepage/updates.html", {
-                        'updates'   :   workouts,
-                        'lastUpdateID':   workouts[len(workouts)-1].id if len(workouts) > 0 else -1
-                    })
+                    'html'  :   render_to_string("homepage/updates.html", templateDict)
                 })
 
         if request.POST['todo'] == "acceptFollow":
