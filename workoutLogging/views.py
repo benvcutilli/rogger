@@ -97,7 +97,7 @@ def newEntry(request):
                 workout.save()
 
                 global usernameRegex
-                usernames = usernameRegex.findall(workout.entry)
+                usernames = list(set(usernameRegex.findall(workout.entry)))
                 for username in usernames:
                     if User.objects.filter(username=username).exists():
                         send_mail(
@@ -164,7 +164,7 @@ def editEntry(request, workoutID):
             if workoutForm.is_valid():
 
                 global usernameRegex
-                usernames = usernameRegex.findall(workoutForm.cleaned_data['entry'])
+                usernames = list(set(usernameRegex.findall(workoutForm.cleaned_data['entry'])))
                 for username in usernames:
                     if User.objects.filter(username=username).exists() and len(re.compile(r'@('+username+r')\s').findall(workout.entry)) == 0:
                         send_mail(
