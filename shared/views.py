@@ -54,10 +54,10 @@ def search(request):
 
 
 def error400View(request):
-    return render(request, 'shared/templates/error400.html', baseLocalization[debugLocale])
+    return render(request, 'shared/error400.html', baseLocalization[debugLocale])
 def error403View(request):
-    return render(request, 'shared/templates/error403.html', baseLocalization[debugLocale])
+    return render(request, 'shared/error403.html', baseLocalization[debugLocale])
 def error404View(request):
-    return render(request, 'shared/templates/error404.html', baseLocalization[debugLocale])
+    return render(request, 'shared/error404.html', baseLocalization[debugLocale])
 def error500View(request):
-    return render(request, 'shared/templates/error500.html', baseLocalization[debugLocale])
+    return render(request, 'shared/error500.html', baseLocalization[debugLocale])
