@@ -1,7 +1,7 @@
 def getErrorString(form):
     errorString = ""
     for key in form.errors:
-        errorString += form.formTranslation[key] + ": " + ", ".join([creationForm.errors[key][i] for i in range(len(creationForm.errors[key]))])
+        errorString += form.formTranslation[key] + ": " + ", ".join([form.errors[key][i] for i in range(len(form.errors[key]))])
 
     return errorString
 
