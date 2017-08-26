@@ -104,7 +104,7 @@ def newEntry(request):
                                     "You were tagged in an entry",
                                     "You were tagged in an entry located at https://rogger.co" + reverse("viewEntryView", args=[workout.id]),
                                     "alertbot@rogger.co",
-                                    (User.objects.get(username=username).email)
+                                    [User.objects.get(username=username).email]
                         )
 
                 return HttpResponseRedirect(reverse("homepage"))
@@ -171,7 +171,7 @@ def editEntry(request, workoutID):
                                     "You were tagged in an entry",
                                     "You were tagged in an entry located at https://rogger.co" + reverse("viewEntryView", args=[workout.id]),
                                     "alertbot@rogger.co",
-                                    (User.objects.get(username=username).email)
+                                    [User.objects.get(username=username).email]
                         )
 
                 workout.title           =   workoutForm.cleaned_data['title']
