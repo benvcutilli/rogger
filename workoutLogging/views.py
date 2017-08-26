@@ -102,7 +102,7 @@ def newEntry(request):
                     if User.objects.filter(username=username).exists():
                         send_mail(
                                     "You were tagged in an entry",
-                                    "You were tagged in an entry located at https://rogger.co" + reverse("viewEntryView", args=(workout.id)),
+                                    "You were tagged in an entry located at https://rogger.co" + reverse("viewEntryView", args=[workout.id]),
                                     "alertbot@rogger.co",
                                     (User.objects.get(username=username).email)
                         )
@@ -169,7 +169,7 @@ def editEntry(request, workoutID):
                     if User.objects.filter(username=username).exists() and len(re.compile(r'@('+username+r')\s').findall(workout.entry)) == 0:
                         send_mail(
                                     "You were tagged in an entry",
-                                    "You were tagged in an entry located at https://rogger.co" + reverse("viewEntryView", args=(workout.id)),
+                                    "You were tagged in an entry located at https://rogger.co" + reverse("viewEntryView", args=[workout.id]),
                                     "alertbot@rogger.co",
                                     (User.objects.get(username=username).email)
                         )
