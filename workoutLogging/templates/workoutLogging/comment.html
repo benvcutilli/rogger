@@ -8,7 +8,7 @@
             <img src="{{ comment.owner.userinfo.thumbURL }}" class="commentUserPicture"/>
           </td>
           <td>
-            <a href="{% url "userView" comment.owner.username %}">{{ comment.owner.username }}</a>
+            <a href="{% url "userView" comment.owner.username %}" class="usernameOfCommenterLink">{{ comment.owner.username }}</a>
           </td>
           <td>
             <span class="toBeLocalTime" hidden>{{ comment.dateAndTime.isoformat }}</span>
