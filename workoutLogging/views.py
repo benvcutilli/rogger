@@ -10,6 +10,7 @@ from shared.models import Block, Follow
 import datetime
 from django.shortcuts import get_object_or_404
 from copy import deepcopy
+import re
 
 debugLocale = 'english'
 
@@ -25,6 +26,8 @@ entryLocalization = {
     'french'    :   entryFrenchDict,
     'english'   :   entryEnglishDict,
 }
+
+usernameRegex = re.compile(r'@([0-9a-zA-Z_]+)\s')
 
 # Create your views here.
 
@@ -91,6 +94,18 @@ def newEntry(request):
                 )
 
                 workout.save()
+
+                global usernameRegex
+                usernames = usernameRegex.findall(workout.entry)
+                for username in usernames:
+                    if User.objects.filter(username=username).exists():
+                        send_mail(
+                                    "You were tagged in an entry",
+                                    "You were tagged in an entry located at https://rogger.co" + reverse("viewEntryView", args=(workout.id)),
+                                    "alertbot@rogger.co",
+                                    (User.objects.get(username=username).email)
+                        )
+
                 return HttpResponseRedirect(reverse("homepage"))
             else:
                 templateDict['error'] = workoutForm.getErrorString()
@@ -147,6 +162,16 @@ def editEntry(request, workoutID):
             workout = get_object_or_404(Workout, id=workoutID)
             if workoutForm.is_valid():
 
+                global usernameRegex
+                usernames = usernameRegex.findall(workoutForm.cleaned_data['entry'])
+                for username in usernames:
+                    if User.objects.filter(username=username).exists() and len(re.compile(r'@('+username+r')\s').findall(workout.entry)) == 0:
+                        send_mail(
+                                    "You were tagged in an entry",
+                                    "You were tagged in an entry located at https://rogger.co" + reverse("viewEntryView", args=(workout.id)),
+                                    "alertbot@rogger.co",
+                                    (User.objects.get(username=username).email)
+                        )
 
                 workout.title           =   workoutForm.cleaned_data['title']
                 workout.distance        =   workoutForm.cleaned_data['distance']
@@ -163,6 +188,7 @@ def editEntry(request, workoutID):
 
 
                 workout.save()
+
                 return HttpResponseRedirect(reverse("homepage"))
             else:
                 isError = True
