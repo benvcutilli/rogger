@@ -17,6 +17,7 @@ from django.template.loader import render_to_string
 
 debugLocale = 'english'
 godMode = False
+forbiddenUsernames = ['rogger']
 
 ######### LOGIN LOCALIZATION ##########
 loginFrenchDict = {
@@ -253,8 +254,9 @@ def newAccountView(request):
             if not creationForm.cleaned_data['password'] == creationForm.cleaned_data['passwordConfirmation']:
                 error = "Your passwords don't match"
 
-            if User.objects.filter(username=creationForm.cleaned_data['username']).exists():
-                error = "That username is already in use :("
+            global forbiddenUsernames
+            if User.objects.filter(username=creationForm.cleaned_data['username']).exists() or creationForm.cleaned_data['username'] in forbiddenUsernames:
+                error = "That username cannot be used :("
 
 
 
