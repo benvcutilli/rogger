@@ -26,3 +26,8 @@ urlpatterns = [
     url(r'^settings', include('settings.urls')),
     url(r'^search', views.search, name='search')
 ]
+
+handler400 = 'shared.views.error400View'
+handler403 = 'shared.views.error403View'
+handler404 = 'shared.views.error404View'
+handler500 = 'shared.views.error500View'
