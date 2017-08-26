@@ -2,6 +2,7 @@ from django.shortcuts import render
 from collections import Counter
 from django.contrib.auth.models import User
 from shared.models import Follow, Block
+from shared.languageLocalization import debugLocale, baseLocalization
 
 possibleBigrams = []
 for c1 in "abcdefghijklmnopqrstuvwxyz_ ":
