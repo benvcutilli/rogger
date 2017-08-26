@@ -14,6 +14,6 @@
 </style>
 <div id="infoDiv">
   <!-- using bullets for data separation from citation [8] -->
-  <a href="{% url "userView" info.username %}"{{ info.username }}</a> • {{ info.title }} • {{ info.distance|prettydecimal }}{% if info.hours != "" or info.minutes != "" or info.seconds != "" %} •{% if info.hours != "" %} {{ info.hours }}:{% endif %}{% if info.minutes != "" %}{{ info.minutes }}:{% endif %}{% if info.seconds != "" %}:{{ info.seconds }}{% endif %}{% endif %}{% if info.shoe != None %} • {{ info.shoe.name }}{% endif %}
+  <a href="{% url "userView" info.username %}">{{ info.username }}</a> • {{ info.title }} • {{ info.distance|prettydecimal }}{% if info.hours != "" or info.minutes != "" or info.seconds != "" %} •{% if info.hours != "" %} {{ info.hours }}:{% endif %}{% if info.minutes != "" %}{{ info.minutes }}:{% endif %}{% if info.seconds != "" %}:{{ info.seconds }}{% endif %}{% endif %}{% if info.shoe != None %} • {{ info.shoe.name }}{% endif %}
 </div>
 <textarea id="entryText" name="entryText"></textarea>
