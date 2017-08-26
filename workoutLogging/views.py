@@ -11,6 +11,7 @@ import datetime
 from django.shortcuts import get_object_or_404
 from copy import deepcopy
 import re
+from django.contrib.auth.models import User
 
 debugLocale = 'english'
 
