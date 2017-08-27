@@ -2,6 +2,6 @@
   <button class="deleteTypeButton" onclick="deleteType(this, {{workoutType.id}});">
     delete
   </button><div class="typeName">
-    {{workoutType.name}}
+    <input value="{{workoutType.name}}" class="typeRenameInput" id="{{ workoutType.id}}type"/><button onclick="renameType({{ workoutType.id }})" class="typeRenameButton">save</button>
   </div>
 </div>

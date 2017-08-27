@@ -95,6 +95,14 @@ def settings(request):
                 return HttpResponse()
             else:
                 return HttpResponseForbidden("You can't delete this type; this is a default type in case of deletion of other types.")
+        elif request.POST['todo'] == "renameType":
+            if WorkoutType.objects.get(id=request.POST['typeID'], owner=request.user).name != "Unknown":
+                workoutType = WorkoutType.objects.get(id=request.POST['typeID'], owner=request.user)
+                workoutType.name = request.POST['newName']
+                workoutType.save()
+                return HttpResponse()
+            else:
+                return HttpResponseForbidden("You can't delete this type; this is a default type in case of deletion of other types.")
         else:
             return HttpResponseBadRequest("This command isn't recognized.")
 

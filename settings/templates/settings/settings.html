@@ -123,6 +123,19 @@
     margin-top:5px;
     margin-bottom:5px;
   }
+  .typeRenameInput {
+    border:none;
+    background-color:rgba(0,0,0,0);
+    width:auto;
+    font-size:14px;
+    color:#fff;
+  }
+  .typeRenameButton {
+    border:none;
+    background-color:#0f0;
+    height:30px;
+    color:#fff;
+  }
 </style>
 <div id="settingsDiv">
   <h1>
@@ -256,6 +269,27 @@
         },
         error   : function(ajaxResponse, ajaxStatus, ajaxError) {
           alert("There was a problem with your type deletion. Please try again if you haven't already.");
+        }
+      });
+    }
+  }
+  function renameType(typeID) {
+    var verdict = confirm("Rename this type?");
+    if (verdict == true) {
+      $.ajax("{% url "settingsView" %}", {
+        method  : "POST",
+        data    : {
+          typeID              : typeID,
+          newName             : document.getElementById(typeID+"type").value,
+          // next line from citation [15]
+          csrfmiddlewaretoken : "{{ csrf_token }}",
+          todo                : "renameType"
+        },
+        success : function(ajaxResponseText, ajaxStatus, ajaxResponse) {
+          console.log("what");
+        },
+        error   : function(ajaxResponse, ajaxStatus, ajaxError) {
+          alert("There was a problem with your type renaming. Please try again if you haven't already.");
         }
       });
     }
