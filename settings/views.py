@@ -80,6 +80,8 @@ def settings(request):
                 return HttpResponseBadRequest("The information you entered is invalid.")
         elif request.POST['todo'] == "addType":
             typeName = request.POST['newTypeName']
+            if WorkoutType.objects.filter(name=typeName, owner=request.user).exists():
+                return HttpResponseBadRequest("A type of this name already exists.")
             workoutType = WorkoutType.objects.create(name=typeName, owner=request.user)
             workoutType.save()
             return render(request, "settings/type.html", { 'workoutType': workoutType })
