@@ -216,4 +216,4 @@ def blastEmail(sender, text, title):
     for user in users:
         # NEXT time.sleep() CALL FROM CITATION [45]
         time.sleep(.3)
-        send_mail(title, text, sender, [user])
+        send_mail(title, text, sender, [user.email])
