@@ -10,6 +10,8 @@ from settings.models import WorkoutType
 from workoutLogging.models import Unit
 from decimal import Decimal
 from shared.templatetags.sharedfilters import prettydecimal
+from django.core.mail import send_mail
+import time
 
 def initializeUniversals():
     units = {
@@ -206,3 +208,11 @@ def cropProfilePicture(pictureFile, format="full"):
     picture = picture.resize((400, 400) if format == "full" else (70, 70))
     return picture
 # END CITATION
+
+# NAME OF NEXT FUNCTION IS DERIVED FROM CITATION [44], CREATING FUNCTION FOR BLAST EMAIL IS FROM CITATION [46]
+def blastEmail(sender, text, title):
+    users = User.objects.all()
+    for user in users:
+        # NEXT time.sleep() CALL FROM CITATION [45]
+        time.sleep(.3)
+        send_mail(title, text, sender, [user])

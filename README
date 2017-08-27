@@ -68,6 +68,10 @@ the original version of Rogger, you can find information on how to find that und
 [41]  Confirming that escapejs is safe for use in Javascript strings that are within HTML files is from https://stackoverflow.com/questions/23331988/djangos-escapejs-filter-and-xss
 [42]  I am not sure if this filter method to remove zeros from end of number is from someone else's idea. I feel like there is a chance it is, but I can't remember
 [43]  merv.stanford.edu
+[44]  This function name inspired by the name of Django's send_mail() function
+[45]  Using the time.sleep() (or any time.sleep()-like function) function to rate-limit the emails being sent out is an idea from
+      an unknown source.
+[46]  The idea of creating this function is from the old Rogger, which also had a similar function
 
 
 This site is built on the Django web development framework.
