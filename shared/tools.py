@@ -12,6 +12,7 @@ from decimal import Decimal
 from shared.templatetags.sharedfilters import prettydecimal
 from django.core.mail import send_mail
 import time
+from django.contrib.auth.models import User
 
 def initializeUniversals():
     units = {
