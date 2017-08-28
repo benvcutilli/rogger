@@ -72,6 +72,8 @@ the original version of Rogger, you can find information on how to find that und
 [45]  Using the time.sleep() (or any time.sleep()-like function) function to rate-limit the emails being sent out is an idea from
       an unknown source.
 [46]  The idea of creating this function is from the old Rogger, which also had a similar function
+[47]  Chrome was complaining about how the CSRF cookie was not valid, so adding CSRF_COOKIE_SECURE and setting it to "True" to the
+      settings file (which you can't see in this repository) is an idea from https://groups.google.com/d/topic/wagtail/opM27Qnj_NU/discussion and (an)other unknown resource(s)
 
 
 This site is built on the Django web development framework.
