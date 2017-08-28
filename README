@@ -99,7 +99,7 @@ Thanks to https://serverfault.com/questions/814767/413-request-entity-too-large-
 
 Method of redirecting non-HTTPS requests in the ngix rogger server config file (The "if ($scheme != "https")" if clause) was made by Certbot, and https://serverfault.com/questions/250476/how-to-force-or-redirect-to-ssl-in-nginx confirmed for me that this was a way to do that and also pointed out that I can still listen on port 80 in the same server definition to allow those non-HTTPS connections to come in and get redirected to the HTTPS site. Certbot set up all the stuff that is tagged with "# managed by Certbot" in the rogger server config file, but you guys don't see this part unless you have access to my server configuration file. Some unknown resource(s) suggested symbolically linking site definition files in nginx's sites-available to its sites-enabled folder, and the nginx install I use actually does this for its "default" server example file, so that confirmed that I should do that.
 
-This site also uses JQuery, ReportLab, Boto3, and probably other things I'm forgetting
+This site also uses JQuery, ReportLab, Pillow, Boto3, Let's Encrypt (a GREAT GREAT GREAT initiative), CodeMirror, and probably other things I'm forgetting
 to mention as well.
 
 ACKNOWLEDGEMENTS:
