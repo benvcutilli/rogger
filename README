@@ -101,7 +101,26 @@ Thanks to https://serverfault.com/questions/785502/create-daemon-on-ubuntu-16-04
 
 Thanks to https://serverfault.com/questions/814767/413-request-entity-too-large-in-nginx-with-client-max-body-size-set for telling me what the variable is in the nginx configuration that controls how big a request is allowed through the server. Limiting the request size using the web server is a suggestion from an unknown source.
 
-Method of redirecting non-HTTPS requests in the ngix rogger server config file (The "if ($scheme != "https")" if clause) was made by Certbot, and https://serverfault.com/questions/250476/how-to-force-or-redirect-to-ssl-in-nginx confirmed for me that this was a way to do that and also pointed out that I can still listen on port 80 in the same server definition to allow those non-HTTPS connections to come in and get redirected to the HTTPS site. Certbot set up all the stuff that is tagged with "# managed by Certbot" in the rogger server config file, but you guys don't see this part unless you have access to my server configuration file. Some unknown resource(s) suggested symbolically linking site definition files in nginx's sites-available to its sites-enabled folder, and the nginx install I use actually does this for its "default" server example file, so that confirmed that I should do that.
+Method of redirecting non-HTTPS requests in the nginx rogger server config file (The "if ($scheme != "https")" if clause) was made by Certbot, and https://serverfault.com/questions/250476/how-to-force-or-redirect-to-ssl-in-nginx confirmed for me that this was a way to do that and also pointed out that I can still listen on port 80 in the same server definition to allow those non-HTTPS connections to come in and get redirected to the HTTPS site. Certbot set up all the stuff that is tagged with "# managed by Certbot" in the rogger server config file, but you guys don't see this part unless you have access to my server configuration file. Some unknown resource(s) suggested symbolically linking site definition files in nginx's sites-available to its sites-enabled folder, and the nginx install I use actually does this for its "default" server example file, so that confirmed that I should do that.
+
+Using a symbolic link called "rogger" in /etc/nginx/sites-enabled which is linked to the "rogger" server defintion in /etc/nginx/sites-available/rogger to "enable" the Rogger server definition is an idea from and unknown source
+and it is done for the "default" site in the nginx package from the Ubuntu repositories (gotten via "sudo apt-get install nginx"), and that assured me that I was probably
+doing the correct thing by using a symbolic link.
+
+systemd-uwsgi-DAEMON-DEFINTION-FILE-SPECIFIC CITATIONS
+# It is possible that using systemd to start up (and coordinate) the uwsgi server for Rogger is a suggestion from
+# https://serverfault.com/questions/785502/create-daemon-on-ubuntu-16-04. Also, the structure of this file is based
+# off an example found at https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/System_Administrators_Guide/sect-Managing_Services_with_systemd-Unit_Files.html
+# and possibly elsewhere.
+
+# ExecStart command is a derivative of those found at http://uwsgi-docs.readthedocs.io/en/latest/WSGIquickstart.html, and possibly from
+# https://www.digitalocean.com/community/tutorials/how-to-serve-django-applications-with-uwsgi-and-nginx-on-ubuntu-14-04, and maybe other resources
+
+# Setting Type to forking is a suggestion from (an) unknown resource(s)
+
+# WantedBy usage (from unknown resource(s) and https://www.digitalocean.com/community/tutorials/understanding-systemd-units-and-unit-files),
+# seems to be the best way to get this service running at boot, and possibly recognized by any systemd command.
+END systemd-uwsgi-DAEMON-DEFINTION-FILE-SPECIFIC CITATIONS
 
 This site uses Django, JQuery, ReportLab, Pillow, Boto3, Let's Encrypt (a GREAT GREAT GREAT initiative) + Certbot (also FANTASTIC), nginx, Ubuntu 16.04 (the AWS variant), virtualenv, pip, CodeMirror, Amazon Web Services, and probably other things I'm forgetting to mention as well.
 
