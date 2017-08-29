@@ -1,7 +1,9 @@
 Resources used to make this project (citations can be found in the code base as well,
 using the [#] notation to index each source found on this page; for any reference to
 the original version of Rogger, you can find information on how to find that under the
-"ACKNOWLEDGEMENTS" section):
+"ACKNOWLEDGEMENTS" section), BUT NOT ALL CITATIONS ARE HERE! SOME ARE ALSO JUST SOMEWHERE
+ELSE IN THIS REPOSITORY! Some may also be on just the server of the website itself,
+and so you can't see the files:
 
 [1]   http://stackoverflow.com/questions/4571686/django-include-template-from-another-app
 [2]   http://www.w3schools.com/colors/colors_picker.asp for picking colors
