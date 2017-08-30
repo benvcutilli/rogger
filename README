@@ -84,7 +84,7 @@ How to set up NGINX (the web server) to serve this Django app
 is from https://www.digitalocean.com/community/tutorials/how-to-serve-django-applications-with-uwsgi-and-nginx-on-ubuntu-14-04,
 http://uwsgi-docs.readthedocs.io/en/latest/WSGIquickstart.html,
 https://www.digitalocean.com/community/tutorials/understanding-the-nginx-configuration-file-structure-and-configuration-contexts (for telling me where to put the Rogger server configuration (somewhere in /etc/nginx/nginx.conf)),
-and probably other unknown resources as well.
+and probably other unknown resources as well. (SEE OTHER CITATIONS BELOW, THEY TAKE PRECEDENCE)
 
 Thanks to https://www.whatsmydns.net, http://www.inmotionhosting.com/support/tools/visual-domain-routing, and other unknown sources, for helping debug the server.
 
@@ -98,15 +98,13 @@ Thanks to https://stackoverflow.com/questions/44892085/letsencrypt-certbot-timeo
 
 Thanks to https://lifehacker.com/5683682/five-best-domain-name-registrars for suggesting Name.com to use as a domain name registrar.
 
-Thanks to https://serverfault.com/questions/785502/create-daemon-on-ubuntu-16-04 for possibly convincing me that I need to use systemd for launching uwsgi.
+virtualenv I believe was recommended for usage by the Django team, but I am not 100% sure about this.
 
-Thanks to https://serverfault.com/questions/814767/413-request-entity-too-large-in-nginx-with-client-max-body-size-set for telling me what the variable is in the nginx configuration that controls how big a request is allowed through the server. Limiting the request size using the web server instead of Django or something else is a suggestion from an unknown source.
 
-Method of redirecting non-HTTPS requests in the nginx rogger server config file (The "if ($scheme != "https")" if clause) was made by Certbot, and https://serverfault.com/questions/250476/how-to-force-or-redirect-to-ssl-in-nginx confirmed for me that this was a way to do that and also pointed out that I can still listen on port 80 in the same server definition to allow those non-HTTPS connections to come in and get redirected to the HTTPS site. Certbot set up all the stuff that is tagged with "# managed by Certbot" in the rogger server config file, but you guys don't see this part unless you have access to my server configuration file.
 
 systemd-uwsgi-DAEMON-DEFINTION-FILE-SPECIFIC CITATIONS
 -------------------------------------------------------
-It is possible that using systemd to start up (and coordinate) the uwsgi server for Rogger is a suggestion from
+It is probable that using systemd to start up (and coordinate) the uwsgi server for Rogger is a suggestion from
 https://serverfault.com/questions/785502/create-daemon-on-ubuntu-16-04. Also, the structure of this file is based
 off an example found at https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/System_Administrators_Guide/sect-Managing_Services_with_systemd-Unit_Files.html
 and possibly elsewhere.
@@ -123,7 +121,38 @@ Using the --home option for uwsgi is a suggestion from an unknown resource and d
 --------------------------------------------------------
 END systemd-uwsgi-DAEMON-DEFINTION-FILE-SPECIFIC CITATIONS
 
+
+
+/etc/nginx/nginx.conf rogger SERVER DEFINITION CITATION SECTION
+--------------------------------------------------------
+THIS SERVER DEFINTION IS A DERIVATIVE OF THE SERVER DEFINTIONS FOUND AT
+https://www.digitalocean.com/community/tutorials/how-to-serve-django-applications-with-uwsgi-and-nginx-on-ubuntu-14-04,
+http://uwsgi-docs.readthedocs.io/en/latest/WSGIquickstart.html,
+AND PROBABLY OTHERS.
+
+Putting this server definition here (/etc/nginx/nginx.conf) is from
+https://www.digitalocean.com/community/tutorials/understanding-the-nginx-configuration-file-structure-and-configuration-contexts
+
+All sections in the server configuration section talking about how Certbot is its manager were created and/or modified by Certbot, not me
+(basically, for those without access to the file, this is the code that redirects non-HTTPS connections to HTTPS connections, and
+and certificate setup)
+
+Method of redirecting non-HTTPS requests in the nginx rogger server config (The "if ($scheme != "https")" if clause)
+was made by Certbot, and https://serverfault.com/questions/250476/how-to-force-or-redirect-to-ssl-in-nginx confirmed for me
+that this was a way to do that and also pointed out that I can still listen on port 80 in the same server definition to allow
+those non-HTTPS connections to come in and get redirected to the HTTPS site.
+
+Thanks to https://serverfault.com/questions/814767/413-request-entity-too-large-in-nginx-with-client-max-body-size-set
+for telling me what the variable is in the nginx configuration that controls how big a request is allowed through the server.
+Limiting the request size using the web server instead of Django or something else is a suggestion from an unknown source.
+--------------------------------------------------------
+END /etc/nginx/nginx.conf rogger SERVER DEFINITION CITATION SECTION
+
+
+
 Installation instructions I used for the production server (plus some other outside knowledge that I don't remember where it is from) were found here:
+virtualenv:    With pip (not sure about source for this method of installation)
+Django:        With pip (not sure where I got this from; may be recommended by the Django team themselves)
 nginx:         https://www.nginx.com/resources/wiki/start/topics/tutorials/install/ (they talk about modifying the /etc/apt/sources.list file, which I did)
 pip:           https://pip.pypa.io/en/stable/installing/ (with the get-pip method + python3 instead of python)
 ReportLab:     https://bitbucket.org/rptlab/reportlab (the README, with pip)
