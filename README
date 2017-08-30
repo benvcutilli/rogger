@@ -98,7 +98,7 @@ Thanks to https://stackoverflow.com/questions/44892085/letsencrypt-certbot-timeo
 
 Thanks to https://lifehacker.com/5683682/five-best-domain-name-registrars for suggesting Name.com to use as a domain name registrar.
 
-virtualenv I believe was recommended for usage by the Django team, but I am not 100% sure about this.
+Using a virtualenv'd folder to house a Django project is an idea from an unknown resource (high probability that is is from the Django's team's own django tutorials at djangoproject.com).
 
 
 
@@ -110,7 +110,8 @@ off an example found at https://access.redhat.com/documentation/en-US/Red_Hat_En
 and possibly elsewhere.
 
 ExecStart command is a derivative of those found at http://uwsgi-docs.readthedocs.io/en/latest/WSGIquickstart.html, and possibly from
-https://www.digitalocean.com/community/tutorials/how-to-serve-django-applications-with-uwsgi-and-nginx-on-ubuntu-14-04, and maybe other resources
+https://www.digitalocean.com/community/tutorials/how-to-serve-django-applications-with-uwsgi-and-nginx-on-ubuntu-14-04,
+https://docs.djangoproject.com/en/1.11/howto/deployment/wsgi/uwsgi/, and maybe other resources
 
 Setting Type to forking is a suggestion from (an) unknown resource(s)
 
