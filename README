@@ -3,7 +3,8 @@ using the [#] notation to index each source found on this page; for any referenc
 the original version of Rogger, you can find information on how to find that under the
 "ACKNOWLEDGEMENTS" section), BUT NOT ALL CITATIONS ARE HERE! SOME ARE ALSO JUST SOMEWHERE
 ELSE IN THIS REPOSITORY! Some may also be on just the server of the website itself,
-and so you can't see the files:
+and so you can't see the files, though I tried to be diligent about putting those citations
+here:
 
 [1]   http://stackoverflow.com/questions/4571686/django-include-template-from-another-app
 [2]   http://www.w3schools.com/colors/colors_picker.asp for picking colors
@@ -76,6 +77,22 @@ and so you can't see the files:
 [46]  The idea of creating this function is from the old Rogger, which also had a similar function
 [47]  Chrome was complaining about how the CSRF cookie was not valid, so adding CSRF_COOKIE_SECURE and setting it to "True" to the
       settings file (which you can't see in this repository) is an idea from https://groups.google.com/d/topic/wagtail/opM27Qnj_NU/discussion and (an)other unknown resource(s)
+[48]  Explanation of what I need to say to users to abide by the the EU Cookie law(s) is from https://www.cookielaw.org/the-cookie-law/ and http://ec.europa.eu/ipg/basics/legal/cookies/index_en.htm
+
+GENERAL CITATIONS:
+This site has a lot of influence from merv.standford.edu. Some major ideas from there (but possibly not all of them if my memory is failing me):
+  Creating shoes and tracking mileage on them in logs/adding them to log entries
+  Using a calendar layout (probably most influential is the ability to click on a date on the calendar to make a new entry for that date)
+  Workout creation layout
+  Custom workout types
+  Allowing users' profiles to go completely private with no or close to no hint of the account existing
+Also, as I think I have stated elsewhere in this file, this site uses a lot of common features found around web
+
+DEBUG:
+Thanks to everyone that submitted bug reports.
+
+SUGGESTIONS:
+Thanks to everyone who suggested things to make the site better.
 
 
 This site is built on the Django web development framework.
@@ -100,7 +117,13 @@ Thanks to https://lifehacker.com/5683682/five-best-domain-name-registrars for su
 
 Using a virtualenv'd folder to house a Django project is an idea from an unknown resource (high probability that is is from the Django's team's own django tutorials at djangoproject.com).
 
+Checking sqlite3 database for corruption using the PRAGMA integrity_check command is from https://serverfault.com/questions/8048/how-can-i-verify-that-a-sqlite-db3-file-is-valid-consistent
 
+Deleting all Django sessions technique I used is from http://blog.sashalaundy.com/blog/2014/08/26/howto-force-all-django-users-to-log-out-with-the-django-orm/
+
+How to install sqlite3 for Ubuntu (as the sqlite3 Linux download didn't work) is from https://askubuntu.com/questions/150347/sqlite-binary-file-does-not-work-on-my-ubuntu
+
+Explanation of what I need to worry about regarding the EU Cookie law(s) is from https://www.cookielaw.org/the-cookie-law/ and http://ec.europa.eu/ipg/basics/legal/cookies/index_en.htm
 
 systemd-uwsgi-DAEMON-DEFINTION-FILE-SPECIFIC CITATIONS
 -------------------------------------------------------
