@@ -211,6 +211,68 @@ is a running log site whose users' exported data I support for importing.
 The code for the old version of this site can be found at bitbucket.org/roggerlogger/rog under the "refactor" and "master" branches (refactor has more citations if you are looking for them)
 
 
+CITATIONS FOR FEATURES OF THIS SITE (KNOWN CONTRIBUTORS, ASSUME THAT THERE MAY BE FORGOTTEN CONTRIBUTORS FOR EACH FEATURE):
+-----------------------------------------------------------------------
+Entry textbox (when writing the entry) expands to fit all typed content:
+  Kristina Kronauer
+Back button (mostly) does not reset the calendar in the user view:
+  Amelia Keyser-Gibson
+  Charlie Hale
+Custom units for types when displayed as totals for weeks, etc.:
+  Nora Weathers
+  Sam Fujimori
+  Amelia Keyser-Gibson
+Shoe mileage:
+  merv.standford.edu
+  Kristina Kronauer
+Merv test dataset (used for both import testing and general site testing):
+  Eric Arnold
+Differentiating between new workout entries and updated workout entries:
+  Nora Weathers
+Letting workout titles in calendar show completely instead of being truncated:
+  Henri Drake
+Importing Merv Entries:
+  Eric Arnold
+Having an updates feed:
+  Eric Arnold
+Using a more traditional calendar in the user profile:
+  merv.standford.edu
+
+For every other feature, you should also assume that there is a good chance it was a result of me getting
+feedback from users.
+-----------------------------------------------------------------------
+
+People who helped debug:
+Tyler Fong
+Joseph Boyle
+Charlie Hale
+Brian Sokas
+Katie Pokorny
+Amelia Keyser-Gibson
+Kristina Kronauer
+Lukasz Tyler Olenginski
+Kelley Riffenburgh
+Evan Hamilton
+Flora Berklein
+Nora Weathers
+Sam Fujimori
+Greg Morgan
+Eric Arnold
+Charlie Marquardt
+Allison Guindon
+Nicholas Reynolds
+
+and others whose names I don't know, and almost certainly others that I cannot think of.
+
+
+
+
+
+
+
+
+
+
 LICENSE (MIT, from citation [33]):
 
 Copyright 2017 Benjamin Cutilli
