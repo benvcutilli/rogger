@@ -34,7 +34,12 @@ usernameRegex = re.compile(r'@([0-9a-zA-Z_]+)\s')
 
 def newEntry(request):
     templateDict = deepcopy(entryLocalization[debugLocale])
-    availableWorkoutTypes = WorkoutType.objects.filter(owner__isnull=True) | WorkoutType.objects.filter(owner=request.user).exclude(name="Unknown")
+    availableWorkoutTypes = None
+    if WorkoutType.objects.filter(owner=request.user).count() > 1:
+        availableWorkoutTypes = WorkoutType.objects.filter(owner__isnull=True) | WorkoutType.objects.filter(owner=request.user).exclude(name="Unknown")
+    else:
+        availableWorkoutTypes = WorkoutType.objects.filter(owner__isnull=True) | WorkoutType.objects.filter(owner=request.user)
+
     templateDict.update({
         'formURL'       :   reverse("newEntryView"),
         'error'         :   "",
