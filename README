@@ -261,7 +261,7 @@ Eric Arnold
 Charlie Marquardt
 Allison Guindon
 Nicholas Reynolds
-Zachary Gabor
+Zachary Gabor (error gets thrown when no workout type is specified in new workout because they are a new user and have not made types yet)
 
 and others whose names I don't know, and almost certainly others that I cannot think of.
 
