@@ -117,7 +117,7 @@ Thanks to https://stackoverflow.com/questions/44892085/letsencrypt-certbot-timeo
 
 Thanks to https://lifehacker.com/5683682/five-best-domain-name-registrars for suggesting Name.com to use as a domain name registrar.
 
-Using a virtualenv'd folder to house a Django project is an idea from an unknown resource (high probability that is is from the Django's team's own django tutorials at djangoproject.com).
+Using a virtualenv'd folder to house a Django project is an idea from (an) unknown resource(s) (high probability that is is from the Django's team's own django tutorials at djangoproject.com, and maybe other resources as well).
 
 Checking sqlite3 database for corruption using the PRAGMA integrity_check command is from https://serverfault.com/questions/8048/how-can-i-verify-that-a-sqlite-db3-file-is-valid-consistent
 
