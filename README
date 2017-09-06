@@ -80,6 +80,7 @@ here:
       Adding SESSION_COOKIE_SECURE to the site's settings.py file is a suggestion from the Django documentation
       (https://docs.djangoproject.com/en/1.11/topics/security/) and was inspired by the aforementioned source as well.
 [48]  Explanation of what I need to say to users to abide by the the EU Cookie law(s) is from https://www.cookielaw.org/the-cookie-law/ and http://ec.europa.eu/ipg/basics/legal/cookies/index_en.htm
+[49]  https://stackoverflow.com/questions/41787263/different-value-of-csrf-token-in-response-header-and-browser-cookies-csrf-verif
 
 GENERAL CITATIONS:
 This site has a lot of influence from merv.standford.edu. Some major ideas from there (but possibly not all of them if my memory is failing me):

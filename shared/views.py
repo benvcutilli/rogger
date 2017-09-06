@@ -54,10 +54,18 @@ def search(request):
 
 
 def error400View(request):
-    return render(request, 'shared/error400.html', baseLocalization[debugLocale])
+    # ADDING STATUS TO PREVENT FAVICONS OR ANY RESOURCE THAT CAN'T LOAD FROM REFRESHING THE csrf COOKIE
+    # IS FROM CITATION [49]
+    return render(request, 'shared/error400.html', baseLocalization[debugLocale], status=400)
 def error403View(request):
-    return render(request, 'shared/error403.html', baseLocalization[debugLocale])
+    # ADDING STATUS TO PREVENT FAVICONS OR ANY RESOURCE THAT CAN'T LOAD FROM REFRESHING THE csrf COOKIE
+    # IS FROM CITATION [49]
+    return render(request, 'shared/error403.html', baseLocalization[debugLocale], status=403)
 def error404View(request):
-    return render(request, 'shared/error404.html', baseLocalization[debugLocale])
+    # ADDING STATUS TO PREVENT FAVICONS OR ANY RESOURCE THAT CAN'T LOAD FROM REFRESHING THE csrf COOKIE
+    # IS FROM CITATION [49]
+    return render(request, 'shared/error404.html', baseLocalization[debugLocale], status=404)
 def error500View(request):
-    return render(request, 'shared/error500.html', baseLocalization[debugLocale])
+    # ADDING STATUS TO PREVENT FAVICONS OR ANY RESOURCE THAT CAN'T LOAD FROM REFRESHING THE csrf COOKIE
+    # IS FROM CITATION [49]
+    return render(request, 'shared/error500.html', baseLocalization[debugLocale], status=500)
