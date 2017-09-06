@@ -267,7 +267,7 @@ Charlie Marquardt
 Allison Guindon
 Nicholas Reynolds
 Zachary Gabor (error gets thrown when no workout type is specified in new workout because they are a new user and have not made types yet)
-this page: https://stackoverflow.com/questions/41787263/different-value-of-csrf-token-in-response-header-and-browser-cookies-csrf-verif
+this page: https://stackoverflow.com/questions/41787263/different-value-of-csrf-token-in-response-header-and-browser-cookies-csrf-verif for helping me debug that the browser will automatically look for a favicon, and will get a CSRF cookie if Django handles the request (as in not going to the static file URL) and returns a 200 status.
 
 and others whose names I don't know, and almost certainly others that I cannot think of.
 
