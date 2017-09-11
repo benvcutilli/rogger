@@ -33,6 +33,8 @@ usernameRegex = re.compile(r'@([0-9a-zA-Z_]+)\s')
 # Create your views here.
 
 def newEntry(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse("loginView"))
     templateDict = deepcopy(entryLocalization[debugLocale])
     availableWorkoutTypes = None
     if WorkoutType.objects.filter(owner=request.user).count() > 1:
