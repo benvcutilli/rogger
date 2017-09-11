@@ -14,6 +14,7 @@ from django.contrib.auth.forms import SetPasswordForm
 from shared.models import UserInfo, Follow, Block
 from workoutLogging.models import Workout
 from django.template.loader import render_to_string
+from settings.models import WorkoutType
 
 debugLocale = 'english'
 godMode = False
@@ -268,6 +269,7 @@ def newAccountView(request):
                 newUser = User.objects.create_user(creationForm.cleaned_data['username'], creationForm.cleaned_data['emailAddress'], creationForm['password'])
                 newUser.save()
                 UserInfo.objects.create(authUser=newUser).save()
+                WorkoutType.objects.create(name="Unknown", owner=newUser)
                 login(request, newUser)
                 return HttpResponseRedirect(reverse("homepage"))
 
