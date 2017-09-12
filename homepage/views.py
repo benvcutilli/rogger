@@ -259,6 +259,10 @@ def newAccountView(request):
             if User.objects.filter(username=creationForm.cleaned_data['username']).exists() or creationForm.cleaned_data['username'] in forbiddenUsernames:
                 error = "That username cannot be used :("
 
+            for a in creationForm.cleaned_data["username"]:
+                if a not in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_":
+                    error = "One or more of the characters in your username is not a number, underscore, or letter"
+
 
 
             if error != "":
