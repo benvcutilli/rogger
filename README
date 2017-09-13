@@ -111,7 +111,9 @@ and probably other unknown resources as well. (SEE OTHER CITATIONS BELOW, THEY T
 Thanks to https://www.whatsmydns.net, http://www.inmotionhosting.com/support/tools/visual-domain-routing, and other unknown sources, for helping debug the server.
 
 Using json.loads() to convert strings with surrogate pairs into proper unicode for data import from a json file (for transferring between the old Rogger's "python manage.py dumpdata --indent <# of spaces indent>" output to the new database) is from
-https://stackoverflow.com/questions/38147259/how-to-work-with-surrogate-pairs-in-python and possibly others as well.
+https://stackoverflow.com/questions/38147259/how-to-work-with-surrogate-pairs-in-python and possibly others as well. Being able to transfer the data between two different databases via just
+Django models, which is the idea that allowed me to generate the pseudocode that got the ordering of how to move the old data to the new site (in the end though, I didn't use the old database's
+data with just models; I just used the pseudocode ordering), is from https://rlskoeser.github.io/2016/03/31/migrating-data-between-databases-with-django/.
 
 Thanks to https://community.letsencrypt.org/t/are-they-limitations-on-who-can-use-lets-encrypt/687 for clearing up
 whether or not I can use Certbot and Let's Encrypt on my site and still stay compliant by licensing the site code under the MIT License (below).
