@@ -110,7 +110,7 @@ and probably other unknown resources as well. (SEE OTHER CITATIONS BELOW, THEY T
 
 Thanks to https://www.whatsmydns.net, http://www.inmotionhosting.com/support/tools/visual-domain-routing, and other unknown sources, for helping debug the server.
 
-Using json.loads() to convert strings with surrogate pairs into proper unicode for data import from a json file is from
+Using json.loads() to convert strings with surrogate pairs into proper unicode for data import from a json file (for transferring between the old Rogger's "python manage.py dumpdata --indent <# of spaces indent>" output to the new database) is from
 https://stackoverflow.com/questions/38147259/how-to-work-with-surrogate-pairs-in-python and possibly others as well.
 
 Thanks to https://community.letsencrypt.org/t/are-they-limitations-on-who-can-use-lets-encrypt/687 for clearing up
@@ -176,6 +176,10 @@ for telling me what the variable is in the nginx configuration that controls how
 Limiting the request size using the web server instead of Django or something else is a suggestion from an unknown source.
 --------------------------------------------------------
 END /etc/nginx/nginx.conf rogger SERVER DEFINITION CITATION SECTION
+
+
+DEPLOYMENT SERVER'S ROGGER INSTALLATION's settings.py citations (in addition to those that may have already been mentioned):
+See citation [47]
 
 
 
