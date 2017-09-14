@@ -4,6 +4,7 @@ from datetime import date
 
 
 # Create your models here.
+# CHOOSING THE NAME "Workout" FOR THIS MODEL IS INSPIRED BY CITATION [43]
 class Workout(models.Model):
     distance                =   models.DecimalField(max_digits=20, decimal_places=4)
     # next line citation [16]

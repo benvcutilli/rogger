@@ -18,7 +18,7 @@ class Shoe(models.Model):
 
         return totalMileage
 
-
+# USING "Workout" AND "Type" TO CREATE "WorkoutType" AS A NAME IS INSPIRED BY CITATION [43]
 class WorkoutType(models.Model):
     owner               =   models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     name                =   models.CharField(max_length=50)
