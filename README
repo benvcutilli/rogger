@@ -276,9 +276,9 @@ Eric Arnold
 Charlie Marquardt
 Allison Guindon
 Nicholas Reynolds
-Zachary Gabor, Griffin Kaulbach (Issue: error gets thrown when no workout type is specified in new workout because they have not made any types, and the "Unknown" type has not been created for them)
-this page: https://stackoverflow.com/questions/41787263/different-value-of-csrf-token-in-response-header-and-browser-cookies-csrf-verif for helping me debug that the browser will automatically look for a favicon, and will get a CSRF cookie if Django handles the request (as in not going to the static file URL) and returns a 200 status.
-Bernie Jones (for the above problem and also for debugging that usernames with spaces in them can get by the account maker)
+Zachary Gabor, Griffin Kaulbach, users alphdollie and hdoll (Issue: error gets thrown when no workout type is specified in new workout because they have not made any types, and the "Unknown" type has not been created for them)
+this page, Greg Morgan, Allison Guindon, Nick Reynolds, Lukasz Tyler Olenginski, Lincoln Satterthwaite: https://stackoverflow.com/questions/41787263/different-value-of-csrf-token-in-response-header-and-browser-cookies-csrf-verif for helping me debug that the browser will automatically look for a favicon, and will get a CSRF cookie if Django handles the request (as in not going to the static file URL) and returns a 200 status.
+Bernie Jones (for the above problem and also for debugging that usernames with spaces in them can get by the account maker), Zach Needell for the same usernames with spaces bug
 
 and others whose names I don't know, and almost certainly others that I cannot think of.
 
