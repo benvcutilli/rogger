@@ -258,27 +258,35 @@ feedback from users.
 -----------------------------------------------------------------------
 
 People who helped debug:
-Tyler Fong
-Joseph Boyle
-Charlie Hale
-Brian Sokas
-Katie Pokorny
-Amelia Keyser-Gibson
-Kristina Kronauer
-Lukasz Tyler Olenginski
-Kelley Riffenburgh
-Evan Hamilton
-Flora Berklein
-Nora Weathers
-Sam Fujimori
-Greg Morgan
-Eric Arnold
-Charlie Marquardt
-Allison Guindon
-Nicholas Reynolds
-Zachary Gabor, Griffin Kaulbach, users alphdollie and hdoll (Issue: error gets thrown when no workout type is specified in new workout because they have not made any types, and the "Unknown" type has not been created for them)
-this page, Greg Morgan, Allison Guindon, Nick Reynolds, Lukasz Tyler Olenginski, Lincoln Satterthwaite: https://stackoverflow.com/questions/41787263/different-value-of-csrf-token-in-response-header-and-browser-cookies-csrf-verif for helping me debug that the browser will automatically look for a favicon, and will get a CSRF cookie if Django handles the request (as in not going to the static file URL) and returns a 200 status.
-Bernie Jones (for the above problem and also for debugging that usernames with spaces in them can get by the account maker), Zach Needell for the same usernames with spaces bug
+-Tyler Fong
+-Joseph Boyle
+-Charlie Hale
+-Brian Sokas
+-Katie Pokorny
+-Amelia Keyser-Gibson
+-Kristina Kronauer
+-Lukasz Tyler Olenginski
+-Kelley Riffenburgh
+-Evan Hamilton
+-Flora Berklein
+-Nora Weathers
+-Sam Fujimori
+-Greg Morgan
+-Eric Arnold
+-Charlie Marquardt
+-Allison Guindon
+-Nicholas Reynolds
+-Zachary Gabor, Griffin Kaulbach, users "alphdollie" and "hdoll" (Issue: error gets thrown when no workout type is specified in new workout because they have not made any types, and the "Unknown" type has not been created for them)
+-this page: https://stackoverflow.com/questions/41787263/different-value-of-csrf-token-in-response-header-and-browser-cookies-csrf-verif, Greg Morgan, Allison Guindon, Nick Reynolds, Lukasz Tyler Olenginski, Lincoln Satterthwaite: for helping me debug that the browser will automatically look for a favicon, and will get a CSRF cookie if Django handles the request (as in not going to the static file URL) and returns a 200 status.
+-Bernie Jones (for the above problem and also for debugging that usernames with spaces in them can get by the account maker), Zach Needell for the same usernames with spaces bug (calling django's reverse url lookup functionality failed with the URL regex I specified for getting the url to a user's profile page)
+-user "thale" for automatic bug report suggesting that I had not done a make migration and/or migration when the backupType field was added to the "Workout" model in workoutLogging.models
+-users that tried to make a new log entry but failed because they didn't know they were logged out (the new entry page allowed users through even though they weren't logged in) -- automatic bug reports were sent for those people's errors
+-users "Ellie" and "nosbigibson" for their automatic bug reports that showed I had an index error for "pretty printing" python's Decimal type (I assumed that all Decimals would have a decimal point when converted to some string, which caused indexing problems)
+-Matt Cohen for his automatic bug report for not importing django.contrib.auth.model's User model; that model is used to check to see if the user tagged in an entry actually exists
+-the automatic bug report generated when some unknown person tried to access the "/search" resource without actually putting in something to search for
+-the automatic bug report that an unknown person generated that triggered, in shared.tools.getErrorString(), an error that "creationForm" could not be found, which was an artifact of me moving code; I never changed that back to the real form's name (which is not creationForm) once I moved that code over
+-an unknown user's automatic bug report that I think I had not imported shared.languageLocalization's "baseLocalization" variable into some place, but I forget where that import was
+-unknown users' automatic bug report for helping me figure out why the 404 error template I created was not being found at the /hello resource
 
 and others whose names I don't know, and almost certainly others that I cannot think of.
 
