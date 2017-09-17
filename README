@@ -134,6 +134,8 @@ How to install sqlite3 for Ubuntu (as the sqlite3 Linux download didn't work) is
 
 Explanation of what I need to worry about regarding the EU Cookie law(s) is from https://www.cookielaw.org/the-cookie-law/ and http://ec.europa.eu/ipg/basics/legal/cookies/index_en.htm
 
+https://apple.stackexchange.com/questions/209572/how-to-use-pip-after-the-os-x-el-capitan-upgrade I think resolved the issue on my Mac where pip couldn't install anything into the SIP-protected MacOS folder where Python is installed
+
 systemd-uwsgi-DAEMON-DEFINTION-FILE-SPECIFIC CITATIONS
 -------------------------------------------------------
 It is probable that using systemd to start up (and coordinate) the uwsgi server for Rogger is a suggestion from
@@ -288,6 +290,7 @@ People who helped debug:
 -an unknown user's automatic bug report that I think I had not imported shared.languageLocalization's "baseLocalization" variable into some place, but I forget where that import was
 -unknown users' automatic bug report for helping me figure out why the 404 error template I created was not being found at the /hello resource
 -Charlie Marquardt, Eric Arnold, maybe others for pointing out browsers not working with both www.rogger(beta).co(m) and rogger(beta).co(m)
+-Lena Edelstein for pointing out that the date and time of comments were not local to the front-end's location
 
 and others whose names I don't know, and almost certainly others that I cannot think of.
 
