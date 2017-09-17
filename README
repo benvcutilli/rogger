@@ -287,6 +287,7 @@ People who helped debug:
 -the automatic bug report that an unknown person generated that triggered, in shared.tools.getErrorString(), an error that "creationForm" could not be found, which was an artifact of me moving code; I never changed that back to the real form's name (which is not creationForm) once I moved that code over
 -an unknown user's automatic bug report that I think I had not imported shared.languageLocalization's "baseLocalization" variable into some place, but I forget where that import was
 -unknown users' automatic bug report for helping me figure out why the 404 error template I created was not being found at the /hello resource
+-Charlie Marquardt, Eric Arnold, maybe others for pointing out browsers not working with both www.rogger(beta).co(m) and rogger(beta).co(m)
 
 and others whose names I don't know, and almost certainly others that I cannot think of.
 
