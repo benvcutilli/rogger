@@ -183,6 +183,17 @@ Limiting the request size using the web server instead of Django or something el
 --------------------------------------------------------
 END /etc/nginx/nginx.conf rogger SERVER DEFINITION CITATION SECTION
 
+THE ROGGER SERVER'S /etc/apt/sources.list FILE ADDITIONS THAT I MADE ARE BELOW
+--------------------------------------------------------------------------------
+# NEXT TWO LINES FROM https://www.nginx.com/resources/wiki/start/topics/tutorials/install/
+# + ADDING THE KEY for the nginx repository AFTER THE KEY ERROR DESCRIBED BY THAT PAGE,
+# THE sudo apt-get update, AND THE sudo apt-get install nginx COMMANDS I RAN ARE ALSO FROM THERE
+deb http://nginx.org/packages/ubuntu xenial nginx
+deb-src http://nginx.org/packages/ubuntu xenial nginx
+--------------------------------------------------------------------------------
+END OF STUFF THAT I ADDED TO /etc/apt/sources.list
+
+
 
 DEPLOYMENT SERVER'S ROGGER INSTALLATION's settings.py citations (in addition to those that may have already been mentioned):
 See citation [47]
@@ -246,14 +257,20 @@ Differentiating between new workout entries and updated workout entries:
   Nora Weathers
 Letting workout titles in calendar show completely instead of being truncated:
   Henri Drake
-Importing Merv Entries:
-  Eric Arnold
+Importing Merv data/Exporting Rogger data:
+  Eric Arnold (import only)
+  Joel Christian
+  Kristina Kronauer
 Having an updates feed:
   Eric Arnold
 Using a more traditional calendar in the user profile:
   merv.standford.edu
 Allowing underscores in usernames:
   Eric Chesterton
+Pace calculation of entries if distance and time length of workout are given:
+  merv.stanford.edu
+  Greg Morgan
+  Kristina Kronauer (I think)
 
 For every other feature, you should also assume that there is a good chance it was a result of me getting
 feedback from users.
@@ -307,7 +324,7 @@ Rich Marisco
 
 
 
-
+My mom, dad, and Eric Arnold helped with suggestions on how to cite things and just also with my stress management (and probably other things as well that I can't remember), so thanks to them.
 
 
 
