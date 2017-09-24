@@ -308,6 +308,12 @@ People who helped debug:
 -unknown users' automatic bug report for helping me figure out why the 404 error template I created was not being found at the /hello resource
 -Charlie Marquardt, Eric Arnold, maybe others for pointing out browsers not working with both www.rogger(beta).co(m) and rogger(beta).co(m)
 -Lena Edelstein for pointing out that the date and time of comments were not local to the front-end's location
+-Charlie Marquardt and Eric Arnold for helping to, I think, debug the fact that I had not made an A entry for my domain to route the domain to an IP
+-Eric Arnold for pointing out that, for migrated workouts (from old to new site), some distances had repeating decimals
+-Eric Arnold for checking that emails were being sent out properly (for some mechanism(s) that I can't remember, maybe with entry comments?)
+-Charlie Marquardt for pointing out that distances on the updates feed page were showing unnecessary 0s in the decimal portion (or just an unnecessary decimal portion) of the distance of workouts
+-Charlie Marquardt for pointing out that scientific notation (a*eb, where a and b are numbers) was showing up for workouts on workout pages
+-Charlie Marquardt for pointing out that PDF generation was throwing a server error (can't remember what that error was specifically related to, I think it had something to do with the fact that WorkoutWeek's getStats() function changed and the new version returned tuples instead of strings, so the tuple was passed to Reportlab (for PDF generation) instead of the a string, which caused an error)
 
 and others whose names I don't know, and almost certainly others that I cannot think of.
 
