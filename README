@@ -314,6 +314,8 @@ People who helped debug:
 -Charlie Marquardt for pointing out that distances on the updates feed page were showing unnecessary 0s in the decimal portion (or just an unnecessary decimal portion) of the distance of workouts
 -Charlie Marquardt for pointing out that scientific notation (a*eb, where a and b are numbers) was showing up for workouts on workout pages
 -Charlie Marquardt for pointing out that PDF generation was throwing a server error (can't remember what that error was specifically related to, I think it had something to do with the fact that WorkoutWeek's getStats() function changed and the new version returned tuples instead of strings, so the tuple was passed to Reportlab (for PDF generation) instead of the a string, which caused an error)
+-Mali Axinn for pointing out that logging in wasn't working for new users. Super weird bug. I haven't gotten a complaint about this until now, which is very confusing.
+
 
 and others whose names I don't know, and almost certainly others that I cannot think of.
 

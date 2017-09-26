@@ -270,7 +270,7 @@ def newAccountView(request):
                 print(templateDict['error'])
                 return render(request, 'homepage/newaccount.html', templateDict)
             else:
-                newUser = User.objects.create_user(creationForm.cleaned_data['username'], creationForm.cleaned_data['emailAddress'], creationForm['password'])
+                newUser = User.objects.create_user(creationForm.cleaned_data['username'], creationForm.cleaned_data['emailAddress'], creationForm.cleaned_data['password'])
                 newUser.save()
                 UserInfo.objects.create(authUser=newUser).save()
                 WorkoutType.objects.create(name="Unknown", owner=newUser)
