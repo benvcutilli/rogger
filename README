@@ -271,6 +271,8 @@ Pace calculation of entries if distance and time length of workout are given:
   merv.stanford.edu
   Greg Morgan
   Kristina Kronauer (I think)
+French Localization
+  Possibly Charlotte Lellman
 
 For every other feature, you should also assume that there is a good chance it was a result of me getting
 feedback from users.
@@ -315,6 +317,8 @@ People who helped debug:
 -Charlie Marquardt for pointing out that scientific notation (a*eb, where a and b are numbers) was showing up for workouts on workout pages
 -Charlie Marquardt for pointing out that PDF generation was throwing a server error (can't remember what that error was specifically related to, I think it had something to do with the fact that WorkoutWeek's getStats() function changed and the new version returned tuples instead of strings, so the tuple was passed to Reportlab (for PDF generation) instead of the a string, which caused an error)
 -Mali Axinn for pointing out that logging in wasn't working for new users. Super weird bug. I haven't gotten a complaint about this until now, which is very confusing.
+-Charlie Marquardt and Charlie Hale for pointing out that the domain wasn't routing to the old Rogger server when (I think) I was switching domain name service providers.
+-Charlie Marquardt pointed out that the calendar would initialize to (I think) showing an adjacent or near-adjacent month to the current month in the old Rogger. This issue was resolved in this new version of Rogger.
 
 
 and others whose names I don't know, and almost certainly others that I cannot think of.
