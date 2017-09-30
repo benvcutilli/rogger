@@ -319,6 +319,7 @@ People who helped debug:
 -Mali Axinn for pointing out that logging in wasn't working for new users. Super weird bug. I haven't gotten a complaint about this until now, which is very confusing.
 -Charlie Marquardt and Charlie Hale for pointing out that the domain wasn't routing to the old Rogger server when (I think) I was switching domain name service providers.
 -Charlie Marquardt pointed out that the calendar would initialize to (I think) showing an adjacent or near-adjacent month to the current month in the old Rogger. This issue was resolved in this new version of Rogger.
+-Joel Christian (and possibly others) who pointed out that IE support (I think primarily, if not completely, for older version of IE) for the old Rogger was bad. I made at least some of this site compatible with older versions of IE as a result, though honestly I stopped testing for IE a while ago.
 
 
 and others whose names I don't know, and almost certainly others that I cannot think of.
