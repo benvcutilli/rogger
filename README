@@ -311,8 +311,8 @@ People who helped debug:
 -Charlie Marquardt, Eric Arnold, maybe others for pointing out browsers not working with both www.rogger(beta).co(m) and rogger(beta).co(m)
 -Lena Edelstein for pointing out that the date and time of comments were not local to the front-end's location
 -Charlie Marquardt and Eric Arnold for helping to, I think, debug the fact that I had not made an A entry for my domain to route the domain to an IP
--Eric Arnold for pointing out that, for migrated workouts (from old to new site), some distances had repeating decimals
--Eric Arnold for checking that emails were being sent out properly (for some mechanism(s) that I can't remember, maybe with entry comments?)
+-Eric Arnold for pointing out that, for migrated workouts (from old to new site), some distances had too many decimals numbers
+-Eric Arnold for checking that emails were being sent out properly (for some mechanism(s) that I can't remember, involved at least entry comments)
 -Charlie Marquardt for pointing out that distances on the updates feed page were showing unnecessary 0s in the decimal portion (or just an unnecessary decimal portion) of the distance of workouts
 -Charlie Marquardt for pointing out that scientific notation (a*eb, where a and b are numbers) was showing up for workouts on workout pages
 -Charlie Marquardt for pointing out that PDF generation was throwing a server error (can't remember what that error was specifically related to, I think it had something to do with the fact that WorkoutWeek's getStats() function changed and the new version returned tuples instead of strings, so the tuple was passed to Reportlab (for PDF generation) instead of the a string, which caused an error)
@@ -320,13 +320,16 @@ People who helped debug:
 -Charlie Marquardt and Charlie Hale for pointing out that the domain wasn't routing to the old Rogger server when (I think) I was switching domain name service providers.
 -Charlie Marquardt pointed out that the calendar would initialize to (I think) showing an adjacent or near-adjacent month to the current month in the old Rogger. This issue was resolved in this new version of Rogger.
 -Joel Christian (and possibly others) who pointed out that IE support (I think primarily, if not completely, for older version of IE) for the old Rogger was bad. I made at least some of this site compatible with older versions of IE as a result, though honestly I stopped testing for IE a while ago.
-
+-Joel Christian, and Sam Fujimori let me know that the site looked good. Eric Arnold said it is better-looking than the old version.
+-Eric Arnold and others said that when writing the text of a log entry in the old version of Rogger, each press of the keyboard would make the cursor in the entry area to return to the start of the entry's text. So, for this project, I abandoned what was causing it (a hacked-up TinyMCE editor) for CodeMirror, which seems to have solved this issue.
 
 and others whose names I don't know, and almost certainly others that I cannot think of.
 
 Beta Testers:
 Charlie Marquardt
+  -Creating workouts, trying out the updates feed on the home page, probably other things too
 Eric Arnold
+  -Creating workouts, commenting, probably other things too
 Kelley Riffenburgh
 Matt Cohen
 Jossi Fritz-Mauer
@@ -337,7 +340,9 @@ Rich Marisco
 
 
 
-My mom, dad, and Eric Arnold helped with suggestions on how to cite things and just also with my stress management (and probably other things as well that I can't remember), so thanks to them.
+My mom, dad, and Eric Arnold helped with suggestions on how to cite things and just also with my stress management (and probably other things as well that I can't remember), so thanks to them. Eric suggested that I can email all the users of the site to ask them to reply telling me how they had helped out with the site, and then I can add them to the list of citations.
+
+Also, Eric Arnold told me that I was getting questions on runnerunner.com's message boards relating to Rogger and said that I should chime in to help address them and address the fact that merv.stanford.edu was losing users due to spottiness of the site or other issues, and that I should encourage them to use Rogger as a replacement. He also might have answered questions on runnerunner.com in representation of me as I did not want to log onto runnerunner.com to do so.
 
 
 
