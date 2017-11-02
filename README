@@ -4,7 +4,7 @@ the original version of Rogger, you can find information on how to find that und
 "ACKNOWLEDGEMENTS" section), BUT NOT ALL CITATIONS ARE HERE! SOME ARE ALSO JUST SOMEWHERE
 ELSE IN THIS REPOSITORY! Some may also be on just the server of the website itself,
 and so you can't see the files, though I tried to be diligent about putting those citations
-here:
+here. I also may have missed a few by accident:
 
 [1]   http://stackoverflow.com/questions/4571686/django-include-template-from-another-app
 [2]   http://www.w3schools.com/colors/colors_picker.asp for picking colors
@@ -278,7 +278,7 @@ For every other feature, you should also assume that there is a good chance it w
 feedback from users.
 -----------------------------------------------------------------------
 
-People who helped debug:
+People who helped debug (for the things discussed below that were debugged, there may be other people who contributed to debugging them as well):
 -Tyler Fong
 -Joseph Boyle
 -Charlie Hale
