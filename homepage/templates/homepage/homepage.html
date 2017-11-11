@@ -6,12 +6,11 @@
     display:inline-block;
     width:20%;
     height:100%;
-    background-color:#778;
     position:fixed;
     left:0px;
     top:0px;
     padding:50px 0px 0px 0px;
-    color: #fdfdfd; /* HTML color picker used (citation [2] in top-level repository README) */
+    color: #778;
     /* citation [7] */
     overflow:hidden;
     /* end citation */
@@ -33,7 +32,7 @@
     margin:0px;
   }
   #following > *, #followRequesting > * {
-    color: #fdfdfd; /* HTML color picker used (citation [2] in top-level repository README) */
+    color: #778;
   }
   #feedViewport {
     display:inline-block;
@@ -129,11 +128,20 @@
     display:table-cell;
     vertical-align: middle;
     /* end citation */
+  }
+  .usernameCell {
     color: #fdfdfd; /* HTML color picker used (citation [2] in top-level repository README) */
   }
-  .usernameCell > a, .followedUserUsernameCell > a, .followRequestUserUsernameCell > a {
+  .followedUserUsernameCell, .followRequestUserUsernameCell {
+    color: #778;
+  }
+  .usernameCell > a {
     text-decoration:none;
     color: #fdfdfd; /* HTML color picker used (citation [2] in top-level repository README) */
+  }
+  .followedUserUsernameCell > a, .followRequestUserUsernameCell > a {
+    text-decoration:none;
+    color: #778;
   }
   .updateHeaderComponent {
     display:inline-block;
@@ -161,7 +169,7 @@
   }
   .followedUser > div, .followRequestUser > div {
     display:inline-block;
-    color: #fdfdfd; /* HTML color picker used (citation [2] in top-level repository README) */
+    color: #778;
   }
   .followedUserPicture, .followRequestUserPicture {
     width:40px;
