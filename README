@@ -1,10 +1,14 @@
-Resources used to make this project (citations can be found in the code base as well,
+Resources used to make this project can be found in this README
+ (citations can be found in the code base as well,
 using the [#] notation to index each source found on this page; for any reference to
 the original version of Rogger, you can find information on how to find that under the
 "ACKNOWLEDGEMENTS" section), BUT NOT ALL CITATIONS ARE HERE! SOME ARE ALSO JUST SOMEWHERE
 ELSE IN THIS REPOSITORY! Some may also be on just the server of the website itself,
 and so you can't see the files, though I tried to be diligent about putting those citations
 here. I also may have missed a few by accident.
+
+The code for the old version of this site can be found at bitbucket.org/roggerlogger/rog under the "refactor" and "master" branches (both master and refactor have citations that may differ from each other, so look at both of them)
+
 
 SOME CITATIONS:
 
@@ -238,7 +242,6 @@ original ideas when it comes to design and aesthetics.
 Also, a ton of this site is based on experience with merv.standford.edu, which
 is a running log site whose users' exported data I support for importing.
 
-The code for the old version of this site can be found at bitbucket.org/roggerlogger/rog under the "refactor" and "master" branches (refactor has more citations if you are looking for them)
 
 
 CITATIONS FOR FEATURES OF THIS SITE (KNOWN CONTRIBUTORS, ASSUME THAT THERE MAY BE FORGOTTEN CONTRIBUTORS FOR EACH FEATURE):
