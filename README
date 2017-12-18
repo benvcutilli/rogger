@@ -188,6 +188,23 @@ those non-HTTPS connections to come in and get redirected to the HTTPS site.
 Thanks to https://serverfault.com/questions/814767/413-request-entity-too-large-in-nginx-with-client-max-body-size-set
 for telling me what the variable is in the nginx configuration that controls how big a request is allowed through the server.
 Limiting the request size using the web server instead of Django or something else is a suggestion from an unknown source.
+
+This has been put in the nginx.conf file, and explanation for it is with it, along with its citations:
+    # This server definition is used to reject requests that aren't for the domains processed by the server definition below.
+    # The "return" usage is from http://nginx.org/en/docs/http/server_names.html (retrieved 2017.12.18) in the code under
+    # 'In catch-all server examples the strange name "_" can be seen'. Putting this as the first server to make it "default"
+    # so that other domains are processed here and not in the other server is probably from the same page and/or
+    # https://serverfault.com/a/525011. Making sure that these requests stop here and not at Django so that I don't
+    # get spammed with error emails is an idea from https://stackoverflow.com/questions/18220519/how-to-disable-djangos
+    # -invalid-http-host-error. Even though this version of the site uses Nginx (and I think that site talks about Apache,
+    # there might be some configuration used there that was directly, or more likely indirectly, relevant to what I wrote 
+    # for this server definition. Using two different listens for each port is an idea from Certbot which did this for
+    # the server defition for Rogger.
+    server {
+      listen 80;
+      listen 443;
+      return 403;
+    }
 --------------------------------------------------------
 END /etc/nginx/nginx.conf rogger SERVER DEFINITION CITATION SECTION
 
