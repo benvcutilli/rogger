@@ -300,9 +300,9 @@ French Localization
 Asking for Rogger "swag", which I responded to by making a fundraiser because people also wanted to give
 money to keep the site running
   Somebody/Multiple sombodies
-Giving positive feedback about the panel on the left for follows, and "new fonts" (though I think this was for the old site) THIS
+Giving positive feedback about the panel on the left for follows, and "new fonts" (though I think this was for the old site, bitbucket.org/roggerlogger/rog, for a git commit that occurred near 2017.10.30)
   Charlotte Lellman
-Pointing out that the profile page of a user scrolls and the calendar does as well (in the old site); this was remedied in this version of the site
+Pointing out that the profile page of a user scrolls and the calendar does as well (in the old site, bitbucket.org/roggerlogger/rog); this was remedied in this version of the site
   Charlotte Lellman
 
 For every other feature, you should also assume that there is a good chance it was a result of me getting
@@ -354,7 +354,7 @@ People who helped debug (for the things discussed below that were debugged, ther
 -Joel Christian, and Sam Fujimori let me know that the site looked good. Eric Arnold said it is better-looking than the old version.
 -Eric Arnold and others said that when writing the text of a log entry in the old version of Rogger, each press of the keyboard would make the cursor in the entry area to return to the start of the entry's text. So, for this project, I abandoned what was causing it (a hacked-up TinyMCE editor) for CodeMirror, which seems to have solved this issue.
 -Mali Axinn (approximately 2017.9.26) and someone else (unsure of date when this occurred, sometime late summer 2017, I think): Mali's accounts needed to be deleted, so that helped me test that account deletion actually deletes everything related to that account, and that someone else had a bug that I created at least one account for to test out, so when I deleted those accounts, that helped to test that the account's data was being deleted. However, now that I think about it, it doesn't deleted all the information, yet, so I have to address that at some point. Account deletion is not a user-facing feature yet, but it will be at some point, so hopefully it is fixed by then.
--Those (currently unknown who) who trigged the old site's bug where the antivirus would go down, so images couldn't be scanned for viruses on banner and profile picture uploads, and the server would error out. THIS
+-Those (currently unknown who) who trigged the old site's bug where the antivirus would go down, so images couldn't be scanned for viruses on banner and profile picture uploads, and the server would error out, which would send me an email with a bug report. That's how I found out about these situations, and the bug is sort of fixed in this site (there is no antivirus running, so the same error can't occur).
 
 
 and others whose names I don't know, and almost certainly others that I cannot think of.
