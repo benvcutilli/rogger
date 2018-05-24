@@ -10,6 +10,59 @@ here. I also may have missed a few by accident.
 The code for the old version of this site can be found at bitbucket.org/roggerlogger/rog under the "refactor" and "master" branches (both master and refactor have citations that may differ from each other, so look at both of them)
 
 
+
+
+
+PRIVACY POLICY
+
+
+Who has access to your data?
+
+Your data is almost completely kept on the web site's server and other Amazon
+Web services utilities [55], and no one has access to it other than those
+viewing the site (and depending on what you've set your privacy to). One
+exception is that, when you create an account, Google [52] provides the
+reCAPTCHA [53] that filters out the bots from the non-bots. I don't know exactly
+what it sends to Google. Requests to the server go through the Domain Name
+Service [54], so that could be a source of information leakage. The server is
+hosted by Amazon Web Services, but everything should be, in theory, pretty
+locked down with them. An administrator has full access to all data, but I
+consider myself a benevolent dictator. For GDPR [56]-specific regulation,
+everything or almost everything is not held within the European Union.
+
+
+How can I fix a problem in my data or delete my account?
+
+Contact ben@rogger.co with any issues you have.
+
+
+Why are YOU allowed to touch my data?
+
+So that the site can function.
+
+
+You store my data for HOW MUCH TIME?
+
+Eternity, except for when you request account deletion, in which case at time
+of the actual deletion, all of your data should be removed (unless part of the
+deletion process fails or is not thorough enough by accident).
+
+
+What does the program do with my data?
+
+Nothing crazy. The craziest it gets is just an algorithm to perform a search
+in the search bar you can see at the top of the page.
+
+
+
+
+
+
+
+
+
+
+
 SOME CITATIONS:
 
 [1]   http://stackoverflow.com/questions/4571686/django-include-template-from-another-app
