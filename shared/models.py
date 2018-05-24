@@ -4,6 +4,8 @@ import boto3
 from rogger.settings import MEDIA_BUCKET_NAME, MEDIA_BUCKET_ID, MEDIA_BUCKET_SECRET, PROFILE_PICTURE_EXPIRATION_SECONDS, DEFAULT_PROFILE_PICTURE_FILENAME, STATIC_URL
 import datetime
 from django.utils import timezone
+# USING AND IMPORTING botocore: CITATION [51]
+import botocore
 
 # Create your models here.
 
@@ -12,7 +14,8 @@ class UserInfo(models.Model):
     authUser                =   models.OneToOneField(User, on_delete=models.CASCADE)
     # NEXT LINE CITATION [31]
     displayName             =   models.CharField(max_length=100, default="")
-    privacySelection        =   models.IntegerField(default=1)
+    # 2 FOR DEFAULT: CITATION [50]
+    privacySelection        =   models.IntegerField(default=2)
     pdfName                 =   models.CharField(max_length=100, default="")
     # NEXT LINE CITATION [27]
     uploadedProfilePicture  =   models.BooleanField(default=False)
@@ -23,11 +26,20 @@ class UserInfo(models.Model):
 
     def profilePictureURL(self):
         if self.uploadedProfilePicture:
-            s3client = boto3.client('s3', aws_secret_access_key=MEDIA_BUCKET_SECRET, aws_access_key_id=MEDIA_BUCKET_ID)
+            # config PARAMETER VALUE: CITATION [51]
+            s3client = boto3.client(
+                                    's3',
+                                    aws_secret_access_key=MEDIA_BUCKET_SECRET,
+                                    aws_access_key_id=MEDIA_BUCKET_ID,
+                                    config=botocore.config.Config(signature_version="s3v4")
+            )
             # SENDING A PRESIGNED URL FROM CITATION [28]
             return s3client.generate_presigned_url(
                                                     'get_object',
-                                                    Params={ 'Bucket' : MEDIA_BUCKET_NAME, 'Key' : "profilepictureofuser"+str(self.authUser.id)+".png" },
+                                                    Params={
+                                                             'Bucket' : MEDIA_BUCKET_NAME,
+                                                             'Key' : "profilepictureofuser"+str(self.authUser.id)+".png"
+                                                    },
                                                     ExpiresIn=PROFILE_PICTURE_EXPIRATION_SECONDS
             )
         else:
@@ -35,11 +47,20 @@ class UserInfo(models.Model):
 
     def thumbURL(self):
         if self.uploadedProfilePicture:
-            s3client = boto3.client('s3', aws_secret_access_key=MEDIA_BUCKET_SECRET, aws_access_key_id=MEDIA_BUCKET_ID)
+            # config PARAMETER VALUE: CITATION [51]
+            s3client = boto3.client(
+                                    's3',
+                                    aws_secret_access_key=MEDIA_BUCKET_SECRET,
+                                    aws_access_key_id=MEDIA_BUCKET_ID,
+                                    config=botocore.config.Config(signature_version="s3v4")
+            )
             # SENDING A PRESIGNED URL FROM CITATION [28]
             return s3client.generate_presigned_url(
                                                     'get_object',
-                                                    Params={ 'Bucket' : MEDIA_BUCKET_NAME, 'Key' : "thumbofuser"+str(self.authUser.id)+".png" },
+                                                    Params={
+                                                             'Bucket' : MEDIA_BUCKET_NAME,
+                                                             'Key' : "thumbofuser"+str(self.authUser.id)+".png"
+                                                    },
                                                     ExpiresIn=PROFILE_PICTURE_EXPIRATION_SECONDS
             )
         else:
