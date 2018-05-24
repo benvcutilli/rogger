@@ -31,6 +31,7 @@ class UserInfo(models.Model):
                                     's3',
                                     aws_secret_access_key=MEDIA_BUCKET_SECRET,
                                     aws_access_key_id=MEDIA_BUCKET_ID,
+                                    region_name="us-west-1",
                                     config=botocore.config.Config(signature_version="s3v4")
             )
             # SENDING A PRESIGNED URL FROM CITATION [28]
@@ -52,6 +53,7 @@ class UserInfo(models.Model):
                                     's3',
                                     aws_secret_access_key=MEDIA_BUCKET_SECRET,
                                     aws_access_key_id=MEDIA_BUCKET_ID,
+                                    region_name="us-west-1",
                                     config=botocore.config.Config(signature_version="s3v4")
             )
             # SENDING A PRESIGNED URL FROM CITATION [28]
