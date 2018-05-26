@@ -15,8 +15,12 @@ The code for the old version of this site can be found at bitbucket.org/roggerlo
 
 PRIVACY POLICY
 
+According to [62], [63], the GDPR [] may be enforcible for this site. So, this
+privacy policy addresses the GDPR.
 
-Who has access to your data?
+
+Who has access to your data (each point addressed here is from
+[57, Reponsibility and accountability][58])?
 
 Your data is almost completely kept on the web site's server and other Amazon
 Web services utilities [55], and no one has access to it other than those
@@ -32,24 +36,25 @@ everything or almost everything is not held within the European Union.
 
 
 How can I fix a problem in my data, delete my account, or get my data in a
-downloaded form?
+downloaded form? (these subjects are from [57, Reponsibility and accountability],
+[57, Right of access], [57, Right to erasure], [58], [59], [60], [61])
 
 Contact ben@rogger.co with any issues you have.
 
 
-Why are YOU allowed to touch my data?
+Why are YOU allowed to touch my data? (from [57, Reponsibility and accountability], [57, Lawful basis for processing], [58])
 
 So that the site can function.
 
 
-You store my data for HOW MUCH TIME?
+You store my data for HOW MUCH TIME? ([57, Reponsibility and accountability][58] provided this question)
 
 Eternity, except for when you request account deletion, in which case at time
 of the actual deletion, all of your data should be removed (unless part of the
 deletion process fails or is not thorough enough by accident).
 
 
-What does the program do with my data?
+What does the program do with my data? (question origin: [57, Reponsibility and accountability][58])
 
 Nothing crazy. The craziest it gets is just an algorithm to perform a search
 in the search bar you can see at the top of the page.
@@ -142,9 +147,20 @@ SOME CITATIONS:
 [48]  Explanation of what I need to say to users to abide by the the EU Cookie law(s) is from https://www.cookielaw.org/the-cookie-law/ and http://ec.europa.eu/ipg/basics/legal/cookies/index_en.htm
 [49]  https://stackoverflow.com/questions/41787263/different-value-of-csrf-token-in-response-header-and-browser-cookies-csrf-verif
 [50]  GDPR Privacy Setting
-[51]  Boto3 saying that it has the wrong "signature version", two or three sites that told me how to change it
+[51]  Boto3 saying that it has the wrong "signature version",
+      https://forums.aws.amazon.com/message.jspa?messageID=681392 (which said
+      that I can use the "config" parameter with the value stated there),
+      https://github.com/boto/botocore/issues/377 - jamesls (the string in the
+      Config object call also from here)
 [52]
 [53]
+[57]  https://en.wikipedia.org/wiki/General_Data_Protection_Regulation
+[58]  https://www.gdpreu.org/
+[59]  https://www.gdpreu.org/the-regulation/list-of-data-rights/right-to-rectification/
+[60]  https://www.gdpreu.org/the-regulation/list-of-data-rights/right-to-erasure/
+[61]  https://www.gdpreu.org/the-regulation/list-of-data-rights/right-to-data-portability/
+[62]  https://www.gdpreu.org/the-regulation/who-must-comply/
+[63]  https://www.gdpreu.org/faq/
 
 
 GENERAL CITATIONS:
