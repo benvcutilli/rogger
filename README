@@ -166,6 +166,9 @@ SOME CITATIONS:
 [61]  https://www.gdpreu.org/the-regulation/list-of-data-rights/right-to-data-portability/
 [62]  https://www.gdpreu.org/the-regulation/who-must-comply/
 [63]  https://www.gdpreu.org/faq/
+[64]  Let's Encrypt
+      https://letsencrypt.org/
+      Internet Security Research Group (author)
 
 
 GENERAL CITATIONS:
@@ -460,6 +463,7 @@ People who helped debug (for the things discussed below that were debugged, ther
 -Mali Axinn (approximately 2017.9.26) and someone else (unsure of date when this occurred, sometime late summer 2017, I think): Mali's accounts needed to be deleted, so that helped me test that account deletion actually deletes everything related to that account, and that someone else had a bug that I created at least one account for to test out, so when I deleted those accounts, that helped to test that the account's data was being deleted. However, now that I think about it, it doesn't deleted all the information, yet, so I have to address that at some point. Account deletion is not a user-facing feature yet, but it will be at some point, so hopefully it is fixed by then.
 -Those (currently unknown who) who trigged the old site's bug where the antivirus would go down, so images couldn't be scanned for viruses on banner and profile picture uploads, and the server would error out, which would send me an email with a bug report. That's how I found out about these situations, and the bug is sort of fixed in this site (there is no antivirus running, so the same error can't occur).
 -Eric Arnold said that the site was freaking out (it probably was with regard to Nginx complaining about the gateway), and it turned out that UWSGI hadn't been started. He probably mentioned this to me around 2019.2.17.
+-I checked to make sure the TLS encryption was still working as Let's Encrypt (https://letsencrypt.org/, Internet Security Research Group, site found by searching for "letsencrypt" on google.com) emailed me something that made me think it wasn't. I tested the encryption with Mobile Safari (https://www.apple.com/safari/, Apple Inc., site found by searching for "mobile safari" on google.com)
 
 and others whose names I don't know, and almost certainly others that I cannot think of.
 
