@@ -166,9 +166,6 @@ SOME CITATIONS:
 [61]  https://www.gdpreu.org/the-regulation/list-of-data-rights/right-to-data-portability/
 [62]  https://www.gdpreu.org/the-regulation/who-must-comply/
 [63]  https://www.gdpreu.org/faq/
-[64]  Let's Encrypt
-      https://letsencrypt.org/
-      Internet Security Research Group (author)
 
 
 GENERAL CITATIONS:
@@ -207,6 +204,8 @@ This site has a lot of influence from merv.standford.edu. Some major ideas from 
   contributions to this one.
 - Everyday users of the site add their data to the site, so this data was useful
   when checking the correct operation of the site.
+- This repository's/this project's version control is managed by Git
+  (git-scm.com)
 
 DEBUG:
 Thanks to everyone that submitted bug reports. Safari, the web browser, was very important in debugging, and less important but still important were other browser(s) probably including (but there may be others I am forgetting) Firefox, Chrome, Internet Explorer (unknown release number(s) like 6, 7, 8, 9, 10, 11, etc), Edge, mobile versions of these browsers or their derivatives (like the browser used in the Google bar in Android and the iOS Google App).
