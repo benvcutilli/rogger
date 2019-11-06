@@ -1,0 +1,19 @@
+# These two lines are from "Step 2 - Obtain GeoIP.conf with Account Information" section
+# from
+#   https://dev.maxmind.com/geoip/geoipupdate/
+#   Automatic Updates for GeoIP2 and GeoIP Legacy Databases << MaxMind Developer Site
+#   author - MaxMind, Inc.
+#   retrieved - 2019.11.5, sometime during 2019.10.31 - 2019.11.4
+#   via - https://dev.maxmind.com/geoip/geoip2/geolite2/
+AccountID 0
+LicenseKey 000000000000
+
+DatabaseDirectory /home/ubuntu/maxminddatabasefiles
+# "EditionIDs" and "GeoLite2-Country" from
+#   https://dev.maxmind.com/geoip/geoipupdate/
+#   Automatic Updates for GeoIP2 and GeoIP Legacy Databases << MaxMind Developer Site
+#   author - MaxMind, Inc.
+#   retrieved - 2019.11.5, sometime during 2019.10.31 - 2019.11.4
+#   via - https://dev.maxmind.com/geoip/geoip2/geolite2/
+# the "For Free GeoLite2 Databases" section.
+EditionIDs GeoLite2-Country

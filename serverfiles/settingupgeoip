@@ -1,0 +1,281 @@
+# This file lists the commands used to setup ngx_http_geoip2_module
+# and geoipupdate
+
+# Git from
+#   git-scm.com
+# GeoIP2 module from
+#   https://github.com/leev/ngx_http_geoip2_module
+#   GitHub - leev/ngx_http_geoip2_module: Nginx GeoIP2 module
+#   author - leev
+#   via - https://serverfault.com/questions/865990/nginx-and-geolite2-not-working
+# which was recommended by
+#   https://serverfault.com/questions/865990/nginx-and-geolite2-not-working
+#   geoip - Nginx and GeoLite2 not working - Server Fault
+#   author - Joe and user3448600
+#   published - 2017.7.31 and 2018.9.3
+#   retrieved - sometime during 2019.10.31 - 2019.11.4
+#   via - google.com search for "ngx_http_geoip_module geolite"
+git clone https://github.com/leev/ngx_http_geoip2_module.git
+
+# These three commands are from "On Ubuntu via PPA" section of
+#   https://github.com/maxmind/libmaxminddb
+#   GitHub - maximind/libmaximinddb: C library for the MaxMind DB file format
+#   author - leev
+#   retrieved - sometime during 2019.10.31 and 2019.11.4
+#   published - 2019.1.25
+# The first two are also from "Installing on Ubuntu via PPA" section from
+#   https://github.com/maxmind/geoipupdate
+#   GitHub - maxmind/geoipupdate: GeoIP update client code
+#   Author - maxmind
+#   retrieved - 2019.11.5
+#   published - 2019.1.18
+#   via - https://dev.maxmind.com/geoip/geoipupdate/
+# sudo from
+#   https://www.sudo.ws/
+# add-apt-repository and apt-get from
+#   ubuntu.com
+#   Ubuntu 16.04
+# The packages being installed are from
+#   https://launchpad.net/~maxmind/+archive/ubuntu/ppa
+#   user - maxmind
+#   page via launchpad.net search for "maxmind"
+# PPAs were described by
+#   https://itsfoss.com/ppa-guide/
+#   What is PPA? Everything You Need to Know About PPA in Linux
+#   Author - Abhishek Prakash
+#   published - 2019.10.4
+#   retrieved - 2019.11.3
+#   via - google.com search for "what is a ppa"
+# and
+#   https://www.tecmint.com/add-remove-purge-ppa-in-ubuntu/
+#   How to Add or Remove a PPA in Ubuntu Using GUI and Terminal
+#   published - 2019.4.1
+#   retrieved - 2019.11.3
+#   author - Aaron Kili
+#   via - google.com search for "ubuntu ppa what is"
+sudo add-apt-repository ppa:maxmind/ppa
+sudo apt-get update
+sudo apt-get install libmaxminddb0 libmaxminddb-dev mmdb-bin
+
+
+
+
+
+# sudo from
+#   https://www.sudo.ws/
+# apt-get from
+#   ubuntu.com
+#   Ubuntu 16.04
+# g++ from
+#   https://packages.ubuntu.com/xenial/g++
+#   g++
+#   authors - Mathias Klose, Debian GCC Maintainers, Ubuntu Core Developers
+sudo apt-get install g++
+
+# wget from
+#   https://www.gnu.org/software/wget/
+#   page via searching using google.com for "wget"
+# Package from
+#   https://ftp.pcre.org/pub/pcre/pcre-8.43.tar.gz
+#   pcre-8.43.tar.gz
+#   published - 2019.2.23
+# and this url was supplied by
+#   https://ftp.pcre.org/pub/pcre/
+#   Index of /pub/pcre
+#   retrieved - 2019.11.3 - 2019.11.4, sometime during 2019.10.31 - 2019.11.2
+wget https://ftp.pcre.org/pub/pcre/pcre-8.43.tar.gz
+# tar from
+#   https://www.gnu.org/software/tar/
+#   page via searching using google.com for "tar"
+tar zxf pcre-8.43.tar.gz
+# cd from
+#   ubuntu.com
+#   Ubuntu 16.04
+cd pcre-8.43
+
+# using "./configure", "make", and "make install" commands from
+# the INSTALL file's "Basic Installation" (the INSTALL file is
+# in pcre-8.43
+
+./configure
+# make from
+#   https://packages.ubuntu.com/xenial/make
+#   version - Manoj Srivastava, Ubuntu Core Developers
+make
+# sudo from
+#   https://www.sudo.ws/
+# make from
+#   https://packages.ubuntu.com/xenial/make
+#   version - Manoj Srivastava, Ubuntu Core Developers
+# sudo was said to be necessary by "Installing NGINX Dependences" in
+#   https://docs.nginx.com/nginx/admin-guide/installing-nginx/installing-nginx-open-source/
+#   NGINX Docs | Installing NGINX Open Source
+#   retrieved - sometime during 2019.10.31 - 2019.11.4
+#   via - google.com search for "nginx pcre ubuntu"
+sudo make install
+
+# cd from
+#   ubuntu.com
+#   Ubuntu 16.04
+cd ..
+
+# wget from
+#   https://www.gnu.org/software/wget/
+#   page via searching using google.com for "wget"
+# Archive from
+#   https://zlib.net/zlib-1.2.11.tar.gz
+#   zlib-1.2.11.tar.gz
+# URL for archive retrieved from
+#   https://zlib.net/
+#   zlib Home Site
+#   published - 2017.12.15
+#   retrieved - 2019.11.3 - 2019.11.4, sometime during 2019.10.31 - 2019.11.2
+#   via - google.com search
+wget https://zlib.net/zlib-1.2.11.tar.gz
+# tar from
+#   https://www.gnu.org/software/tar/
+#   page via searching using google.com for "tar"
+tar zxf zlib-1.2.11.tar.gz
+# cd from
+#   ubuntu.com
+#   Ubuntu 16.04
+cd zlib-1.2.11
+./configure
+# make from
+#   https://packages.ubuntu.com/xenial/make
+#   version - Manoj Srivastava, Ubuntu Core Developers
+make
+# sudo from
+#   https://www.sudo.ws/
+# make from
+#   https://packages.ubuntu.com/xenial/make
+#   version - Manoj Srivastava, Ubuntu Core Developers
+# sudo was said to be necessary by "Installing NGINX Dependences" in
+#   https://docs.nginx.com/nginx/admin-guide/installing-nginx/installing-nginx-open-source/
+#   NGINX Docs | Installing NGINX Open Source
+#   retrieved - sometime during 2019.10.31 - 2019.11.4
+#   via - google.com search for "nginx pcre ubuntu"
+sudo make install
+
+# cd from
+#   ubuntu.com
+#   Ubuntu 16.04
+cd ..
+
+# sudo from
+#   https://www.sudo.ws/
+# apt-get from
+#   ubuntu.com
+#   Ubuntu 16.04
+# libssl-dev from
+#   https://packages.ubuntu.com/xenial/libssl-dev
+#   authors - Kurt Roeckx, Debian OpenSSL Team, Cristoph Martin, Ubuntu Developers
+# This command was suggested to get NGINX (below) to compile with OpenSSL,
+# (https://www.openssl.org/, OpenSSL Software Foundation) but it doesn't appear to help.
+# The reference that suggested it is
+#   https://serverfault.com/questions/416571/cant-compile-nginx-with-ssl-support-openssl-not-found
+#   ubuntu - Can't compile nginx with SSL support, OpenSSL not found - Server Fault
+#   authors - Michael Hampton, James Linton
+#   retrieved - 2019.11.3
+#   published - 2012.8.11
+#   via - searching for "nginx doesn't see system openssl configure" using google.com
+# specifically, the answer by Michael Hampton
+sudo apt-get install libssl-dev
+
+
+
+
+
+# Commands below are from
+#   https://www.nginx.com/blog/compiling-dynamic-modules-nginx-plus/amp/
+#   How to Compile Dynamic Modules for NGINX Plus
+#   published - around 2016
+#   retrieved - 2019.11.4
+#   via - google.com search for "compiling new modules for nginx"
+# and also somewhat from
+#   unknown
+#   retrieved - around 2019.10.31 to 2019.11.4
+
+# As stated in the above reference, ran "nginx -v" to get the version
+# of NGINX I use so I know which package to download with wget below
+
+# wget from
+#   https://www.gnu.org/software/wget/
+#   page via searching using google.com for "wget"
+wget http://nginx.org/download/nginx-1.16.1.tar.gz
+# "-" and "v" were removed from the next command, and the option
+# characters "z", "x", "f" were reordered (originally it was
+# "tar -xzvf <file>"). tar from
+#    https://www.gnu.org/software/tar/
+#    page via searching using google.com for "tar"
+tar zxf nginx-1.16.1.tar.gz
+# cd from
+#   ubuntu.com
+#   Ubuntu 16.04
+cd nginx-1.16.1
+# --with-compat was explained by
+#   https://www.nginx.com/blog/nginx-dynamic-modules-how-they-work/
+#   NGINX Dynamic Modules: How We Implemented Them
+#   author - Maxim Dounin
+#   published - 2017.4.7
+#   retrieved - 2019.11.4
+#   via - google.com search with search term "what does --with-compat do"
+# (section "23:14 Compatability Between Builds"),
+#   https://forum.nginx.org/read.php?29,279735,279747
+#   Re: Is there a particular reason --with-compat isn't enabled by default?
+#   author - Maxim Dounin
+#   published - 2018.5.10
+#   retrieved - 2019.11.4
+#   via - google.com search with search term "what does --with-compat do"
+# and
+#   http://mailman.nginx.org/pipermail/nginx-devel/2016-October/008920.html
+#   When to use --with-compat configure option?
+#   author - Maxim Dounin
+#   published - 2016.10.12
+#   retrieved - 2019.11.4
+#   via - google.com search with search term "what does --with-compat do"
+#
+./configure --with-compat --add-dynamic-module=../ngx_http_geoip2_module
+# make from
+#   https://packages.ubuntu.com/xenial/make
+#   version - Manoj Srivastava, Ubuntu Core Developers
+make modules
+# cp from
+#    http://www.gnu.org/software/coreutils/cp
+#    page via "man cp"
+# sudo provided by
+#    https://www.sudo.ws/
+sudo cp objs/ngx_http_geoip2_module.so /etc/nginx/modules/
+
+
+# To install geoipupdate (see reference for it below), we
+# ran the following commands in addition to having previously
+# run "sudo add-apt-repository ppa:maximind/ppa" which are
+# all from "Installing on Ubuntu via PPA" in
+#   https://github.com/maxmind/geoipupdate
+#   GitHub - maxmind/geoipupdate: GeoIP update client code
+#   Author - maxmind
+#   retrieved - 2019.11.5
+#   published - 2019.1.18
+#   via - https://dev.maxmind.com/geoip/geoipupdate/
+# sudo from
+#   https://www.sudo.ws/
+# apt-get from
+#   ubuntu.com
+#   Ubuntu 16.04
+# geoipupdate is from
+#   https://launchpad.net/~maxmind/+archive/ubuntu/ppa
+#   user - maxmind
+#   page via launchpad.net search for "maxmind"
+sudo apt-get update
+sudo apt-get install geoipupdate
+
+# Then ran this command (a modification of the command found at
+#   https://dev.maxmind.com/geoip/geoipupdate/
+#   Automatic Updates for GeoIP2 and GeoIP Legacy Databases << MaxMind Developer Site
+#   author - MaxMind, Inc.
+#   retrieved - 2019.11.5, sometime during 2019.10.31 - 2019.11.4
+#   via - https://dev.maxmind.com/geoip/geoip2/geolite2/
+# (the "Step 3 - Run GeoIP Update" section) after creating the configuration
+# file ("geoipupdateconfig") and the directory "maxminddatabasefiles"
+geoipupdate -f geoipupdateconfig
