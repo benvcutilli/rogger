@@ -1,3 +1,33 @@
+# This file is used with
+#   cron
+#   author - Paul Vixie
+#   author is from "man cron"
+# Commands that Ben didn't type in himself but he has decided to
+# cite include:
+#   test
+#     https://www.gnu.org/software/coreutils/
+#     author - Jim Meyering, Padraig Brady, Bernhard Voelker, Eric Blake,
+#              Paul Eggert, Assaf Gordon, whoever authored the orginal
+#     authors and their order is taken from the above website
+#   cd
+#     Ubuntu 16.04
+#     ubuntu.com
+#   run-parts
+#     Ubuntu 16.04
+#     ubuntu.com
+#   anacron
+#     unknown website
+#     authors - Christian Schwarz
+#     author from https://linux.die.net/man/8/anacron
+#   unknown shell that runs the commands
+#     Ubuntu 16.04
+#     ubuntu.com
+# Everything in this file, except where noted (it will say it was
+# modified by Ben, was originally in this file, and this file came
+# with the AWS (aws.amazon.com) distribution of Ubuntu with AMI ID
+#   ubuntu/images/hvm-ssd/ubuntu-xenial-16.04-amd64-server-20170721 (ami-09d2fb69)
+# (this id is from AWS's console (console.aws.amazon.com))
+
 # /etc/crontab: system-wide crontab
 # Unlike any other crontab you don't have to run the `crontab'
 # command to install the new version when you edit this file
@@ -20,10 +50,15 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 0  0    * * 6   ubuntu  geoipupdate -f /home/ubuntu/geoipupdateconfig
 0  0    * * 7   ubuntu  geoipupdate -f /home/ubuntu/geoipupdateconfig
 #
-# The last 7 commands were added to this file as a suggestion by
+# The last 7 commands were added to this file by Ben as a suggestion by
 #   https://dev.maxmind.com/geoip/geoipupdate/
 #   Automatic Updates for GeoIP2 and GeoIP Legacy Databases << MaxMind Developer Site
 #   retrieved - 2019.11.5, sometime during 2019.10.31 - 2019.11.4
 #   author - MaxMind, Inc.
 #   via - https://dev.maxmind.com/geoip/geoip2/geolite2/
-# in the "Step 3 - Run GeoIP Update" section
+# in the "Step 3 - Run GeoIP Update" section. It uses the geoipupdate command from
+#   https://dev.maxmind.com/geoip/geoipupdate/
+#   Automatic Updates for GeoIP2 and GeoIP Legacy Databases << MaxMind Developer Site
+#   author - MaxMind, Inc.
+#   retrieved - 2019.11.5, sometime during 2019.10.31 - 2019.11.4
+#   via - https://dev.maxmind.com/geoip/geoip2/geolite2
