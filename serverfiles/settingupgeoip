@@ -1,6 +1,20 @@
 # This file lists the commands used to setup ngx_http_geoip2_module
 # and geoipupdate
 
+# Make is required for this step. I likely installed it with the "make" package
+#   https://packages.ubuntu.com/xenial/make
+#   authors - Manoj Srivastava, Ubuntu Core Developers
+# the package pointed out to me by Ubuntu
+#   ubuntu.com
+#   Ubuntu 16.04
+# when I tried to run "make" in Ubuntu's default shell. This installation was
+# likely done with the command "sudo apt-get install make", with
+#   https://www.sudo.ws/
+# providing "sudo" and
+#   ubuntu.com
+#   Ubuntu 16.04
+# providing "apt-get"
+
 # Git from
 #   git-scm.com
 # GeoIP2 module from
@@ -8,7 +22,7 @@
 #   GitHub - leev/ngx_http_geoip2_module: Nginx GeoIP2 module
 #   author - leev
 #   via - https://serverfault.com/questions/865990/nginx-and-geolite2-not-working
-# which was recommended by
+# which was recommended in the answer by Joe in
 #   https://serverfault.com/questions/865990/nginx-and-geolite2-not-working
 #   geoip - Nginx and GeoLite2 not working - Server Fault
 #   author - Joe and user3448600
@@ -70,6 +84,11 @@ sudo apt-get install libmaxminddb0 libmaxminddb-dev mmdb-bin
 #   https://packages.ubuntu.com/xenial/g++
 #   g++
 #   authors - Mathias Klose, Debian GCC Maintainers, Ubuntu Core Developers
+# Ubuntu
+#   ubuntu.com
+#   Ubuntu 16.04
+# said that g++ was available through the "g++" package when I typed in probably
+# "g++" into the default command line and the command failed to run
 sudo apt-get install g++
 
 # wget from
@@ -100,13 +119,13 @@ cd pcre-8.43
 ./configure
 # make from
 #   https://packages.ubuntu.com/xenial/make
-#   version - Manoj Srivastava, Ubuntu Core Developers
+#   authors - Manoj Srivastava, Ubuntu Core Developers
 make
 # sudo from
 #   https://www.sudo.ws/
 # make from
 #   https://packages.ubuntu.com/xenial/make
-#   version - Manoj Srivastava, Ubuntu Core Developers
+#   authors - Manoj Srivastava, Ubuntu Core Developers
 # sudo was said to be necessary by "Installing NGINX Dependences" in
 #   https://docs.nginx.com/nginx/admin-guide/installing-nginx/installing-nginx-open-source/
 #   NGINX Docs | Installing NGINX Open Source
@@ -143,13 +162,13 @@ cd zlib-1.2.11
 ./configure
 # make from
 #   https://packages.ubuntu.com/xenial/make
-#   version - Manoj Srivastava, Ubuntu Core Developers
+#   authors - Manoj Srivastava, Ubuntu Core Developers
 make
 # sudo from
 #   https://www.sudo.ws/
 # make from
 #   https://packages.ubuntu.com/xenial/make
-#   version - Manoj Srivastava, Ubuntu Core Developers
+#   authors - Manoj Srivastava, Ubuntu Core Developers
 # sudo was said to be necessary by "Installing NGINX Dependences" in
 #   https://docs.nginx.com/nginx/admin-guide/installing-nginx/installing-nginx-open-source/
 #   NGINX Docs | Installing NGINX Open Source
@@ -202,6 +221,13 @@ sudo apt-get install libssl-dev
 # wget from
 #   https://www.gnu.org/software/wget/
 #   page via searching using google.com for "wget"
+# archive from
+#   http://nginx.org/download/nginx-1.16.1.tar.gz
+#   nginx-1.16.1.tar.gz
+# url for the archive is from
+#   http://nginx.org/en/download.html
+#   nginx: download
+#   retrieved: late-ish 2019
 wget http://nginx.org/download/nginx-1.16.1.tar.gz
 # "-" and "v" were removed from the next command, and the option
 # characters "z", "x", "f" were reordered (originally it was
@@ -238,7 +264,7 @@ cd nginx-1.16.1
 ./configure --with-compat --add-dynamic-module=../ngx_http_geoip2_module
 # make from
 #   https://packages.ubuntu.com/xenial/make
-#   version - Manoj Srivastava, Ubuntu Core Developers
+#   authors - Manoj Srivastava, Ubuntu Core Developers
 make modules
 # cp from
 #    http://www.gnu.org/software/coreutils/cp
@@ -248,7 +274,7 @@ make modules
 sudo cp objs/ngx_http_geoip2_module.so /etc/nginx/modules/
 
 
-# To install geoipupdate (see reference for it below), we
+# To install geoipupdate (see next reference for geoipupdate's page), we
 # ran the following commands in addition to having previously
 # run "sudo add-apt-repository ppa:maximind/ppa" which are
 # all from "Installing on Ubuntu via PPA" in
@@ -258,6 +284,12 @@ sudo cp objs/ngx_http_geoip2_module.so /etc/nginx/modules/
 #   retrieved - 2019.11.5
 #   published - 2019.1.18
 #   via - https://dev.maxmind.com/geoip/geoipupdate/
+# geoipupdate was recommended by
+#   https://dev.maxmind.com/geoip/geoip2/downloadable/
+#   GeoIP2 Downloadable Databases << MaxMind Developer Site
+#   author - MaxMind
+#   retrieved - approximately 2019.11
+# in the section titled "Updating Downloadable Databases".
 # sudo from
 #   https://www.sudo.ws/
 # apt-get from

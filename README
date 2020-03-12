@@ -490,6 +490,217 @@ My mom, dad, and Eric Arnold helped with suggestions on how to cite things and j
 
 Also, Eric Arnold told me that I was getting questions on runnerunner.com's message boards relating to Rogger and said that I should chime in to help address them and address the fact that merv.stanford.edu was losing users due to spottiness of the site or other issues, and that I should encourage them to use Rogger as a replacement. He also might have answered questions on runnerunner.com in representation of me as I did not want to log onto runnerunner.com to do so.
 
+--------------------------------------------------------------------------------
+
+Setting up blocking any traffic outside of the US because of GDPR (GDPR is
+from
+  https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=OJ:L:2016:119:FULL&from=EN
+  Official Journal of the European Union
+  published - 2016.5.4
+  author - European Union
+  via - could have been via https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:02016R0679-20160504&qid=1567786393726&from=EN,
+        but definitely was via https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:02016R0679-20160504&from=EN
+) details follow:
+
+  I use the MaxMind GeoLite 2 database
+    https://dev.maxmind.com/geoip/geoip2/geolite2/
+    GeoLite2
+    author - Maximind
+    via - http://nginx.org/en/docs/http/ngx_http_geoip_module.html
+          Module ngx_http_geoip_module
+          relevant section - introductory section
+          via - unknown
+  I read about its license here:
+    https://creativecommons.org/licenses/by-sa/4.0/
+    Creative Commons -- Attribution-Sharealike 4.0 International -- CC BY-SA 4.0
+    author - Creative Commons
+    retrieved - 2019.11.5
+  and
+    https://dev.maxmind.com/geoip/geoip2/geolite2/
+    GeoLite 2 Free Downloadable Databases << MaxMind Developer Site
+    retrieved - around 2019.11
+    author - MaxMind
+    via - http://nginx.org/en/docs/http/ngx_http_geoip_module.html
+          Module ngx_http_geoip_module
+          via - unknown
+          relevant section - introduction
+  in the "License" referred me to that license.
+
+  In order to keep the database updated (as it is downloaded locally), I use
+  geoipupdate (reference H) which was recommended by the "Updating Downloadable
+  Databases" section of reference I.
+
+  To make sure the database was updating properly, I used the command
+    ls -l
+  which told me the date the file was updated, or something like that. "ls"
+  is a program distributed with reference K.
+
+  Making sure that this non-US blocking technique worked comprised of using
+  TunnelBear
+    https://www.tunnelbear.com/
+    TunnelBear
+    author - TunnelBear LLC
+  to connect to a VPN in Ireland, and trying to connect to rogger.co while
+  expecting failure to do so as an indicator that the blocking code works.
+
+
+  MaxMind changed its database download process so that you need to have an
+  account to download its GeoLite2 databases (reference A). As a result, as
+  instructed in reference A's "Steps for Migration", I
+    - created an account at reference B (the confirmation page, reference E,
+      that shows after signing up in reference B said to look for reference C
+      sent to my email address; I followed the instructions saying to set a
+      password for that account, using reference D suggested in that email to
+      set the password)
+    - went to reference F, and clicked on "Generate new license key", which lead
+      to reference G. I named the key "Rogger Blocking", said the key was going
+      to be used by GeoIP Update (reference H), and then said that the version I
+      was using for GeoIP Update was equal to or higher than 3.1.1 (I determined
+      this was the case by running geoipupdate --version on the server running
+      GeoIP Update). I then clicked "Confirm", which brought up reference J.
+      I took the "Account/User ID" value and "License Key" value and put them
+      into the GeoIP Update configuration file which you can find at
+      serverfiles/geoipupdateconfig in this repository.
+  After following those instructions, I used
+    geoipupdate -f <path to the GeoIP Update configruation file>
+  to test that the database actually updates, and checked the database file's
+  modification date (to see if the update succeeded) using "ls -l" ("ls" is a
+  command from reference K) in the directory where the database is saved.
+
+
+References:
+
+(A) https://blog.maxmind.com/2019/12/18/significant-changes-to-accessing-and-using-geolite2-databases/
+    Significant Changes to Accessing and Using GeoLite2 Databases | MaxMind Blog
+    author - Miguel Atienza
+    retrieved - 2020.1.17
+    published - 2019.12.18
+    via - https://dev.maxmind.com/geoip/geoip2/geolite2/
+
+(B) https://www.maxmind.com/en/geolite2/signup
+    GeoLite2 Sign Up | MaxMind
+    author - MaxMind
+    retrieved - 2020.1.17
+    via - reference A, "Steps for Migration" section
+
+(C) Email titled: "Welcome to MaxMind"
+    sender - support@maxmind.com
+    sent - 2020.1.17
+
+(D) https://www.maxmind.com/en/account/set-password
+    Set Password | MaxMind
+    author - MaxMind
+    retrieved - 2020.1.17
+    via - reference C
+
+(E) probably some resource found on the webserver(s) hosting maxmind.com
+    retrieved - 2020.1.17
+    author - MaxMind
+    via - reference B
+
+(F) https://www.maxmind.com/en/accounts/172704/license-key
+    License Keys | MaxMind
+    author - MaxMind
+    retrieved - 2020.1.18
+    via - "Steps for Migration" section of reference A
+
+(G) https://www.maxmind.com/en/accounts/172704/license-key/confirm-creation
+    Confirm generation of new license key | MaxMind
+    author - MaxMind
+    retrieved - 2020.1.18
+    via - reference F
+
+(H) https://github.com/maxmind/geoipupdate
+    geoipupdate
+    author - maxmind
+    via - https://dev.maxmind.com/geoip/geoipupdate/
+
+(I) https://dev.maxmind.com/geoip/geoip2/downloadable/
+    GeoIP2 Downloadable Database << MaxMind Developer Site
+    author - MaxMind
+    retrieved - 2019.11, approximately
+
+(J) https://www.maxmind.com/en/accounts/172704/license-key/created/
+    New license key successfully created | MaxMind
+    author - MaxMind
+    retrieved - 2020.1.18
+    via - reference G
+
+(K) GNU coreutils
+    version - 8.25 (output of "ls --version")
+    authors - Richard M. Stallman, David MacKenzie (using the author order
+              presented by "ls --version")
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+
+The tweet
+
+  https://twitter.com/arstechnica/status/1234884504755605510
+  Ars Technica on Twitter: "Let's Encrypt discovers CAA bug, must revoke customer certificates https://t.co/mZPS9QEsDu by @jrssnet" / Twitter
+  author - user @arstechnica
+  published - 2020.3.3
+  retrieved - 2020.3.3
+
+said that there was a problem with Let's Encrypt certificates. The reference
+that the tweet linked to:
+
+  Let's Encrypt discovers CAA bug, must revoke customer certificates | Ars Technica
+  https://arstechnica.com/information-technology/2020/03/lets-encrypt-revoking-https-certs-due-to-certificate-authority-bug/
+  retrieved - 2020.3.3
+  published - 2020.3.3
+  author - Jim Salter
+
+said that I would need to renew my SSL Certificate (and explained why), and that
+I could do it with
+  certbot renew --force-renewal
+SSL Certificates are defined by (an) unknown reference(s) and the "certbot"
+command is a program is from
+
+  https://certbot.eff.org/docs/
+  Certbot
+  author - Electronic Frontier Foundation
+
+I restarted the machine, and checked the renewal date of the certificate (to
+make sure the new certificate was in use) by using Firefox
+
+  https://www.mozilla.org/en-US/firefox/new/
+  author - Mozilla
+  version - 68.0.1
+  platform - macOS 10.14.6
+
+by going to rogger.co, clicking on the lock icon in the URL bar, clicking on the
+right arrow next to "Connection", then "More Information" at the bottom of that
+pop-up, and finally "View Certificate" in the window that pops up.
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+
+External motivations for keeping the Rogger server up-to-date:
+
+The article at
+  https://arstechnica.com/information-technology/2020/02/serious-flaw-that-lurked-in-sudo-for-9-years-finally-gets-a-patch/
+  Serious flaw that lurked in sudo for 9 years hands over root privileges | Ars Technica
+  author - Dan Goodin
+  published - 2020.2.4
+  retrieved - 2020.2.5
+which states that sudo
+  https://www.sudo.ws/ (URL from bottom of page produced by "man sudo")
+may need to be upgraded.
+
+The processor vulnerabilities that have been discovered recently,
+possibly including those discussed at 7:30 (this time according to the
+table-of-contents in the video) of
+  https://youtu.be/qgy9v8p5OJY
+  HW News - Apple's Malware Problem, 10700K 5.3 GHz Rumors, & Sony PS5 Pricing - YouTube
+  author - Gamers Nexus
+  published - 2020.2.17
+  retrieved - 2020.2
+
+
+--------------------------------------------------------------------------------
 
 
 
