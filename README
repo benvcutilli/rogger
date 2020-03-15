@@ -468,8 +468,23 @@ People who helped debug (for the things discussed below that were debugged, ther
 -Those (currently unknown who) who trigged the old site's bug where the antivirus would go down, so images couldn't be scanned for viruses on banner and profile picture uploads, and the server would error out, which would send me an email with a bug report. That's how I found out about these situations, and the bug is sort of fixed in this site (there is no antivirus running, so the same error can't occur).
 -Eric Arnold said that the site was freaking out (it probably was with regard to Nginx complaining about the gateway), and it turned out that UWSGI hadn't been started. He probably mentioned this to me around 2019.2.17.
 -I checked to make sure the TLS encryption was still working as Let's Encrypt (https://letsencrypt.org/, Internet Security Research Group, site found by searching for "letsencrypt" on google.com) emailed me something that made me think it wasn't. I tested the encryption with Mobile Safari (https://www.apple.com/safari/, Apple Inc., site found by searching for "mobile safari" on google.com)
+-Eric Arnold -- He pointed out via text on 2020.3.6 that he was getting a 502 code (defined by
+    https://www.ietf.org/rfc/rfc2616.txt
+    Hypertext Transfer Protocol -- HTTP/1.1
+    author - R. Fielding, J. Gettys, J. Mogul, H. Frystyk, L. Manister, P. Leach, T. Berners-Lee (order taken from reference)
+    rfc # - 2616
+    published - 1999.6
+    via - https://www.w3.org/Protocols/rfc2616/rfc2616.html, which was via something else
+ in section 10.5.3) from his web browser. I knew that this was likely NGINX
+    http://nginx.org/
+ giving him the code, and that I had to fix this by starting up uWSGI
+    https://uwsgi-docs.readthedocs.io/en/latest/
 
 and others whose names I don't know, and almost certainly others that I cannot think of.
+
+
+
+
 
 Beta Testers:
 Charlie Marquardt
