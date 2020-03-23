@@ -14,7 +14,11 @@ class UserInfo(models.Model):
     authUser                =   models.OneToOneField(User, on_delete=models.CASCADE)
     # NEXT LINE CITATION [31]
     displayName             =   models.CharField(max_length=100, default="")
-    # 2 FOR DEFAULT: CITATION [50]
+    # 2 FOR DEFAULT: strong default privacy is mandated by GDPR [64] according
+    # to [50], so we choose privacy setting 2, which is a protected profile;
+    # however, according to [50], it may be necessary to have mode 3 by default
+    # (unlisted profile) as it is technically the strongest privacy setting
+    # Rogger has to offer.
     privacySelection        =   models.IntegerField(default=2)
     pdfName                 =   models.CharField(max_length=100, default="")
     # NEXT LINE CITATION [27]

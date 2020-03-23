@@ -20,24 +20,29 @@ The code for the old version of this site can be found at bitbucket.org/roggerlo
 
 PRIVACY POLICY
 
-According to [62], [63], the GDPR [] may be enforcible for this site. So, this
-privacy policy addresses the GDPR.
+According to [62], [63], the GDPR [64] may be enforceable for this site. So,
+this privacy policy addresses the GDPR (it's possible that [50], [57], and/or
+[64] state that the existence of this privacy policy may be a requirement of
+GDPR; however, I think I really added this because around the time of the launch
+of GDPR (2018.5.25, I think, according to unknown references) so many other
+companies were announcing new versions of their privacy policy).
 
 
 Who has access to your data (each point addressed here is from
-[57, Reponsibility and accountability][58])?
+[57, Responsibility and accountability][58])?
 
 Your data is almost completely kept on the web site's server and other Amazon
-Web services utilities [55], and no one has access to it other than those
+Web services utilities [65], and no one has access to it other than those
 viewing the site (and depending on what you've set your privacy to). One
 exception is that, when you create an account, Google [52] provides the
 reCAPTCHA [53] that filters out the bots from the non-bots. I don't know exactly
 what it sends to Google. Requests to the server go through the Domain Name
-Service [54], so that could be a source of information leakage. The server is
-hosted by Amazon Web Services, but everything should be, in theory, pretty
-locked down with them. An administrator has full access to all data, but I
-consider myself a benevolent dictator. For GDPR [56]-specific regulation,
-everything or almost everything is not held within the European Union.
+Service (which "History" of [56] says is defined by [54] and [55]), so that
+could be a source of information leakage. The server is hosted by Amazon Web
+Services [65], but everything should be, in theory, pretty locked down with
+them. An administrator has full access to all data, but I consider myself a
+benevolent dictator. For GDPR [64]-specific regulation, everything or almost
+everything is not held within the European Union.
 
 
 How can I fix a problem in my data, delete my account, or get my data in a
@@ -74,7 +79,7 @@ in the search bar you can see at the top of the page.
 
 
 
-SOME CITATIONS:
+SOME CITATIONS (using the number-in-square-brackets format commonly found):
 
 [1]   http://stackoverflow.com/questions/4571686/django-include-template-from-another-app
 [2]   http://www.w3schools.com/colors/colors_picker.asp for picking colors
@@ -151,14 +156,38 @@ SOME CITATIONS:
       (https://docs.djangoproject.com/en/1.11/topics/security/) and was inspired by the aforementioned source as well.
 [48]  Explanation of what I need to say to users to abide by the the EU Cookie law(s) is from https://www.cookielaw.org/the-cookie-law/ and http://ec.europa.eu/ipg/basics/legal/cookies/index_en.htm
 [49]  https://stackoverflow.com/questions/41787263/different-value-of-csrf-token-in-response-header-and-browser-cookies-csrf-verif
-[50]  GDPR Privacy Setting
+[50]  The page at https://www.gdpreu.org/ ("GDPR EU.org - Web learning resources for the EU General Data Protection Regulation";
+      retrieved likely around May 2018) or subpages of that page, and/or https://en.wikipedia.org/wiki/General_Data_Protection_Regulation
+      ("General Data Protection Regulation - Wikipedia"; also retrieved somewhere near May 2018)
 [51]  Boto3 saying that it has the wrong "signature version",
       https://forums.aws.amazon.com/message.jspa?messageID=681392 (which said
       that I can use the "config" parameter with the value stated there),
       https://github.com/boto/botocore/issues/377 - jamesls (the string in the
       Config object call also from here)
-[52]
-[53]
+[52]  Google
+      google.com
+[53]  ReCAPTCHA
+      https://www.google.com/recaptcha/
+[54]  https://tools.ietf.org/html/rfc1034
+      Domain Names - Concepts and Facilities
+      author - P. Mockapetris
+      retrieved - 2019.11.22
+      published - 1987.11
+      via - [56], History
+[55]  https://tools.ietf.org/html/rfc1035
+      Domain Names - Implementation and Specification
+      author - P. Mockapetris
+      published - 1987.11
+      retrieved - 2019.11.22
+      via - [56], "History"
+[56]  https://en.wikipedia.org/wiki/Domain_Name_System
+      Domain Name System - Wikipedia
+      published - 2019.9.30
+      retrieved - 2019.11.22
+      via - google.com search; searched for "DNS rfc", which is derived from
+            the acronym for Domain Name System "DNS", and the acronym for
+            Request for Comments, "RFC". DNS is from [54] and [55] according to
+            "History" of [56]; [66] is the reference for RFCs.
 [57]  https://en.wikipedia.org/wiki/General_Data_Protection_Regulation
 [58]  https://www.gdpreu.org/
 [59]  https://www.gdpreu.org/the-regulation/list-of-data-rights/right-to-rectification/
@@ -166,6 +195,21 @@ SOME CITATIONS:
 [61]  https://www.gdpreu.org/the-regulation/list-of-data-rights/right-to-data-portability/
 [62]  https://www.gdpreu.org/the-regulation/who-must-comply/
 [63]  https://www.gdpreu.org/faq/
+[64]  https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=OJ:L:2016:119:FULL&from=EN
+      Official Journal of the European Union
+      author - European Union
+      published - 2016.5.4
+      via - could be from https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:02016R0679-20160504&qid=1567786393726&from=EN
+            but is also definitely from https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:02016R0679-20160504&from=EN;
+[65]  Amazon Web Services
+      aws.amazon.com
+      Amazon Web Services, Inc. and possible affiliates
+[66]  https://ietf.org/standards/rfcs/
+      IETF | RFCs
+      author - Internet Engineering Task Force
+      retrieved - 2019.12.13
+      via - searching for "rfc" using google.com, the acronym for Request for
+            Comments, a conept from [66]
 
 
 GENERAL CITATIONS:
@@ -467,7 +511,7 @@ People who helped debug (for the things discussed below that were debugged, ther
 -Mali Axinn (approximately 2017.9.26) and someone else (unsure of date when this occurred, sometime late summer 2017, I think): Mali's accounts needed to be deleted, so that helped me test that account deletion actually deletes everything related to that account, and that someone else had a bug that I created at least one account for to test out, so when I deleted those accounts, that helped to test that the account's data was being deleted. However, now that I think about it, it doesn't deleted all the information, yet, so I have to address that at some point. Account deletion is not a user-facing feature yet, but it will be at some point, so hopefully it is fixed by then.
 -Those (currently unknown who) who trigged the old site's bug where the antivirus would go down, so images couldn't be scanned for viruses on banner and profile picture uploads, and the server would error out, which would send me an email with a bug report. That's how I found out about these situations, and the bug is sort of fixed in this site (there is no antivirus running, so the same error can't occur).
 -Eric Arnold said that the site was freaking out (it probably was with regard to Nginx complaining about the gateway), and it turned out that UWSGI hadn't been started. He probably mentioned this to me around 2019.2.17.
--I checked to make sure the TLS encryption was still working as Let's Encrypt (https://letsencrypt.org/, Internet Security Research Group, site found by searching for "letsencrypt" on google.com) emailed me something that made me think it wasn't. I tested the encryption with Mobile Safari (https://www.apple.com/safari/, Apple Inc., site found by searching for "mobile safari" on google.com)
+-I checked to make sure the TLS encryption (refrence for TLS unknown) was still working as Let's Encrypt (https://letsencrypt.org/, Internet Security Research Group, site found by searching for "letsencrypt" on google.com) emailed me something that made me think it wasn't. I tested the encryption with Mobile Safari (https://www.apple.com/safari/, Apple Inc., site found by searching for "mobile safari" on google.com)
 -Eric Arnold -- He pointed out via text on 2020.3.6 that he was getting a 502 code (defined by
     https://www.ietf.org/rfc/rfc2616.txt
     Hypertext Transfer Protocol -- HTTP/1.1
