@@ -20,16 +20,16 @@ The code for the old version of this site can be found at bitbucket.org/roggerlo
 
 PRIVACY POLICY
 
-According to [62], [63], the GDPR [64] may be enforceable for this site. So,
-this privacy policy addresses the GDPR (it's possible that [50], [57], and/or
-[64] state that the existence of this privacy policy may be a requirement of
-GDPR; however, I think I really added this because around the time of the launch
-of GDPR (2018.5.25, I think, according to unknown references) so many other
-companies were announcing new versions of their privacy policy).
+According to [62], [63], and [50], the GDPR [64] may be enforceable for this
+site. So, this privacy policy addresses the GDPR (it's possible that [50], [57],
+and/or [64] state that the existence of this privacy policy may be a requirement
+of GDPR; however, I think I really added this because around the time of the
+launch of GDPR (2018.5.25, I think, according to unknown references) so many
+other companies were announcing new versions of their privacy policy).
 
 
 Who has access to your data (each point addressed here is from
-[57, Responsibility and accountability][58])?
+[57, Responsibility and accountability][50])?
 
 Your data is almost completely kept on the web site's server and other Amazon
 Web services utilities [65], and no one has access to it other than those
@@ -46,25 +46,29 @@ everything is not held within the European Union.
 
 
 How can I fix a problem in my data, delete my account, or get my data in a
-downloaded form? (these subjects are from [57, Reponsibility and accountability],
-[57, Right of access], [57, Right to erasure], [58], [59], [60], [61])
+downloaded form? (these subjects are from [57, Reponsibility and
+accountability], [57, Right of access], [57, Right to erasure], [58], [59],
+[60], [61])
 
 Contact ben@rogger.co with any issues you have.
 
 
-Why are YOU allowed to touch my data? (from [57, Reponsibility and accountability], [57, Lawful basis for processing], [58])
+Why are YOU allowed to touch my data? (from [57, Reponsibility and
+accountability], [57, Lawful basis for processing], [50])
 
 So that the site can function.
 
 
-You store my data for HOW MUCH TIME? ([57, Reponsibility and accountability][58] provided this question)
+You store my data for HOW MUCH TIME? ([57, Reponsibility and accountability][50]
+provided this question)
 
 Eternity, except for when you request account deletion, in which case at time
 of the actual deletion, all of your data should be removed (unless part of the
 deletion process fails or is not thorough enough by accident).
 
 
-What does the program do with my data? (question origin: [57, Reponsibility and accountability][58])
+What does the program do with my data? (question origin: [57, Reponsibility and
+accountability][50])
 
 Nothing crazy. The craziest it gets is just an algorithm to perform a search
 in the search bar you can see at the top of the page.
@@ -79,7 +83,10 @@ in the search bar you can see at the top of the page.
 
 
 
-SOME CITATIONS (using the number-in-square-brackets format commonly found):
+SOME CITATIONS (using the number-in-square-brackets format commonly found;
+the positioning of locators in those square brackets (as well as the comma that
+separates the number from the locator) is also from some citation style as
+well):
 
 [1]   http://stackoverflow.com/questions/4571686/django-include-template-from-another-app
 [2]   http://www.w3schools.com/colors/colors_picker.asp for picking colors
@@ -203,17 +210,26 @@ SOME CITATIONS (using the number-in-square-brackets format commonly found):
             but is also definitely from https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:02016R0679-20160504&from=EN;
 [65]  Amazon Web Services
       aws.amazon.com
-      Amazon Web Services, Inc. and possible affiliates
+      author - Amazon Web Services, Inc. (or it could additionally/instead be their affiliates)
 [66]  https://ietf.org/standards/rfcs/
       IETF | RFCs
       author - Internet Engineering Task Force
       retrieved - 2019.12.13
       via - searching for "rfc" using google.com, the acronym for Request for
             Comments, a conept from [66]
+[67]  https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AmazonEBS.html
+      Amazon Elastic Block Store (Amazon EBS) - Amazon Elastic Compute Cloud
+      author - Amazon Web Services, Inc. (or it could additionally/instead be their affiliates)
+[68]  https://docs.aws.amazon.com/s3/index.html?nc2=h_ql_doc_s3-b
+      Amazon Simple Storage Service Documentation
+      author - Amazon Web Services, Inc. (or it could additionally/instead be their affiliates)
 
 
 GENERAL CITATIONS:
-This site has a lot of influence from merv.standford.edu. Some major ideas from there (but possibly not all of them if my memory is failing me):
+This site has a lot of influence from merv.standford.edu (now mervsrunning.com,
+titled "Merv's RUNNING").
+Some major ideas from there (but possibly not all of them if my memory is
+failing me):
   - Creating shoes and tracking mileage on them in logs/adding them to log entries
   - Using a calendar layout (probably most influential is the ability to click on
     a date on the calendar to make a new entry for that date) (also, a lot of
@@ -221,8 +237,8 @@ This site has a lot of influence from merv.standford.edu. Some major ideas from 
     them)
   - Workout creation layout
   - Custom workout types (also a suggestion from a user)
-  - Allowing users' profiles to go completely private with no or close to no hint
-    of the account existing
+  - Allowing users' profiles to go completely private with no or close to no
+    hint of the account existing
 - Instagram for inspiring the cursive "rogger" that you will see throughout the
   site (like on the navigation bar, about page, maybe others I am forgetting).
 - The purplish-grey and white-ish color set used around the site is derivative
@@ -769,7 +785,16 @@ and "apt-get" is distributed with
 
 --------------------------------------------------------------------------------
 
+--------------------------------------------------------------------------------
 
+This site uses encryption in order to be in (somewhat of) compliance with GDPR
+[64]. Specifically, the data on the server is encrypted using EC2 volumes [67]
+that are encrypted by AWS [65], and the images that users upload are hosted on
+an encrypted S3 bucket [68], also encrypted by AWS (though as required by GDPR
+according to an unknown reference, the encryption keys in both the EC2 volume
+and S3 bucket scenarios should be handled by me, which they aren't).
+
+--------------------------------------------------------------------------------
 
 LICENSE (MIT, from citation [33]):
 
