@@ -62,3 +62,37 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 #   author - MaxMind, Inc.
 #   retrieved - 2019.11.5, sometime during 2019.10.31 - 2019.11.4
 #   via - https://dev.maxmind.com/geoip/geoip2/geolite2
+# Initially this ran geoipupdate every day of the week. I kept it this way in the
+# face of
+#   https://blog.maxmind.com/2019/12/18/significant-changes-to-accessing-and-using-geolite2-databases/
+#   Significant Changes to Accessing and Using GeoLite2 Databases | MaxMind Blog
+#   author - Miguel Atienza
+#   retrieved - 2020.1.17
+#   published - 2019.12.18
+#   via - https://dev.maxmind.com/geoip/geoip2/geolite2/
+# which said that CCPA
+#   https://leginfo.legislature.ca.gov/faces/billPdf.xhtml?bill_id=201720180AB375&version=20170AB37591CHP
+#   Assembly Bill No. 375: Chapter 55
+#   author - California Legislative Council
+#   retrieved - 2020.1.18
+#   published - 2018.6.28
+#   via - https://en.wikipedia.org/wiki/California_Consumer_Privacy_Act
+#         California Consumer Privacy Act - Wikipedia
+#         retrieved - late 2019/early 2020
+#         via - search with google.com with term "ccpa" (acronym from unknown reference(s) retrieved
+#               around the same time
+# requires that the fulfillment of requests from users to delete their personal data has to happen
+# in a timely fashion. Further,
+#   https://www.maxmind.com/en/geolite2/eula
+#   GeoLite2 End User License Agreement | MaxMind
+#   author - MaxMind
+#   published - 2019.12.19
+#   retrieved - 2020.1.16
+#   via - https://dev.maxmind.com/geoip/geoip2/geolite2/
+# in the "ADDITIONAL RESTRICTIONS" section says that I need to stop using GeoLite 2
+#   https://dev.maxmind.com/geoip/geoip2/geolite2/
+#   GeoLite2
+#   author - MaxMind
+# databases at most 30 days after they become obsolete and delete them within that time
+# frame as well, so I run geoipupdate more frequent than every 30 days to ensure that this
+# happens.

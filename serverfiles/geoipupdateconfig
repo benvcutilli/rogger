@@ -5,8 +5,11 @@
 #   author - MaxMind, Inc.
 #   retrieved - 2019.11.5, sometime during 2019.10.31 - 2019.11.4
 #   via - https://dev.maxmind.com/geoip/geoip2/geolite2/
-AccountID 0
-LicenseKey 000000000000
+# except the "AccountID" and "LicenseKey" values were replaced with the values obtained
+# from MaxMind (maxmind.com), and that retrieval process is described and cited in the
+# Rogger README.
+AccountID <redacted>
+LicenseKey <redacted>
 
 DatabaseDirectory /home/ubuntu/maxminddatabasefiles
 # "EditionIDs" and "GeoLite2-Country" from
