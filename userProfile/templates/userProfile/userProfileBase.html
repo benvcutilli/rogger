@@ -337,6 +337,10 @@
               </td>
               <td class="calendarControl">
                 <select id="yearSelector" onchange="updateCalendar();">
+                  <!-- The earliest year to show as an option might have been
+                  chosen to accomodate the year that [70] was created, as anyone
+                  who is importing data from there might have data that goes all
+                  the way back to then -->
                   <option value="1998">
                     1998
                   </option>
@@ -569,12 +573,16 @@
     }
   }
 
+  // These variables and the function that follows (getMonthsScroll()) do the
+  // fetching of calendar information when scrolling. This can be read about in
+  // [69].
+  //////////////////////////////////////////////////////////////////////////////
+  //                                                                          //
+
   var scrollMonthEarlier  = {{ earliestMonth }};
   var scrollMonthLater    = {{ latestMonth }};
   var scrollYearEarlier   = {{ earliestYear }};
   var scrollYearLater     = {{ latestYear }};
-
-
   function getMonthsScroll() {
     var monthsHeight = 0.0;
     $(".monthContainer").each(function(index, domElement) {
@@ -631,6 +639,9 @@
       });
     }
   }
+
+  //                                                                          //
+  //////////////////////////////////////////////////////////////////////////////
 
   var currDate = new Date();
   var dateString = (currDate.getMonth()+1) + "." + currDate.getFullYear();

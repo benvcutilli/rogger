@@ -3,16 +3,33 @@ things, so I haven't cited everything yet. Take what you see here with a
 grain of salt and don't fork this. I plan on redoing the site in the
 relatively near future; you can fork off that if you please.
 
-Resources used to make this project can be found in this README
- (citations can be found in the code base as well,
-using the [#] notation to index each source found on this page; for any reference to
-the original version of Rogger, you can find information on how to find that under the
-"ACKNOWLEDGEMENTS" section), BUT NOT ALL CITATIONS ARE HERE! SOME ARE ALSO JUST SOMEWHERE
-ELSE IN THIS REPOSITORY! Some may also be on just the server of the website itself,
-and so you can't see the files, though I tried to be diligent about putting those citations
-here. I also may have missed a few by accident.
+Resources used to make this project can be found in this README (citations can
+be found in the code base as well, using the common [#, locator] notation to
+index each source found on this page; for any reference to the original version
+of Rogger, you can find information on how to find that under the
+"ACKNOWLEDGEMENTS" section), BUT NOT ALL CITATIONS ARE HERE! SOME ARE ALSO JUST
+SOMEWHERE ELSE IN THIS REPOSITORY! Some may also be on just the server of the
+website itself, and so you can't see the files, though I tried to be diligent
+about putting those citations here. I also may have missed a few by accident.
 
-The code for the old version of this site can be found at bitbucket.org/roggerlogger/rog under the "refactor" and "master" branches (both master and refactor have citations that may differ from each other, so look at both of them)
+The code for the old version of this site can be found at
+bitbucket.org/roggerlogger/rog under the "refactor" and "master" branches (both
+master and refactor have citations that may differ from each other, so look at
+both of them)
+
+Term(s) used in this file and their references:
+  "PDF": https://www.iso.org/standard/63534.html
+         Document management -- Portable document format -- Part 2: PDF 2.0
+         iso code - 32000-2:2017
+         published - 2017.7
+         via - https://en.wikipedia.org/wiki/PDF
+               PDF - Wikipedia
+               retrieved - 2020.3.25
+               published - 2020.3.25
+               section - right-side information box at top of page
+               via - google.com; searched for "pdf" (the acronym for the
+                     standard outlined in the reference that encapsulates this
+                     reference)
 
 
 
@@ -223,11 +240,29 @@ well):
 [68]  https://docs.aws.amazon.com/s3/index.html?nc2=h_ql_doc_s3-b
       Amazon Simple Storage Service Documentation
       author - Amazon Web Services, Inc. (or it could additionally/instead be their affiliates)
+[69]  If you've been directed to this citation point, it means that the feature
+      cited helps to create this environment similar to iPhone OS (by Apple,
+      Inc.) Table Views, where data that belongs above or below the data
+      currently in-view is loaded at the time it is needed instead of
+      ahead-of-time. In this case, the calendar can scroll up and down, but
+      since time is virtually infinite in both the past and future directions,
+      we can't load the calendar of all time at page load, so instead when the
+      user scrolls up or down enough along the months in the calendar, the site
+      will load in new calendar data as it is needed.
+[70]  merv.stanford.edu
+      Merv's RUNNING
+      author - Mark Crimmins
+      comment - Website title from https://web.archive.org/web/20170328042657/http://merv.stanford.edu/
+[71]  Many different apps use this strategy of confirming the password to
+      prevent, I think, someone from changing important settings of another user
+      who somehow has inadvertently given access to their account to the
+      malicious actor.
 
 
 GENERAL CITATIONS:
-This site has a lot of influence from merv.standford.edu (now mervsrunning.com,
-titled "Merv's RUNNING").
+This site has a lot of influence from Mark Crimmin's "Merv's RUNNING"
+(https://web.archive.org/web/20170328042657/http://merv.stanford.edu/ provided
+the title) at merv.standford.edu (now mervsrunning.com, also titled "Merv's RUNNING").
 Some major ideas from there (but possibly not all of them if my memory is
 failing me):
   - Creating shoes and tracking mileage on them in logs/adding them to log entries
@@ -239,6 +274,9 @@ failing me):
   - Custom workout types (also a suggestion from a user)
   - Allowing users' profiles to go completely private with no or close to no
     hint of the account existing
+  - The hidden profile (as in the user's page 404s) privacy mode, which was
+    requested by Flora Berklein in person in March of 2016 (I think that's the
+    correct date)
 - Instagram for inspiring the cursive "rogger" that you will see throughout the
   site (like on the navigation bar, about page, maybe others I am forgetting).
 - The purplish-grey and white-ish color set used around the site is derivative
@@ -259,18 +297,21 @@ failing me):
 - Also, as I think I have stated elsewhere in this file, this site uses a lot of
   common features found around web
 - Evan Hamilton and Joel Christian to their tiny-but-appreciated direct and
-  indirect contributions to the old project (bitbucket.org/roggerlogger) of which
-  they were part of the coding team, and their probably ongoing indirect
+  indirect contributions to the old project (bitbucket.org/roggerlogger) of
+  which they were part of the coding team, and their probably ongoing indirect
   contributions to this one.
 - Everyday users of the site add their data to the site, so this data was useful
   when checking the correct operation of the site.
 - This repository's/this project's version control is managed by Git
   (git-scm.com)
-- The hidden profile (as in the user's page 404s) privacy mode is from
-  merv.stanford.edu (title: Merv's RUNNING, author: Mark Crimmins, title from
-  https://web.archive.org/web/20170328042657/http://merv.stanford.edu/) and
-  was requested by Flora Berklein in person in March of 2016 (I think that's the
-  correct date)
+- I think someone may have asked for the feature where the website generated a
+  PDF from the workouts for a given week, or at least they asked for the ability
+  to print the entries from that week. If no one actually requested that and I
+  came up with it by myself, then the week timespan is based on the fact that
+  Tom Donnelly, the coach of the Haverford College (in Haverford, PA, USA) would
+  ask his athletes for their weekly running logs, at least when he was coaching
+  the cross country and indoor/outdoor track teams from Fall 2008 to Spring
+  2012.
 
 DEBUG:
 Thanks to everyone that submitted bug reports. Safari, the web browser, was very important in debugging, and less important but still important were other browser(s) probably including (but there may be others I am forgetting) Firefox, Chrome, Internet Explorer (unknown release number(s) like 6, 7, 8, 9, 10, 11, etc), Edge, mobile versions of these browsers or their derivatives (like the browser used in the Google bar in Android and the iOS Google App).

@@ -59,6 +59,7 @@ def settings(request):
                 'pdfName'           :   request.POST['pdfName']
             })
             if accountSettingsForm.is_valid():
+                # Checking the password for reasons discussed in [71]:
                 if authenticate(username=request.user.username, password=request.POST['password']) != None:
                     print("privacy received", accountSettingsForm.cleaned_data['privacySelection'])
                     if accountSettingsForm.cleaned_data['emailAddress'] != "":

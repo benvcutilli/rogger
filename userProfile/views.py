@@ -102,6 +102,9 @@ def userViewAJAX(request, username):
                 'laterYear'     :   months[-1].year,
                 'html'          :   render_to_string("userProfile/months.html", { 'months': months, 'profileOwner': user, 'user': request.user })
             })
+        # The case where we are fetching calendar information from before the
+        # earliest time shown on the calendar (see [69] for why this
+        # functionality exists):
         elif request.POST['todo']   ==  "scrollEarlier":
             # usage of the "approved" attribute in a Follow object from citation [25]
             if user.userinfo.privacySelection == 2 and not Follow.objects.filter(followee=user, follower=request.user, approved=True).exists():
@@ -110,8 +113,9 @@ def userViewAJAX(request, username):
             return JsonResponse({
                 'month' :   months[0].month,
                 'year'  :   months[0].year,
-                'html'          :   render_to_string("userProfile/months.html", { 'months': months, 'profileOwner': user, 'user': request.user })
+                'html'  :   render_to_string("userProfile/months.html", { 'months': months, 'profileOwner': user, 'user': request.user })
             })
+        # The case described in [69] where we get newer calendar data:
         elif request.POST['todo']   ==  "scrollLater":
             # usage of the "approved" attribute in a Follow object from citation [25]
             if user.userinfo.privacySelection == 2 and not Follow.objects.filter(followee=user, follower=request.user, approved=True).exists():
@@ -120,7 +124,7 @@ def userViewAJAX(request, username):
             return JsonResponse({
                 'month' :   months[-1].month,
                 'year'  :   months[-1].year,
-                'html'          :   render_to_string("userProfile/months.html", { 'months': months, 'profileOwner': user, 'user': request.user })
+                'html'  :   render_to_string("userProfile/months.html", { 'months': months, 'profileOwner': user, 'user': request.user })
             })
         elif request.POST['todo']   ==  "blockAction":
             if request.user.is_authenticated():

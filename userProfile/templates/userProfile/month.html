@@ -1,3 +1,8 @@
+{# The template used to generate a single month for the calendar. This is     #}
+{# used by months.html when creating HTML to send to the client when getting  #}
+{# more calendar information that is requested when scrolling hits boundaries #}
+{# that you can read about in [69].                                            #}
+
 {% load sharedfilters %}
 <!-- next span from citation [21] -->
 <span id="{{ month.month }}.{{ month.year }}"></span>
