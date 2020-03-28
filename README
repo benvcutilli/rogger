@@ -257,7 +257,75 @@ well):
       prevent, I think, someone from changing important settings of another user
       who somehow has inadvertently given access to their account to the
       malicious actor.
-
+[72]  https://stackoverflow.com/questions/19037664/how-do-i-have-an-s3-bucket-return-404-instead-of-403-for-a-key-that-does-not-e
+      amazon s3 - How do I have an s3 bucket return 404 (instead of 403) for a key that does not exist in the bucket/ - Stack Overflow
+      author - users Tim Gautier and feroze
+      retrieved - 2020.3.27
+      published - 2013.9.26
+      via - search for "s3 404 instead of 403" on google.com ("s3" refers to [77], while "404" and "403" refer to [76, 10.4.5] and [76, 10.4.4], respectively)
+[73]  https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html
+      Authenticating Requests: Using Query Parameters (AWS Signature Version 4) - Amazon Simple Storage Service
+      author - Amazon Web Services, Inc. (or it could additionally/instead be their affiliates)
+      retrieved - 2020.3.27
+[74]  https://tools.ietf.org/html/rfc1738
+      Uniform Resource Locators
+      author - T. Berners-Lee, L. Masinter, M. McCahill; using the author order from the reference
+      published - 1994.12
+      retrieved - 2019.11.29
+      via - [75, History]
+[75]  https://en.wikipedia.org/wiki/URL
+      URL - Wikipedia
+      published - 2019.10.16
+      retrieved - 2019.11.30
+      via - search for "URL" on google.com ("URL" is the acronym for the thing defined by [74])
+[76]  https://www.ietf.org/rfc/rfc2616.txt
+      Hypertext Transfer Protocol -- HTTP/1.1
+      authors - R. Fielding, J. Gettys, J. Mogul, H. Frystyk, L. Manister, P. Leach, T. Berners-Lee; using the author order from the reference
+      published - 1999.6
+      retrieved - before 2020.3.27 or 28 as well as on one of those two dates
+      rfc # - 2616
+      via - some forgotten resource recommended, https://www.w3.org/Protocols/rfc2616/rfc2616.html, which recommended this reference
+[77]  https://aws.amazon.com/s3/
+      Cloud Object Storage | Store & Retrieve Data Anywhere | Amazon Simple Storage Service (S3)
+      author - Amazon Web Services, Inc. (or it could additionally/instead be their affiliates)
+[78]  https://www.mozilla.org/en-US/firefox/new/
+      Firefox
+      author - Mozilla
+      version - 68.0.1 on macOS
+[79]  https://docs.djangoproject.com/en/1.11/ref/django-admin/
+      django-admin and manage.py | Django documentation | Django
+      author - Django Software Foundation
+      retrieved - 2020.3.28
+[80]  python.org
+      Python 3.5.2
+      author - Python Software Foundation
+[81]  https://docs.djangoproject.com/en/1.11/topics/auth/default/
+      Using the Django authentication system | Django documentation | Django
+      author - Django Software Foundation
+      retrieved - 2020.3.28
+[82]  https://docs.djangoproject.com/en/1.11/topics/db/models/
+      Models | Django documentation | Django
+      author - Django Software Foundation
+      retrieved - 2020.3.28
+[83]  https://www.w3.org/TR/REC-xml/
+      Extensible Markup Language (XML) 1.0 (Fifth Edition)
+      author - W3C
+      published - 2008.11.26
+      retrieved - 2020.3.28
+      via - [84, "Extensible Markup Language (XML)" right-side box]
+[84]  https://en.wikipedia.org/wiki/XML
+      XML - Wikipedia
+      published - 2020.3.11
+      retrieved - 2020.3.28
+      via - search for "xml" on google.com ("xml" comes from XML, defined in [83] according to [84, "Extensible Markup Language (XML)" right-side box])
+[85]  https://docs.djangoproject.com/en/1.11/ref/settings/
+      Settings | Django Documentation | Django
+      author - Django Software Foundation
+      retrieved - 2020.3.28
+[86]  https://docs.djangoproject.com/en/1.11/topics/settings/
+      Django settings | Django documentation | Django
+      author - Django Software Foundation
+      retrieved - 2020.3.28
 
 GENERAL CITATIONS:
 This site has a lot of influence from Mark Crimmin's "Merv's RUNNING"

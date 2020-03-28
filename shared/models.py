@@ -7,7 +7,64 @@ from django.utils import timezone
 # USING AND IMPORTING botocore: CITATION [51]
 import botocore
 
-# Create your models here.
+# A. This code comes up with an presigned URL [73] (URLs defined by [74]
+#    according to [75, History]). I had originally thought that if the user had
+#    set their profile privacy to "Completely hidden" (see
+#    settings/settings.html) but that somehow a URL with bad authentication
+#    failed and produced a 403 [76, 10.4.4] on the profile picture of the
+#    "Completely hidden", that it would reveal that though the requester didn't
+#    have the proper credentials, the user's profile picture exists, which
+#    implies that the account exists (which is a security hole). However, [72,
+#    Tim Gautier's answer] said that since the credentials don't work, the
+#    requester may not even be able to find out the names of the objects in the
+#    S3 bucket, so it would return a 403 for every request for an object to that
+#    bucket. They mentioned this is a security feature explicitly made to combat
+#    those bad actors trying to find out simply if an object exists. Since I am
+#    looking for responses that do not reveal existence of an account, this
+#    solves my problem. I tested this out with a modification of the code here
+#    (actually, just a modification of the section of code commented by this
+#    point in profilePictureURL(...) and the import statements at the top of
+#    this file that looks like this:
+#       from rogger.settings import MEDIA_BUCKET_NAME, MEDIA_BUCKET_ID, MEDIA_BUCKET_SECRET, PROFILE_PICTURE_EXPIRATION_SECONDS, DEFAULT_PROFILE_PICTURE_FILENAME, STATIC_URL
+#       import boto3
+#       import botocore
+#       s3client = boto3.client(
+#                                    's3',
+#                                    aws_secret_access_key=MEDIA_BUCKET_SECRET,
+#                                    aws_access_key_id=MEDIA_BUCKET_ID,
+#                                    region_name="us-west-1",
+#                                    config=botocore.config.Config(signature_version="s3v4")
+#                   )
+#       s3client.generate_presigned_url(
+#                                                    'get_object',
+#                                                    Params={
+#                                                             'Bucket' : MEDIA_BUCKET_NAME,
+#                                                             'Key' : "profilepictureofuser"+<user number>+".png"
+#                                                    },
+#                                                    ExpiresIn=10
+#                   )
+#    where <user number> is a Python string holding a User[81, "User"
+#    documentation]'s model [82] "automatic primary key" [82, Automatic primary
+#    key fields]) to generate (using the manage.py shell, on the Rogger server,
+#    provided by Django [79, "shell" subcomand] invoked by the "python" command
+#    provided by Python 3.5.2 [80]) a URL that refers to an S3 object key that
+#    doesn't exist (I chose an automatic primary key that doesn't belong to any
+#    user), and I got a 403 putting that URL into Firefox [78]. I also tried a
+#    presigned URL generated with a real user's automatic primary key after the
+#    time limit on said presigned URL expired, which also returned 403 response,
+#    confirming the reasoning that 403s will appear for both objects requested
+#    with invalid authentication supplied with the URL and URLs with bad
+#    authentication credentials that point to objects that don't exist. Further,
+#    the XML (according to [84, "Extensible Markup Language (XML)" right-side
+#    box], [83] is the standard for XML) returned by both requests looked
+#    essentially identical, meaning that there appeared to be no differences in
+#    the XML that would suggest that S3 is leaking account-existence data.
+#    "STATIC_URL" in the test code above is not related to this test; it was
+#    just in the import line from the top of this file, so it was copied over
+#    for the test, and refers to [85, "STATIC_URL" documentation] used in the
+#    rogger/settings.py file which was set up probably by the
+#      "django-admin startproject <project name>"
+#    command from [79, "startproject" documentation].
 
 class UserInfo(models.Model):
     # next line from citation [14]
@@ -30,6 +87,11 @@ class UserInfo(models.Model):
 
     def profilePictureURL(self):
         if self.uploadedProfilePicture:
+
+            # Please read point A at the top of this file for a comment regarding this code.
+            ################################################################################################################
+            #                                                                                                              #
+
             # config PARAMETER VALUE: CITATION [51]
             s3client = boto3.client(
                                     's3',
@@ -47,11 +109,20 @@ class UserInfo(models.Model):
                                                     },
                                                     ExpiresIn=PROFILE_PICTURE_EXPIRATION_SECONDS
             )
+
+            #                                                                                                              #
+            ################################################################################################################
+
         else:
             return STATIC_URL + DEFAULT_PROFILE_PICTURE_FILENAME
 
     def thumbURL(self):
         if self.uploadedProfilePicture:
+
+            # Please read point A at the top of this file for a comment regarding this code.
+            ################################################################################################################
+            #                                                                                                              #
+
             # config PARAMETER VALUE: CITATION [51]
             s3client = boto3.client(
                                     's3',
@@ -69,6 +140,9 @@ class UserInfo(models.Model):
                                                     },
                                                     ExpiresIn=PROFILE_PICTURE_EXPIRATION_SECONDS
             )
+
+            #                                                                                                              #
+            ################################################################################################################
         else:
             return STATIC_URL + DEFAULT_PROFILE_PICTURE_FILENAME
 
