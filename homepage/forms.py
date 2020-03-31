@@ -1,3 +1,5 @@
+# This file and the next line likely created by django-admin startapp
+# [79, "startapp" documentation]
 from django import forms
 from django.contrib.auth.forms import SetPasswordForm
 

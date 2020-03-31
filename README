@@ -3,6 +3,11 @@ things, so I haven't cited everything yet. Take what you see here with a
 grain of salt and don't fork this. I plan on redoing the site in the
 relatively near future; you can fork off that if you please.
 
+Rogger is a website built on HTML [87] (reference recommended by [88, top of
+page]), CSS [90], Javascript [91], Python [93], Django [94] (recommended by
+[95]), CodeMirror [96] (via [95]), jQuery [97] (recommended by [95]), and other
+technologies that hopefully are cited throughout this code base.
+
 Resources used to make this project can be found in this README (citations can
 be found in the code base as well, using the common [#, locator] notation to
 index each source found on this page; for any reference to the original version
@@ -107,7 +112,7 @@ well):
 
 [1]   http://stackoverflow.com/questions/4571686/django-include-template-from-another-app
 [2]   http://www.w3schools.com/colors/colors_picker.asp for picking colors
-[3]   Google Fonts, from which you will find various fonts that were used throughout
+[3]   Google Fonts (fonts.google.com, Google, Inc.), from which you will find various fonts that were used throughout
       this site, loaded from the server fonts.googleapis.com
 [4]   Padding seems to add width to at least divs, so the solution to this problem
       was found here: http://stackoverflow.com/a/23692739/4722104
@@ -326,6 +331,58 @@ well):
       Django settings | Django documentation | Django
       author - Django Software Foundation
       retrieved - 2020.3.28
+[87]  https://html.spec.whatwg.org/
+      HTML Standard
+      author - WHATWG
+      via - [88, top of page]
+[88]  https://www.w3.org/html/
+      W3C HTML
+      author - W3C
+      via - W3C [89]'s website was found by searching for "w3c" on google.com. I
+            navigated that site to find this page.
+[89]  https://www.w3.org/
+      author - W3C
+      retrieved - 2020.3.29
+      via - search for "w3c" on google.com ("w3c" refers to W3C, reference [89])
+[90]  https://www.w3.org/TR/css-2018/
+      CSS Snapshot 2018
+      author - W3C Working Group
+      published - 2019.1.22
+      retrieved - 2020.3.29
+[91]  https://www.ecma-international.org/publications/files/ECMA-ST/ECMA-262.pdf
+      ECMAScript 2019 Language Specfication (ECMA-262)
+      author - ECMA International
+      published - 2019.6
+      edition - 10
+      retrieved - 2020.3.29
+      via - Forgotten reference. The "ECMA-262" standard number was confirmed by
+            a google.com [92] search for "ecmascript", which refers to this
+            reference, and I learned this term from some unknown reference.
+[92]  google.com
+      Google
+      author - Google, Inc.
+[93]  python.org
+      Python (programming language)
+      author - The Python Software Foundation
+[94]  djangoproject.com
+      Django (web framework)
+      author - Django Software Foundation
+      via - I forget where
+[95]  Catch-all for references I can't recall
+[96]  https://codemirror.net/
+      CodeMirror
+      via - search for "codemirror" on google.com ("codemirror" refers to [96])
+[97]  https://jquery.com/
+      jQuery
+      author - The jQuery Foundation
+      via - search for "jquery" on google.com ("jquery" refers to the name of
+            this software)
+[98]  https://docs.djangoproject.com/en/1.10/intro/tutorial01/
+      Writing your first Django app, part 1 | Django documentation | Django
+      author - Django Software Foundation
+      retrieved - most likely around Fall of 2016
+
+
 
 GENERAL CITATIONS:
 This site has a lot of influence from Mark Crimmin's "Merv's RUNNING"
@@ -380,6 +437,8 @@ failing me):
   ask his athletes for their weekly running logs, at least when he was coaching
   the cross country and indoor/outdoor track teams from Fall 2008 to Spring
   2012.
+- Allowing people to follow others is an idea from social media, such as Twitter
+  (twitter.com, Twitter, Inc.).
 
 DEBUG:
 Thanks to everyone that submitted bug reports. Safari, the web browser, was very important in debugging, and less important but still important were other browser(s) probably including (but there may be others I am forgetting) Firefox, Chrome, Internet Explorer (unknown release number(s) like 6, 7, 8, 9, 10, 11, etc), Edge, mobile versions of these browsers or their derivatives (like the browser used in the Google bar in Android and the iOS Google App).

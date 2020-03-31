@@ -53,13 +53,17 @@
     Create Account
   </h1>
   <form action="{% url 'newAccountView' %}" method="post">
-    <!-- THE NEXT LINE USES CITATION [48] -->
+    <!-- THE NEXT LINE USES CITATION [48], and discusses reCAPTCHA [53] -->
     NOTE: The reCAPTCHA uses cookies and sends data about your device (and possibly what you enter here) to Google. Your use of it and this page in general means your consent to allow cookies and data to be sent to Google and stored on your computer. I am saying this because it is legally required for me to do so.
     {% csrf_token %}
     <input id="username" type="text" placeholder="username" name="username"/>
     <input id="email" type="text" placeholder="email address" name="emailAddress"/>
     <input type="password" id="password" placeholder="password" name="password">
+    <!-- This next field is a password confirmation used to make sure the user
+    has entered the password they truly want, which is common practice -->
     <input type="password" id="confirmPassword" placeholder="confirm password" name="confirmPassword">
+    <!-- Support for reCAPTCHA [53] in next line (this line is probably a
+    modification of the line provided by [53], but if not, from [95])-->
     <div class="g-recaptcha" data-sitekey="{{ recaptchaPublic }}"></div>
     <!-- Checking the age of the person creating the account; this is a requirement of GDPR [64] according to
     at least [57] and [50] in addition to possibly [64] -->

@@ -3,14 +3,21 @@
 {% load sharedfilters %}
 <html>
   <head>
-    <!-- FROM Google Fonts (citation [3])-->
+    <!-- FROM Google Fonts (citation [3]), these lines are probably directly
+    copied from that reference or a sub-site of that reference (and their placement
+    here may also have been a recommendation by that/those reference(s)) -->
     <link href="https://fonts.googleapis.com/css?family=Sacramento" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Pinyon+Script" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Katibeh" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Quattrocento" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Vibur" rel="stylesheet">
     <!-- END CITATION -->
+    <!-- Support for reCAPTCHA [53] in next line; the HTML part (and its position in
+    this HTML) is likey from [53] or [95]-->
     {% if pageIsRecaptcha %}<script src='https://www.google.com/recaptcha/api.js'></script>{% endif %}
+    <!-- This next line loads jQuery [97]. The line and where it should be
+    placed may be from [95]. This line may have been modified from where it was
+    copied from-->
     <script src="{% static "shared/jquery-3.1.1.min.js" %}" ></script><!--"https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>-->
   </head>
   <body>
