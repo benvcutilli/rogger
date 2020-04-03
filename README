@@ -257,7 +257,7 @@ well):
 [70]  merv.stanford.edu
       Merv's RUNNING
       author - Mark Crimmins
-      comment - Website title from https://web.archive.org/web/20170328042657/http://merv.stanford.edu/
+      comment - Website title from page title of [101]
 [71]  Many different apps use this strategy of confirming the password to
       prevent, I think, someone from changing important settings of another user
       who somehow has inadvertently given access to their account to the
@@ -381,7 +381,18 @@ well):
       Writing your first Django app, part 1 | Django documentation | Django
       author - Django Software Foundation
       retrieved - most likely around Fall of 2016
-
+[99]  https://www.opengroup.org/membership/forums/platform/unix
+      Unix
+      authors - The Open Group
+      via - [100, info box on right]
+[100] https://en.wikipedia.org/wiki/Unix
+      Unix - Wikipedia
+      published - 2020.3.17
+      retrieved - 2020.4.3
+      via - search for "unix" on google.com ("unix" is the name of [99])
+[101] https://web.archive.org/web/20170328042657/http://merv.stanford.edu/
+      Merv's RUNNING
+      author - Internet Archive Wayback Machine
 
 
 GENERAL CITATIONS:

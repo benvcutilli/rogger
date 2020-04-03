@@ -1,3 +1,5 @@
+# This file and its contents were created by django-admin startproject
+# [79, "startproject" documentation]
 """
 WSGI config for rogger project.
 

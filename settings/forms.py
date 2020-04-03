@@ -1,3 +1,5 @@
+# This file and the next line likely created by django-admin startapp
+# [79, "startapp" documentation]
 from django import forms
 from workoutLogging.models import Workout
 
@@ -12,5 +14,6 @@ class AccountSettingsForm(forms.Form):
     #searchUsername      =   forms.BooleanField()
     #searchDisplayName   =   forms.BooleanField()
 
+# The form used to import Merv[70] export data:
 class ImportForm(forms.Form):
     mervData = forms.CharField()

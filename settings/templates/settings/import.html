@@ -1,3 +1,4 @@
+{# This Django template is for importing data exported from Merv [70] #}
 {% extends 'shared/base.html' %}
 {% block inheritor %}
 <style>
@@ -14,7 +15,8 @@
   }
 </style>
 <div id="importDiv">
-  <h3>Post your exported Merv data here (not including the part of export at the top with the instructions)</h3>
+  <!-- The name "Merv's RUNNING" was discovered from [101]'s page title-->
+  <h3>Post your exported Merv's RUNNING (merv.stanford.edu by Mark Crimmins) data here (not including the part of export at the top with the instructions)</h3>
   <form method="post" action="{% url 'importView' %}">
     <textarea id="mervData" name="mervData"></textarea>
     <button>Allons y!</button>
