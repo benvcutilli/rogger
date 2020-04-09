@@ -1,7 +1,7 @@
 {# The template used to generate a single month for the calendar. This is     #}
 {# used by months.html when creating HTML to send to the client when getting  #}
 {# more calendar information that is requested when scrolling hits boundaries #}
-{# that you can read about in [69].                                            #}
+{# that you can read about in [69].                                           #}
 
 {% load sharedfilters %}
 <!-- next span from citation [21] -->
@@ -21,6 +21,7 @@
 
     </td>
     {% for day in week.days %}
+    {# The "if" in the next line supports [104] #}
     <td class="date {% if day.date.month == month.month %}darkDate{% endif %}">
       <!-- STORING DATE (CALL TO storeDate(this) IN NEXT LINE) TECHNIQUE FROM CITATION [25], CLICKING ON THE DATE TITLE LINK (the <a></a> tag in the next line) IS IDEA FROM CITATION [43] -->
       {% if user == profileOwner %}<a onclick="storeDate(this)" data="{{ day.date.year }}.{% if day.date.month < 10%}0{% endif %}{{ day.date.month }}.{% if day.date.day < 10 %}0{% endif %}{{ day.date.day }}">{% endif %}{{ day.dayOfWeekWorded }} {{ day.date.day }}{% if user == profileOwner %}</a>{% endif %}

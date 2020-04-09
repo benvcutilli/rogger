@@ -14,7 +14,6 @@
     width:100%;
     background-color:#000;
     height:300px;
-
   }
   /* citation [11] */
   #profilePicture {
@@ -177,6 +176,7 @@
     text-decoration:none;
     cursor:pointer;
   }
+  /* darkDate is used to color out-of-months days described in [104] */
   .darkDate {
     background-color:#ccd;
   }
@@ -200,31 +200,6 @@
     height:100%;
   }
   @media screen and (max-width:600px) {
-    /*.date {
-      width:100%;
-      height:100px;
-      display:block;
-      background-color:#aab;
-      font-size:12px;
-      box-sizing:border-box;
-      padding:10px;
-
-    }
-    .weekStats {
-      box-sizing: border-box;
-      padding:10px;
-      display:block;
-      width:100%;
-      height:100px;
-      font-size:12px;
-      background-color: #223;
-      float:left;
-    }
-    .dateShiftContainer {
-      width:100%;
-      display:inline-block;
-      height:100%;
-    }*/
     .monthContainer {
       width:1200px;
     }
@@ -297,6 +272,9 @@
             <tr>
               <td class="calendarControl">
                 <select id="monthSelector" onchange="updateCalendar();">
+                  <!-- The values for "value" for each month in the following
+                  HTML are based on the values used for each month in the
+                  datetime module [103] -->
                   <option value="1">
                     January
                   </option>
@@ -340,7 +318,9 @@
                   <!-- The earliest year to show as an option might have been
                   chosen to accomodate the year that [70] was created, as anyone
                   who is importing data from there might have data that goes all
-                  the way back to then -->
+                  the way back to then. Further, the number used for each year
+                  were likely chosen, at least subconsciously, to be compatible
+                  with datetime [103] usage -->
                   <option value="1998">
                     1998
                   </option>
@@ -459,6 +439,7 @@
               <td>
                 {{ profileOwner.username }} • <!-- bullet point idea from citation [8] -->
               </td>
+              <!-- See [107] for the reason for this next element in the table -->
               <td>
                 {{ mileage|prettydecimal }} miles
               </td>
@@ -490,6 +471,7 @@
         </table>
       </div>
     </div>
+    <!-- The container that holds the scrollable calendar described in [69] -->
     <div id="dates" onscroll="getMonthsScroll();">
       {% for month in months %}
       {% include "userProfile/month.html" %}
@@ -541,6 +523,11 @@
     })
   }
 {% block privateJS %}
+  // I think this variable is used to coordinate communicating with the server
+  // in the case where multiple calendar updating requests are occurring (it
+  // helps to stop other requests if one request is already out fetching info
+  // in updateCalendar or the other methods that are called when scrolling to
+  // the limits of what the calendar displays; see [69])
   var fetchingMonths      = false;
 
   function updateCalendar() {
@@ -559,10 +546,20 @@
           document.getElementById("dates").innerHTML = ajaxResponseText['html'];
           // scrollIntoView() suggestion from citation [21]
           document.getElementById(document.getElementById("monthSelector").value + "." + document.getElementById("yearSelector").value).scrollIntoView(true);
+
+          // Please read the documentation for these variables located where the
+          // variables are defined
+          //////////////////////////////////////////////////////////////////////
+          //                                                                  //
+
           scrollMonthEarlier  = ajaxResponseText['earlierMonth'];
           scrollYearEarlier   = ajaxResponseText['earlierYear'];
           scrollMonthLater    = ajaxResponseText['laterMonth'];
           scrollYearLater     = ajaxResponseText['laterYear'];
+
+          //                                                                  //
+          //////////////////////////////////////////////////////////////////////
+
           fetchingMonths = false;
         },
         error   : function(ajaxResponse, ajaxStatus, ajaxError) {
@@ -588,7 +585,6 @@
     $(".monthContainer").each(function(index, domElement) {
       monthsHeight += $(domElement).outerHeight();
     })
-    console.log("here boiiiiii");
     // inspired by citation [22]
     if ($("#dates").scrollTop() == 0 && !fetchingMonths) {
       fetchingMonths = true;
@@ -603,7 +599,6 @@
         },
         success : function(ajaxResponseText, ajaxStatus, ajaxResponse) {
           $("#dates").prepend(ajaxResponseText['html']);
-          console.log(scrollMonthEarlier + "." + scrollYearEarlier);
           // scrollIntoView() suggestion from citation [21]
           document.getElementById(scrollMonthEarlier + "." + scrollYearEarlier).scrollIntoView(true);
           scrollMonthEarlier = ajaxResponseText['month'];
@@ -615,7 +610,7 @@
           fetchingMonths = false;
         }
       });
-    } else if ($("#dates").scrollTop() + $("#dates").height() >= monthsHeight && !fetchingMonths) { // this conditional from citation [22]
+    } else if ($("#dates").scrollTop() + $("#dates").height() >= monthsHeight && !fetchingMonths) { // this conditional, possibly partially verbatim, from citation [22]
       fetchingMonths = true;
       $.ajax("{% url "userView" profileOwner.username %}", {
         method  : "POST",
@@ -643,18 +638,23 @@
   //                                                                          //
   //////////////////////////////////////////////////////////////////////////////
 
+  // Showing the current month in the calendar on page load, just like Merv [70]
+  //////////////////////////////////////////////////////////////////////////////
+  //                                                                          //
+
   var currDate = new Date();
   var dateString = (currDate.getMonth()+1) + "." + currDate.getFullYear();
   // scrollIntoView() suggestion from citation [21]
   document.getElementById(dateString).scrollIntoView(true);
-  console.log(dateString);
   document.getElementById("yearSelector").value = currDate.getFullYear();
   document.getElementById("monthSelector").value = currDate.getMonth()+1;
+
+  //                                                                          //
+  //////////////////////////////////////////////////////////////////////////////
 
   // storeDate() IS PART OF TECHNIQUE USED TO STORE DATES FOR OTHER PAGES OF THE SITE
   // FROM CITATION [25]
   function storeDate(itself) {
-    console.log(itself.data);
     $.ajax("{% url "storeDate" %}", {
       method  : "POST",
       data    : {
