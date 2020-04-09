@@ -2,6 +2,9 @@
 {% load staticfiles %}
 {% load sharedfilters %}
 <html>
+  <!-- [3], [53], [95], or [97] may have written this "head" opening and closing
+  tag (I am not talking about the contents of this head tag; those are addressed
+  within the head tag) -->
   <head>
     <!-- FROM Google Fonts (citation [3]), these lines are probably directly
     copied from that reference or a sub-site of that reference (and their placement
@@ -47,7 +50,7 @@
         top:0px;
         left:0px;
         width:100%;
-        border-bottom: 1px solid rgba(237, 237, 229, 0.5);/*#eaeae2;*/ /* used hex colorpicker, citation [2] in top-level repository README */
+        border-bottom: 1px solid rgba(237, 237, 229, 0.5); /* The RGB values used in this line were likely based off the hexadecimal color eaeae2 chosen using the color picker at [2] */
         z-index:10;
       }
       #homepageButton {

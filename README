@@ -393,10 +393,27 @@ well):
 [101] https://web.archive.org/web/20170328042657/http://merv.stanford.edu/
       Merv's RUNNING
       author - Internet Archive Wayback Machine
+[102] It may have been suggested that I include a feature, when creating a
+      week's PDF (see "GENERAL CITATIONS" below) to allow the user to put custom
+      name on the PDF. I don't remember who, if anyone, suggested this.
+[103] https://docs.python.org/3/library/datetime.html
+      datetime -- Basic date and time types -- Python 3.8.2 documentation
+      author - The Python Software Foundation
+[104] I have seen many calendars that include, within the days listed in a
+      month, days that are not actually in the month so that there are no empty
+      spaces leading up to the first day of the month or trailing the last day
+      of the month. This cited area takes care of that functionality.
+[105] Searching for users may have been a suggestion from someone. Or it may
+      have been inspired by some service doing such a thing. I don't know. The
+      method of comparing the histogram of bigram occurrences between two
+      phrases to determine how close they are (using the sum-squared difference
+      between respective bigram's counts) may have been at least inspired by
+      some sort of reference, but I can't remember what it was if that was the
+      case.
 
 
 GENERAL CITATIONS:
-This site has a lot of influence from Mark Crimmin's "Merv's RUNNING"
+This site has a lot of influence from Mark Crimmins' "Merv's RUNNING"
 (https://web.archive.org/web/20170328042657/http://merv.stanford.edu/ provided
 the title) at merv.standford.edu (now mervsrunning.com, also titled "Merv's RUNNING").
 Some major ideas from there (but possibly not all of them if my memory is

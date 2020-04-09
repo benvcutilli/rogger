@@ -1,6 +1,7 @@
-# This file and the next line likely created by django-admin startapp
-# [79, "startapp" documentation]
+# django-admin startapp [79, "startapp" documentation] may have created this
+# file and put in the next line:
 from django import forms
+
 from django.contrib.auth.forms import SetPasswordForm
 
 class CreateAccountForm(forms.Form):

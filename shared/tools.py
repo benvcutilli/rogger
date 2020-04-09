@@ -39,6 +39,8 @@ class WorkoutDay():
         self.workouts = workouts
 
     def dayOfWeekWorded(self):
+        # The keys in this dictionary are based on what one would expect from
+        # the output of date.isoweekday() [103, date Objects]
         daysDict = {
             1   :   "Monday",
             2   :   "Tuesday",
@@ -84,6 +86,8 @@ class WorkoutWeek():
         workoutEntryStyle               = ParagraphStyle("")
         workoutEntryStyle.spaceBefore   = 4
         workoutEntryStyle.fontName      = "Times-Roman"
+        # Adding the name customized for PDF creation (see [102]) to the PDF
+        # output
         flowables.append(Paragraph(self.user.userinfo.pdfName, dateStyle))
         flowables.append(Paragraph("", dateStyle))
         for day in self.days:
@@ -118,6 +122,11 @@ def getWeeksForMonthRepresentation(monthNumber, yearNumber, user):
         dayList.append(WorkoutDay(day, Workout.objects.filter(date=day, owner=user)))
         day += timedelta(1)
 
+    # Accounting for days not in the month but will be displayed with the month
+    # in the calendar; see [104]
+    ####################################################################################
+    #                                                                                  #
+
     backwards   =   dayList[0].date.isoweekday() - 1
     forwards    =   7 - dayList[-1].date.isoweekday()
 
@@ -130,6 +139,9 @@ def getWeeksForMonthRepresentation(monthNumber, yearNumber, user):
     for i in range(forwards):
         day += timedelta(1)
         dayList.append(WorkoutDay(day, Workout.objects.filter(date=day, owner=user)))
+
+    #                                                                                  #
+    ####################################################################################
 
     weekList = []
     for i in range(len(dayList)//7):
@@ -144,6 +156,8 @@ class WorkoutMonth():
         self.month  = month
         self.year   = year
     def monthWorded(self):
+        # These keys may be based on what the datetime [103] module uses for
+        # numbers or each month
         monthDict = {
             1   :   "January",
             2   :   "February",
@@ -161,6 +175,10 @@ class WorkoutMonth():
 
         return monthDict[self.month]
 
+# This function gathers information to display on the calendar for a certain
+# number of months before and after the current month. This helps in the
+# scenario outlined in [69] where when the user scrolls far enough up or down in
+# the calendar, we need to fetch more information to display on the calendar.
 def getSurroundingMonths(monthNumber, yearNumber, user, before=5, after=6):
     monthsWeeks = [WorkoutMonth(getWeeksForMonthRepresentation(monthNumber, yearNumber, user), monthNumber, yearNumber)]
     tempYearNumber      =   yearNumber

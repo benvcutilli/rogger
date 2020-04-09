@@ -4,6 +4,7 @@
 # [79, "startproject" documentation] may have included the following import
 # line in this file at file creation time.
 from django.shortcuts import render
+
 from shared.languageLocalization import baseLocalization
 from django.http import HttpResponseRedirect, HttpResponseServerError, HttpResponse, HttpResponseBadRequest, HttpResponseForbidden
 from django.urls import reverse

@@ -1,4 +1,6 @@
+This folder was created by django-admin startapp [79, "startapp" documentation]
+
 This app contains things that are shared across all apps.
 
 Making an app (this app, "shared") that contains all the things to be shared across apps is an
-idea taken from citation [32]:
+idea taken from citation [32]
