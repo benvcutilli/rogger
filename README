@@ -291,7 +291,7 @@ well):
       Hypertext Transfer Protocol -- HTTP/1.1
       authors - R. Fielding, J. Gettys, J. Mogul, H. Frystyk, L. Manister, P. Leach, T. Berners-Lee; using the author order from the reference
       published - 1999.6
-      retrieved - before 2020.3.27 or 28 as well as on one of those two dates
+      retrieved - before 2020.3.27 or 28 as well as on one of those two dates; 2020.4.21
       rfc # - 2616
       via - some forgotten resource recommended, https://www.w3.org/Protocols/rfc2616/rfc2616.html, which recommended this reference
 [77]  https://aws.amazon.com/s3/
@@ -424,6 +424,22 @@ well):
 [108] twitter.com
       Twitter
       author - Twitter, Inc.
+[109] https://docs.djangoproject.com/en/3.0/topics/templates/
+      Templates | Django documentation | Django
+      author - Django Software Foundation
+[110] I think someone may have asked for the feature where the website generated
+      a PDF from the workouts for a given week, or at least they asked for the
+      ability to print the entries from that week. If no one actually requested
+      that and I came up with it by myself, then the week timespan is based on
+      the fact that Tom Donnelly, the coach of the Haverford College (in
+      Haverford, PA, USA) would ask his athletes for their weekly running logs,
+      at least when he was coaching the cross country and indoor/outdoor track
+      teams from Fall 2008 to Spring 2012.
+[111] Forgotten/unknown reference. This is not a single reference, as anything
+      that uses an unknown or forgotten reference is directed here.
+[112] https://docs.djangoproject.com/en/1.11/topics/http/sessions/
+      How to use sessions | Django documentation | Django
+      author - Django Software Foundation
 
 
 GENERAL CITATIONS:
@@ -472,14 +488,7 @@ failing me):
   when checking the correct operation of the site.
 - This repository's/this project's version control is managed by Git
   (git-scm.com)
-- I think someone may have asked for the feature where the website generated a
-  PDF from the workouts for a given week, or at least they asked for the ability
-  to print the entries from that week. If no one actually requested that and I
-  came up with it by myself, then the week timespan is based on the fact that
-  Tom Donnelly, the coach of the Haverford College (in Haverford, PA, USA) would
-  ask his athletes for their weekly running logs, at least when he was coaching
-  the cross country and indoor/outdoor track teams from Fall 2008 to Spring
-  2012.
+- See [110] for another feature potentially requested by someone
 - Allowing people to follow others is an idea from social media, such as [108]
 - Protected but partially visible accounts, and blocking accounts, are ideas
   from the internet, such as [108]
