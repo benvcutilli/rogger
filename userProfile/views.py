@@ -209,10 +209,16 @@ from io import BytesIO
 def changePictureView(request, username):
     if request.user.is_authenticated and request.user.username == username:
         if request.method == "POST":
+            mediaBucket = boto3.resource('s3', aws_access_key_id=MEDIA_BUCKET_ID, aws_secret_access_key=MEDIA_BUCKET_SECRET).Bucket(MEDIA_BUCKET_NAME)
+            # This next line is to counter a bug where the profile picture will
+            # successfully be uploaded but the thumbnail will not be,
+            # potentially leading the user to believe that their old profile
+            # picture was completely erased from the system. See [113] for bug
+            # credits:
+            mediaBucket.delete_objects(Delete={"Objects": [{"Key": "profilepictureofuser"+str(request.user.id)}, {"Key": "thumbofuser"+str(request.user.id)}], "Quiet": True})
             pictureFile = request.FILES['pictureFile']
             croppedPictureFile = BytesIO()
             cropProfilePicture(pictureFile, "full").save(croppedPictureFile, format='PNG')
-            mediaBucket = boto3.resource('s3', aws_access_key_id=MEDIA_BUCKET_ID, aws_secret_access_key=MEDIA_BUCKET_SECRET).Bucket(MEDIA_BUCKET_NAME)
             # NEXT LINE POSSIBLY VERBATIM (with appropriate modification)
             # FROM CITATION [36]
             croppedPictureFile.seek(0)

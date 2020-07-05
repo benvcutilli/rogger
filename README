@@ -82,7 +82,7 @@ So that the site can function.
 
 
 You store my data for HOW MUCH TIME? ([57, Reponsibility and accountability][50]
-provided this question)
+provided some version of this question)
 
 Eternity, except for when you request account deletion, in which case at time
 of the actual deletion, all of your data should be removed (unless part of the
@@ -440,6 +440,144 @@ well):
 [112] https://docs.djangoproject.com/en/1.11/topics/http/sessions/
       How to use sessions | Django documentation | Django
       author - Django Software Foundation
+[113] This was a bug found by Ben which was triggered by a (currently kept
+      anonymous) user.
+[114] https://gist.github.com/dhh/360f4dc7ddbce786f8e82b97cdad9d20
+      Current list of spy pixels named'n'shamed in HEY, as of April 23rd, 2020 • GitHub
+      author - user "dhh" (user info is from https://gist.github.com/dhh/360f4dc7ddbce786f8e82b97cdad9d20/revisions)
+      published - 14:22 (EDT) on 2020.4.23 (date confirmed by https://gist.github.com/dhh/360f4dc7ddbce786f8e82b97cdad9d20/revisions)
+      via - https://twitter.com/dhh/status/1253389224516005889?s=21
+[115] https://arstechnica.com/information-technology/2020/05/thunderspy-what-is-is-why-its-not-scary-and-what-to-do-about-it/
+      Thunderspy - What it is, why it's not scary, and what to do about it | Ars Technica
+      author - Dan Goodin
+      retrieved - around the date that this article was published, 2020.5.12
+      published - 2020.5.12
+[116] https://thunderspy.io/assets/reports/breaking-thunderbolt-security-bjorn-ruytenberg-20200417.pdf
+      Breaking Thunderbolt Protocol Security: Vulnerability Report
+      author - Björn Ruytenberg
+      published - 2020
+      via - [115, Accessing Memory Lane]
+      comment - the fields to include from this reference (and the information
+                contained in those fields) is from https://thunderspy.io/ in the
+                section "Who discovered Thunderspy?"
+
+[117] https://docs.djangoproject.com/en/1.11/
+      Django documentation | Django documentation | Django
+      author - Django Software Foundation
+      retrieved - early 2020
+
+[118] https://twitter.com/jacobian/status/1235305179332964352?s=20
+      author - user "jacobian"
+      published - 2020.3.4
+
+[119] https://twitter.com/djangoproject/status/1145603374169108480?s=20
+      author - user "djangoproject"
+      published - 2019.7.1
+
+[120] https://twitter.com/djangoproject/status/1094938257756962816?s=20
+      author - user "djangoproject"
+      published - 2019.2.11
+
+[121] https://daringfireball.net/linked/2020/05/20/hide-ui-grayshift
+      Daring Fireball: 'Hide UI' -- New Grayshift Feature Plants Hidden Passcode Monitoring Software on iPhones
+      author - John Gruber
+      published - 2020.5.20
+      retrieved - around 2020.5.20
+
+[122] https://www.apple.com/iphone/
+      iPhone
+      author - Apple, Inc.
+
+[123] https://apps.apple.com/us/app/microsoft-outlook/id951937596
+      Microsoft Outlook
+      author - Microsoft Corporation
+      via - search for "outlook ios" on google.com (this reference is the
+            reference for the word "outlook", while [124] is "ios"'s reference)
+
+[124] https://www.apple.com/ios/
+      iOS
+      author - Apple, Inc.
+
+[125] https://www.name.com/email
+      Professional Email Accounts for Your Business | Name.com
+      author - Name.com
+
+[126] No central standard according to introduction of
+        https://en.wikipedia.org/wiki/Email
+        Email - Wikipedia
+        published - 8:53 UTC, 2020.6.15 (previous accesses to this site have
+                    different publication dates and times)
+        retrieved - 2020.6.17
+        via - searching for "email" on google.com ("email": [126])
+      as well as (possibly) a reference/references I've lost track of
+
+[127] https://opensource.org/licenses/BSD-3-Clause
+      The 3-Clause BSD License | Open Source Initiative
+      author - Open Source Initiative
+      retrieved - 2020.6.18
+      via - a search (google.com) for "software licenses" recommended another
+            google.com search for "BSD licenses", and that search led to this
+            reference
+
+[128] https://opensource.org/licenses/Python-2.0
+      Python License (Python-2.0) | Open Source Initiative
+      author - Open Source Initiative
+      retrieved - 2020.6.18
+      via - [131, license links section]
+
+[129] https://opensource.org/licenses/Apache-2.0
+      Apache License, Version 2.0 | Open Source Initiative
+      author - Open Source Initiative
+      retrieved - 2020.6.18
+      via - [131, license links section]
+
+[130] https://opensource.org/licenses/OSL-3.0
+      The Open Software License 3.0 (OSL-3.0) | Open Source Initiative
+      author - Open Source Initiative
+      retrieved - 2020.6.18
+      via - [131, license links section]
+
+[131] https://opensource.org/licenses/alphabetical
+      Licenses by Name | Open Source Initiative
+      author - Open Source Initiative
+      retrieved - 2020.6.18
+      via - a search (google.com) for "software licenses" recommended another
+            google.com search for "BSD licenses", and that search led to this
+            reference
+
+[132] https://opensource.org/licenses/unlicense
+      The Unlicense | Open Source Initiative
+      author - Open Source Initiative
+      retrieved - 2020.6.18
+      via - [131, license links section]
+
+[133] https://opensource.org/licenses/Intel
+      The Intel Open Source License (Intel) | Open Source Initiative
+      author - Open Source Initiative
+      retrieved - 2020.6.18
+      via - [131, license links section]
+
+[134] https://opensource.org/licenses/Apache-1.1
+      Apache Software License, version 1.1 (Apache-1.1) | Open Source Initiative
+      author - Open Source Initiative
+      retrieved - 2020.6.18
+      via - [131, license links section]
+
+[135] https://opensource.org/BSD-3-Clause-LBNL
+      Lawrence Berkeley National Labs BSD Variant License (BSD-3-Clause-LBNL) | Open Source Initiative
+      author - Open Source Initiative
+      retrieved - 2020.6.21
+      via - [131, license links section]
+
+[136]
+
+[137]
+
+[138]
+
+[139]
+
+[140] 
 
 
 GENERAL CITATIONS:
@@ -492,9 +630,17 @@ failing me):
 - Allowing people to follow others is an idea from social media, such as [108]
 - Protected but partially visible accounts, and blocking accounts, are ideas
   from the internet, such as [108]
+- [114]'s list of sites that track users through tracking images in emails was
+  helpful to at least reduce the concern that Amazon SES [115] was tracking
+  emails sent out for Rogger.
 
 DEBUG:
-Thanks to everyone that submitted bug reports. Safari, the web browser, was very important in debugging, and less important but still important were other browser(s) probably including (but there may be others I am forgetting) Firefox, Chrome, Internet Explorer (unknown release number(s) like 6, 7, 8, 9, 10, 11, etc), Edge, mobile versions of these browsers or their derivatives (like the browser used in the Google bar in Android and the iOS Google App).
+Thanks to everyone that submitted bug reports. Safari, the web browser, was very
+important in debugging, and less important but still important were other
+browser(s) probably including (but there may be others I am forgetting) Firefox,
+Chrome, Internet Explorer (unknown release number(s) like 6, 7, 8, 9, 10, 11,
+etc), Edge, mobile versions of these browsers or their derivatives (like the
+browser used in the Google bar in Android and the iOS Google App).
 
 SUGGESTIONS:
 Thanks to everyone who suggested things to make the site better.
@@ -691,7 +837,7 @@ French Localization
   Possibly Charlotte Lellman
 Asking for Rogger "swag", which I responded to by making a fundraiser because people also wanted to give
 money to keep the site running
-  Somebody/Multiple sombodies
+  Somebody/Multiple somebodies
 Giving positive feedback about the panel on the left for follows, and "new fonts" (though I think this was for the old site, bitbucket.org/roggerlogger/rog, for a git commit that occurred near 2017.10.30)
   Charlotte Lellman
 Pointing out that the profile page of a user scrolls and the calendar does as well (in the old site, bitbucket.org/roggerlogger/rog); this was remedied in this version of the site
@@ -782,9 +928,20 @@ Rich Marisco
 
 
 
-My mom, dad, and Eric Arnold helped with suggestions on how to cite things and just also with my stress management (and probably other things as well that I can't remember), so thanks to them. Eric suggested that I can email all the users of the site to ask them to reply telling me how they had helped out with the site, and then I can add them to the list of citations.
+My mom (Carolyn Cutilli), dad (Bruce Cutilli), and Eric Arnold helped with
+suggestions on how to cite things and just also with my stress management (and
+probably other things as well that I can't remember), so thanks to them. Eric
+suggested that I can email all the users of the site to ask them to reply
+telling me how they had helped out with the site, and then I can add them to the
+list of citations.
 
-Also, Eric Arnold told me that I was getting questions on runnerunner.com's message boards relating to Rogger and said that I should chime in to help address them and address the fact that merv.stanford.edu was losing users due to spottiness of the site or other issues, and that I should encourage them to use Rogger as a replacement. He also might have answered questions on runnerunner.com in representation of me as I did not want to log onto runnerunner.com to do so.
+Also, Eric Arnold told me that I was getting questions on runnerunner.com's
+message boards relating to Rogger and said that I should chime in to help
+address them and address the fact that merv.stanford.edu was losing users due to
+spottiness of the site or other issues, and that I should encourage them to use
+Rogger as a replacement. He also might have answered questions on
+runnerunner.com in representation of me as I did not want to log onto
+runnerunner.com to do so.
 
 --------------------------------------------------------------------------------
 
@@ -1017,7 +1174,84 @@ and S3 bucket scenarios should be handled by me, which they aren't).
 
 --------------------------------------------------------------------------------
 
-LICENSE (MIT, from citation [33]):
+--------------------------------------------------------------------------------
+
+Concerns about devices being secure:
+
+[115] brought to my attention an attack known as "Thunderspy" [116]. Besides
+describing the attack, the article stated in its introduction that "99 percent"
+of people don't need to worry about the attack (this thought process concluded
+in [115, What's a user to do?] by stating that such attacks really only in the
+reach of entities like nation-states), and this "99 percent" idea was followed,
+I believe relatedly, with the fact that this attack was patched out of macOS
+long enough ago that my laptop is secure from that kind of attack [115,
+"Accessing Memory Lane" and "Intel assurances torn asunder"]. Other things
+discussed throughout the article relevant to the security of this site include
+  1. the idea that if someone can get to your computer in person, they can
+     probably figure out a way to hack you [115, "Intel assurances torn
+     asunder", "Accessing Memory Lane", "Sabotage aint hacking"],
+  2. Kenn White's quote which says that Thunderbolt can no longer be considered
+     secure [115, Intel assurances torn asunder]
+  3. Highlighting other attacks and saying that they were patched [115, Sabotage
+     ain't hacking]
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+
+[118] stated that Django 1.11's [94] security support will end, and [117, red
+page header bar] confirmed this, so this told me that I need to upgrade to a
+newer major release version of Django. This idea of needing to upgrade to make
+the site secure is also probably from [119] and maybe [120]; further, in the
+past, I may have been encouraged to upgrade to Django 1.11.19 by [120] because
+of security. To be more specific, [119] and [120] announced new versions of
+Django being released; they didn't specifically say to upgrade).
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+
+[121] makes it clear that iPhones [122] that have been confiscated by
+authorities should no longer be considered secure. I've never encountered such a
+situation, but if in some insane scenario I do, this is good to know for the
+sake of Rogger's security.
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+
+Email [126] for this website is hosted by Name.com's email service [125]. I read
+that email mostly with the iOS [124] Outlook app [123]. Outlook is very good at
+determining which emails are important (through its "Prioritaire" -- from the
+French mode of the app -- section of its inbox), so that is one reason why I use
+it.
+
+--------------------------------------------------------------------------------
+
+Currently not a fan of the below license for the all-caps line (because someone
+likely copied from someone else as that line is very similar to what you will
+find in [127], [128] (Not just for Python [93] 2.0, as clarified by [131, Python
+license link comments]), [129] (implied to be recommended over [134], in the
+manners discussed below), and [130, points 7 and 8] (also implied to be the best
+version of the license [131, license links section; "superseded" tag]), implying
+a trend in the license-writing world of plagiarism). This was brought to my
+attention by []. I tried looking at those licenses and others ([132], [133],
+[134]), but they all had the same (alleged) plagiarism issues, in addition to
+these problems:
+  [132]: Its insistence on weak copyright, public domain and other potential
+         liberal stances may conflict with other licenses agreed to by this project
+  [133]: The text in red [133, under the license name] appears to question if the
+         license is useful
+  [134]: Another license that may be broken as the page says "This license has
+         been superseded by the Apache License, Version 2.0" [134, comment
+         preceding the license text] and [131, license links section] states in
+         a comment next to the link to this license that its status is
+         "superseded".
+I also considered [135], but [131, license links section] suggested it had
+something in common with [127] (the mention of "BSD"), so I avoided it because,
+as previously discussed, [127] had plagiarism-probable issues.
+
+LICENSE (MIT, from citation [33] except my name is put where the placeholder is):
 
 Copyright 2017 Benjamin Cutilli
 
