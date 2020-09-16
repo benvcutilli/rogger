@@ -291,7 +291,7 @@ well):
       Hypertext Transfer Protocol -- HTTP/1.1
       authors - R. Fielding, J. Gettys, J. Mogul, H. Frystyk, L. Manister, P. Leach, T. Berners-Lee; using the author order from the reference
       published - 1999.6
-      retrieved - before 2020.3.27 or 28 as well as on one of those two dates; 2020.4.21
+      retrieved - before 2020.3.27 or 28 as well as on one of those two dates; 2020.4.21; 2020.8.10
       rfc # - 2616
       via - some forgotten resource recommended, https://www.w3.org/Protocols/rfc2616/rfc2616.html, which recommended this reference
 [77]  https://aws.amazon.com/s3/
@@ -577,7 +577,114 @@ well):
 
 [139]
 
-[140] 
+[140]
+
+[141] Git
+      Linus Torvalds
+      git-scm.com
+
+[142] GitHub
+      github.com
+      GitHub, Inc.
+
+[143] https://github.com/benvcutilli/rogger/branches and/or https://github.com/benvcutilli/rogger/branches/all
+      Branches • benvcutilli/rogger
+      author - GitHub, Inc.
+      retrieved - 2020.7.5 or 6
+
+[144] https://twitter.com/mislav/status/1270388510684598272
+      author - @mislav
+      retrieved - 2020.6.9
+      published - 2020.6.9 (12:13 pm Eastern)
+      via - unknown (probably suggested by Twitter through trending)
+
+[145] https://twitter.com/raganwald/status/1270434947933728768
+      author - @raganwald
+      retrieved - 2020.6.10
+      published - 2020.6.9 (3:17 pm Eastern)
+      via - unknown (probably suggested by Twitter through trending)
+
+[146] https://twitter.com/raganwald/status/1270435748316151808
+      author - @raganwald
+      retrieved - 2020.6.10
+      published - 2020.6.9 (3:21 pm Eastern)
+      via - unknown (probably suggested by Twitter through trending)
+
+[147] https://arstechnica.com/tech-policy/2020/06/openzfs-removed-master-slave-terminology-from-its-codebase/
+      OpenZFS removed offensive terminology from its code | Ars Technica
+      author - Jim Salter
+      published - 2020.6.11 (9:18 pm Eastern)
+      retrieved - 2020.6.13
+
+[148] https://twitter.com/eviltrout/status/1272633530368118784
+      author - @eviltrout
+      retrieved - 2020.6.15
+      published - 2020.6.15
+      via - "Software Development" in the search pane on the iOS app
+
+[149] https://twitter.com/mitsuhiko/status/1272911085834813440
+      author - @mitsuhiko
+      retrieved - 2020.6.16
+      published - 2020.6.16 (11:17 am Eastern)
+      via - "Software Development" in the search pane on the iOS app
+
+[150] http://nginx.org/
+      NGINX
+      author - Igor Sysoev, anyone else
+      via - unknown
+
+[151] https://github.com/leev/ngx_http_geoip2_module
+      GitHub - leev/ngx_http_geoip2_module: Nginx GeoIP2 module
+      author - user "leev"
+      via - https://serverfault.com/questions/865990/nginx-and-geolite2-not-working
+
+[152] https://docs.djangoproject.com/en/1.11/ref/settings/
+      Settings | Django documentation | Django
+      author - Django Software Foundation
+
+[153] https://docs.djangoproject.com/en/1.11/ref/request-response/
+      Request and response objects | Django documentation | Django
+      author - Django Software Foundation
+
+[154] https://www.openssh.com/
+      OpenSSH
+      author -
+      via - search for "openssh" on google.com (the choice of search term should be self-explanatory)
+
+[155] "man ssh-keygen" command ("man" refers to [156])
+      SSH-KEYGEN(1)
+
+[156] command named "man"
+      version - 1.6c
+      authors - Federico Lucifredi, John W. Eaton, Andries Brouwer, Zeyd M. Ben-Halim (authors from "man man" command)
+
+[157] https://www.ssh.com/ssh/config/
+      SSH config file for OpenSSH client
+      author - SSH.com
+      retrieval - either 2020.8.9 or 2020.8.10
+      via - search for "ssh certificatefile" on google.com
+
+[158] "man ssh" command ("man" refers to [156])
+      SSH(1)
+
+[159] "man 5 ssh_config" command ("man" refers to [156])
+      SSH_CONFIG(5)
+
+[160] https://scottbarnham.com/blog/2008/12/04/get-user-from-session-key-in-django/index.html
+      Get User from session key in Django
+      Scott Barnham
+      2008.12.4 date of publication
+      via Googling (most likely)
+
+[161] https://docs.djangoproject.com/en/1.11/topics/http/sessions/
+      How to use sessions | Django documentation | Django
+      Django Software Foundation
+      Retrieved Eastern Standard Time on 2020.9.15
+
+[162] latimes.com
+      The LA Times
+
+
 
 
 GENERAL CITATIONS:
@@ -624,7 +731,7 @@ failing me):
   contributions to this one.
 - Everyday users of the site add their data to the site, so this data was useful
   when checking the correct operation of the site.
-- This repository's/this project's version control is managed by Git
+- This repository's/this project's version control is managed by Git [141]
   (git-scm.com)
 - See [110] for another feature potentially requested by someone
 - Allowing people to follow others is an idea from social media, such as [108]
@@ -893,9 +1000,9 @@ People who helped debug (for the things discussed below that were debugged, ther
 -Eric Arnold and others said that when writing the text of a log entry in the old version of Rogger, each press of the keyboard would make the cursor in the entry area to return to the start of the entry's text. So, for this project, I abandoned what was causing it (a hacked-up TinyMCE editor) for CodeMirror, which seems to have solved this issue.
 -Mali Axinn (approximately 2017.9.26) and someone else (unsure of date when this occurred, sometime late summer 2017, I think): Mali's accounts needed to be deleted, so that helped me test that account deletion actually deletes everything related to that account, and that someone else had a bug that I created at least one account for to test out, so when I deleted those accounts, that helped to test that the account's data was being deleted. However, now that I think about it, it doesn't deleted all the information, yet, so I have to address that at some point. Account deletion is not a user-facing feature yet, but it will be at some point, so hopefully it is fixed by then.
 -Those (currently unknown who) who trigged the old site's bug where the antivirus would go down, so images couldn't be scanned for viruses on banner and profile picture uploads, and the server would error out, which would send me an email with a bug report. That's how I found out about these situations, and the bug is sort of fixed in this site (there is no antivirus running, so the same error can't occur).
--Eric Arnold said that the site was freaking out (it probably was with regard to Nginx complaining about the gateway), and it turned out that UWSGI hadn't been started. He probably mentioned this to me around 2019.2.17.
+-Eric Arnold said that the site was freaking out (it probably was with regard to Nginx complaining about the gateway; see two points down for further explanation of this issue), and it turned out that UWSGI hadn't been started. He probably mentioned this to me around 2019.2.17.
 -I checked to make sure the TLS encryption (refrence for TLS unknown) was still working as Let's Encrypt (https://letsencrypt.org/, Internet Security Research Group, site found by searching for "letsencrypt" on google.com) emailed me something that made me think it wasn't. I tested the encryption with Mobile Safari (https://www.apple.com/safari/, Apple Inc., site found by searching for "mobile safari" on google.com)
--Eric Arnold -- He pointed out via text on 2020.3.6 that he was getting a 502 code (defined by
+-Eric Arnold -- Besides previous time(s), he pointed out via text on 2020.3.6, call on 2020.8.10 (and a text on the same day in a separate instance of this problem) that he was getting a 502 code (defined by
     https://www.ietf.org/rfc/rfc2616.txt
     Hypertext Transfer Protocol -- HTTP/1.1
     author - R. Fielding, J. Gettys, J. Mogul, H. Frystyk, L. Manister, P. Leach, T. Berners-Lee (order taken from reference)
@@ -1228,6 +1335,163 @@ it.
 
 --------------------------------------------------------------------------------
 
+--------------------------------------------------------------------------------
+
+It has been pointed out to me (I think initially) by [144], with [145], [146],
+and [147, first picture, its caption, title, subtitle, and URL] (in that order
+to the best of my knowledge) further encouraging that I should rename the
+"master" Git [141] branch to something that at least avoids the master/slave
+nomenclature ([147, first picture, its caption, title, subtitle, and URL] helped
+indirectly through reporting that someone else removed the terminology). [148]
+indicated that this wouldn't be a time-consuming process. [149] was talking
+about a different repository circumstance, but it still helped (I didn't look at
+the screenshot that came with it) to defeat the notion that changing branch
+names would be difficult. After renaming it to "main", both
+
+  git push --prune
+
+and
+
+  git push --prune origin
+
+spat out
+
+  fatal: The upstream branch of your current branch does not match
+  the name of your current branch.  To push to the upstream branch
+  on the remote, use
+
+    git push origin HEAD:master
+
+  To push to the branch of the same name on the remote, use
+
+    git push origin HEAD
+
+  To choose either option permanently, see push.default in 'git help config'.
+
+indicating that the "main" branch was still tracking "master" on GitHub. I fixed
+this problem. This was not the end of the issues, however. Running
+
+  git branch -a
+
+warned me with this
+
+  warning: ignoring broken ref refs/remotes/origin/HEAD
+
+I think this was the result of the HEAD shortcut trying to point to the last
+commit of master (or something like that if my terminology is off). Running
+
+  git remote set-head origin main
+
+hopefully has fixed this (trying
+
+  git push origin HEAD
+
+didn't complain, at least). Fixing HEAD was attempted (unsuccessfully) as a
+solution to GitHub [142] not seeing "main" as the default branch; I thought that
+removal of "master" through the "git" command line tool was held back by the
+fact that GitHub had the "master" branch as default, in addition to there being
+a trash can next to "main" but not next to "master" [143, "Overview" or "All
+Branches" pane]. However, attempting to change the GitHub default branch with
+the previous command
+
+  git remote set-head origin main
+
+followed by
+
+  git push --prune origin
+  git push origin
+
+was not a solution. I just deleted the branch through one of the five panes (one
+of which is "Overview") at [143], resulting in its deletion, but without
+removing it from the list of branches. Going to the "All Branches" pane made it
+disappear; this was to make sure that as much (as I could tell) of the word
+"master" was removed.
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+
+When NGINX [150] fails to start (as determined by testing out the site with
+Firefox [78]), it can be due to ngx_http_geoip2_module [151] not being compiled
+for a new version of NGINX that was just installed (prior to upgrading NGINX,
+reliable receipt of emails from Django's watchdog [152, ALLOWED_HOSTS] about
+requests -- which have to go first through NGINX -- setting HTTP_HOST
+[153, HttpRequest.META documentation] to something the website doesn't handle
+suggested that the upgrade itself broke NGINX, not something previously which
+would have prevented those emails from being sent). See
+serverfiles/geoipmoduleupdate for how this issue is fixed.
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+
+Accessing the server via a terminal is done through "ssh" (command) from OpenSSH
+[154]. AWS [65] recommended somewhere to use the -i option like so
+  ssh -i <key given to me by AWS> <user>@<host>
+in conjunction with the AWS-created key to do this. Recently (2020.8) I realized
+that I didn't know exactly what "-i" did. [158]'s documentation for -i discusses
+"CertificateFile", which I thought could be the certificates that the person
+signing into the server presents to log in via an alternate protocol which we'll
+call "AP" (an explanation of this method was
+read from [158, Authentication]). However, this was not clear. It was
+recommended by the "-o" documentation of that same man page that I could find
+out more about CertificateFile by looking at [159]. The "CertificateFile" section
+in [159] didn't provide any more information other than it further hinted with
+"Specifies a file from which a user's certificate is read" that CertificateFile
+is used for AP.
+
+--------------------------------------------------------------------------------
+
+I prefer to acknowledge those who got the site to freak out and put in a bug
+report for said freak out. However, those bug reports often don't contain the
+username of the person so that I know who to credit. Instead, they might contain
+a "session cookie" [], and I found out from [160, Finding the user from the
+session] (using the verbatim Python code from there, below), that I can get the
+User object [] for that user (which contains information about that user) from
+that session cookie's value:
+
+  from django.contrib.sessions.models import Session
+  from django.contrib.auth.models import User
+  s = Session.objects.get(session_key=<value of session cookie in string format>)
+  uid = s.get_decoded().get("_auth_user_id")
+  user = User.objects.get(pk=uid)
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+
+At the request of an anonymous user, they wanted to delete their account. I had
+a method that I wanted to use, but it needed to be tested (testing on production
+is generally not recommended, but in this case I was very sure I was in the
+clear and took precautions). Deleting their account confirmed that these
+objects (settings.models.WorkoutType, shared.models.UserInfo), when deleting
+that user's respective django.contrib.auth.models.User (provided by Django), did
+indeed get deleted. Loading my account through a web browser [78] showed that
+other things in the database (created by the general Rogger community) were not
+deleted as a result.
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+
+As recommended by [161, Clearing the session store], I try, at least on occasion
+(although I believe they imply to do it often), to use the "python manage.py
+clearsessions" command Django provides.
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+
+[151] is used to block users from outside the US (because I suck at GDPR [64]
+compliance and someone/something said that this is what the LA Times [162] did
+as a temporary measure on the date of GDPR being active).
+serverfiles/settingupgeoip contains the steps took to do this and
+serverfiles/geoipmoduleupdate is how I install new verisons of [151].
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+
 Currently not a fan of the below license for the all-caps line (because someone
 likely copied from someone else as that line is very similar to what you will
 find in [127], [128] (Not just for Python [93] 2.0, as clarified by [131, Python
@@ -1250,6 +1514,8 @@ these problems:
 I also considered [135], but [131, license links section] suggested it had
 something in common with [127] (the mention of "BSD"), so I avoided it because,
 as previously discussed, [127] had plagiarism-probable issues.
+
+--------------------------------------------------------------------------------
 
 LICENSE (MIT, from citation [33] except my name is put where the placeholder is):
 

@@ -1,0 +1,37 @@
+# This re-uses commands (some of which have been modified and marked as such)
+# from this file's folder's "settingupgeoip" file, so please look in that file
+# for relevant citations. Commands not listed may involve packages installed
+# (such as those commands involving "apt-get"); since these packages are already
+# installed, any updating of them occurs when I occasionally run
+#   sudo apt-get update
+#   sudo apt-get upgrade
+# as outlined in "The server update process was accomplished with these two
+# commands" in the README
+
+
+# This command is found in "settingupgeoip" as "Command 1"
+git clone https://github.com/leev/ngx_http_geoip2_module.git
+
+# This command is found in "settingupgeoip" as "Command 21"
+# (got version number from "nginx -v", as cited in "settingupgeoip" above
+# "Command 21")
+wget http://nginx.org/download/nginx-<version>.tar.gz
+
+# This command is found in "settingupgeoip" as "Command 22"
+# (got version number from "nginx -v", as cited in "settingupgeoip" above
+# "Command 21")
+tar zxf nginx-<version>.tar.gz
+
+# This command is found in "settingupgeoip" as "Command 23"
+# (got version number from "nginx -v", as cited in "settingupgeoip" above
+# "Command 21")
+cd nginx-<version>
+
+# This command is found in "settingupgeoip" as "Command 24"
+./configure --with-compat --add-dynamic-module=../ngx_http_geoip2_module
+
+# This command is found in "settingupgeoip" as "Command 25"
+make modules
+
+# This command is found in "settingupgeoip" as "Command 26"
+sudo cp objs/ngx_http_geoip2_module.so /etc/nginx/modules/
