@@ -6,7 +6,8 @@ relatively near future; you can fork off that if you please.
 Rogger is a website built on HTML [87] (reference recommended by [88, top of
 page]), CSS [90], Javascript [91], Python [93], Django [94] (recommended by
 [95]), CodeMirror [96] (via [95]), jQuery [97] (recommended by [95]), and other
-technologies that hopefully are cited throughout this code base.
+technologies that hopefully are cited throughout this code base. Rogger is
+hosted on AWS [65] using an EC2 instance running Ubuntu [165].
 
 Resources used to make this project can be found in this README (citations can
 be found in the code base as well, using the common [#, locator] notation to
@@ -648,7 +649,7 @@ well):
 
 [154] https://www.openssh.com/
       OpenSSH
-      author -
+      author - OpenBSD Project
       via - search for "openssh" on google.com (the choice of search term should be self-explanatory)
 
 [155] "man ssh-keygen" command ("man" refers to [156])
@@ -683,6 +684,22 @@ well):
 
 [162] latimes.com
       The LA Times
+
+[163] "man ssh-keygen" command ("man" refers to [156])
+      SSH-KEYGEN(1)
+
+[164] https://us-west-1.console.aws.amazon.com/ec2/v2/home?region=us-west-1#Volumes
+      Volumes | EC2 Management Console
+      Amazon Web Services, Inc. (or it could additionally/instead be their affiliates)
+      Retrieval of 2020.9.25
+
+[165] Ubuntu
+      Canoncial
+      ubuntu.com
+
+[166] Linux
+      kernel.org
+      Linus Torvalds (and any other contributors)
 
 
 
@@ -1438,7 +1455,9 @@ recommended by the "-o" documentation of that same man page that I could find
 out more about CertificateFile by looking at [159]. The "CertificateFile" section
 in [159] didn't provide any more information other than it further hinted with
 "Specifies a file from which a user's certificate is read" that CertificateFile
-is used for AP.
+is used for AP. [158, Authentication] told me to look at [163]'s "CERTIFICATES"
+section for more information on how this works, which it did, but it didn't
+clarify what CertificateFile was.
 
 --------------------------------------------------------------------------------
 
@@ -1514,6 +1533,25 @@ these problems:
 I also considered [135], but [131, license links section] suggested it had
 something in common with [127] (the mention of "BSD"), so I avoided it because,
 as previously discussed, [127] had plagiarism-probable issues.
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+
+Firefox version when using IP address as (allegedly) host: 68.0.1
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+
+To be (as it turns out -- according to either [50], [64], or both -- partially)
+compliant with GDPR's option to encrypt data instead of anonymizing it ([64],
+probably [50] as well), I created a separate volume to hold the database, and
+that database is encrypted using AWS-controlled keys (the reason for the
+aforementioned "partially"). [164], when right-clicking on a volume, clicking on
+"Attach Volume", then choosing the VM to attach to, let me know that the device
+path to mount can be unusual, and told me what it may be (/dev/xvdf, an Ubuntu
+[165] and/or Linux [166] path), which I ended up using.
 
 --------------------------------------------------------------------------------
 
