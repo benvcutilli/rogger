@@ -7,7 +7,8 @@ Rogger is a website built on HTML [87] (reference recommended by [88, top of
 page]), CSS [90], Javascript [91], Python [93], Django [94] (recommended by
 [95]), CodeMirror [96] (via [95]), jQuery [97] (recommended by [95]), and other
 technologies that hopefully are cited throughout this code base. Rogger is
-hosted on AWS [65] using an EC2 instance running Ubuntu [165].
+hosted on AWS [65] using an EC2 instance running Ubuntu [165]. Pip [168],
+through the Django[94]-recommended Virtualenv [169], does package management.
 
 Resources used to make this project can be found in this README (citations can
 be found in the code base as well, using the common [#, locator] notation to
@@ -700,6 +701,69 @@ well):
 [166] Linux
       kernel.org
       Linus Torvalds (and any other contributors)
+
+[167] https://docs.djangoproject.com/en/3.1/ref/urls/
+      django.urls functions for use in URLConfs | Django documentation | Django
+      Django Software Foundation
+      Retrieval of 2020.11.17
+
+[168] Pip
+      https://pip.pypa.io/en/stable/
+      PyPa
+      Page found by googling "pip"
+
+[169] Virtualenv
+      https://virtualenv.pypa.io/en/latest/
+      Package recommended by djangoproject.com, google.com search for
+      "virtualenv" for finding the page
+
+[170] Certbot - Ubuntufocal other
+      https://certbot.eff.org/lets-encrypt/ubuntufocal-other
+      Electronic Frontier Foundation
+      Retrieval of 2020.12.3
+
+[171] Installing snapd | Snapcraft documentation
+      https://snapcraft.io/docs/installing-snapd
+      Canonical Ltd.
+      Most likely retrieved around 2020.12.4
+      Via [170, "2. Install snapd"]
+
+[172] Ubuntu 20.04.1 LTS (Focal Fossa)
+      https://releases.ubuntu.com/20.04/
+      Canonical Ltd.
+      Approximately 2020.12.4 date of retrieval
+      Via [171, "Distributions with snap pre-installed"]
+
+[173] Email from noreply@zohoaccounts.com
+      2020.9.10 arrival
+
+[174] Zoho Mail
+      https://www.zoho.com/mail/
+      Zoho Corporation
+
+[175] Settings - Zoho Mail (ben@rogger.co)
+      https://mail.zoho.com/zm/#settings/all/importexport
+      Zoho Corporation
+      Retrieval of 2020.12.7
+
+[176] Installation — NGINX Unit
+      https://unit.nginx.org/installation/
+      NGINX, Inc.
+      Retrieval of 2020.11 or 2020.12
+
+[177] Configuration — NGINX Unit
+      https://unit.nginx.org/configuration/
+      NGINX, Inc.
+      Retrieval of late 2020; earlier may have been possible as well
+
+[178] User Guide — Certbot 1.11.0.dev0 documentation
+      https://certbot.eff.org/docs/using.html
+      Electronic Frontier Foundation
+      Retrieval of probably 2020.12.6
+
+
+
+
 
 
 
@@ -1459,6 +1523,8 @@ is used for AP. [158, Authentication] told me to look at [163]'s "CERTIFICATES"
 section for more information on how this works, which it did, but it didn't
 clarify what CertificateFile was.
 
+<Where to put the citation stuff back in>
+
 --------------------------------------------------------------------------------
 
 I prefer to acknowledge those who got the site to freak out and put in a bug
@@ -1511,6 +1577,44 @@ serverfiles/geoipmoduleupdate is how I install new verisons of [151].
 
 --------------------------------------------------------------------------------
 
+Firefox version when using IP address as (allegedly) host: 68.0.1
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+
+To be (as it turns out -- according to either [50], [64], or both -- partially)
+compliant with GDPR's option to encrypt data instead of anonymizing it ([64],
+probably [50] as well), I created a separate volume to hold the database, and
+that database is encrypted using AWS-controlled keys (the reason for the
+aforementioned "partially"). [164], when right-clicking on a volume, clicking on
+"Attach Volume", then choosing the VM to attach to, let me know that the device
+path to mount can be unusual, and told me what it may be (/dev/xvdf, an Ubuntu
+[165] and/or Linux [166] path), which I ended up using.
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+
+I had two errant Django migrations causing problems with Django's manage.py's
+"makemigrations". Pip [168] told me via the command "pip uninstall Django" that
+it " Would not remove (might be manually added)" those migrations. This implies
+that those migrations didn't come with the Django package when it was installed,
+so I felt safe deleting them myself.
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+
+I was warned [173] by Zoho that they would delete my Zoho Mail [174] account.
+They said, in the email, that I can back up my emails, so I used their
+backup functionality [175] to do that. That resulted in three zip files
+for each folder I requested a backup of.
+
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+
 Currently not a fan of the below license for the all-caps line (because someone
 likely copied from someone else as that line is very similar to what you will
 find in [127], [128] (Not just for Python [93] 2.0, as clarified by [131, Python
@@ -1536,24 +1640,6 @@ as previously discussed, [127] had plagiarism-probable issues.
 
 --------------------------------------------------------------------------------
 
---------------------------------------------------------------------------------
-
-Firefox version when using IP address as (allegedly) host: 68.0.1
-
---------------------------------------------------------------------------------
-
---------------------------------------------------------------------------------
-
-To be (as it turns out -- according to either [50], [64], or both -- partially)
-compliant with GDPR's option to encrypt data instead of anonymizing it ([64],
-probably [50] as well), I created a separate volume to hold the database, and
-that database is encrypted using AWS-controlled keys (the reason for the
-aforementioned "partially"). [164], when right-clicking on a volume, clicking on
-"Attach Volume", then choosing the VM to attach to, let me know that the device
-path to mount can be unusual, and told me what it may be (/dev/xvdf, an Ubuntu
-[165] and/or Linux [166] path), which I ended up using.
-
---------------------------------------------------------------------------------
 
 LICENSE (MIT, from citation [33] except my name is put where the placeholder is):
 

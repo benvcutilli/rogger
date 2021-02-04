@@ -94,7 +94,7 @@ def userViewAJAX(request, username):
     else:
         user = get_object_or_404(User, username=username)
         if   request.POST['todo']   ==  "followAction":
-            if request.user.is_authenticated():
+            if request.user.is_authenticated:
                 if not Follow.objects.filter(followee=user, follower=request.user).exists():
                     if user == request.user:
                         # usage of the "approved" attribute in a Follow object from citation [25]
@@ -155,7 +155,7 @@ def userViewAJAX(request, username):
                 'html'  :   render_to_string("userProfile/months.html", { 'months': months, 'profileOwner': user, 'user': request.user })
             })
         elif request.POST['todo']   ==  "blockAction":
-            if request.user.is_authenticated():
+            if request.user.is_authenticated:
                 if not Block.objects.filter(blockee=user, blocker=request.user).exists() and user != request.user:
                     Block.objects.create(blockee=user, blocker=request.user).save()
                     return HttpResponse("1")

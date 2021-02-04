@@ -66,18 +66,27 @@ def search(request):
 #                                                                                                                                                       #
 #########################################################################################################################################################
 
-def error400View(request):
+# The "exception" argument name is the same as is stated in [167, handler(400/403/404) documentation]
+# just in case Django is expecting kwargs of that name
+def error400View(request, exception):
     # ADDING STATUS TO PREVENT FAVICONS OR ANY RESOURCE THAT CAN'T LOAD FROM REFRESHING THE csrf COOKIE
     # IS FROM CITATION [49]
     return render(request, 'shared/error400.html', baseLocalization[debugLocale], status=400)
-def error403View(request):
+
+# The "exception" argument name is the same as is stated in [167, handler(400/403/404) documentation]
+# just in case Django is expecting kwargs of that name
+def error403View(request, exception):
     # ADDING STATUS TO PREVENT FAVICONS OR ANY RESOURCE THAT CAN'T LOAD FROM REFRESHING THE csrf COOKIE
     # IS FROM CITATION [49]
     return render(request, 'shared/error403.html', baseLocalization[debugLocale], status=403)
-def error404View(request):
+
+# The "exception" argument name is the same as is stated in [167, handler(400/403/404) documentation]
+# just in case Django is expecting kwargs of that name
+def error404View(request, exception):
     # ADDING STATUS TO PREVENT FAVICONS OR ANY RESOURCE THAT CAN'T LOAD FROM REFRESHING THE csrf COOKIE
     # IS FROM CITATION [49]
     return render(request, 'shared/error404.html', baseLocalization[debugLocale], status=404)
+
 def error500View(request):
     # ADDING STATUS TO PREVENT FAVICONS OR ANY RESOURCE THAT CAN'T LOAD FROM REFRESHING THE csrf COOKIE
     # IS FROM CITATION [49]

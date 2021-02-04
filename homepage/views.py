@@ -14,13 +14,14 @@ import urllib
 import json
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.views import password_reset_confirm, password_reset
+from django.contrib.auth.views import PasswordResetConfirmView, PasswordResetView
 from shared.tools import getErrorString
 from django.contrib.auth.forms import SetPasswordForm
 from shared.models import UserInfo, Follow, Block
 from workoutLogging.models import Workout
 from django.template.loader import render_to_string
 from settings.models import WorkoutType
+from django.shortcuts import get_object_or_404
 
 debugLocale = 'english'
 godMode = False
@@ -346,13 +347,12 @@ def changePasswordView(request):
         return HttpResponseRedirect(reverse("loginView"))
 
 def passwordResetRequestView(request):
-    return password_reset(request,
-        template_name="homepage/resetpasswordrequest.html",
-        email_template_name="homepage/passwordresetemail.txt",
-        subject_template_name="homepage/passwordresetemailsubject.txt",
-        post_reset_redirect=reverse("loginView"),
-        from_email="reset@rogger.co"
-    )
+    viewFunction = PasswordResetView.as_view(success_url=reverse("loginView"),
+                                             from_email="reset@rogger.co",
+                                             subject_template_name="homepage/passwordresetemailsubject.txt",
+                                             template_name="homepage/resetpasswordrequest.html",
+                                             email_template_name="homepage/passwordresetemail.txt")
+    return viewFunction(request)
 
 # The parameters that need to passed into this view may have been stated to be
 # required by some webpage under the domain of [94]
@@ -362,14 +362,11 @@ def passwordResetView(request, uid, token):
         'token' :   token,
     }
     templateDict.update(baseLocalization[debugLocale])
-    return password_reset_confirm(request,
-        uidb64=uid,
-        token=token,
-        post_reset_redirect=reverse("loginView"),
-        template_name='homepage/resetpassword.html',
-        extra_context=templateDict,
-        set_password_form=forms.RoggerSetPasswordForm
-    )
+    viewFunction = PasswordResetConfirmView.as_view(extra_content=templateDict,
+                                                    success_url=reverse("loginView"),
+                                                    form_class=forms.RoggerSetPasswordForm,
+                                                    template_name='homepage/resetpassword.html')
+    return viewFunction(request, token=token, uidb64=uid)
 
 def logoutUser(request):
     logout(request)
