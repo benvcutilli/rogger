@@ -749,17 +749,78 @@ well):
 [176] Installation — NGINX Unit
       https://unit.nginx.org/installation/
       NGINX, Inc.
-      Retrieval of 2020.11 or 2020.12
+      Retrieval of 2020.11 or 2020.12, 2021.2.12 EST
 
 [177] Configuration — NGINX Unit
       https://unit.nginx.org/configuration/
       NGINX, Inc.
-      Retrieval of late 2020; earlier may have been possible as well
+      Retrieval of late 2020 EST; earlier may have been possible as well; 2021.2 EST
 
 [178] User Guide — Certbot 1.11.0.dev0 documentation
       https://certbot.eff.org/docs/using.html
       Electronic Frontier Foundation
-      Retrieval of probably 2020.12.6
+      Retrieval of probably 2020.12.6 EST
+
+[179] Domain Names - Register Domains & more with Name.com
+      Donuts Inc.
+      https://www.name.com
+
+[180] Domain name search results - Hover
+      Hover
+      https://www.hover.com/domains
+
+[181] Buy domain name - Cheap domain names from $1.37 - Namecheap
+      Namecheap, Inc.
+      https://www.namecheap.com
+
+[182] FrequentlyAskedQuestions · Wiki · cryptsetup / cryptsetup · GitLab
+      The GitLab "group" cryptsetup
+      https://gitlab.com/cryptsetup/cryptsetup/-/wikis/FrequentlyAskedQuestions
+      Fetched late in 2020 EST
+
+[183] Ubuntu package named "python3-virtualenv"
+      Ubuntu MOTU Developers, Debian Python Modules Team, Carl Chenet, Stefano Rivera, Barry Warsaw, Scott Kitterman (order of everyone except "Ubuntu MOTU Developers" taken from https://packages.ubuntu.com/focal/python3-virtualenv)
+      https://packages.ubuntu.com/focal/python3-virtualenv
+
+[184] Ubuntu package named "git"
+      Ubuntu Developers, Jonathan Nieder, Anders Kaseorg (last two authors are in order of appearance on page)
+      https://packages.ubuntu.com/focal/git
+      Looked up "git" on https://packages.ubuntu.com
+
+[185] Loop device - Wikipedia
+      https://en.wikipedia.org/wiki/Loop_device
+      Retrieval of around the new year of 2020/2021
+      Found with Google
+
+[186] Ubuntu
+      ubuntu.com
+      Canonical
+
+[187] Linode
+      linode.com
+
+[188] Unit
+      https://unit.nginx.org/
+      NGINX, Inc.
+
+[189] Certbot
+      certbot.eff.org
+      Electronic Frontier Foundation
+
+[190] Snap
+      Snapcraft - Snaps are universal Linux packages
+      Canonical Ltd.
+
+[191] ReportLab
+      https://www.reportlab.com/opensource/
+      ReportLab, Inc.
+
+[192] https://bitbucket.org/rptlab/reportlab
+
+[193] Configuration — NGINX Unit
+      NGINX, Inc.
+      https://unit.nginx.org/configuration/
+      Retrieval of 2020.11.15-ish
 
 
 
@@ -1637,6 +1698,11 @@ these problems:
 I also considered [135], but [131, license links section] suggested it had
 something in common with [127] (the mention of "BSD"), so I avoided it because,
 as previously discussed, [127] had plagiarism-probable issues.
+
+--------------------------------------------------------------------------------
+
+Looking for alternate domains, so [181], [179], [180] etc have been useful in determining which
+domains I can buy.
 
 --------------------------------------------------------------------------------
 
