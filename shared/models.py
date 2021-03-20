@@ -5,12 +5,17 @@
 from django.db import models
 
 from django.contrib.auth.models import User
-import boto3
-from rogger.settings import MEDIA_BUCKET_NAME, MEDIA_BUCKET_ID, MEDIA_BUCKET_SECRET, PROFILE_PICTURE_EXPIRATION_SECONDS, DEFAULT_PROFILE_PICTURE_FILENAME, STATIC_URL
+# No longer used (this is the "boto3" package[195])
+# import boto3
+from rogger.settings import MEDIA_BUCKET_NAME, MEDIA_BUCKET_ID, MEDIA_BUCKET_SECRET, PROFILE_PICTURE_EXPIRATION_SECONDS, DEFAULT_PROFILE_PICTURE_FILENAME, STATIC_URL, PICTURE_STORE
 import datetime
 from django.utils import timezone
-# USING AND IMPORTING botocore: CITATION [51]
-import botocore
+# USING AND IMPORTING botocore[196]: CITATION [51] (note: this dependency was removed, as is made
+# clear by this import being commented out)
+# import botocore
+
+# Importing something from the "django"[94] package
+from django.urls import reverse
 
 # A. This code comes up with an presigned URL [73] (URLs defined by [74]
 #    according to [75, History]). I had originally thought that if the user had
@@ -70,6 +75,11 @@ import botocore
 #    rogger/settings.py file which was set up probably by the
 #      "django-admin startproject <project name>"
 #    command from [79, "startproject" documentation].
+#
+#
+#
+# B. NOTE: This code was commented out, but it existed for the reason described in point A of
+#    userProfile/views.py
 
 class UserInfo(models.Model):
     # this line uses an idea described in citation [14]
@@ -79,7 +89,7 @@ class UserInfo(models.Model):
     # 2 FOR DEFAULT: strong default privacy is mandated by GDPR [64] according
     # to [50], so we choose privacy setting 2, which is a protected profile;
     # however, according to [50], it may be necessary to have mode 3 by default
-    # (unlisted profile, which is an idea from 70) as it is technically the
+    # (unlisted profile, which is an idea from [70]) as it is technically the
     # strongest privacy setting Rogger has to offer.
     privacySelection        =   models.IntegerField(default=2)
     # Please read [102] for citations relevant to this field:
@@ -90,35 +100,68 @@ class UserInfo(models.Model):
     searchDisplayName       =   models.BooleanField(default=True)
     # See [29] for why this attribute exists:
     lastActive              =   models.DateTimeField(default=timezone.now())
+    
+    # Not sure if having functions that easily determine privacy relationships between users was an
+    # idea from somewhere, but if it is, these are the functions that do it. Sort of making sure
+    # here that the computational complexity of these functions do not make themselves vulnerable
+    # to timing attacks by having them be succinct and using functions that are more or less
+    # constant time (thereby making these functions more or less constant time) (constant time as a
+    # target is commonly recommended, so that is why I strive for them throughout the call stack).
+    ################################################################################################
+    #                                                                                              #
+    
+    def isFollowerOf(self, thisPerson):
+        return Follow.objects.filter(follower=self.authUser, followee=thisPerson).exists()
+
+    def isFollowedBy(self, thisPerson):
+        return Follow.objects.filter(follower=thisPerson, followee=self.authUser).exists()
+    
+    def isBlockerOf(self, thisPerson):
+        return Block.objects.filter(blocker=self.authUser, blockee=thisPerson).exists()
+    
+    def isBlockedBy(self, thisPerson):
+        return Block.objects.filter(blocker=thisPerson, blockee=self.authUser).exists()
+    
+    def cantSee(self, thisPerson):
+        if self.isBlockedBy(thisPerson):
+            return True
+        elif thisPerson.userinfo.privacySelection == 3:
+            return True
+    
+    #                                                                                              #
+    ################################################################################################
+
 
     def profilePictureURL(self):
         if self.uploadedProfilePicture:
 
             # Please read point A at the top of this file for a comment regarding this code.
+            # See point B for why this code was commented out
             ################################################################################################################
             #                                                                                                              #
 
-            # config PARAMETER VALUE: CITATION [51]
-            s3client = boto3.client(
-                                    's3',
-                                    aws_secret_access_key=MEDIA_BUCKET_SECRET,
-                                    aws_access_key_id=MEDIA_BUCKET_ID,
-                                    region_name="us-west-1",
-                                    config=botocore.config.Config(signature_version="s3v4")
-            )
-            # SENDING A PRESIGNED URL FROM CITATION [28]
-            return s3client.generate_presigned_url(
-                                                    'get_object',
-                                                    Params={
-                                                             'Bucket' : MEDIA_BUCKET_NAME,
-                                                             'Key' : "profilepictureofuser"+str(self.authUser.id)+".png"
-                                                    },
-                                                    ExpiresIn=PROFILE_PICTURE_EXPIRATION_SECONDS
-            )
+            # # config PARAMETER VALUE: CITATION [51]
+            # s3client = boto3.client(
+            #                         's3',
+            #                         aws_secret_access_key=MEDIA_BUCKET_SECRET,
+            #                         aws_access_key_id=MEDIA_BUCKET_ID,
+            #                         region_name="us-west-1",
+            #                         config=botocore.config.Config(signature_version="s3v4")
+            # )
+            # # SENDING A PRESIGNED URL FROM CITATION [28]
+            # return s3client.generate_presigned_url(
+            #                                         'get_object',
+            #                                         Params={
+            #                                                  'Bucket' : MEDIA_BUCKET_NAME,
+            #                                                  'Key' : "profilepictureofuser"+str(self.authUser.id)+".png"
+            #                                         },
+            #                                         ExpiresIn=PROFILE_PICTURE_EXPIRATION_SECONDS
+            # )
 
             #                                                                                                              #
             ################################################################################################################
 
+            return reverse("profilePicture", args=(self.authUser.pk,))
         else:
             return STATIC_URL + DEFAULT_PROFILE_PICTURE_FILENAME
 
@@ -126,29 +169,32 @@ class UserInfo(models.Model):
         if self.uploadedProfilePicture:
 
             # Please read point A at the top of this file for a comment regarding this code.
+            # Point B above also has more information to say about this section.
             ################################################################################################################
             #                                                                                                              #
 
-            # config PARAMETER VALUE: CITATION [51]
-            s3client = boto3.client(
-                                    's3',
-                                    aws_secret_access_key=MEDIA_BUCKET_SECRET,
-                                    aws_access_key_id=MEDIA_BUCKET_ID,
-                                    region_name="us-west-1",
-                                    config=botocore.config.Config(signature_version="s3v4")
-            )
-            # SENDING A PRESIGNED URL FROM CITATION [28]
-            return s3client.generate_presigned_url(
-                                                    'get_object',
-                                                    Params={
-                                                             'Bucket' : MEDIA_BUCKET_NAME,
-                                                             'Key' : "thumbofuser"+str(self.authUser.id)+".png"
-                                                    },
-                                                    ExpiresIn=PROFILE_PICTURE_EXPIRATION_SECONDS
-            )
+            # # config PARAMETER VALUE: CITATION [51]
+            # s3client = boto3.client(
+            #                         's3',
+            #                         aws_secret_access_key=MEDIA_BUCKET_SECRET,
+            #                         aws_access_key_id=MEDIA_BUCKET_ID,
+            #                         region_name="us-west-1",
+            #                         config=botocore.config.Config(signature_version="s3v4")
+            # )
+            # # SENDING A PRESIGNED URL FROM CITATION [28]
+            # return s3client.generate_presigned_url(
+            #                                         'get_object',
+            #                                         Params={
+            #                                                  'Bucket' : MEDIA_BUCKET_NAME,
+            #                                                  'Key' : "thumbofuser"+str(self.authUser.id)+".png"
+            #                                         },
+            #                                         ExpiresIn=PROFILE_PICTURE_EXPIRATION_SECONDS
+            # )
 
             #                                                                                                              #
             ################################################################################################################
+
+            return reverse("thumbnail", args=(self.authUser.pk,))
         else:
             return STATIC_URL + DEFAULT_PROFILE_PICTURE_FILENAME
 

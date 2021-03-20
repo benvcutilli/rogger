@@ -14,9 +14,12 @@ from datetime import date
 from workoutLogging.models import Workout
 from django.template.loader import render_to_string
 from django.shortcuts import get_object_or_404
-import boto3
+# No longer used (this is the "boto3" package[195])
+# import boto3
 from decimal import Decimal
-# Create your views here.
+
+# A. This code is code that handled saving the images to S3[77]; S3 usage is no longer the case, so
+#    this is merely commented out
 
 ######### USER PAGE LOCALIZATION #############
 userPageFrenchDict = {
@@ -202,33 +205,73 @@ def storeDate(request):
         return HttpResponseBadRequest()
 
 
-from rogger.settings import MEDIA_BUCKET_NAME, MEDIA_BUCKET_ID, MEDIA_BUCKET_SECRET
+from rogger.settings import MEDIA_BUCKET_NAME, MEDIA_BUCKET_ID, MEDIA_BUCKET_SECRET, PICTURE_STORE
 from io import BytesIO
 
 # CITATION [26]
 def changePictureView(request, username):
     if request.user.is_authenticated and request.user.username == username:
         if request.method == "POST":
-            mediaBucket = boto3.resource('s3', aws_access_key_id=MEDIA_BUCKET_ID, aws_secret_access_key=MEDIA_BUCKET_SECRET).Bucket(MEDIA_BUCKET_NAME)
-            # This next line is to counter a bug where the profile picture will
-            # successfully be uploaded but the thumbnail will not be,
-            # potentially leading the user to believe that their old profile
-            # picture was completely erased from the system. See [113] for bug
-            # credits:
-            mediaBucket.delete_objects(Delete={"Objects": [{"Key": "profilepictureofuser"+str(request.user.id)}, {"Key": "thumbofuser"+str(request.user.id)}], "Quiet": True})
+            # Commented out because of (A)
+            ######################################################################################################################################################################
+            #                                                                                                                                                                    #
+
+            # mediaBucket = boto3.resource('s3', aws_access_key_id=MEDIA_BUCKET_ID, aws_secret_access_key=MEDIA_BUCKET_SECRET).Bucket(MEDIA_BUCKET_NAME)
+            # # This next line is to counter a bug where the profile picture will
+            # # successfully be uploaded but the thumbnail will not be,
+            # # potentially leading the user to believe that their old profile
+            # # picture was completely erased from the system. See [113] for bug
+            # # credits:
+            # mediaBucket.delete_objects(Delete={"Objects": [{"Key": "profilepictureofuser"+str(request.user.id)}, {"Key": "thumbofuser"+str(request.user.id)}], "Quiet": True})
+
+            #                                                                                                                                                                    #
+            ######################################################################################################################################################################
+
             pictureFile = request.FILES['pictureFile']
-            croppedPictureFile = BytesIO()
+            
+            # This variable was used for the purposes described in point A
+            # croppedPictureFile = BytesIO()
+            
+            # This section crops and stores the images on the machine in the encrypted device;
+            # encryption is used because of the reasons outlined in "ENCRYPTION" of the README
+            ###############################################################################################################
+            #                                                                                                             #
+            
+            croppedPictureFile = PICTURE_STORE + "profilepictureofuser" + str(request.user.id) + ".png"
             cropProfilePicture(pictureFile, "full").save(croppedPictureFile, format='PNG')
-            # NEXT LINE POSSIBLY VERBATIM (with appropriate modification)
-            # FROM CITATION [36]
-            croppedPictureFile.seek(0)
-            mediaBucket.put_object(Key="profilepictureofuser" + str(request.user.id) + ".png", Body=croppedPictureFile)
-            croppedPictureFile = BytesIO()
+            
+            # Point A describes this section
+            ###############################################################################################################
+            #                                                                                                             #
+
+            # # NEXT LINE POSSIBLY VERBATIM (with appropriate modification)
+            # # FROM CITATION [36]
+            # croppedPictureFile.seek(0)
+            # mediaBucket.put_object(Key="profilepictureofuser" + str(request.user.id) + ".png", Body=croppedPictureFile)
+            # croppedPictureFile = BytesIO()
+
+            #                                                                                                             #
+            ###############################################################################################################
+
+            croppedPictureFile = PICTURE_STORE + "thumbofuser" + str(request.user.id) + ".png"
             cropProfilePicture(pictureFile, "thumb").save(croppedPictureFile, format='PNG')
-            # NEXT LINE POSSIBLY VERBATIM (with appropriate modification)
-            # FROM CITATION [36]
-            croppedPictureFile.seek(0)
-            mediaBucket.put_object(Key="thumbofuser" + str(request.user.id) + ".png", Body=croppedPictureFile)
+            
+            #                                                                                                             #
+            ###############################################################################################################
+
+            
+            # Relevant comment: see A at top of file
+            ###############################################################################################################
+            #                                                                                                             #
+     
+            # # NEXT LINE POSSIBLY VERBATIM (with appropriate modification)
+            # # FROM CITATION [36]
+            # croppedPictureFile.seek(0)
+            # mediaBucket.put_object(Key="thumbofuser" + str(request.user.id) + ".png", Body=croppedPictureFile)
+            
+            #                                                                                                             #
+            ###############################################################################################################
+
             request.user.userinfo.uploadedProfilePicture = True
             request.user.userinfo.save()
             return HttpResponseRedirect(reverse('userView', args=[username]))

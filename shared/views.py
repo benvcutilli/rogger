@@ -7,6 +7,26 @@ from django.shortcuts import render
 
 from shared.languageLocalization import debugLocale, baseLocalization
 
+from rogger.settings import PICTURE_STORE, PROFILE_PICTURE_PREFIX, THUMBNAIL_PREFIX
+
+# Next two lines refer to software provided by Django [94]
+from django.http import Http404, FileResponse, HttpResponse
+from django.shortcuts import get_object_or_404
+
+# This is the module from [198]; point C is relevant
+import time
+
+# [205]'s module
+import pathlib
+
+# A. 404ing in order to not suggest the user has an account (which is meant to be in line with the
+#    Merv[43]-like mode in which everyone but the user gets a response that suggests the user
+#    doesn't exist, or if someone is blocked then we behave in the same way as well)
+# B. We 404 when we can't find the user so that the same response is returned whether or not
+#    targetUser is found; otherwise, point A would not be effective
+# C. This code uses the "time"[198] module as [199, "Technical Detail"] says that, as opposed to
+#    datetime[199], it takes care of leap seconds.
+
 # This section of code is part of the implementation of searching for users in
 # Rogger (this functionality is described in [105]).
 #########################################################################################################################################################
@@ -91,3 +111,173 @@ def error500View(request):
     # ADDING STATUS TO PREVENT FAVICONS OR ANY RESOURCE THAT CAN'T LOAD FROM REFRESHING THE csrf COOKIE
     # IS FROM CITATION [49]
     return render(request, 'shared/error500.html', baseLocalization[debugLocale], status=500)
+    
+# It reads the three kinds of timestamps required by
+# [200, 7.1.1.1] and [201, 3.3.1] to be handled (Note: for the "Last-Modified" ([201, 14.29], [202,
+# 2.2]) and "If-Modified-Since" ([201, 14.25], [202, 3.3]) headers, these formats were via [201,
+# 14.29] & [202, 2.2] and [201, 14.25] & [202, 3.3], respectively). The layout of these timestamps
+# are from [200, 7.1.1.1], but all code was written by me.
+#
+# "time" module[198] usage: please read point C
+def convertTimestamp(timestamp):
+    pythonRepresentation = None
+    try:
+        # "IMF-fixdate" from [200, 7.1.1.1] & [201, 3.3.1] (though that reference may not use the
+        # name "IMF-fixdate")
+        pythonRepresentation = time.strptime(timestamp, "%a, %d %b %Y %H:%M:%S GMT")
+    except:
+        try:
+            # "rfc850-date" [200, 7.1.1.1], also found this format at [201, 3.3.1]
+            pythonRepresentation = time.strptime(timestamp, "%a, %d-%b-%Y %H:%M:%S GMT")
+        except:
+            try:
+                # Initially saw this format at [201, 3.3.1], but this is mostly based off of [200,
+                # 7.1.1.1]'s "asctime-date".
+                pythonRepresentation = time.strptime(timestamp, "%A %m %e %H:%M:%S %Y")
+            except:
+                pass
+    
+    return pythonRepresentation
+
+
+
+# Makes a timestamp in the form of "IMF-fixdate" or RFC 1123[203, 5.2.14], which is defined (for me)
+# in [200, 7.1.1.1] and [201, 3.3.1], respectively. This is the format that is required in [200,
+# 7.1.1.1] and [201, 3.3.1].
+#
+# "time" module[198] usage: please read point C
+def timestampForPath(p):
+    abstractTime = time.gmtime(p.stat().st_mtime)
+    return time.strftime("%a, %d %b %Y %H:%M:%S GMT", abstractTime)
+    
+
+
+
+# AS A REMINDER, DON'T FORGET TO STATE IN fetchProfilePicture AND fetchThumbnail WHERE SERVER
+# BEHAVIOR IS FROM (AND SAY WHAT IT DOESN'T DO)
+def fetchProfilePicture(request, primarykey):
+    whoWantsIt = request.user
+    # See point B
+    targetUser = get_object_or_404(User, pk=primarykey)
+    
+    if not whoWantsIt.userinfo.cantSee(targetUser):
+        # NEED TO STATE HOW [201] WAS RELEVANT AS WELL
+        # The branch that checks the If-Modified-Since[202, 3.3] header to see if we need to send
+        # them the full image or send them a 304[202, 4.1] telling them that they already have
+        # it. This is suggested by [202, 3.3]. In fact, all requirements and suggestions in
+        # [202, 3.3] are used to figure out what to do for responses in this code less the code
+        # in these parts:
+        #   1. The "else" statement in the below conditional
+        #   2. Determining if If-Modified-Since was provided and if not, proceeding to the next
+        #      parts of the conditionals as it can't be used (though I suspect this is implicit
+        #      in [202, 3.3]; this scenario was also shown to be possible in Safari 14.0.3 provided
+        #      with macOS[204])
+        #   3. The "Cache-Control" line
+        #
+        # "time" module usage: please read point C
+
+        filePath = pathlib.Path(PICTURE_STORE + PROFILE_PICTURE_PREFIX + str(targetUser.pk) + ".png")
+
+        localFileDateAndTime = timestampForPath(filePath)
+        theirDateAndTime     = None
+        imsPresent           = "If-Modified-Since" in request
+        if imsPresent:
+            theirDateAndTime = convertTimestamp(request["If-Modified-Since"])
+        
+        print(theirDateAndTime)
+        print(imsPresent)
+
+        # [202, 3.3] gives the rationale for this being >= instead of == in the paragraph that
+        # starts with "When used for limiting the scope of retrieval..."
+        if imsPresent and (time.mktime(theirDateAndTime) >= time.mktime(localFileDateAndTime)):
+            print("sending a 304")
+            return HttpResponse(status=304)
+        elif targetUser.userinfo.uploadedProfilePicture:
+            # Need the "r" here according to [197, "FileResponse objects"]
+            pictureFile = open(filePath, "br")
+            pictureResponse = FileResponse(pictureFile)
+            # PROBABLY SHOULD PUT STANDARD FOR Last-Modified HERE FOR CITATION FOR HOW IT IS USED
+            pictureResponse["Last-Modified"] = localFileDateAndTime
+            # Don't want any other person who uses the client machine to see images that they
+            # shouldn't see because those images are in a shared cache (as is said is possible in
+            # [206, 5.2.2.6]). Forcing the client to check with the server if the picture was
+            # updated using max-age and the suggested syntax described in [206, 5.2.2.8] as well as
+            # must-revalidate [206, 5.2.2.1]; "max-age" was done because Safari kept serving stuff
+            # from its cache without considering if it is old, but then Safari would always fetch it
+            # after adding that. This apparently is a common issue with Safari [207, the question &
+            # elsewhere] that doesn't happen on other browsers [207, prompt]. So, adding
+            # "must-revalidate" was attempted in order to fix the problem, but that didn't work.
+            # Since this is the desired header value anyway, I'm keeping it here for the other
+            # browsers and giving up on Safari.
+            pictureResponse["Cache-Control"] = "private, max-age=0, must-revalidate"
+            return pictureResponse
+        else:
+            return HttpResponse(status=400)
+    else:
+        # See why we return a 404 here in point A
+        raise Http404
+    
+
+# AS A REMINDER, DON'T FORGET TO STATE IN fetchProfilePicture AND fetchThumbnail WHERE SERVER
+# BEHAVIOR IS FROM (AND SAY WHAT IT DOESN'T DO)
+def fetchThumbnail(request, primarykey):
+    whoWantsIt = request.user
+    # See point B
+    targetUser = get_object_or_404(User, pk=primarykey)
+    
+    if not whoWantsIt.userinfo.cantSee(targetUser):
+        # NEED TO STATE HOW [201] WAS RELEVANT AS WELL
+        # The branch that checks the If-Modified-Since[202, 3.3] header to see if we need to send
+        # them the full image or send them a 304[202, 4.1] telling them that they already have
+        # it. This is suggested by [202, 3.3]. In fact, all requirements and suggestions in
+        # [202, 3.3] are used to figure out what to do for responses in this code less the code
+        # in these parts:
+        #   1. The "else" statement in the below conditional
+        #   2. Determining if If-Modified-Since was provided and if not, proceeding to the next
+        #      parts of the conditionals as it can't be used (though I suspect this is implicit
+        #      in [202, 3.3]; this scenario was also shown to be possible in Safari 14.0.3 provided
+        #      with macOS[204])
+        #   3. The "Cache-Control" line
+        #
+        # "time" module usage: please read point C
+
+        filePath = pathlib.Path(PICTURE_STORE + THUMBNAIL_PREFIX + str(targetUser.pk) + ".png")
+
+        localFileDateAndTime = timestampForPath(filePath)
+        theirDateAndTime     = None
+        imsPresent           = "If-Modified-Since" in request
+        if imsPresent:
+            theirDateAndTime = convertTimestamp(request["If-Modified-Since"])
+        
+        print(theirDateAndTime)
+        print(imsPresent)
+
+        # [202, 3.3] gives the rationale for this being >= instead of == in the paragraph that
+        # starts with "When used for limiting the scope of retrieval..."
+        if imsPresent and (time.mktime(theirDateAndTime) >= time.mktime(localFileDateAndTime)):
+            print("sending a 304")
+            return HttpResponse(status=304)
+        elif targetUser.userinfo.uploadedProfilePicture:
+            # Need the "r" here according to [197, "FileResponse objects"]
+            pictureFile = open(filePath, "br")
+            pictureResponse = FileResponse(pictureFile)
+            # PROBABLY SHOULD PUT STANDARD FOR Last-Modified HERE FOR CITATION FOR HOW IT IS USED
+            pictureResponse["Last-Modified"] = localFileDateAndTime
+            # Don't want any other person who uses the client machine to see images that they
+            # shouldn't see because those images are in a shared cache (as is said is possible in
+            # [206, 5.2.2.6]). Forcing the client to check with the server if the picture was
+            # updated using max-age and the suggested syntax described in [206, 5.2.2.8] as well as
+            # must-revalidate [206, 5.2.2.1]; "max-age" was done because Safari kept serving stuff
+            # from its cache without considering if it is old, but then Safari would always fetch it
+            # after adding that. This apparently is a common issue with Safari [207, the question &
+            # elsewhere] that doesn't happen on other browsers [207, prompt]. So, adding
+            # "must-revalidate" was attempted in order to fix the problem, but that didn't work.
+            # Since this is the desired header value anyway, I'm keeping it here for the other
+            # browsers and giving up on Safari.
+            pictureResponse["Cache-Control"] = "private, max-age=0, must-revalidate"
+            return pictureResponse
+        else:
+            return HttpResponse(status=400)
+    else:
+        # See why we return a 404 here in point A
+        raise Http404
