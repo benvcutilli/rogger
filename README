@@ -754,7 +754,7 @@ well):
 [177] Configuration — NGINX Unit
       https://unit.nginx.org/configuration/
       NGINX, Inc.
-      Retrieval of late 2020 EST; earlier may have been possible as well; 2021.2 EST
+      Retrieval of late 2020 EST; earlier may have been possible as well; 2021.2 EST; 2021.3.24 EDT
 
 [178] User Guide — Certbot 1.11.0.dev0 documentation
       https://certbot.eff.org/docs/using.html
@@ -896,7 +896,26 @@ well):
 [208] Name.com Recommendations
       https://www.name.com/account/recommendations
       Name.com
-      Retrieval of 2021.3.19 EDT
+      Retrieval of 2021.3.20 EDT
+
+[209] python - NGINX Unit + Flask = not found among the available application modules - Stack Overflow
+      https://stackoverflow.com/questions/61512505/nginx-unit-flask-not-found-among-the-available-application-modules
+      Users "i4k", "mrvol", "user13384117"
+      Retrieval of 2021.3.23 EDT
+      Created and answered/commented on on 2020.4.29 EDT
+      Via Google (see more via information in point A of ubuntusetup/script)
+
+[210] Django — NGINX Unit
+      http://unit.nginx.org/howto/django/
+      NGINX, Inc.
+      Retrieval of 2021.3.24 EDT
+      Via [177, "Python"]
+
+[211] Django : attempt to write a readonly database · Issue #163 · nginx/unit
+      https://github.com/nginx/unit/issues/163
+      Users "ghostinushanka", "mfoacs"
+      Retrieval of 2021.3.26 EDT
+      Posted on 2018.9.4 EDT and 202.1.15 EST
 
 
 

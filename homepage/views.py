@@ -10,7 +10,7 @@ from django.urls import reverse
 from shared.languageLocalization import baseLocalization
 from rogger.settings import RECAPTCHA_PUBLIC, RECAPTCHA_SECRET
 from . import forms
-import urllib
+import urllib.request
 import json
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
