@@ -10,9 +10,9 @@ from django.urls import path
 
 
 
-# This variable was probably already here (it's likely from when "startproject"[] was run) as well
-# as the first call to url(). Not sure if subsequent calls to url() were copy-pasted and modified
-# from the first call.
+# This variable was probably already here (it's likely from when "startproject"[79, "startproject"]
+# was run) as well as the first call to url(). Not sure if subsequent calls to url() were
+# copy-pasted and modified from the first call.
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('homepage.urls')),

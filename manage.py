@@ -1,3 +1,5 @@
+# File created by "django-admin startproject" command [79, "startproject"] 
+
 #!/usr/bin/env python
 import os
 import sys

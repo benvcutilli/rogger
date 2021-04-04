@@ -1,4 +1,4 @@
-# This file and its contents were created by django-admin startproject
+# This file and its contents, less this comment, were created by django-admin startproject
 # [79, "startproject" documentation]
 """
 WSGI config for rogger project.
