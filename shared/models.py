@@ -125,8 +125,10 @@ class UserInfo(models.Model):
     def cantSee(self, thisPerson):
         if self.isBlockedBy(thisPerson):
             return True
-        elif thisPerson.userinfo.privacySelection == 3:
+        elif thisPerson.userinfo.privacySelection == 3 and (not self.authUser.pk == thisPerson.pk):
             return True
+        else:
+            return False
     
     #                                                                                              #
     ################################################################################################
