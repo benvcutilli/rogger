@@ -362,7 +362,7 @@ def passwordResetView(request, uid, token):
         'token' :   token,
     }
     templateDict.update(baseLocalization[debugLocale])
-    viewFunction = PasswordResetConfirmView.as_view(extra_content=templateDict,
+    viewFunction = PasswordResetConfirmView.as_view(extra_context=templateDict,
                                                     success_url=reverse("loginView"),
                                                     form_class=forms.RoggerSetPasswordForm,
                                                     template_name='homepage/resetpassword.html')

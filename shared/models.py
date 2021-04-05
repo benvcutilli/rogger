@@ -125,6 +125,9 @@ class UserInfo(models.Model):
     def cantSee(self, thisPerson):
         if self.isBlockedBy(thisPerson):
             return True
+        # The Merv[43]-inspired case of the user setting their profile privacy such that they appear
+        # to not exist on the website. However, the section part of this AND conditional is here
+        # because the profile shouldn't be hidden from its own user.
         elif thisPerson.userinfo.privacySelection == 3 and (not self.authUser.pk == thisPerson.pk):
             return True
         else:

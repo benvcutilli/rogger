@@ -925,7 +925,35 @@ well):
       Retrieval of sometime after approximately the start of 2015
       Almost certainly googled to find this
 
+[214] AWS Developer Forums: Access denied for S3 Bucket ...
+      User "aduty"
+      https://forums.aws.amazon.com/thread.jspa?messageID=773968
+      Retrieval of 2021.3.3 EDT
+      Via Google searching for "An error occurred (AccessDenied) when calling the GetObject
+      operation: Access Denied" (the error message that was displayed for this relevant problem)
 
+[215] Amazon S3 REST API Introduction - Amazon Simple Storage Service
+      Written by either Amazon Web Services or those who work with them
+      https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html
+      Retrieval of 2021.3.3 EDT
+
+[216] Amazon Web Services Command Line Interface
+      Amazon Web Services
+      https://aws.amazon.com/cli/
+
+[217] "awscli" package
+      Amazon Web Services
+      https://pypi.org/project/awscli/
+      Retrieval of 2021.3.3 EDT
+      Probably version 1.19.44
+
+[218] AWS Key Management Service concepts - AWS Key Management Service
+      Written by either Amazon Web Services or those who work with them
+      https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction_identity-management.html
+
+[219] Overview of AWS identity management: Users - AWS Identity and Access Management
+      Written by either Amazon Web Services or those who work with them
+      https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction_identity-management.html
 
 
 
@@ -1811,6 +1839,23 @@ domains I can buy.
 --------------------------------------------------------------------------------
 
 My domain that I use for testing was recommended by [208, one of the two horizontal scrolling things]
+
+----------------------------------------------------------------------------------------------------
+
+Moving server over to Linode
+
+I wanted to figure out a way to (mostly) directly move the old server data over to the new server.
+One thing I needed to move was the files from the AWS S3 bucket that hosts the images to the server
+itself. I was reminded[215] of the AWS CLI[216] being able to do such things, so I attempted to do
+that using the awscli[217] package on a testing server that had almost all the same properties as
+the production server (this was done mostly to comply with GDPR's encryption requirement as the test
+server had an encrypted volume, as can be seen in ubuntusetup/script). However, I kept getting told
+that I wasn't permitted to fetch the images. [214, aduty's post] pointed out that I needed to grant
+access to the KMS encryption key[218, "Customer managed CMKs"] for the IAM user[219, "IAM users"]
+performing the download before I could move the files (I didn't quite understand their directions on
+how to do that, but ended up figuring it out myself and then realizing later that that method was
+what they were trying to say, less the fact that they weren't adding the permission for a user,
+specifically). This worked.
 
 
 
