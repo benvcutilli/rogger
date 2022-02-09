@@ -955,6 +955,93 @@ well):
       Written by either Amazon Web Services or those who work with them
       https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction_identity-management.html
 
+[220] User Guide — Certbot 1.11.0.dev0 documentation
+      Electronic Frontier Foundation
+      https://certbot.eff.org/docs/using.html
+      Retrieval of 2021.4.5 EDT
+      
+[221] DiG
+      Internet Systems Consortium, Inc.
+      9.10.6 (version)
+      Provided with [204]
+      Found this program by doing a Google search for "dns manpage", which turned up
+      https://linux.die.net/man/1/dig
+
+[222] Domain Names | Buy Domains & Email At Hover.com
+      Hover
+      hover.com
+      Via and ATP (atp.fm) podcast episode(s); at least that's the most likely source
+
+[223] Domain Names - Implementation and Specification
+      P. Mockapetris
+      Version date: 1987.11
+      https://tools.ietf.org/html/rfc1035
+      Via "RFC documents" of https://en.wikipedia.org/wiki/Domain_Name_System
+
+[224] Accidental Tech Podcast
+      Marco Arment, Casey Liss, John Siracusa
+      atp.fm
+      Some episode during 2020/2021, approximately
+
+[225] By email on 2021.4.4 EDT
+
+[226] postfix
+      Wietse Venema, Ubuntu Developers, LaMont Jones, Scott Kitterman (last two in order that they
+      are in on the page)
+      https://packages.ubuntu.com/focal/postfix
+
+[227] Gmail
+      Google, Inc.
+      mail.google.com
+
+[228] Prevent mail to Gmail users from being blocked or sent to spam - Gmail Help
+      Google, Inc.
+      https://support.google.com/mail/answer/81126?p=IPv6AuthError
+      Retrieval of 2021.4.14 EDT
+      Via [232]
+
+[230] Internet Protocol, Version 6 (IPv6) Specification
+      S. Deering, R. Hinden (in that order according to top of page -- assuming that page's order
+      means anything, of course)
+      https://tools.ietf.org/html/rfc8200
+      Version date: 2017.7
+      Via a Google search for "ipv6 rfc"
+
+[231] Sender Policy Framework (SPF) for Authorizing Use of Domains in Email, Version 1
+      S. Kitterman
+      https://tools.ietf.org/html/rfc7208
+      Version date: 2014.4
+      Via "Sender Policy Framework" Google search
+
+[232] Error email sent by gmail-smtp-in.l.google.com on 2021.4.14 EDT
+      Google, Inc.
+
+[233] Ensure mail delivery & prevent spoofing (SPF) - Google Workspace Admin Help
+      Google, Inc.
+      Retrieval of 2021.4.14 EDT
+      Via [228]
+
+[234] This reference:
+        Name.com - Domain Name Registration
+        Name.com
+        https://www.name.com/account/domain/details/<domain name here>#dns
+        Retrieval of 2021.4 EDT and before
+      or prior versions of it
+
+[235] Manage Domains - Hover
+      Hover
+      https://www.hover.com/control_panel/domain/<domain name here>/dns
+      Retrieval of 2021.4 EDT
+
+[236] OpenDKIM
+      David Bürgin, Ubuntu MOTU Developers
+      https://packages.ubuntu.com/focal/mail/opendkim
+
+[237] Configuration — NGINX Unit
+      NGINX, Inc.
+      https://unit.nginx.org/configuration/
+      2021.2.1 EST navigation date
+
 
 
 GENERAL CITATIONS:
@@ -1856,6 +1943,15 @@ performing the download before I could move the files (I didn't quite understand
 how to do that, but ended up figuring it out myself and then realizing later that that method was
 what they were trying to say, less the fact that they weren't adding the permission for a user,
 specifically). This worked.
+
+----------------------------------------------------------------------------------------------------
+
+I moved my domain name (rogger.co) from Name.com[179] to Hover[222], the latter of which was
+recommended by ATP during an advertisement [224].
+
+When Name.com was used, I think I used the default value for TTL[55, 3.2.1] for every record or
+almost every record when managing records with [235], and same goes for Hover's equivalent[236],
+except I think the "Host" field for on of the A[55, 3.4.1] records was, by default, "@".
 
 
 

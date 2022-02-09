@@ -290,7 +290,7 @@ def commentDeleteView(request, workoutID):
                 return HttpResponseNotFound("This comment isn't available. It may not exist.")
             return HttpReponseForbidden("You don't own this comment, so you can't delete it.")
     else:
-        return HttpReponseForbidden("Please log in to use this feature")
+        return HttpResponseForbidden("Please log in to use this feature")
 
 # THIS METHOD, USED IN THE FUNCTION storeDate BELOW, OF STORING THE DATE (FOR A NEW LOG ENTRY) IN THE USER'S SESSION FROM
 # CITATION [25]
