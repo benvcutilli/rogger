@@ -1042,6 +1042,53 @@ well):
       https://unit.nginx.org/configuration/
       2021.2.1 EST navigation date
 
+[238] When doing very consequential things, services often ask the user to type something just to
+      make sure they aren't mindlessly performing the action (for example, this is what happens
+      when deleting a Linode bucket (linode.com)). Our method is different because it re-samples
+      the key, even if the page is refreshed.
+
+[239] https://docs.python.org/3/library/random.html
+      random — Generate pseudo-random numbers — Python 3.10.5 documentation
+      Python Software Foundation
+
+[240] https://docs.djangoproject.com/en/4.0/ref/contrib/auth/
+      django.contrib.auth | Django documentation | Django
+      The Django Project
+
+[241] https://docs.python.org/3/library/os.html
+      os — Miscellaneous operating system interfaces — Python 3.10.5 documentation
+      Python Software Foundation
+
+[242] https://docs.djangoproject.com/en/4.0/ref/django-admin/
+      django-admin and manage.py | Django documentation | Django
+      The Django Project
+
+[243] https://docs.python.org/3/library/pathlib.html
+      pathlib — Object-oriented filesystem paths — Python 3.10.5 documentation
+      Python Software Foundation
+
+[244] Requiring the ability of the user to delete their data (with this level of ease)
+      is one of[247] the rules of GDPR[246]. The user will (and should according to GDPR[246],
+      this fact according to [248]) also be able to fetch their data with
+      this function (eventually).
+
+[245] https://docs.djangoproject.com/en/4.0/topics/email/
+      Sending email | Django documentation | Django
+      The Django Software Foundation
+
+[246] https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32016R0679
+      Regulation (EU) 2016/679 of the European Parliament and of the Council of 27 April 2016
+      on the protection of natural persons with regard to the processing of personal data and
+      on the free movement of such data, and repealing Directive 95/46/EC (General Data Protection
+      Regulation)
+      European Parliament
+
+[247] https://www.gdpreu.org/the-regulation/list-of-data-rights/right-to-erasure/
+      Fetched near 2018.5
+
+[248] https://www.gdpreu.org/the-regulation/list-of-data-rights/right-to-data-portability/
+      This site was seen sometime around May of 2018
+
 
 
 GENERAL CITATIONS:

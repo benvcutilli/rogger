@@ -197,6 +197,9 @@
       <button id="saveAccountSettingsButton" onclick="updateAccountSettings()">
         Save
       </button>
+      <!-- Makes the page concerning [244] accessible without the user knowing the URL. This page
+      will also be used for data export -->
+      <a href={% url "scram" %}>Data Management</a>
     </div>
   </div>
 </div>

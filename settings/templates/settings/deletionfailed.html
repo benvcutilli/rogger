@@ -1,0 +1,15 @@
+<!-- Error page when deleting [244] user data -->
+
+{% extends "shared/base.html" %}
+
+{% block inheritor %}
+	<style>
+		#message {
+			margin-top: 150px;
+			margin-left: 100px;
+		}
+	</style>
+	<div id="message">
+		Your data couldn't be deleted. This issue will be looked into and resolved.
+	</div>
+{% endblock %}

@@ -17,6 +17,28 @@ import re
 from workoutLogging.models import Workout
 from decimal import Decimal
 
+# Documentation for this module: [239]
+import random
+
+# Function provided by [240]
+import django.contrib.auth
+
+# Importing [242]
+import django.core.management
+
+# Importing [245, "send_mail()"]
+import django.core.mail.send_mail
+
+# The "Path" class found at [243, "Concrete paths"]
+from pathlib import Path
+
+from rogger import settings as configuration
+
+
+
+
+
+
 baseLocale = 'english'
 
 settingsFrenchDict = {
@@ -213,3 +235,94 @@ def importView(request):
 
     else:
         return render(request, 'settings/import.html', baseLocalization[baseLocale])
+        
+        
+
+
+
+
+
+
+
+# Have the parameter be called "request" just in case Django needs it to be (instead of something else).
+# This view deletes a user (and all their corresponding data). Further, see [244].
+def datamanagement(request):
+
+   
+    
+    def prepare(passwordError="", checkError=""):
+        substitutions = {
+            "toType":          "".join(   random.choices("cnposkew", k=6)   ),
+            "passwordError":   passwordError,
+            "checkError":      checkError
+        }
+        renderedTemplate = render(request, "settings/deletion.html", substitutions)
+        return renderedTemplate
+
+
+
+
+
+    # As is common, we use a conditional here to change the site's behavior for different kinds
+    # of requests (specifically, their methods). [238] explains what else is going on here and 
+    # associated references.
+    if "GET" in request.method:
+        response = prepare()
+        return response
+
+    elif "POST" in request.method:
+
+        if request.POST["confirmation"] != request.POST["confirmationTruth"]:
+
+            return prepare(checkError="You made a typo here")
+
+        if not request.user.check_password(request.POST["accessProof"]):
+
+            return prepare(passwordError="You entered the wrong password")
+
+        else:
+            
+            primaryKey = request.user.pk 
+            
+            try:
+                 
+                profilePicture = Path(
+                                    configuration.PICTURE_STORE,
+                                    "{0}{1}.png".format(configuration.THUMBNAIL_PREFIX, primaryKey)
+                                )
+                thumbnail      = Path(
+                                    configuration.PICTURE_STORE,
+                                    "{0}{1}.png".format(
+                                        configuration.PROFILE_PICTURE_PREFIX,
+                                        primaryKey
+                                    )
+                                )
+                thumbnail.unlink(True)
+                profilePicture.unlink(True)
+    
+                deleting = request.user
+                django.contrib.auth.logout(request)
+                deleting.delete()
+    
+                django.core.management.call_command("clearsessions")
+                
+                page = render(request, "settings/deletioncompleted.html")
+                return page
+
+            except:
+                
+                # Making sure that the data is at least manually deleted
+                django.core.mail.send_mail(
+                    "Failure to delete account",
+                    "Some data for account with primary key {0} couldn't be deleted. Please \
+                        investigate and correct.".format(primaryKey),
+                    "error@rogger.co",
+                    [  "ben@rogger.co"  ]
+                )
+                
+                page = render(request, "settings/deletionfailed.html")
+                return page
+                
+                
+                
+        

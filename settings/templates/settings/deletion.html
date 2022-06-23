@@ -1,0 +1,47 @@
+<!-- This file is part of the data export and deletion mechanism (the latter of which is 
+described by [244] and uses the technique described by [238]) -->
+
+
+
+{% extends "shared/base.html" %}
+
+{% block inheritor %}
+	<style>
+		form {
+			margin-top:   150px;
+			margin-left:  100px;
+			margin-right: 100px;
+		}
+	</style>
+
+	<form method="POST">
+
+		<h3>
+			To remove your account and all its data from this site, fill out this form. While the data 
+			on the server right now will be deleted, we back up data for a week, so it will take that 
+			long for your data to clear out from everywhere.
+		</h3>
+
+		Password: <input type="password" name="accessProof"> {{ passwordError }}
+		
+		<br>
+		{% csrf_token %}
+		<!--
+			The following two lines do this:
+				First line:   Sends the server the value that the user was supposed to type
+				Second line:  The user needs to type something, and thus needs to prompted with what
+				              to type
+		-->
+		<input type="text" value="{{ toType }}" name="confirmationTruth" hidden>
+		Type this: {{  toType }}
+
+		<!-- Users type the random string used to make sure this wasn't an errant deletion in here -->
+		<input type="text" name="confirmation"> {{ checkError }}
+
+		<br>
+
+		<input value="Delete" type="submit">
+
+
+	</form>
+{% endblock %}
