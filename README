@@ -1072,8 +1072,8 @@ well):
       this fact according to [248]) also be able to fetch their data with
       this function (eventually).
 
-[245] https://docs.djangoproject.com/en/4.0/topics/email/
-      Sending email | Django documentation | Django
+[245] https://docs.djangoproject.com/en/3.2/_modules/django/core/mail/
+      django.core.mail | Django documentation | Django
       The Django Software Foundation
 
 [246] https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32016R0679
@@ -1088,6 +1088,10 @@ well):
 
 [248] https://www.gdpreu.org/the-regulation/list-of-data-rights/right-to-data-portability/
       This site was seen sometime around May of 2018
+
+[249] https://github.com/django/django/blob/main/django/contrib/auth/decorators.py
+      decorators.py
+      Django Software Foundation
 
 
 

@@ -17,6 +17,8 @@ import re
 from workoutLogging.models import Workout
 from decimal import Decimal
 
+import rogger.urls as t
+
 # Documentation for this module: [239]
 import random
 
@@ -26,11 +28,14 @@ import django.contrib.auth
 # Importing [242]
 import django.core.management
 
-# Importing [245, "send_mail()"]
-import django.core.mail.send_mail
+# Importing [245]
+import django.core.mail
 
 # The "Path" class found at [243, "Concrete paths"]
 from pathlib import Path
+
+# Importing [249]
+import django.contrib.auth.decorators
 
 from rogger import settings as configuration
 
@@ -244,8 +249,18 @@ def importView(request):
 
 
 
-# Have the parameter be called "request" just in case Django needs it to be (instead of something else).
-# This view deletes a user (and all their corresponding data). Further, see [244].
+# I have the parameter be called "request" just in case Django needs it to be (instead of
+# something else). This view deletes a user (and all their corresponding data); see [244].
+# Tried to pass in
+#     login_url=reverse(
+#        "loginView",
+#        urlconf=rogger.urls
+#    )
+# to the decorator below. However, making rogger.urls available in this file causes an
+# issue because rogger/urls.py does the same for this file (code like htis was suggested to be
+# the issue by an error message). So, it was removed and LOGIN_URL was set in the settings
+# file instead.
+@django.contrib.auth.decorators.login_required(   redirect_field_name=None   )
 def datamanagement(request):
 
    
