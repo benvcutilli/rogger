@@ -256,22 +256,28 @@ def viewEntry(request, workoutID):
 
 
 def commentAddView(request, workoutID):
+
     workout = get_object_or_404(Workout, id=workoutID)
+
+
     if workout.owner.userinfo.privacySelection == 3:
         return HttpResponseNotFound()
+
     # usage of the "approved" attribute in a Follow object from citation [25]
     if (workout.owner.userinfo.privacySelection == 2 and not (Follow.objects.filter(followee=workout.owner, follower=request.user, approved=True).exists() or workout.owner == request.user)) or (workout.owner.userinfo.privacySelection == 3 and not workout.owner == request.user):
         return HttpResponseNotFound()
+
     if request.user.is_authenticated:
+
         commentText = request.POST['text']
-        otherEmails = []
-        for comment in Comment.objects.filter(workout=workout):
-            if request.user != comment.owner:
-                otherEmails.append(comment.owner.email)
-        emailRecipients = ([workout.owner.email] if workout.owner != request.user else []) + otherEmails
-        send_mail("Someone posted a comment on a workout with which you have interacted", "See the comment at https://rogger.co" + reverse("viewEntryView", args=[workoutID]), "alertbot@rogger.co", emailRecipients)
         newComment = Comment.objects.create(commentText=commentText, owner=request.user, workout=workout, dateAndTime=datetime.datetime.now())
         newComment.save()
+
+        for comment in Comment.objects.filter(workout=workout):
+            if request.user != comment.owner:
+                send_mail("Someone posted a comment on a workout with which you have interacted", "See the comment at https://rogger.co" + reverse("viewEntryView", args=[workoutID]), "alertbot@rogger.co", [comment.owner.email])
+        if not workout.owner == request.user:
+            send_mail("Someone posted a comment on a workout with which you have interacted", "See the comment at https://rogger.co" + reverse("viewEntryView", args=[workoutID]), "alertbot@rogger.co", [workout.owner.email])
 
         return render(request, "workoutLogging/comment.html", { 'comment' : newComment })
     else:
