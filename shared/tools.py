@@ -229,8 +229,8 @@ def cropProfilePicture(pictureFile, format="full"):
 # END CITATION
 
 # NAME OF NEXT FUNCTION IS DERIVED FROM CITATION [44], CREATING FUNCTION FOR BLAST EMAIL IS FROM CITATION [46]
-def blastEmail(sender, text, title):
-    users = User.objects.all()
+def blastEmail(sender, text, title, recipients=None):
+    users = User.objects.all() if recipients == None else recipients
     for user in users:
         # NEXT time.sleep() CALL FROM CITATION [45]
         time.sleep(.3)

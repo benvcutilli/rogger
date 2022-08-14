@@ -13,6 +13,8 @@ from copy import deepcopy
 import re
 from django.contrib.auth.models import User
 
+import shared.tools
+
 debugLocale = 'english'
 
 entryFrenchDict = {
@@ -28,7 +30,7 @@ entryLocalization = {
     'english'   :   entryEnglishDict,
 }
 
-usernameRegex = re.compile(r'@([0-9a-zA-Z_]+)\s')
+usernameRegex = re.compile(r'@([0-9a-zA-Z_]+)(?:\W|\Z)')
 
 # Create your views here.
 
@@ -104,15 +106,21 @@ def newEntry(request):
                 workout.save()
 
                 global usernameRegex
-                usernames = list(set(usernameRegex.findall(workout.entry)))
-                for username in usernames:
-                    if User.objects.filter(username=username).exists():
-                        send_mail(
-                                    "You were tagged in an entry",
-                                    "You were tagged in an entry located at https://rogger.co" + reverse("viewEntryView", args=[workout.id]),
-                                    "alertbot@rogger.co",
-                                    [User.objects.get(username=username).email]
-                        )
+                usernames = list(
+                                set(
+                                    usernameRegex.findall(
+                                        workoutForm.cleaned_data['entry']
+                                    )
+                                )
+                            )
+                ignore = Block.objects.filter(blockee=request.user).values_list("blocker__id", flat=True)
+                tagged = User.objects.filter(username__in=usernames).exclude(pk__in=ignore)
+                shared.tools.blastEmail(
+                            "alertbot@rogger.co",
+                            "You were tagged in an entry located at https://rogger.co" + reverse("viewEntryView", args=[workout.id]),
+                            "You were tagged in an entry",
+                            tagged
+                )
 
                 return HttpResponseRedirect(reverse("homepage"))
             else:
@@ -171,15 +179,21 @@ def editEntry(request, workoutID):
             if workoutForm.is_valid():
 
                 global usernameRegex
-                usernames = list(set(usernameRegex.findall(workoutForm.cleaned_data['entry'])))
-                for username in usernames:
-                    if User.objects.filter(username=username).exists() and len(re.compile(r'@('+username+r')\s').findall(workout.entry)) == 0:
-                        send_mail(
-                                    "You were tagged in an entry",
-                                    "You were tagged in an entry located at https://rogger.co" + reverse("viewEntryView", args=[workout.id]),
-                                    "alertbot@rogger.co",
-                                    [User.objects.get(username=username).email]
-                        )
+                usernames = list(
+                                set(
+                                    usernameRegex.findall(
+                                        workoutForm.cleaned_data['entry']
+                                    )
+                                )
+                            )
+                ignore = Block.objects.filter(blockee=request.user).values_list("blocker__id", flat=True)
+                tagged = User.objects.filter(username__in=usernames).exclude(pk__in=ignore)
+                shared.tools.blastEmail(
+                            "alertbot@rogger.co",
+                            "You were tagged in an entry located at https://rogger.co" + reverse("viewEntryView", args=[workout.id]),
+                            "You were tagged in an entry",
+                            tagged
+                )
 
                 workout.title           =   workoutForm.cleaned_data['title']
                 workout.distance        =   workoutForm.cleaned_data['distance']
@@ -259,7 +273,6 @@ def commentAddView(request, workoutID):
 
     workout = get_object_or_404(Workout, id=workoutID)
 
-
     if workout.owner.userinfo.privacySelection == 3:
         return HttpResponseNotFound()
 
@@ -272,14 +285,16 @@ def commentAddView(request, workoutID):
         commentText = request.POST['text']
         newComment = Comment.objects.create(commentText=commentText, owner=request.user, workout=workout, dateAndTime=datetime.datetime.now())
         newComment.save()
-
+        
+        sendTo = []
         for comment in Comment.objects.filter(workout=workout):
             if request.user != comment.owner:
-                send_mail("Someone posted a comment on a workout with which you have interacted", "See the comment at https://rogger.co" + reverse("viewEntryView", args=[workoutID]), "alertbot@rogger.co", [comment.owner.email])
-        if not workout.owner == request.user:
-            send_mail("Someone posted a comment on a workout with which you have interacted", "See the comment at https://rogger.co" + reverse("viewEntryView", args=[workoutID]), "alertbot@rogger.co", [workout.owner.email])
-
+                sendTo.append(comment.owner)
+        sendTo = ([workout.owner] if workout.owner != request.user else []) + sendTo
+        shared.tools.blastEmail("alertbot@rogger.co", "See the comment at https://rogger.co" + reverse("viewEntryView", args=[workoutID]), "Someone posted a comment on a workout with which you have interacted", sendTo)
+    
         return render(request, "workoutLogging/comment.html", { 'comment' : newComment })
+
     else:
         return HttpResponseForbidden("Please log in to use this feature.")
 
