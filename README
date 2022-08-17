@@ -1092,7 +1092,26 @@ well):
 [249] https://github.com/django/django/blob/main/django/contrib/auth/decorators.py
       decorators.py
       Django Software Foundation
+      
+[250] https://github.com/django/django/blob/0dd29209091280ccf34e07c9468746c396b7778e/docs/releases/2.0.txt
+      2.0.txt
+      Various authors
+      Found this in late July/early August of 2022
 
+[251] https://sqlite.org/download.html
+      Hwaci
+      Version 3.39.2
+
+[252] https://stackoverflow.com/questions/2716702/no-such-file-or-directory-error-when-executing-a-binary
+      linux - "No such file or directory" error when executing a binary - Stack Overflow
+      "Lorin Hochstein"
+      Retrieved 2022.8.9
+      Last updated 2010.4.26
+      Via Google
+
+[253] https://packages.ubuntu.com/focal/libc6-i386
+      libc-i386
+      Ubuntu Developers
 
 
 GENERAL CITATIONS:
@@ -2003,6 +2022,35 @@ recommended by ATP during an advertisement [224].
 When Name.com was used, I think I used the default value for TTL[55, 3.2.1] for every record or
 almost every record when managing records with [235], and same goes for Hover's equivalent[236],
 except I think the "Host" field for on of the A[55, 3.4.1] records was, by default, "@".
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+I wasn't able to delete accounts because of a constraint violation in SQLite 3. A search on GitHub
+turned up [250, "Foreign key constraints are now enabled on SQLite"], which stated that the solution
+to this problem is "tables may need to be rebuilt to recreate foreign keys with the new definition".
+I decided to use the "sqlite3" tool [251] to fix this problem, but it wouldn't run. Turns out that
+[252, "Loren Hochstein"'s response] I needed to install [253]. Doing so resolved the issue, and
+allowed me to proceed with implementing the constraint issue solution.
+
+
+
+
+Security breaches were reported to users as required by [246].
+
+
 
 
 
