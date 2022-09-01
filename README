@@ -1113,6 +1113,9 @@ well):
       libc-i386
       Ubuntu Developers
 
+[254] https://docs.djangoproject.com/en/4.1/ref/request-response/
+      Django Software Foundation
+
 
 GENERAL CITATIONS:
 This site has a lot of influence from Mark Crimmins' "Merv's RUNNING"

@@ -1,3 +1,6 @@
+# A. It is required [246] (via [248) that any data belonging to the user be exportable to something that can be
+#    parsed in an automated manner. This method achieves that goal.
+
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import date
@@ -40,7 +43,40 @@ class Workout(models.Model):
     def getEscapedEntry(self):
         # (NOTE: THIS CITATION DOES NOT APPLY HERE, BUT KEEPING IT HERE JUST IN CASE I NEED IT BACK AGAIN): next line citation [18]
         return self.entry
+        
 
+    # Look at A at the top of this file
+    @classmethod
+    def export(cls, key):
+        
+        # The keys are just the names of the fields above
+        toJSON = cls.objects.filter(owner=key).values(
+            "distance",
+            "shoe",
+            "entry",
+            "hours",
+            "minutes",
+            "seconds",
+            "wtype",
+            "backupType",
+            "mervOldRoggerLegacyType",
+            "mervLegacySubtype",
+            "mervLegacyPace",
+            "mervLegacyPaceUnits",
+            "mervLegacyHeartrate",
+            "mervLegacyAddendum",
+            "mervLegacyDistance",
+            "mervLegacyDistanceUnits",
+            "title",
+            "modifiedDate",
+            "date",
+            "updated",
+            "mervImport",
+            "oldRoggerTransfer",
+            "owner"
+        )
+        
+        return toJSON
 
 class Comment(models.Model):
     commentText     =   models.TextField()
@@ -49,7 +85,35 @@ class Comment(models.Model):
     dateAndTime     =   models.DateTimeField()
 
 
+    # Point A way above describes why this method exists
+    @classmethod
+    def export(cls, key):
+
+        # Using attribute names as entry name in this dictionary
+        toJSON = cls.objects.filter(owner=key).values(
+            "commentText",
+            "owner",
+            "workout",
+            "dateAndTime"
+        )
+        
+        return toJSON
+
 class Unit(models.Model):
     owner       = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     name        = models.CharField(max_length=100)
     distance    = models.DecimalField(max_digits=20, decimal_places=4)
+
+
+    # Relevant information can be found in point A
+    @classmethod
+    def export(cls, key):
+        
+        # Using the names of this class's attributes here in the quote marks
+        toJSON = cls.objects.filter(owner=key).values(
+            "owner",
+            "name",
+            "distance"
+        )
+        
+        return toJSON

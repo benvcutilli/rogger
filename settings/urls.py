@@ -16,7 +16,10 @@ import django.urls
 urlpatterns = [
     # This next URL supports importing Merv[70]-exported data:
     url(r'import$', views.importView, name="importView"),
-    # URL for deleting (see the datamanagement(...) function's comment) and exporting data
+    # URL for deleting (see the datamanagement(...) function's comment) and exporting data (the URL
+    # after it is just for exporting; again, revelvant comments for that line can be found above
+    # views.export)
     django.urls.path("/datamanagement", views.datamanagement, name="scram"),
+    django.urls.path("/datamanagement/dump", views.export, name="export"),
     url(r'$', views.settings, name="settingsView"),
 ]
