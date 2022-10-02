@@ -170,8 +170,9 @@ def settings(request):
         templateDict = {}
         templateDict.update(localizationDict[baseLocale])
         templateDict.update({
-            'shoes'         : Shoe.objects.filter(owner=request.user),
-            'workoutTypes'  : WorkoutType.objects.filter(owner=request.user).exclude(name="Unknown")
+            'shoes'           : Shoe.objects.filter(owner=request.user),
+            'workoutTypes'    : WorkoutType.objects.filter(owner=request.user).exclude(name="Unknown"),
+            'protectionLevel' : user.userInfo.privacySelection
         })
         return render(request, "settings/settings.html", templateDict)
     else:
@@ -257,8 +258,8 @@ def importView(request):
 
     else:
         return render(request, 'settings/import.html', baseLocalization[baseLocale])
-        
-        
+
+
 
 
 
@@ -270,8 +271,8 @@ def importView(request):
 @django.contrib.auth.decorators.login_required(   redirect_field_name=None   )
 def datamanagement(request):
 
-   
-    
+
+
     def prepare(passwordError="", checkError=""):
         substitutions = {
             "toType":          "".join(   random.choices("cnposkew", k=6)   ),
@@ -289,7 +290,7 @@ def datamanagement(request):
 
 
     # As is common, we use a conditional here to change the site's behavior for different kinds
-    # of requests (specifically, their methods). [238] explains what else is going on here and 
+    # of requests (specifically, their methods). [238] explains what else is going on here and
     # associated references.
     if "GET" in request.method:
         response = prepare()
@@ -306,11 +307,11 @@ def datamanagement(request):
             return prepare(passwordError="You entered the wrong password")
 
         else:
-            
-            primaryKey = request.user.pk 
-            
+
+            primaryKey = request.user.pk
+
             try:
-                 
+
                 profilePicture = Path(
                                     configuration.PICTURE_STORE,
                                     "{0}{1}.png".format(configuration.THUMBNAIL_PREFIX, primaryKey)
@@ -324,18 +325,18 @@ def datamanagement(request):
                                 )
                 thumbnail.unlink(True)
                 profilePicture.unlink(True)
-    
+
                 deleting = request.user
                 django.contrib.auth.logout(request)
                 deleting.delete()
-    
+
                 django.core.management.call_command("clearsessions")
-                
+
                 page = render(request, "settings/deletioncompleted.html")
                 return page
 
             except:
-                
+
                 # Making sure that the data is at least manually deleted
                 django.core.mail.send_mail(
                     "Failure to delete account",
@@ -344,7 +345,7 @@ def datamanagement(request):
                     "error@rogger.co",
                     [  "ben@rogger.co"  ]
                 )
-                
+
                 page = render(request, "settings/deletionfailed.html")
                 return page
 
@@ -357,7 +358,7 @@ def datamanagement(request):
 # that, I think).
 @django.contrib.auth.decorators.login_required(   redirect_field_name=None   )
 def export(request):
-    
+
     data = {
         "Workout":      [ i for i in Workout.export(request.user) ],
         "Comment":      [ i for i in Comment.export(request.user) ],
@@ -368,9 +369,8 @@ def export(request):
         "UserInfo":     [ i for i in UserInfo.export(request.user) ],
         "Unit":         [ i for i in Unit.export(request.user) ]
     }
-    
+
     jsonResponse = JsonResponse(data, json_dumps_params={ "indent": 7 })
     return jsonResponse
-    
-    
-    
+
+
