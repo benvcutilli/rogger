@@ -18,6 +18,7 @@ from django.shortcuts import get_object_or_404
 # import boto3
 from decimal import Decimal
 
+
 # A. This code is code that handled saving the images to S3[77]; S3 usage is no longer the case, so
 #    this is merely commented out
 
@@ -45,7 +46,7 @@ def userView(request, username):
         return HttpResponseNotFound()
     else:
         user = get_object_or_404(User, username=username)
-        if (user.userinfo.privacySelection == 3 and request.user != user) or (request.user.is_authenticated and Block.objects.filter(blockee=request.user, blocker=user).exists() and request.user == user):
+        if (user.userinfo.privacySelection == 3 and request.user != user) or (request.user.is_authenticated and Block.objects.filter(blockee=request.user, blocker=user).exists() and request.user != user):
             return HttpResponseNotFound()
 
         else:
@@ -212,6 +213,32 @@ from io import BytesIO
 def changePictureView(request, username):
     if request.user.is_authenticated and request.user.username == username:
         if request.method == "POST":
+
+            # Need to possibly delete their profile picture, which is likely a requirement described
+            # in [255]
+            ########################################################################################
+            #                                                                                      #
+
+            if request.user.userinfo.uploadedProfilePicture and "deletePicture" in request.POST:
+                path = request.user.userinfo.profilePicturePath()
+                path.unlink()
+                path = request.user.userinfo.thumbPath()
+                path.unlink()
+
+                request.user.userinfo.uploadedProfilePicture = False
+                request.user.userinfo.save()
+
+                parameters = {
+                    "args": [request.user.username],
+                    "viewname": "userView"
+                }
+                return HttpResponseRedirect(
+                    reverse(**parameters)
+                )
+
+            #                                                                                      #
+            ########################################################################################
+
             # Commented out because of (A)
             ######################################################################################################################################################################
             #                                                                                                                                                                    #
@@ -228,18 +255,18 @@ def changePictureView(request, username):
             ######################################################################################################################################################################
 
             pictureFile = request.FILES['pictureFile']
-            
+
             # This variable was used for the purposes described in point A
             # croppedPictureFile = BytesIO()
-            
+
             # This section crops and stores the images on the machine in the encrypted device;
             # encryption is used because of the reasons outlined in "ENCRYPTION" of the README
             ###############################################################################################################
             #                                                                                                             #
-            
+
             croppedPictureFile = PICTURE_STORE + "profilepictureofuser" + str(request.user.id) + ".png"
             cropProfilePicture(pictureFile, "full").save(croppedPictureFile, format='PNG')
-            
+
             # Point A describes this section
             ###############################################################################################################
             #                                                                                                             #
@@ -255,20 +282,20 @@ def changePictureView(request, username):
 
             croppedPictureFile = PICTURE_STORE + "thumbofuser" + str(request.user.id) + ".png"
             cropProfilePicture(pictureFile, "thumb").save(croppedPictureFile, format='PNG')
-            
+
             #                                                                                                             #
             ###############################################################################################################
 
-            
+
             # Relevant comment: see A at top of file
             ###############################################################################################################
             #                                                                                                             #
-     
+
             # # NEXT LINE POSSIBLY VERBATIM (with appropriate modification)
             # # FROM CITATION [36]
             # croppedPictureFile.seek(0)
             # mediaBucket.put_object(Key="thumbofuser" + str(request.user.id) + ".png", Body=croppedPictureFile)
-            
+
             #                                                                                                             #
             ###############################################################################################################
 

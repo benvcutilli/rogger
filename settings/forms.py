@@ -12,8 +12,6 @@ class AccountSettingsForm(forms.Form):
     displayName         =   forms.CharField(max_length=100, required=False)
     privacySelection    =   forms.IntegerField()
     pdfName             =   forms.CharField(max_length=100, required=False)
-    #searchUsername      =   forms.BooleanField()
-    #searchDisplayName   =   forms.BooleanField()
 
 # The form used to import Merv[70] export data:
 class ImportForm(forms.Form):

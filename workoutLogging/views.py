@@ -114,7 +114,8 @@ def newEntry(request):
                                 )
                             )
                 ignore = Block.objects.filter(blockee=request.user).values_list("blocker__id", flat=True)
-                tagged = User.objects.filter(username__in=usernames).exclude(pk__in=ignore)
+                # This line (in part) achieves the goal [256] of not emailing the user if they don't want to be emailed
+                tagged = User.objects.filter(username__in=usernames).exclude(pk__in=ignore).exclude(userinfo__emailOnActivity=False)
                 shared.tools.blastEmail(
                             "alertbot@rogger.co",
                             "You were tagged in an entry located at https://rogger.co" + reverse("viewEntryView", args=[workout.id]),
@@ -187,7 +188,8 @@ def editEntry(request, workoutID):
                                 )
                             )
                 ignore = Block.objects.filter(blockee=request.user).values_list("blocker__id", flat=True)
-                tagged = User.objects.filter(username__in=usernames).exclude(pk__in=ignore)
+                # emailOnActivity is filtered here because of [256]
+                tagged = User.objects.filter(username__in=usernames).exclude(pk__in=ignore).exclude(userinfo__emailOnActivity=False)
                 shared.tools.blastEmail(
                             "alertbot@rogger.co",
                             "You were tagged in an entry located at https://rogger.co" + reverse("viewEntryView", args=[workout.id]),
@@ -285,14 +287,16 @@ def commentAddView(request, workoutID):
         commentText = request.POST['text']
         newComment = Comment.objects.create(commentText=commentText, owner=request.user, workout=workout, dateAndTime=datetime.datetime.now())
         newComment.save()
-        
+
         sendTo = []
         for comment in Comment.objects.filter(workout=workout):
             if request.user != comment.owner:
-                sendTo.append(comment.owner)
-        sendTo = ([workout.owner] if workout.owner != request.user else []) + sendTo
+                if comment.owner.userinfo.emailOnActivity:
+                    sendTo.append(comment.owner)
+        # See [256] for the reason for the second part of the "if" in this line
+        sendTo = ([workout.owner] if (workout.owner != request.user and workout.owner.userinfo.emailOnActivity) else []) + sendTo
         shared.tools.blastEmail("alertbot@rogger.co", "See the comment at https://rogger.co" + reverse("viewEntryView", args=[workoutID]), "Someone posted a comment on a workout with which you have interacted", sendTo)
-    
+
         return render(request, "workoutLogging/comment.html", { 'comment' : newComment })
 
     else:

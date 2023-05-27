@@ -261,6 +261,8 @@
   <!-- CITATION: [26], SETTING UP THE FORM CITATION [37] -->
   <form method="post" id="pictureForm" action="{% url 'changePictureView' profileOwner %}" enctype="multipart/form-data" hidden>
     <input type="file" id="pictureFile" name="pictureFile" onchange="pushNewPicture()"/>
+    # For [255]
+    <input hidden type="checkbox" name="deletePicture" id="chkbx">
     {% csrf_token %}
   </form>
   <!-- END CITATION -->
@@ -674,7 +676,20 @@
 
   // CITATION [26]
   function changePicture() {
-    $("#pictureFile").click();
+    // Prompting user so that they can delete their picture [255]
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    //                                                                                            //
+    response = window.confirm("Just delete this picture?")
+    if (response) {
+      document.getElementById("chkbx").checked = true;
+      pushNewPicture();
+    //                                                                                            //
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    } else {
+      // Need to reset the checkbox that is related to the above "if" case
+      document.getElementById("chkbx").checked = false;
+      $("#pictureFile").click();
+    }
   }
   function pushNewPicture() {
     $("#pictureForm").submit();

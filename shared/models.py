@@ -21,6 +21,11 @@ from django.utils import timezone
 # Importing something from the "django"[94] package
 from django.urls import reverse
 
+# Package from [205]
+import pathlib
+
+import rogger
+
 # A. This code comes up with an presigned URL [73] (URLs defined by [74]
 #    according to [75, History]). I had originally thought that if the user had
 #    set their profile privacy to "Completely hidden" (see
@@ -104,7 +109,18 @@ class UserInfo(models.Model):
     searchDisplayName       =   models.BooleanField(default=True)
     # See [29] for why this attribute exists:
     lastActive              =   models.DateTimeField(default=timezone.now())
-    
+
+    # Model fields that are used in the case of [256]
+    ################################################################################################
+    #                                                                                              #
+
+    emailOnActivity         =   models.BooleanField(default=True)
+    emailOnBroadcast        =   models.BooleanField(default=True)
+
+    #                                                                                              #
+    ################################################################################################
+
+
     # Not sure if having functions that easily determine privacy relationships between users was an
     # idea from somewhere, but if it is, these are the functions that do it. Sort of making sure
     # here that the computational complexity of these functions do not make themselves vulnerable
@@ -113,19 +129,19 @@ class UserInfo(models.Model):
     # target is commonly recommended, so that is why I strive for them throughout the call stack).
     ################################################################################################
     #                                                                                              #
-    
+
     def isFollowerOf(self, thisPerson):
         return Follow.objects.filter(follower=self.authUser, followee=thisPerson).exists()
 
     def isFollowedBy(self, thisPerson):
         return Follow.objects.filter(follower=thisPerson, followee=self.authUser).exists()
-    
+
     def isBlockerOf(self, thisPerson):
         return Block.objects.filter(blocker=self.authUser, blockee=thisPerson).exists()
-    
+
     def isBlockedBy(self, thisPerson):
         return Block.objects.filter(blocker=thisPerson, blockee=self.authUser).exists()
-    
+
     def cantSee(self, thisPerson):
         if self.isBlockedBy(thisPerson):
             return True
@@ -136,7 +152,7 @@ class UserInfo(models.Model):
             return True
         else:
             return False
-    
+
     #                                                                                              #
     ################################################################################################
 
@@ -206,14 +222,38 @@ class UserInfo(models.Model):
             return reverse("thumbnail", args=(self.authUser.pk,))
         else:
             return STATIC_URL + DEFAULT_PROFILE_PICTURE_FILENAME
-            
-        
-        
-        
-        
+
+
+
+    def profilePicturePath(self):
+
+        return pathlib.Path(
+                   rogger.settings.PICTURE_STORE,
+                   "{}{}.png".format(
+                          rogger.settings.PROFILE_PICTURE_PREFIX,
+                          str(self.authUser.pk)
+                   )
+               )
+
+
+
+    def thumbPath(self):
+
+        return pathlib.Path(
+                   rogger.settings.PICTURE_STORE,
+                   "{}{}.png".format(
+                       rogger.settings.THUMBNAIL_PREFIX,
+                       str(self.authUser.pk)
+                   )
+               )
+
+
+
+
+
     @classmethod
     def export(cls, key):
-        
+
         toJSON = cls.objects.filter(authUser=key).values(
             "authUser",
             "displayName",
@@ -224,7 +264,7 @@ class UserInfo(models.Model):
             "searchDisplayName",
             "lastActive"
         )
-        
+
         return toJSON
 
 class Follow(models.Model):
@@ -238,13 +278,13 @@ class Follow(models.Model):
 
     @classmethod
     def export(cls, key):
-        
+
         toJSON = cls.objects.filter(follower=key).values(
             "followee",
             "follower",
             "approved"
         )
-        
+
         return toJSON
 
 class Block(models.Model):
@@ -256,10 +296,10 @@ class Block(models.Model):
 
     @classmethod
     def export(cls, key):
-        
+
         toJSON = cls.objects.filter(blocker=key).values(
             "blockee",
             "blocker"
         )
-        
+
         return toJSON

@@ -118,8 +118,12 @@ def settings(request):
                         request.user.userinfo.displayName = accountSettingsForm.cleaned_data['displayName']
                     if accountSettingsForm.cleaned_data['pdfName'] != "":
                         request.user.userinfo.pdfName = accountSettingsForm.cleaned_data['pdfName']
-                    request.user.userinfo.searchUsername    = True if request.POST['searchUsername'] == "true" else False
-                    request.user.userinfo.searchDisplayName = True if request.POST['searchDisplayName'] == "true" else False
+                    request.user.userinfo.searchUsername     = True if request.POST['searchUsername'] == "true" else False
+                    request.user.userinfo.searchDisplayName  = True if request.POST['searchDisplayName'] == "true" else False
+                    # Next two lines are for [256]
+                    request.user.userinfo.emailOnActivity    = True if request.POST['emailOnActivity'] == "true" else False
+                    request.user.userinfo.emailOnBroadcast   = True if request.POST['emailOnBroadcast'] == "true" else False
+
                     request.user.save()
                     request.user.userinfo.save()
                     return HttpResponse("")
@@ -311,17 +315,8 @@ def datamanagement(request):
 
             try:
 
-                profilePicture = Path(
-                                    configuration.PICTURE_STORE,
-                                    "{0}{1}.png".format(configuration.THUMBNAIL_PREFIX, primaryKey)
-                                )
-                thumbnail      = Path(
-                                    configuration.PICTURE_STORE,
-                                    "{0}{1}.png".format(
-                                        configuration.PROFILE_PICTURE_PREFIX,
-                                        primaryKey
-                                    )
-                                )
+                profilePicture = request.user.userinfo.profilePicturePath()
+                thumbnail      = requets.user.userinfo.thumbPath()
                 thumbnail.unlink(True)
                 profilePicture.unlink(True)
 

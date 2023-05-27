@@ -821,7 +821,7 @@ well):
       NGINX, Inc.
       https://unit.nginx.org/configuration/
       Retrieval of 2020.11.15-ish
-      
+
 [194] https://docs.djangoproject.com/en/3.1/ref/settings/
       Settings | Django documentation | Django
       Django Software Foundation
@@ -959,7 +959,7 @@ well):
       Electronic Frontier Foundation
       https://certbot.eff.org/docs/using.html
       Retrieval of 2021.4.5 EDT
-      
+
 [221] DiG
       Internet Systems Consortium, Inc.
       9.10.6 (version)
@@ -1092,7 +1092,7 @@ well):
 [249] https://github.com/django/django/blob/main/django/contrib/auth/decorators.py
       decorators.py
       Django Software Foundation
-      
+
 [250] https://github.com/django/django/blob/0dd29209091280ccf34e07c9468746c396b7778e/docs/releases/2.0.txt
       2.0.txt
       Various authors
@@ -1115,6 +1115,12 @@ well):
 
 [254] https://docs.djangoproject.com/en/4.1/ref/request-response/
       Django Software Foundation
+
+[255] Making it possible to just delete a picture in case it is not enough for GDPR [64][60] to
+      delete the picture by deleting the whole account
+
+[256] I think I have to be able to give the option to users to choose which emails they get. Not
+      sure where I heard this from or what law it pertains to.
 
 
 GENERAL CITATIONS:
