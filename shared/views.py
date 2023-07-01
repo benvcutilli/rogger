@@ -111,7 +111,7 @@ def error500View(request):
     # ADDING STATUS TO PREVENT FAVICONS OR ANY RESOURCE THAT CAN'T LOAD FROM REFRESHING THE csrf COOKIE
     # IS FROM CITATION [49]
     return render(request, 'shared/error500.html', baseLocalization[debugLocale], status=500)
-    
+
 # It reads the three kinds of timestamps required by
 # [200, 7.1.1.1] and [201, 3.3.1] to be handled (Note: for the "Last-Modified" ([201, 14.29], [202,
 # 2.2]) and "If-Modified-Since" ([201, 14.25], [202, 3.3]) headers, these formats were via [201,
@@ -136,7 +136,7 @@ def convertTimestamp(timestamp):
                 pythonRepresentation = time.strptime(timestamp, "%A %m %e %H:%M:%S %Y")
             except:
                 pass
-    
+
     return pythonRepresentation
 
 
@@ -149,7 +149,7 @@ def convertTimestamp(timestamp):
 def timestampForPath(p):
     abstractTime = time.gmtime(p.stat().st_mtime)
     return time.strftime("%a, %d %b %Y %H:%M:%S GMT", abstractTime)
-    
+
 
 
 
@@ -159,14 +159,14 @@ def fetchProfilePicture(request, primarykey):
     whoWantsIt = request.user
     # See point B
     targetUser = get_object_or_404(User, pk=primarykey)
-    
+
     if not whoWantsIt.userinfo.cantSee(targetUser):
         # NEED TO STATE HOW [201] WAS RELEVANT AS WELL
         # The branch that checks the If-Modified-Since[202, 3.3] header to see if we need to send
         # them the full image or send them a 304[202, 4.1] telling them that they already have
         # it. This is suggested by [202, 3.3]. In fact, all requirements and suggestions in
-        # [202, 3.3] are used to figure out what to do for responses in this code less the code
-        # in these parts:
+        # [202, 3.3] are used to figure out what to do for responses in this code other than that
+        # of:
         #   1. The "else" statement in the below conditional
         #   2. Determining if If-Modified-Since was provided and if not, proceeding to the next
         #      parts of the conditionals as it can't be used (though I suspect this is implicit
@@ -183,14 +183,11 @@ def fetchProfilePicture(request, primarykey):
         imsPresent           = "If-Modified-Since" in request
         if imsPresent:
             theirDateAndTime = convertTimestamp(request["If-Modified-Since"])
-        
-        print(theirDateAndTime)
-        print(imsPresent)
+
 
         # [202, 3.3] gives the rationale for this being >= instead of == in the paragraph that
         # starts with "When used for limiting the scope of retrieval..."
         if imsPresent and (time.mktime(theirDateAndTime) >= time.mktime(localFileDateAndTime)):
-            print("sending a 304")
             return HttpResponse(status=304)
         elif targetUser.userinfo.uploadedProfilePicture:
             # Need the "r" here according to [197, "FileResponse objects"]
@@ -204,7 +201,7 @@ def fetchProfilePicture(request, primarykey):
             # updated using max-age and the suggested syntax described in [206, 5.2.2.8] as well as
             # must-revalidate [206, 5.2.2.1]; "max-age" was done because Safari kept serving stuff
             # from its cache without considering if it is old, but then Safari would always fetch it
-            # after adding that. This apparently is a common issue with Safari [207, the question &
+            # after adding "max-age". This apparently is a common issue with Safari [207, the question &
             # elsewhere] that doesn't happen on other browsers [207, prompt]. So, adding
             # "must-revalidate" was attempted in order to fix the problem, but that didn't work.
             # Since this is the desired header value anyway, I'm keeping it here for the other
@@ -216,7 +213,7 @@ def fetchProfilePicture(request, primarykey):
     else:
         # See why we return a 404 here in point A
         raise Http404
-    
+
 
 # AS A REMINDER, DON'T FORGET TO STATE IN fetchProfilePicture AND fetchThumbnail WHERE SERVER
 # BEHAVIOR IS FROM (AND SAY WHAT IT DOESN'T DO)
@@ -224,14 +221,13 @@ def fetchThumbnail(request, primarykey):
     whoWantsIt = request.user
     # See point B
     targetUser = get_object_or_404(User, pk=primarykey)
-    
+
     if not whoWantsIt.userinfo.cantSee(targetUser):
         # NEED TO STATE HOW [201] WAS RELEVANT AS WELL
         # The branch that checks the If-Modified-Since[202, 3.3] header to see if we need to send
         # them the full image or send them a 304[202, 4.1] telling them that they already have
         # it. This is suggested by [202, 3.3]. In fact, all requirements and suggestions in
-        # [202, 3.3] are used to figure out what to do for responses in this code less the code
-        # in these parts:
+        # [202, 3.3] are used to figure out what to do for responses in this code other than:
         #   1. The "else" statement in the below conditional
         #   2. Determining if If-Modified-Since was provided and if not, proceeding to the next
         #      parts of the conditionals as it can't be used (though I suspect this is implicit
@@ -248,14 +244,11 @@ def fetchThumbnail(request, primarykey):
         imsPresent           = "If-Modified-Since" in request
         if imsPresent:
             theirDateAndTime = convertTimestamp(request["If-Modified-Since"])
-        
-        print(theirDateAndTime)
-        print(imsPresent)
+
 
         # [202, 3.3] gives the rationale for this being >= instead of == in the paragraph that
         # starts with "When used for limiting the scope of retrieval..."
         if imsPresent and (time.mktime(theirDateAndTime) >= time.mktime(localFileDateAndTime)):
-            print("sending a 304")
             return HttpResponse(status=304)
         elif targetUser.userinfo.uploadedProfilePicture:
             # Need the "r" here according to [197, "FileResponse objects"]
@@ -269,7 +262,7 @@ def fetchThumbnail(request, primarykey):
             # updated using max-age and the suggested syntax described in [206, 5.2.2.8] as well as
             # must-revalidate [206, 5.2.2.1]; "max-age" was done because Safari kept serving stuff
             # from its cache without considering if it is old, but then Safari would always fetch it
-            # after adding that. This apparently is a common issue with Safari [207, the question &
+            # after adding "max-age". This apparently is a common issue with Safari [207, the question &
             # elsewhere] that doesn't happen on other browsers [207, prompt]. So, adding
             # "must-revalidate" was attempted in order to fix the problem, but that didn't work.
             # Since this is the desired header value anyway, I'm keeping it here for the other

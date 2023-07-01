@@ -120,6 +120,9 @@ class UserInfo(models.Model):
     #                                                                                              #
     ################################################################################################
 
+    # AWS wants me to minimize my bounces when I send email, so this is meant to disable email in
+    # this case
+    invalidEmailAddress     =   models.BooleanField(default=False)
 
     # Not sure if having functions that easily determine privacy relationships between users was an
     # idea from somewhere, but if it is, these are the functions that do it. Sort of making sure
@@ -146,7 +149,7 @@ class UserInfo(models.Model):
         if self.isBlockedBy(thisPerson):
             return True
         # The Merv[43]-inspired case of the user setting their profile privacy such that they appear
-        # to not exist on the website. However, the section part of this AND conditional is here
+        # to not exist on the website. However, the second part of this AND conditional is here
         # because the profile shouldn't be hidden from its own user.
         elif thisPerson.userinfo.privacySelection == 3 and (not self.authUser.pk == thisPerson.pk):
             return True

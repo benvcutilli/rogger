@@ -235,8 +235,9 @@ def blastEmail(sender, text, title, recipients=None):
         # NEXT time.sleep() CALL FROM CITATION [45]
         time.sleep(.3)
         try:
-            result = send_mail(title, text, sender, [user.email])
-            if result == 0:
-                print("send failed for " + user.username)
+            if not user.userinfo.invalidEmailAddress:
+                result = send_mail(title, text, sender, [user.email])
+                if result == 0:
+                    print("send failed for " + user.username)
         except:
             print("send failed for " + user.username)
