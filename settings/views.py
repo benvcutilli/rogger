@@ -112,6 +112,7 @@ def settings(request):
                     print("privacy received", accountSettingsForm.cleaned_data['privacySelection'])
                     if accountSettingsForm.cleaned_data['emailAddress'] != "":
                         request.user.email = accountSettingsForm.cleaned_data['emailAddress']
+                        request.user.invalidEmailAddress = False
                     if accountSettingsForm.cleaned_data['privacySelection'] != 0:
                         request.user.userinfo.privacySelection = accountSettingsForm.cleaned_data['privacySelection']
                     if accountSettingsForm.cleaned_data['displayName'] != "":
