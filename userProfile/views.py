@@ -50,7 +50,7 @@ def userView(request, username):
             return HttpResponseNotFound()
 
         else:
-            if request.is_ajax():
+            if request.headers.get("X-Requested-With") == "XMLHttpRequest":
                 return userViewAJAX(request, username)
 
             # usage of the "approved" attribute in a Follow object from citation [25]

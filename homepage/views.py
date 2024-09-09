@@ -152,7 +152,7 @@ def homepage(request):
     if not request.user.is_authenticated and not godMode:
         return loginView(request)
     else:
-        if request.is_ajax():
+        if request.headers.get("X-Requested-With") == "XMLHttpRequest":
             return homepageAJAX(request)
 
         followedUsers = []

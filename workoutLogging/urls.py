@@ -1,9 +1,14 @@
-from django.conf.urls import url
+
+#from django.conf.urls import url
 from workoutLogging import views
+
+# [94] import
+import django.urls
+
 urlpatterns = [
-    url(r'new$', views.newEntry, name="newEntryView"),
-    url(r'storedate', views.storeDate, name="storeDate"),
-    url(r'(\d+)$', views.viewEntry, name="viewEntryView"),
-    url(r'(\d+)/commentadd$', views.commentAddView, name="commentAddView"),
-    url(r'(\d+)/commentdelete', views.commentDeleteView, name="commentDeleteView")
+    django.urls.re_path(r'new$', views.newEntry, name="newEntryView"),
+    django.urls.re_path(r'storedate', views.storeDate, name="storeDate"),
+    django.urls.re_path(r'(\d+)$', views.viewEntry, name="viewEntryView"),
+    django.urls.re_path(r'(\d+)/commentadd$', views.commentAddView, name="commentAddView"),
+    django.urls.re_path(r'(\d+)/commentdelete', views.commentDeleteView, name="commentDeleteView")
 ]

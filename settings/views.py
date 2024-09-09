@@ -169,7 +169,7 @@ def settings(request):
 
 
     if request.user.is_authenticated:
-        if request.is_ajax():
+        if request.headers.get("X-Requested-With") == "XMLHttpRequest":
             return settingsAJAX(request)
 
         templateDict = {}

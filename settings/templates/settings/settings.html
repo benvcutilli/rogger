@@ -191,7 +191,7 @@
       </select>
       <br><input type="checkbox" id="searchUsername"{% if user.userinfo.searchUsername %} checked{% endif %}> Allow others to search for my username (disabled if profile is completely hidden)</input>
       <br><input type="checkbox" id="searchDisplayName"{% if user.userinfo.searchDisplayName %} checked{% endif %}> Allow others to search for my display name (disabled if profile is completely hidden)</input>
-      # Next two input elements take part in what is described by [256]
+      <!-- Next two input elements take part in what is described by [256] -->
       <br><input id="despam1" type="checkbox" {% if user.userinfo.emailOnActivity %}checked{% endif %}>I want notification emails when someone tags me or writes a reply
       <br><input id="despam2" type="checkbox" {% if user.userinfo.emailOnBroadcast %}checked{% endif %}>Send me emails that go out to the Rogger community as a whole<br><br>
       <input id="pdfName" type="text" class="settingsTextBox" placeholder="PDF printout name" name="pdfName"/>
