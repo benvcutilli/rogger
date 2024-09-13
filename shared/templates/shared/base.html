@@ -6,15 +6,6 @@
   tag (I am not talking about the contents of this head tag; those are addressed
   within the head tag) -->
   <head>
-    <!-- FROM Google Fonts (citation [3]), these lines are probably directly
-    copied from that reference or a sub-site of that reference (and their placement
-    here may also have been a recommendation by that/those reference(s)) -->
-    <link href="https://fonts.googleapis.com/css?family=Sacramento" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Pinyon+Script" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Katibeh" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Quattrocento" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Vibur" rel="stylesheet">
-    <!-- END CITATION -->
     <!-- Support for reCAPTCHA [53] in next line; the HTML part (and its position in
     this HTML) is likey from [53] or [95]-->
     {% if pageIsRecaptcha %}<script src='https://www.google.com/recaptcha/api.js'></script>{% endif %}
@@ -26,6 +17,28 @@
   </head>
   <body>
     <style>
+
+      @font-face {
+          font-family: "Quattrocento";
+          src: url("{% static 'shared/Quattrocento/Quattrocento-Regular.ttf' %}");
+          font-weight: normal;
+      }
+      @font-face {
+          font-family: "Quattrocento";
+          src: url("{% static 'shared/Quattrocento/Quattrocento-Bold.ttf' %}");
+          font-weight: bold;
+      }
+      @font-face {
+          font-family: "Katibeh";
+          src: url("{% static 'shared/Katibeh/Katibeh-Regular.ttf' %}");
+      }
+      @font-face {
+          font-family: "Vibur";
+          src: url("{% static 'shared/Vibur/Vibur-Regular.ttf' %}");
+      }
+
+
+
       /* asterisk selector in next line from citation [6] */
       * {
         font-family:"Quattrocento", serif;

@@ -749,7 +749,7 @@ well):
 [176] Installation — NGINX Unit
       https://unit.nginx.org/installation/
       NGINX, Inc.
-      Retrieval of 2020.11 or 2020.12, 2021.2.12 EST
+      Retrieval of 2020.11 or 2020.12, 2021.2.12 EST, 2024.9.9 EST
 
 [177] Configuration — NGINX Unit
       https://unit.nginx.org/configuration/
@@ -2045,6 +2045,18 @@ When Name.com was used, I think I used the default value for TTL[55, 3.2.1] for 
 almost every record when managing records with [235], and same goes for Hover's equivalent[236],
 except I think the "Host" field for on of the A[55, 3.4.1] records was, by default, "@".
 
+----------------------------------------------------------------------------------------------------
+
+Needed to update unit[188] but wasn't able to; these steps[176, "Ubuntu"] fixed that:
+
+sudo curl --output /usr/share/keyrings/nginx-keyring.gpg https://unit.nginx.org/keys/nginx-keyring.gpg
+
+Added these lines
+
+deb [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ focal unit
+deb-src [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx.org/unit/ubuntu/ focal unit
+
+to /etc/apt/sources.list.d/unit.list.
 
 
 
@@ -2090,7 +2102,8 @@ that's what I did.
 I heard of Tutanota from [259]
 
 
-LICENSE (MIT, from citation [33] except my name is put where the placeholder is):
+LICENSE (MIT, from citation [33] except my name is put where the placeholder is); this only applies to
+Rogger code, and code to which it doesn't apply will have a license with it, so defer to those:
 
 Copyright 2017 Benjamin Cutilli
 
