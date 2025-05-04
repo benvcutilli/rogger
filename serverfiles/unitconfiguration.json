@@ -1,0 +1,89 @@
+// The configuration file for Unit as outlined in [177]
+{
+    "listeners": {
+        // The jury is likely still out on this, but it appears that people have no problem
+        // accessing the site (around the beginning to middle of April, 2021) if I am only listening
+        // on this port (instead of the usual port 80)
+        "*:443": {
+            "pass": "routes/rogger",
+            "tls": {
+                "certificate": "rogger"
+            }
+        }
+    },
+
+    "routes": {
+        "rogger": [
+            {
+                // I saw in [193, "Routes"] that you can use a "match" statement to catch requests
+                // that should be routed to where the static files reside, so I've written my own
+                // here
+                "match": {
+                    "uri": "/static/*"
+                },
+                "action": {
+                    // Using this variable here (and positioned relative to the directory in this way,
+                    // including removing the trailing slash of the URL) comes from [237, "Static Files"] 
+                    "share": "/home/rogger/roggerEnvironment/static${uri}"
+                }
+            },
+            {
+                "match": {
+                    "uri": "/robots.txt"
+                },
+                "action": {
+                    "share": "/home/rogger/roggerEnvironment/static/robots.txt"
+                }
+            },
+            {
+                "action": {
+                    "pass": "applications/rogger"
+                }
+            }
+        ]
+    },
+
+    "applications": {
+        "rogger": {
+            // [210, step 5] didn't have any configuration done in terms of the options described in
+            // [177, "Process Management"], so I determined that that wasn't a solution to my server
+            // not working (got an error page)
+            ////////////////////////////////////////////////////////////////////////////////////////
+            //                                                                                    //
+
+            "protocol": "wsgi",
+            // According to [210, step 5], the directory of the Django[94] project has to be in
+            // "path" (defined at [177, "Python"]), while "module" (from [177, "Python"]) uses the
+            // Python import syntax and is relative to the "path" value; further, that reference
+            // also confirmed that I had chosen the right path for the "home" attribute[177,
+            // "Python"].
+            ////////////////////////////////////////////////////////////////////////////////////////
+            //                                                                                    //
+            "home": "/home/rogger/roggerEnvironment",
+            "path": "/home/rogger/roggerEnvironment/rogger/",
+            "module": "rogger.wsgi",
+            //                                                                                    //
+            ////////////////////////////////////////////////////////////////////////////////////////
+            "callable": "application",
+            "threads": 10,
+            // Having a web server-based program run as a non-privileged user as is basically
+            // universally recommended
+            "user": "rogger",
+            "type": "python"
+
+            //                                                                                    //
+            ////////////////////////////////////////////////////////////////////////////////////////
+
+        }
+    },
+
+    "settings": {
+        "http": {
+            // As suggested by [212], limiting the size of the request at the server daemon, not at
+            // the Django code (however, I may be misremembering and that maybe no reference told
+            // me to do this, or that [213, Mark Lavin's contributions] saying to stop requests
+            // asking for the wrong host at the web server)
+            "max_body_size": 20000000
+        }
+    }
+}
