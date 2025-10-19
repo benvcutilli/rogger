@@ -11,7 +11,10 @@
     {% if pageIsRecaptcha %}<script src='https://www.google.com/recaptcha/api.js'></script>{% endif %}
     <!-- This next line loads jQuery [97]. The line and where it should be
     placed may be from [95]. This line has been modified from where it was
-    copied from-->
+    copied from. This originally linked to ajax.googleapis.com, but this is an issue
+    because this allows Google to track who uses the site ([268, response by BushLin]
+    although I am not sure that this anything more than remind me that I used that
+    specific URL), so I got rid of it -->
     <script src="{% static "shared/jquery-3.7.1.min.js" %}" ></script>
 
   </head>

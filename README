@@ -1164,6 +1164,28 @@ well):
       Koster, M. / Illyes, G. / Zeller, H. / Sassman, L.
       Downloaded on 2025.5.4 EDT
 
+[265] Bourne Again Shell (Bash)
+      GNU Project
+      https://www.gnu.org/software/bash/
+
+[266] urandom(4): kernel random number source devices - Linux man page
+      die.net
+      https://linux.die.net/man/4/urandom
+      Downloaded on 2021.4.7 EST
+
+[267] Error reporting | Django documentation | Django
+      Django Software Foundation
+      https://docs.djangoproject.com/en/1.11/howto/error-reporting/
+      Downloaded on 2020.8.11 EDT
+
+[268] Google researchers find serious privacy risks in Safari’s anti-tracking
+      protections - Ars Technica
+      BushLin, Dan Goodin
+      https://arstechnica.com/information-technology/2020/01/safaris-anti-tracking-protect
+      ions-can-leak-browsing-and-search-histories/
+      January 23, 2020
+      Downloaded on 2020.1.30 EST
+
 
 GENERAL CITATIONS:
 This site has a lot of influence from Mark Crimmins' "Merv's RUNNING"
@@ -2114,10 +2136,11 @@ track of which migrations have been run, and that something wiped out that recor
 therefore used combinations of "python manage.py --fake" and "python manage.py --fake-initial" to
 get everything back in sync.
 
-I needed an email host that could store email in a GDPR-compliant manner. It wasn't clear if
-Tutanota legally fulfilled that need, but according to [258], you can enter into a contract with
-them to do this as long as you get the plan that was meant for commercial purposes. Therefore,
-that's what I did.
+I needed an email host that could store email in a GDPR-compliant manner (one reason is that [267]
+says that bug reports sent there could fall under the scope of GDPR[246, Article 32 - (1)(a)]). It
+wasn't clear if Tutanota legally fulfilled that need, but according to [258], you can enter into a
+contract with them to do this as long as you get the plan that was meant for commercial purposes.
+Therefore, that's what I did.
 
 I heard of Tutanota from [259]
 
