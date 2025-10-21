@@ -1186,6 +1186,28 @@ well):
       January 23, 2020
       Downloaded on 2020.1.30 EST
 
+[269] losetup
+      Karel Zak, Theodore T'so
+      https://www.kernel.org/pub/linux/utils/util-linux/
+      On Ubuntu 20.04.3
+
+[270] libssl-dev
+      Ubuntu Developers, Kurt Roeckx, Sebastian Andrzej Siewior, Christoph Martin, Debian OpenSSL
+      Team
+      https://packages.ubuntu.com/noble/libssl-dev
+
+[271] uwsgi
+      uwsgi-docs.readthedocs.io
+
+[272] Certbot Instructions | Certbot
+      Electronic Frontier Foundation/Let's Encrypt
+      https://certbot.eff.org/instructions?ws=other&os=snap
+      Visited site sometime during 2025.10
+
+[273] Quickstart for Python/WSGI applications — uWSGI 2.0 documentation
+      https://uwsgi-docs.readthedocs.io/en/latest/WSGIquickstart.html
+      As of 2025.10.?
+
 
 GENERAL CITATIONS:
 This site has a lot of influence from Mark Crimmins' "Merv's RUNNING"

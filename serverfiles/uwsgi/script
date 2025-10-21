@@ -1,0 +1,129 @@
+# These commands are intended to be run on Ubuntu 24.04.3 LTS[186] via Bash[265]. Unless cited,
+# the programs used here are distributed with Ubuntu itself.
+
+
+adduser rogger
+
+apt-get update
+
+# python3-virtualenv can be found at [183], git at [184], and libssl-dev at [270]
+apt-get install -y python3-virtualenv git libssl-dev
+reboot
+su - rogger
+
+# [94, unknown] advises that everything should run inside a virtualenv[183]
+####################################################################################################
+#                                                                                                  #
+
+virtualenv roggerEnvironment
+cd roggerEnvironment
+. bin/activate
+
+#                                                                                                  #
+####################################################################################################
+
+# Pip[168] is getting [94], [191], and [271], respectively
+pip install Django==4.2.25 reportlab uwsgi
+git clone https://github.com/benvcutilli/rogger.git
+cd rogger
+python manage.py makemigrations
+python manage.py collectstatic
+exit
+
+# Using a loop file was suggested by [182, 2.6]. It is necessary because GDPR[246]
+# requires[246, 32.1.a][50] encryption (at least, it's one option). Encrypting the loop device
+# comes after setting it up, which comes after creating the loop file [185, "Example"].
+###################################################################################################
+#                                                                                                 #
+
+# A reference said to randomize the image before encrypting, but I don't remember what it was; we
+# need 512-byte sectors[269], so thats why we use 512 for bs (although I don't think that really
+# matters all that much) and that count is evenly divisible by 512. /dev/random is preferred over
+# /dev/urandom (the former is higher entropy) [266, "Description"]
+dd if=/dev/random of=/root/storage bs=512B count=5000000000B
+
+# losetup and the "find" option was recommended by [182, 2.6] and possibly [185, "Example"],
+# respectively; "--show" I found out for myself. Originally, this was split out into two different
+# commands by those references (a "losetup -f" and then a normal "losetup") (well, again, [185,
+# "Example"] I don't know if it is actually involved or not), but I merged them with the assistance
+# of the --show option.
+location=$(losetup --find /root/storage --show)
+
+# Everything but the parameter "$location" and the --type option usage was recommended
+# by [182, 2.6]
+cryptsetup luksFormat --type luks2 $location
+
+cryptsetup open $location loop
+
+# The need to format is from [182, 2.1]
+mkfs.ext4 /dev/mapper/loop
+
+su - rogger
+mkdir encrypted
+exit
+
+# Need to mount that device according to [182, 2.1][185, "Example"]; can do this as root and not
+# rogger (the actual owner of "encrypted") according to [185, "Example"]. Using "mount" as inspired
+# by [182, 2.1] and [185, "Example"]
+mount /dev/mapper/loop /home/rogger/encrypted
+
+chown rogger:rogger /home/rogger/encrypted
+
+su - rogger
+mkdir encrypted/profilepictures
+exit
+
+#                                                                                                 #
+###################################################################################################
+
+# Need this for ssh[154] usage
+mkdir .ssh
+
+# Setting up Certbot[189]. Follows [272], except I added "-m ben@rogger.co --agree-tos -d rogger.co
+# -d www.rogger.co". Being root does not require the use of sudo, so we omit it from these commands.
+####################################################################################################
+#                                                                                                  #
+
+snap install --classic certbot
+ln -s /snap/bin/certbot /usr/bin/certbot
+
+# I ran the recommended "sudo apt-get remove certbot" (although I didn't use sudo as it wasn't
+# necessary, and I maybe used "purge" instead of "remove") because I suspected that there was
+# no need to do this in Ubuntu, and my suspicions were confirmed. I just don't have this as a
+# command here as now I know it isn't necessary to do this.
+
+# We include www.rogger.co (sanity checked by reading [220, "Changing a Certificate's Domains"], if
+# not outright learned from there) because, when people access the site that way, the certificate
+# still needs to work ([225] reported the problem that would otherwise occur -- namely that
+# unencrypted traffic would be sent)
+certbot certonly --standalone -m ben@rogger.co --agree-tos -d rogger.co -d www.rogger.co
+
+#                                                                                                  #
+####################################################################################################
+
+# "chdir" option for uWSGI command was recommended by [273]
+echo -e "\
+[Unit]
+Description = Rogger web server (uWSGI)
+After       = network-online.target
+
+[Install]
+WantedBy = multi-user.target
+
+[Service]
+ExecStart = /home/rogger/roggerEnvironment/bin/uwsgi --shared-socket 0.0.0.0:443 \
+--https =0,/etc/letsencrypt/live/rogger.co/fullchain.pem,/etc/letsencrypt/live/rogger.co\
+/privkey.pem \
+--uid rogger \
+--gid rogger \
+--wsgi-file /home/rogger/roggerEnvironment/rogger/rogger/wsgi.py \
+--virtualenv /home/rogger/roggerEnvironment \
+--chdir /home/rogger/roggerEnvironment/rogger \
+--static-map /static=/home/rogger/roggerEnvironment/static/static \
+--static-map /robots.txt=/home/rogger/roggerEnvironment/static/static/shared/robots.txt
+Restart = on-failure
+Type    = exec
+" > /etc/systemd/system/server.service
+
+systemctl enable server
+reboot

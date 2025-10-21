@@ -1,3 +1,0 @@
-# File format and use: see [264]
-user-agent: *
-disallow: /
