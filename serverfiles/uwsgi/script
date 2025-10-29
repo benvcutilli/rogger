@@ -127,3 +127,6 @@ Type    = exec
 
 systemctl enable server
 reboot
+
+# I also commented out the line in /etc/fstab enabling swap (again, for GDPR[246] data
+# handling reasons, as outlined by [246, 32.1.a], [50]) -- swap wouldn't be encrypted)
