@@ -1,5 +1,7 @@
 # These commands are intended to be run on Ubuntu 24.04.3 LTS[186] via Bash[265]. Unless cited,
 # the programs used here are distributed with Ubuntu itself.
+#
+# "**" means that we run these when the server restarts as well
 
 
 adduser rogger
@@ -31,8 +33,10 @@ python manage.py collectstatic
 exit
 
 # Using a loop file was suggested by [182, 2.6]. It is necessary because GDPR[246]
-# requires[246, 32.1.a][50] encryption (at least, it's one option). Encrypting the loop device
-# comes after setting it up, which comes after creating the loop file [185, "Example"].
+# requires[246, 32.1.a][forgot] encryption (at least, it's one option). Encrypting the loop device
+# comes after setting it up, which comes after creating the loop file [185, "Example"]. The type
+# of encryption required is that we have to supply the key every time we encrypt/decrypt, so this
+# is the simplest way to do that.
 ###################################################################################################
 #                                                                                                 #
 
@@ -47,12 +51,14 @@ dd if=/dev/random of=/root/storage bs=512B count=5000000000B
 # commands by those references (a "losetup -f" and then a normal "losetup") (well, again, [185,
 # "Example"] I don't know if it is actually involved or not), but I merged them with the assistance
 # of the --show option.
+# **
 location=$(losetup --find /root/storage --show)
 
 # Everything but the parameter "$location" and the --type option usage was recommended
 # by [182, 2.6]
 cryptsetup luksFormat --type luks2 $location
 
+# **
 cryptsetup open $location loop
 
 # The need to format is from [182, 2.1]
@@ -65,6 +71,7 @@ exit
 # Need to mount that device according to [182, 2.1][185, "Example"]; can do this as root and not
 # rogger (the actual owner of "encrypted") according to [185, "Example"]. Using "mount" as inspired
 # by [182, 2.1] and [185, "Example"]
+# **
 mount /dev/mapper/loop /home/rogger/encrypted
 
 chown rogger:rogger /home/rogger/encrypted
