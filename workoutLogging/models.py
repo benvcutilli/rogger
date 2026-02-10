@@ -102,7 +102,13 @@ class Comment(models.Model):
 class Unit(models.Model):
     owner       = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     name        = models.CharField(max_length=100)
-    distance    = models.DecimalField(max_digits=20, decimal_places=4)
+    # Thanks to [287] for pointing out that there was an issue when using "meters"
+    # and other analogous units in log entries in the context of the +XXXmeters
+    # functionality (it was coming up short of what it should have been in
+    # miles); I realized that a meter was seen as 0.0006 miles, but you can't neglect the
+    # 0.0000215 left out from that number when many meters are logged. So,
+    # decimal_places was changed from 4 to 7.
+    distance    = models.DecimalField(max_digits=20, decimal_places=7)
 
 
     # Relevant information can be found in point A
