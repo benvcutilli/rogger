@@ -295,6 +295,9 @@ def commentAddView(request, workoutID):
                     sendTo.append(comment.owner)
         # See [256] for the reason for the second part of the "if" in this line
         sendTo = ([workout.owner] if (workout.owner != request.user and workout.owner.userinfo.emailOnActivity) else []) + sendTo
+        # [288] pointed out that multiple emails were being sent. I think this
+        # fixes that issue
+        sendTo = list(set(sendTo))
         shared.tools.blastEmail("alertbot@rogger.co", "See the comment at https://rogger.co" + reverse("viewEntryView", args=[workoutID]), "Someone posted a comment on a workout with which you have interacted", sendTo)
 
         return render(request, "workoutLogging/comment.html", { 'comment' : newComment })

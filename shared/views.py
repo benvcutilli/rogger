@@ -153,15 +153,12 @@ def timestampForPath(p):
 
 
 
-# AS A REMINDER, DON'T FORGET TO STATE IN fetchProfilePicture AND fetchThumbnail WHERE SERVER
-# BEHAVIOR IS FROM (AND SAY WHAT IT DOESN'T DO)
 def fetchProfilePicture(request, primarykey):
     whoWantsIt = request.user
     # See point B
     targetUser = get_object_or_404(User, pk=primarykey)
 
     if not whoWantsIt.userinfo.cantSee(targetUser):
-        # NEED TO STATE HOW [201] WAS RELEVANT AS WELL
         # The branch that checks the If-Modified-Since[202, 3.3] header to see if we need to send
         # them the full image or send them a 304[202, 4.1] telling them that they already have
         # it. This is suggested by [202, 3.3]. In fact, all requirements and suggestions in
@@ -193,7 +190,6 @@ def fetchProfilePicture(request, primarykey):
             # Need the "r" here according to [197, "FileResponse objects"]
             pictureFile = open(filePath, "br")
             pictureResponse = FileResponse(pictureFile)
-            # PROBABLY SHOULD PUT STANDARD FOR Last-Modified HERE FOR CITATION FOR HOW IT IS USED
             pictureResponse["Last-Modified"] = localFileDateAndTime
             # Don't want any other person who uses the client machine to see images that they
             # shouldn't see because those images are in a shared cache (as is said is possible in
@@ -215,15 +211,12 @@ def fetchProfilePicture(request, primarykey):
         raise Http404
 
 
-# AS A REMINDER, DON'T FORGET TO STATE IN fetchProfilePicture AND fetchThumbnail WHERE SERVER
-# BEHAVIOR IS FROM (AND SAY WHAT IT DOESN'T DO)
 def fetchThumbnail(request, primarykey):
     whoWantsIt = request.user
     # See point B
     targetUser = get_object_or_404(User, pk=primarykey)
 
     if not whoWantsIt.userinfo.cantSee(targetUser):
-        # NEED TO STATE HOW [201] WAS RELEVANT AS WELL
         # The branch that checks the If-Modified-Since[202, 3.3] header to see if we need to send
         # them the full image or send them a 304[202, 4.1] telling them that they already have
         # it. This is suggested by [202, 3.3]. In fact, all requirements and suggestions in
@@ -254,7 +247,6 @@ def fetchThumbnail(request, primarykey):
             # Need the "r" here according to [197, "FileResponse objects"]
             pictureFile = open(filePath, "br")
             pictureResponse = FileResponse(pictureFile)
-            # PROBABLY SHOULD PUT STANDARD FOR Last-Modified HERE FOR CITATION FOR HOW IT IS USED
             pictureResponse["Last-Modified"] = localFileDateAndTime
             # Don't want any other person who uses the client machine to see images that they
             # shouldn't see because those images are in a shared cache (as is said is possible in

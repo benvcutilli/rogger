@@ -1313,6 +1313,8 @@ well):
 
 [287] Rogger comment by user "raine" on 2026.2.3 EST
 
+[288] Communication with Eric Arnold on 2026.2.8/2.9 EST (don't remember)
+
 
 GENERAL CITATIONS:
 This site has a lot of influence from Mark Crimmins' "Merv's RUNNING" [70]
@@ -2357,7 +2359,11 @@ deb-src [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.nginx
 
 to /etc/apt/sources.list.d/unit.list.
 
+----------------------------------------------------------------------------------------------------
 
+To properly address +1609m written in log entries seen as 0.96 miles by the site
+(reported by [287], I also needed to change the universal meter definitions held
+by workoutLogging.models.Unit database instances to 0.0006215 by hand.
 
 
 
